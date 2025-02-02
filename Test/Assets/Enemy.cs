@@ -9,16 +9,23 @@ public class Enemy : MonoBehaviour
     public int HP;
     [SerializeField] private float Speed;
     Player player => Player.Instance;
+    private bool isfirst = true;
     private void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Speed);
         if (!GetComponent<Renderer>().isVisible)
         {
-            Vector3 pos = transform.position;
-            if (pos.x < 0)
-                transform.position = new Vector3(8.5f, pos.y, pos.z);
+            if (isfirst)
+                isfirst = false;
             else
-                transform.position = new Vector3(-8.5f, pos.y, pos.z);
+            {
+                Vector3 pos = transform.position;
+                if (pos.x < 0)
+                    transform.position = new Vector3(8.5f, pos.y, pos.z);
+                else
+                    transform.position = new Vector3(-8.5f, pos.y, pos.z);
+            }
+          
         }
     }
 
