@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private bool isJump = true;
     public GameObject Arrow;
     public bool isMove = true;
+    private bool isfirst = true;
     private void Awake()
     {
         if(Instance == null)
@@ -47,11 +48,16 @@ public class Player : MonoBehaviour
 
         if (!GetComponent<Renderer>().isVisible)
         {
-            Vector3 pos = transform.position;
-            if(pos.x <0)
-                transform.position = new Vector3(9.11f, pos.y, pos.z);
+            if (isfirst)
+                isfirst = false;
             else
-                transform.position =  new Vector3(-9.11f,pos.y,pos.z);
+            {
+                Vector3 pos = transform.position;
+                if (pos.x < 0)
+                    transform.position = new Vector3(9.11f, pos.y, pos.z);
+                else
+                    transform.position = new Vector3(-9.11f, pos.y, pos.z);
+            }
         }
 
         if(BulletTime >0)
