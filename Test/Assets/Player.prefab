@@ -175,7 +175,7 @@ MonoBehaviour:
   MoveAction: {fileID: 1085586663861728585}
   MoveSpeed: 5
   InputMove: {x: 0, y: 0}
-  jumpPower: 300
+  jumpPower: 350
   Bullets: {fileID: 1057501140420241128, guid: 4e268d136a397974d86fa93e6efd45de, type: 3}
   ShotPosition: {fileID: 765592929156964958}
   AttackCollision: {fileID: 2986063359399826660}
@@ -183,6 +183,7 @@ MonoBehaviour:
   BulletUI: {fileID: 0}
   Arrow: {fileID: 0}
   isMove: 1
+  MaxJumpCount: 3
 --- !u!114 &1085586663861728585
 MonoBehaviour:
   m_ObjectHideFlags: 0
