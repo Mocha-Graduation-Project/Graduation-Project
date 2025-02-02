@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
-        EnemyBullet bullet = Bullet.GetComponent<EnemyBullet>();
+        EnemyBullet bullet = bullets.GetComponent<EnemyBullet>();
         bullet.SetPower(transform.position);
         Invoke("Attack", BulletRate);
     }
