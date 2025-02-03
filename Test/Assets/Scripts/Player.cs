@@ -21,10 +21,11 @@ public class Player : MonoBehaviour
     [SerializeField]private float MaxBulletTime;
     [NonSerialized] public float BulletTime = 0;
     [SerializeField]private Image BulletUI;
-    private bool isJump = true;
     public GameObject Arrow;
     public bool isMove = true;
     private bool isfirst = true;
+    [SerializeField] private int MaxJumpCount;
+    private int jumpCount;
     private void Awake()
     {
         if(Instance == null)
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
         MoveAction.actions["Attack"].started += OnAttack;
         rb = GetComponent<Rigidbody2D>();
         Arrow.SetActive(false);
+        jumpCount = MaxJumpCount;
     }
     void Update()
     {
@@ -81,7 +83,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.tag == "Ground")
-            isJump = true;
+           jumpCount = MaxJumpCount;
     }
     private void OnMove(InputAction.CallbackContext context)
     {
@@ -92,10 +94,10 @@ public class Player : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if(isJump)
+        if(jumpCount > 0)
         {
             rb.AddForce(new Vector2(0, jumpPower));
-            isJump = false;
+            jumpCount--;
         }
 
     }

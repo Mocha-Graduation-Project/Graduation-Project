@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
@@ -8,11 +9,26 @@ public class Enemy : MonoBehaviour
 {
     public int HP;
     [SerializeField] private float Speed;
+    [SerializeField] private TextMeshProUGUI DamageText;
     Player player => Player.Instance;
     private bool isfirst = true;
+    [SerializeField] private GameObject Bullet;
+    [SerializeField] private float BulletRate;
+
+    private void Start()
+    {
+        DamageText.enabled = false;
+        Invoke("Attack", BulletRate);
+    }
+    private void Attack()
+    {
+        GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
+        EnemyBullet bullet = bullets.GetComponent<EnemyBullet>();
+        bullet.SetPower(transform.position);
+        Invoke("Attack", BulletRate);
+    }
     private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position, Speed);
         if (!GetComponent<Renderer>().isVisible)
         {
             if (isfirst)
@@ -32,11 +48,20 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Attack")
+        {
+            Debug.Log("“–‚½‚Á‚½");
             HP--;
+            DamageText.enabled = true;
+            DamageText.text = "1";
+        }
+            
         else if(collision.gameObject.tag =="Bullet")
         {
+            Debug.Log("“–‚½‚Á‚½");
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             HP -= bullet.Damage;
+            DamageText.enabled = true;
+            DamageText.text = bullet.Damage.ToString();
         }
 
         if (HP < 0)

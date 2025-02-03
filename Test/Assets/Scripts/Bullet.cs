@@ -11,7 +11,6 @@ public class Bullet : MonoBehaviour
     private int count = 1;
     private bool isAttack = false;
     public int Damage = 1;
-    private bool isReflection = false;
 
     private void Start()
     {
@@ -48,30 +47,24 @@ public class Bullet : MonoBehaviour
             Invoke("Attack", 0.1f);
 
         }
-        else if(collision.gameObject.tag !="Player"||!isAttack)
+        else if(collision.gameObject.tag == "Ground"||collision.gameObject.tag == "Player"&&!isAttack)
         {
-            if(!isReflection)
-            {
-                Destroy(this.gameObject);
-                Time.timeScale = 1f;
-                player.isMove = true;
-                isAttack = false;
-            }
-           
+            Destroy(this.gameObject);
+            Time.timeScale = 1f;
+            player.isMove = true;
+            isAttack = false;
         }
-           
        
     }
 
     private void Attack()
     {
-        Damage++;
-        isReflection = true;
+        Damage*=2;
         player.BulletTime -= 2.5f;
         player.Arrow.SetActive(false);
         player.isMove = true;
         isAttack = false;
-        PowerDirection *= 1.2f;
+        PowerDirection *= 1.25f;
         if (PowerDirection < 0)
             PowerDirection *= -1;
         float Angle = Mathf.Atan2(player.InputMove.y, player.InputMove.x);
