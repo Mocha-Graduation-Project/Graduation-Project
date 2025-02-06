@@ -11,10 +11,11 @@ public class Bullet : MonoBehaviour
     private int count = 1;
     private bool isAttack = false;
     public int Damage = 1;
-
+    private Material material;
     private void Start()
     {
         Power *= PowerDirection;
+        
     }
     void Update()
     {
@@ -37,7 +38,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Attack")
+        if (collision.gameObject.tag == "Attack" && !isAttack)
         {
             player.isMove = false;
             player.Arrow.SetActive(true);
@@ -45,9 +46,8 @@ public class Bullet : MonoBehaviour
             Time.timeScale = 0.2f;
             Power = UnityEngine.Vector3.zero;
             Invoke("Attack", 0.1f);
-
         }
-        else if(collision.gameObject.tag == "Ground"||collision.gameObject.tag == "Player"&&!isAttack)
+        else if (collision.gameObject.tag == "Ground" || (collision.gameObject.tag == "Player" && !isAttack))
         {
             Destroy(this.gameObject);
             Time.timeScale = 1f;
@@ -60,10 +60,11 @@ public class Bullet : MonoBehaviour
     private void Attack()
     {
         Damage*=2;
+        //powerlevelの変更をここに入れたい
         player.BulletTime -= 2.5f;
         player.Arrow.SetActive(false);
         player.isMove = true;
-        isAttack = false;
+        Invoke("AttckFalse", 0.2f);
         PowerDirection *= 1.25f;
         if (PowerDirection < 0)
             PowerDirection *= -1;
@@ -72,5 +73,10 @@ public class Bullet : MonoBehaviour
         Power = direction * PowerDirection * 10f;
         Debug.Log(direction);
         Time.timeScale =1f;
+    }
+
+    void AttckFalse()
+    {
+        isAttack=false;
     }
 }

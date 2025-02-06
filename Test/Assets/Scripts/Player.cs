@@ -39,7 +39,8 @@ public class Player : MonoBehaviour
         MoveAction.actions["Move"].canceled += OnMove;
         MoveAction.actions["Jump"].started += OnJump;
         MoveAction.actions["Shot"].started += OnShot;
-        MoveAction.actions["Attack"].started += OnAttack;
+        MoveAction.actions["Attack"].performed += OnAttack;
+
         rb = GetComponent<Rigidbody2D>();
         Arrow.SetActive(false);
         jumpCount = MaxJumpCount;
@@ -118,7 +119,7 @@ public class Player : MonoBehaviour
         AttackCollision.gameObject.SetActive(true);
         Invoke("AttackFinish", 0.3f);
     }
-    private void AttackFinish()
+    public void AttackFinish()
     {
         AttackCollision.gameObject.SetActive(false);
     }
