@@ -1,20 +1,19 @@
 #ifndef ADDITIONAL_LIGHT_INCLUDED
 #define ADDITIONAL_LIGHT_INCLUDED
 
-void GetMainLight_float(out float3 Direction, out float3 LightColor, out float LightStrength, out float Attenuation)
+void GetMainLight_float(out float3 Direction, out float3 LightColor, out float LightStrength)
 {
 #ifdef  SHADERGRAPH_PREVIEW
    Direction = half3(0.5,0.5,0);
    LightColor = 0.0f;
    LightStrength = 1.0f;
-   Attenuation =1.0f;
+
     
 #else
    Light MainLight = GetMainLight();
    Direction = MainLight.direction;
    LightColor = MainLight.color;
    LightStrength = length(MainLight.color);
-   Attenuation = MainLight.distanceAttenuation;
 #endif
 }
 
