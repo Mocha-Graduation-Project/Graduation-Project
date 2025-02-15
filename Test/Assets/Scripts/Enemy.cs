@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.tag == "Attack")
         {
-            Debug.Log("ìñÇΩÇ¡ÇΩ");
+            Debug.Log("ÂΩì„Åü„Å£„Åü");
             HP--;
             DamageText.enabled = true;
             DamageText.text = "1";
@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
             
         else if(collision.gameObject.tag =="Bullet")
         {
-            Debug.Log("ìñÇΩÇ¡ÇΩ");
+            Debug.Log("ÂΩì„Åü„Å£„Åü");
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             HP -= bullet.Damage;
             DamageText.enabled = true;

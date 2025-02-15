@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     private bool isfirst = true;
     [SerializeField] private int MaxJumpCount;
     private int jumpCount;
+    
     private void Awake()
     {
         if(Instance == null)
@@ -35,11 +36,11 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        MoveAction.actions["Move"].performed += OnMove;
-        MoveAction.actions["Move"].canceled += OnMove;
-        MoveAction.actions["Jump"].started += OnJump;
-        MoveAction.actions["Shot"].started += OnShot;
-        MoveAction.actions["Attack"].performed += OnAttack;
+        // MoveAction.actions["Move"].performed += OnMove;
+        // MoveAction.actions["Move"].canceled += OnMove;
+        // MoveAction.actions["Jump"].started += OnJump;
+        // MoveAction.actions["Shot"].started += OnShot;
+        // MoveAction.actions["Attack"].performed += OnAttack;
 
         rb = GetComponent<Rigidbody2D>();
         Arrow.SetActive(false);
@@ -86,16 +87,16 @@ public class Player : MonoBehaviour
         if(collision.gameObject.tag == "Ground")
            jumpCount = MaxJumpCount;
     }
-    private void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
         InputMove = context.ReadValue<Vector2>();
         float Angle = Mathf.Atan2(InputMove.y, InputMove.x) * Mathf.Rad2Deg;
         Arrow.transform.rotation = Quaternion.Euler(0f, 0f, Angle);
     }
 
-    private void OnJump(InputAction.CallbackContext context)
+    public void OnJump(InputAction.CallbackContext context)
     {
-        if(jumpCount > 0)
+        if (context.performed && jumpCount > 0) 
         {
             rb.AddForce(new Vector2(0, jumpPower));
             jumpCount--;
@@ -103,7 +104,7 @@ public class Player : MonoBehaviour
 
     }
 
-    private void OnShot(InputAction.CallbackContext context)
+    public void OnShot(InputAction.CallbackContext context)
     {
         if (BulletTime <= 0)
         {
@@ -114,7 +115,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnAttack(InputAction.CallbackContext context)
+    public void OnAttack(InputAction.CallbackContext context)
     {
         AttackCollision.gameObject.SetActive(true);
         Invoke("AttackFinish", 0.3f);
