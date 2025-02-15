@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
     private bool isAttack = false;
     public int Damage = 1;
     private Material material;
+    private bool destroyed = false;//Destroyで消してもAttckに反応することがあるので仮で配置、バグ治せれば消す
     private void Start()
     {
         Power *= PowerDirection;
@@ -38,7 +39,16 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Attack" && !isAttack)
+        if (collision.gameObject.tag == "Ground" || (collision.gameObject.tag == "Player" && !isAttack))
+        {
+            Time.timeScale = 1f;
+            player.isMove = true;
+            isAttack = false;
+            destroyed = true;
+            Destroy(this.gameObject);
+        }
+
+        if (collision.gameObject.tag == "Attack" && !destroyed)
         {
             player.isMove = false;
             player.Arrow.SetActive(true);
@@ -46,13 +56,6 @@ public class Bullet : MonoBehaviour
             Time.timeScale = 0.2f;
             Power = UnityEngine.Vector3.zero;
             Invoke("Attack", 0.1f);
-        }
-        else if (collision.gameObject.tag == "Ground" || (collision.gameObject.tag == "Player" && !isAttack))
-        {
-            Destroy(this.gameObject);
-            Time.timeScale = 1f;
-            player.isMove = true;
-            isAttack = false;
         }
        
     }
