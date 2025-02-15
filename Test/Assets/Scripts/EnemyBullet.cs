@@ -30,6 +30,10 @@ public class EnemyBullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Player")
         {
+            if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
+            {
+                status.Damage(1);
+            }
             Destroy(this.gameObject);
         }
 

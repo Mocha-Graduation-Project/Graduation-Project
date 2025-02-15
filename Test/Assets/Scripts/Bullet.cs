@@ -41,6 +41,10 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground" || (collision.gameObject.tag == "Player" && !isAttack))
         {
+            if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
+            {
+                status.Damage(1);
+            }
             Time.timeScale = 1f;
             player.isMove = true;
             isAttack = false;

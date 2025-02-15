@@ -29,13 +29,13 @@ public class PlayerStatus : MonoBehaviour
         
     }
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag(playerBulletTag) || other.CompareTag(enemyBulletTag))
-        {
-            Damage(1);
-        }
-    }
+    // void OnTriggerEnter2D(Collider2D other)
+    // {
+    //     if (other.CompareTag(playerBulletTag) || other.CompareTag(enemyBulletTag))
+    //     {
+    //         Damage(1);
+    //     }
+    // }
 
     public void Damage(int damage)
     {
