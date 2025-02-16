@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class SceneManager : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput;
-    private string sceneName = "HPTestScene";
+    [SerializeField] private string sceneName ;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
