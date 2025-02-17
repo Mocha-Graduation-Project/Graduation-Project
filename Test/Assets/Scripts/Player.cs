@@ -26,7 +26,9 @@ public class Player : MonoBehaviour
     private bool isfirst = true;
     [SerializeField] private int MaxJumpCount;
     private int jumpCount;
-    
+    private bool isJump = false;
+    private float startY;
+    [SerializeField] private float MaxJumpHeight;
     private void Awake()
     {
         if(Instance == null)
@@ -36,11 +38,12 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        // MoveAction.actions["Move"].performed += OnMove;
-        // MoveAction.actions["Move"].canceled += OnMove;
-        // MoveAction.actions["Jump"].started += OnJump;
-        // MoveAction.actions["Shot"].started += OnShot;
-        // MoveAction.actions["Attack"].performed += OnAttack;
+        MoveAction.actions["Move"].performed += OnMove;
+        MoveAction.actions["Move"].canceled += OnMove;
+        MoveAction.actions["Jump"].started += OnJump;
+        MoveAction.actions["Shot"].started += OnShot;
+        MoveAction.actions["Attack"].performed += OnAttack;
+        MoveAction.actions["Jump"].canceled += OffJump;
 
         rb = GetComponent<Rigidbody2D>();
         Arrow.SetActive(false);
@@ -80,6 +83,19 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             direction = 1;
         }
+
+        if(isJump)
+        {
+            if (transform.position.y - startY < MaxJumpHeight)
+            {
+                rb.linearVelocityY = jumpPower;
+            }
+            else
+            {
+                isJump = false;
+            }
+        }
+      
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -96,12 +112,17 @@ public class Player : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && jumpCount > 0) 
+        if (jumpCount > 0) 
         {
-            rb.AddForce(new Vector2(0, jumpPower));
+            isJump = true;
+            startY = transform.position.y;
             jumpCount--;
         }
+    }
 
+    public void OffJump(InputAction.CallbackContext context)
+    {
+        isJump = false;
     }
 
     public void OnShot(InputAction.CallbackContext context)

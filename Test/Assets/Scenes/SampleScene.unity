@@ -164,6 +164,7 @@ MonoBehaviour:
   Arrow: {fileID: 984337403}
   isMove: 1
   MaxJumpCount: 0
+  MaxJumpHeight: 0
 --- !u!50 &7565410
 Rigidbody2D:
   serializedVersion: 5
@@ -1472,6 +1473,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowpos: {fileID: 577214350}
+--- !u!1 &1003562067 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 878022210918656864, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
+  m_PrefabInstance: {fileID: 3890951575931325319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1054527189
 GameObject:
   m_ObjectHideFlags: 0
@@ -1875,7 +1881,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1085586663861728585, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
   m_PrefabInstance: {fileID: 3890951575931325319}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1003562067}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
@@ -2108,9 +2114,37 @@ PrefabInstance:
       propertyPath: BulletUI
       value: 
       objectReference: {fileID: 1484307187}
+    - target: {fileID: 344763491326247437, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
+      propertyPath: MaxJumpCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 344763491326247437, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
+      propertyPath: MaxJumpHeight
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 878022210918656864, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085586663861728585, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085586663861728585, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085586663861728585, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1003562067}
+    - target: {fileID: 1085586663861728585, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085586663861728585, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Player, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5547006709489019165, guid: 54bf416da25c75046aede9daa97a974c, type: 3}
       propertyPath: m_LocalPosition.x

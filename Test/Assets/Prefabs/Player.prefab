@@ -174,9 +174,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveAction: {fileID: 1085586663861728585}
-  MoveSpeed: 5
+  MoveSpeed: 10
   InputMove: {x: 0, y: 0}
-  jumpPower: 350
+  jumpPower: 7
   Bullets: {fileID: 1057501140420241128, guid: 4e268d136a397974d86fa93e6efd45de, type: 3}
   ShotPosition: {fileID: 765592929156964958}
   AttackCollision: {fileID: 2986063359399826660}
@@ -184,7 +184,8 @@ MonoBehaviour:
   BulletUI: {fileID: 0}
   Arrow: {fileID: 0}
   isMove: 1
-  MaxJumpCount: 3
+  MaxJumpCount: 1
+  MaxJumpHeight: 6
 --- !u!114 &1085586663861728585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 98c24cdf0767baf4295d6f2a2176b958, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
