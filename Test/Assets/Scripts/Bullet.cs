@@ -13,13 +13,16 @@ public class Bullet : MonoBehaviour
     public int Damage = 1;
     private Material material;
     private bool destroyed = false;//Destroyで消してもAttckに反応することがあるので仮で配置、バグ治せれば消す
-    private MeshRenderer meshRenderer;
+    //private MeshRenderer meshRenderer;
+    [SerializeField] private MeshRenderer meshRendererChild;
     private int reflectionCount;
     private int maxReflectionCount = 4;
     private void Start()
     {
         Power *= PowerDirection;
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        //meshRenderer = GetComponent<MeshRenderer>();
+        //meshRendererChild = GetComponentInChildren<MeshRenderer>();
+        Debug.Log(meshRendererChild.name);
         reflectionCount = 0;
     }
     void Update()
@@ -76,7 +79,8 @@ public class Bullet : MonoBehaviour
         float powerColor = reflectionCount * 0.25f;
         if (reflectionCount >= maxReflectionCount)
             powerColor = 1.0f;
-        meshRenderer.material.SetFloat("_PowerLevel", powerColor);
+        //meshRenderer.material.SetFloat("_PowerLevel", powerColor);
+        meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
         player.BulletTime -= 2.5f;
         player.Arrow.SetActive(false);
         player.isMove = true;
