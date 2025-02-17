@@ -8,7 +8,6 @@ using static UnityEngine.GraphicsBuffer;
 public class Enemy : MonoBehaviour
 {
     public int HP;
-    [SerializeField] private float Speed;
     [SerializeField] private TextMeshProUGUI DamageText;
     Player player => Player.Instance;
     private bool isfirst = true;
