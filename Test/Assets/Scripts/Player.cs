@@ -31,6 +31,10 @@ public class Player : MonoBehaviour
     private float startY;
     [SerializeField] private float MaxJumpHeight;
     [SerializeField] private Animator animator;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip ReflectionSound;
+    [SerializeField] private AudioClip ShotSound;
+    [SerializeField] private AudioClip DamageSound;
     private void Awake()
     {
         if(Instance == null)
@@ -51,6 +55,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         Arrow.SetActive(false);
         jumpCount = MaxJumpCount;
+        audioSource = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -140,6 +145,7 @@ public class Player : MonoBehaviour
     {
         if (BulletTime <= 0)
         {
+            audioSource.PlayOneShot(ShotSound);
             GameObject bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
             Bullet bullet = bullets.GetComponent<Bullet>();
             bullet.PowerDirection = direction;
@@ -165,5 +171,15 @@ public class Player : MonoBehaviour
     {
         AttackCollision.gameObject.SetActive(false);
         QuickAttackCollision.gameObject.SetActive(false);
+    }
+
+    public void PlayReflectionSound()
+    {
+        audioSource.PlayOneShot(ReflectionSound);
+    }
+
+    public void PlayDamageSound()
+    {
+        audioSource.PlayOneShot(DamageSound);
     }
 }

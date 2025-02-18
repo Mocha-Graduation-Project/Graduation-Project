@@ -103,6 +103,7 @@ public class Bullet : MonoBehaviour
         UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
         Power = direction * PowerDirection * 10f;
         Time.timeScale =1f;
+        player.PlayReflectionSound();
     }
 
     private void QuickAttack()
@@ -124,6 +125,7 @@ public class Bullet : MonoBehaviour
         
         Power = SavePower * PowerDirection;
         Time.timeScale = 1f;
+        player.PlayReflectionSound();
     }
 
     void AttckFalse()

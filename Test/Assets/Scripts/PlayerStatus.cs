@@ -14,6 +14,8 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField]SceneManager sceneManager;
     
     public int PlayerHp{ get { return playerHp; } }
+
+    Player player => Player.Instance;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,7 +44,7 @@ public class PlayerStatus : MonoBehaviour
         playerHp -= damage;
         uiLife.RemoveLife();
         Debug.Log("PlayerHP:"+playerHp);
-
+        player.PlayDamageSound();
         if (playerHp <= 0 && sceneManager != null)
         {
             sceneManager.Retry();
