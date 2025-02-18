@@ -13,10 +13,14 @@ public class Enemy : MonoBehaviour
     private bool isfirst = true;
     [SerializeField] private GameObject Bullet;
     [SerializeField] private float BulletRate;
+    private AudioSource audioSource;
+    [SerializeField] private AudioClip ShotSound;
+    [SerializeField] private AudioClip DamageSound;
 
     private void Start()
     {
         DamageText.enabled = false;
+        audioSource = GetComponent<AudioSource>();
         Invoke("Attack", BulletRate);
     }
     private void Attack()
@@ -24,6 +28,7 @@ public class Enemy : MonoBehaviour
         GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
         EnemyBullet bullet = bullets.GetComponent<EnemyBullet>();
         bullet.SetPower(transform.position);
+        audioSource.PlayOneShot(ShotSound);
         Invoke("Attack", BulletRate);
     }
     private void Update()
@@ -52,6 +57,7 @@ public class Enemy : MonoBehaviour
             HP--;
             DamageText.enabled = true;
             DamageText.text = "1";
+            audioSource.PlayOneShot(DamageSound);
         }
             
         else if(collision.gameObject.tag =="Bullet")
@@ -61,6 +67,7 @@ public class Enemy : MonoBehaviour
             HP -= bullet.Damage;
             DamageText.enabled = true;
             DamageText.text = bullet.Damage.ToString();
+            audioSource.PlayOneShot(DamageSound);
         }
 
         if (HP < 0)
