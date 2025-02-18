@@ -96,7 +96,8 @@ public class Player : MonoBehaviour
                 isJump = false;
             }
         }
-      
+
+        animator.SetFloat("Jump",rb.linearVelocityY);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -123,12 +124,14 @@ public class Player : MonoBehaviour
             isJump = true;
             startY = transform.position.y;
             jumpCount--;
+            animator.SetBool("isJump",true);
         }
     }
 
     public void OffJump(InputAction.CallbackContext context)
     {
         isJump = false;
+        animator.SetBool("isJump", false);
     }
 
     public void OnShot(InputAction.CallbackContext context)

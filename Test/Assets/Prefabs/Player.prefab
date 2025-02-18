@@ -158,7 +158,7 @@ Transform:
   m_GameObject: {fileID: 3716815810994547823}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.643, y: 0, z: 0}
+  m_LocalPosition: {x: 0.217, y: 2.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 350047999521084643}
   - component: {fileID: 3502026795929391404}
   - component: {fileID: 3557629620860895243}
+  - component: {fileID: 2463885730904072355}
   m_Layer: 0
   m_Name: collision
   m_TagString: Player
@@ -288,6 +289,22 @@ CapsuleCollider2D:
   m_Offset: {x: -0.008154303, y: 0.030223887}
   m_Size: {x: 0.8327286, y: 1.9176978}
   m_Direction: 0
+--- !u!114 &2463885730904072355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4416818167434436339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1455ecc3e73b6c4f89b94c05b0e9d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterData: {fileID: 11400000, guid: 7812e98a291b22241a901b1de0ae041e, type: 2}
+  playerHp: 0
+  uiLife: {fileID: 0}
+  sceneManager: {fileID: 0}
 --- !u!1 &4827083004097579758
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +330,7 @@ Transform:
   m_GameObject: {fileID: 4827083004097579758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.643, y: 0, z: 0}
+  m_LocalPosition: {x: 0.217, y: 2.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -499,9 +516,6 @@ PrefabInstance:
       addedObject: {fileID: 7384788743195681184}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 875851972562414039}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 163183520200374533}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
       insertIndex: -1
@@ -610,22 +624,6 @@ MonoBehaviour:
   MaxJumpCount: 1
   MaxJumpHeight: 6
   animator: {fileID: 8906615988043019670}
---- !u!114 &875851972562414039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4554601162387817520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1455ecc3e73b6c4f89b94c05b0e9d74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: 7812e98a291b22241a901b1de0ae041e, type: 2}
-  playerHp: 0
-  uiLife: {fileID: 0}
-  sceneManager: {fileID: 0}
 --- !u!114 &163183520200374533
 MonoBehaviour:
   m_ObjectHideFlags: 0
