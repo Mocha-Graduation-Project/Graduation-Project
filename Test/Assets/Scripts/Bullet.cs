@@ -38,9 +38,9 @@ public class Bullet : MonoBehaviour
             }
             UnityEngine.Vector3 pos = transform.position;
             if (pos.x < 0)
-                transform.position = new UnityEngine.Vector3(8.8f, pos.y, pos.z);
+                transform.position = new UnityEngine.Vector3(7f, pos.y, pos.z);
             else
-                transform.position = new UnityEngine.Vector3(-8.8f, pos.y, pos.z);
+                transform.position = new UnityEngine.Vector3(-7f, pos.y, pos.z);
         }
     }
 
