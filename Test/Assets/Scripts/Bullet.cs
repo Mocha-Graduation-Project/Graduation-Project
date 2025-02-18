@@ -60,6 +60,26 @@ public class Bullet : MonoBehaviour
             destroyed = true;
             Destroy(this.gameObject);
         }
+
+        if (collision.gameObject.tag == "Attack" && !destroyed)
+        {
+            player.isMove = false;
+            player.Arrow.SetActive(true);
+            isAttack = true;
+            Time.timeScale = 0.2f;
+            Power = UnityEngine.Vector3.zero;
+            Invoke("Attack", 0.3f);
+        }
+
+        if (collision.gameObject.tag == "QuickAttack" && !destroyed)
+        {
+            player.isMove = false;
+            isAttack = true;
+            Time.timeScale = 0.2f;
+            SavePower = -Power;
+            Power = UnityEngine.Vector3.zero;
+            Invoke("QuickAttack", 0.1f);
+        }
     }
 
     private void Attack()
