@@ -26,7 +26,10 @@ public class Player : MonoBehaviour
     private bool isfirst = true;
     [SerializeField] private int MaxJumpCount;
     private int jumpCount;
-    
+    private bool isJump = false;
+    private float startY;
+    [SerializeField] private float MaxJumpHeight;
+    [SerializeField] private Animator animator;
     private void Awake()
     {
         if(Instance == null)
@@ -36,11 +39,12 @@ public class Player : MonoBehaviour
     }
     private void Start()
     {
-        // MoveAction.actions["Move"].performed += OnMove;
-        // MoveAction.actions["Move"].canceled += OnMove;
-        // MoveAction.actions["Jump"].started += OnJump;
-        // MoveAction.actions["Shot"].started += OnShot;
-        // MoveAction.actions["Attack"].performed += OnAttack;
+        MoveAction.actions["Move"].performed += OnMove;
+        MoveAction.actions["Move"].canceled += OnMove;
+        MoveAction.actions["Jump"].started += OnJump;
+        MoveAction.actions["Shot"].started += OnShot;
+        MoveAction.actions["Attack"].performed += OnAttack;
+        MoveAction.actions["Jump"].canceled += OffJump;
 
         rb = GetComponent<Rigidbody2D>();
         Arrow.SetActive(false);
@@ -58,9 +62,9 @@ public class Player : MonoBehaviour
             {
                 Vector3 pos = transform.position;
                 if (pos.x < 0)
-                    transform.position = new Vector3(9.11f, pos.y, pos.z);
+                    transform.position = new Vector3(7f, pos.y, pos.z);
                 else
-                    transform.position = new Vector3(-9.11f, pos.y, pos.z);
+                    transform.position = new Vector3(-7f, pos.y, pos.z);
             }
         }
 
@@ -71,15 +75,29 @@ public class Player : MonoBehaviour
         if (InputMove.x < 0)
         {
             transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
-            transform.localScale = new Vector3(-0.5f, 0.5f, 0.5f);
+            transform.localScale = new Vector3(1f, 1f, -1f);
             direction = -1;
         }
         else if (InputMove.x > 0)
         {
             transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
-            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            transform.localScale = new Vector3(1f, 1f, 1f);
             direction = 1;
         }
+
+        if(isJump)
+        {
+            if (transform.position.y - startY < MaxJumpHeight)
+            {
+                rb.linearVelocityY = jumpPower;
+            }
+            else
+            {
+                isJump = false;
+            }
+        }
+
+        animator.SetFloat("Jump",rb.linearVelocityY);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -89,19 +107,31 @@ public class Player : MonoBehaviour
     }
     public void OnMove(InputAction.CallbackContext context)
     {
+        animator.SetBool("isMove",true);
         InputMove = context.ReadValue<Vector2>();
+        if(InputMove != Vector2.zero)
+            animator.SetBool("isMove", true);
+        else
+            animator.SetBool("isMove", false);
         float Angle = Mathf.Atan2(InputMove.y, InputMove.x) * Mathf.Rad2Deg;
         Arrow.transform.rotation = Quaternion.Euler(0f, 0f, Angle);
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.performed && jumpCount > 0) 
+        if (jumpCount > 0) 
         {
-            rb.AddForce(new Vector2(0, jumpPower));
+            isJump = true;
+            startY = transform.position.y;
             jumpCount--;
+            animator.SetBool("isJump",true);
         }
+    }
 
+    public void OffJump(InputAction.CallbackContext context)
+    {
+        isJump = false;
+        animator.SetBool("isJump", false);
     }
 
     public void OnShot(InputAction.CallbackContext context)
@@ -112,6 +142,7 @@ public class Player : MonoBehaviour
             Bullet bullet = bullets.GetComponent<Bullet>();
             bullet.PowerDirection = direction;
             BulletTime = MaxBulletTime;
+            animator.SetTrigger("isShot");
         }
     }
 
@@ -119,6 +150,7 @@ public class Player : MonoBehaviour
     {
         AttackCollision.gameObject.SetActive(true);
         Invoke("AttackFinish", 0.3f);
+        animator.SetTrigger("isAttack");
     }
     public void AttackFinish()
     {
