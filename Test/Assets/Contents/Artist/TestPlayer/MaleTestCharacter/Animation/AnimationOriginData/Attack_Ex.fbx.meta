@@ -1,19 +1,9 @@
 fileFormatVersion: 2
-guid: 36d1d75eba48ad74c9d9cb085d1acdaa
+guid: 77db07c65c74ba84fbc0455b49816ae9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: aiStandardSurface1
-    second: {fileID: 2100000, guid: d75b985ecdea94f4db6bfd23a28287a2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: lambert1
-    second: {fileID: 2100000, guid: fedd68fc52924b247afd9e62a8c0e4f9, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -27,7 +17,18 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Attack4_x2d' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Character_Spine1' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'Character_Spine3'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Character_Spine5'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Character_RightForeArm'
+      has translation animation that will be discarded.\n\t'Character_RightHand'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'BladeProp'
+      has translation animation that will be discarded.\n\t'Character_LeftForeArm'
+      has translation animation that will be discarded.\n\t'Character_RightLeg' has
+      translation animation that will be discarded.\n\t'Character_LeftLeg' has translation
+      animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -39,7 +40,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Attack4_x2d
+      takeName: Attack4_x2d
+      internalID: -9146362904432777155
+      firstFrame: 145
+      lastFrame: 171
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 144.9
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -579,11 +609,11 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
