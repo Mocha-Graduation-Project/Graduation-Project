@@ -76,7 +76,7 @@ public class Bullet : MonoBehaviour
         Damage*=2;
         //powerlevelの変更をここに入れたい
         reflectionCount++;
-        float powerColor = reflectionCount * 0.25f;
+        float powerColor = reflectionCount * 0.26f;
         if (reflectionCount >= maxReflectionCount)
             powerColor = 1.0f;
         //meshRenderer.material.SetFloat("_PowerLevel", powerColor);
