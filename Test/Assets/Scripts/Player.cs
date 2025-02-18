@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject Bullets;
     [SerializeField] private GameObject ShotPosition;
     [SerializeField] private GameObject AttackCollision;
+    [SerializeField] private GameObject QuickAttackCollision;
     [NonSerialized]public int direction = 1;
     [SerializeField]private float MaxBulletTime;
     [NonSerialized] public float BulletTime = 0;
@@ -45,6 +46,7 @@ public class Player : MonoBehaviour
         MoveAction.actions["Shot"].started += OnShot;
         MoveAction.actions["Attack"].performed += OnAttack;
         MoveAction.actions["Jump"].canceled += OffJump;
+        MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
 
         rb = GetComponent<Rigidbody2D>();
         Arrow.SetActive(false);
@@ -152,8 +154,16 @@ public class Player : MonoBehaviour
         Invoke("AttackFinish", 0.3f);
         animator.SetTrigger("isAttack");
     }
+
+    public void OnQuickAttack(InputAction.CallbackContext context)
+    {
+        QuickAttackCollision.gameObject.SetActive(true);
+        Invoke("AttackFinish", 0.3f);
+        animator.SetTrigger("isAttack");
+    }
     public void AttackFinish()
     {
         AttackCollision.gameObject.SetActive(false);
+        QuickAttackCollision.gameObject.SetActive(false);
     }
 }

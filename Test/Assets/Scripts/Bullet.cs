@@ -17,6 +17,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private MeshRenderer meshRendererChild;
     private int reflectionCount;
     private int maxReflectionCount = 4;
+
+    private UnityEngine.Vector3 SavePower;
     private void Start()
     {
         Power *= PowerDirection;
@@ -66,9 +68,18 @@ public class Bullet : MonoBehaviour
             isAttack = true;
             Time.timeScale = 0.2f;
             Power = UnityEngine.Vector3.zero;
-            Invoke("Attack", 0.1f);
+            Invoke("Attack", 0.3f);
         }
-       
+
+        if (collision.gameObject.tag == "QuickAttack" && !destroyed)
+        {
+            player.isMove = false;
+            isAttack = true;
+            Time.timeScale = 0.2f;
+            SavePower = -Power;
+            Power = UnityEngine.Vector3.zero;
+            Invoke("QuickAttack", 0.1f);
+        }
     }
 
     private void Attack()
@@ -91,8 +102,28 @@ public class Bullet : MonoBehaviour
         float Angle = Mathf.Atan2(player.InputMove.y, player.InputMove.x);
         UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
         Power = direction * PowerDirection * 10f;
-        Debug.Log(direction);
         Time.timeScale =1f;
+    }
+
+    private void QuickAttack()
+    {
+        Damage *= 2;
+        //powerlevelの変更をここに入れたい
+        reflectionCount++;
+        float powerColor = reflectionCount * 0.26f;
+        if (reflectionCount >= maxReflectionCount)
+            powerColor = 1.0f;
+        //meshRenderer.material.SetFloat("_PowerLevel", powerColor);
+        meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
+        player.BulletTime -= 2.5f;
+        player.isMove = true;
+        Invoke("AttckFalse", 0.2f);
+        PowerDirection *= 1.25f;
+        if (PowerDirection < 0)
+            PowerDirection *= -1;
+        
+        Power = SavePower * PowerDirection;
+        Time.timeScale = 1f;
     }
 
     void AttckFalse()
