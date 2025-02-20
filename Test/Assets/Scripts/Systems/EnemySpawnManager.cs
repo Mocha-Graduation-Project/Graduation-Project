@@ -31,7 +31,7 @@ namespace DefaultNamespace
         {
             float adjustedWarningTime = Mathf.Min(warningTime, enemyData.spawnDelay);
             yield return new WaitForSeconds(enemyData.spawnDelay - adjustedWarningTime);
-            GameObject warningMarker = Instantiate(warningMarkerPrefab, enemyData.spawnPoint.position, Quaternion.identity);
+            GameObject warningMarker = Instantiate(warningMarkerPrefab, enemyData.spawnPoint.position, warningMarkerPrefab.transform.rotation);
             StartCoroutine(BlinkWarningMarker(warningMarker));
             yield return new WaitForSeconds(adjustedWarningTime);
             Destroy(warningMarker);
