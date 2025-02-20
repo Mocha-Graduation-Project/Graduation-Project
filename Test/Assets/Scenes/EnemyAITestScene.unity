@@ -871,6 +871,11 @@ MonoBehaviour:
   speed: 2
   moveable: 0
   waitTime: 0
+--- !u!4 &711549915 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7275087655487328869, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
+  m_PrefabInstance: {fileID: 801985096}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &711715640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -885,7 +890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 246406773096541784, guid: 6b06abdb4225d6f4f8ef919ca26b48a1, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1960670821351675689, guid: 6b06abdb4225d6f4f8ef919ca26b48a1, type: 3}
       propertyPath: warningMarkerPrefab
@@ -902,7 +907,7 @@ PrefabInstance:
     - target: {fileID: 1960670821351675689, guid: 6b06abdb4225d6f4f8ef919ca26b48a1, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].spawnPoint
       value: 
-      objectReference: {fileID: 1124055354}
+      objectReference: {fileID: 711549915}
     - target: {fileID: 1960670821351675689, guid: 6b06abdb4225d6f4f8ef919ca26b48a1, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1].spawnDelay
       value: 1
