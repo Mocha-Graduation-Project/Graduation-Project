@@ -17,6 +17,13 @@ public class PlayerStatus : MonoBehaviour
 
     Player player => Player.Instance;
     
+    [SerializeField,JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
+    [SerializeField,JapaneseLabel("足元")] private Transform groundCheck; 
+    private float checkDistance = 0.1f; // Raycastの長さ
+
+    [SerializeField]private Animator animator; 
+    private bool isGrounded;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,9 +35,21 @@ public class PlayerStatus : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckGround();
+    }
+    private void CheckGround()
+    {
+        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
         
+        animator.SetBool("isGround",isGrounded);
+        
+        Debug.DrawRay(groundCheck.position, Vector2.down * checkDistance, Color.red);
     }
 
+    public bool IsGrounded()
+    {
+        return isGrounded;
+    }
     // void OnTriggerEnter2D(Collider2D other)
     // {
     //     if (other.CompareTag(playerBulletTag) || other.CompareTag(enemyBulletTag))
@@ -38,7 +57,6 @@ public class PlayerStatus : MonoBehaviour
     //         Damage(1);
     //     }
     // }
-
     public void Damage(int damage)
     {
         playerHp -= damage;

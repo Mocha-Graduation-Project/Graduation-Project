@@ -1,47 +1,47 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static UnityEngine.EventSystems.StandaloneInputModule;
 
 public class Player : MonoBehaviour
 {
-    public static Player Instance;  
+    public static Player Instance;
     [SerializeField] private PlayerInput MoveAction;
     [SerializeField] private float MoveSpeed;
     public Vector2 InputMove = Vector2.zero;
     [SerializeField] private float jumpPower;
-    private Rigidbody2D rb;
     [SerializeField] private GameObject Bullets;
     [SerializeField] private GameObject ShotPosition;
     [SerializeField] private GameObject AttackCollision;
     [SerializeField] private GameObject QuickAttackCollision;
-    [NonSerialized]public int direction = 1;
-    [SerializeField]private float MaxBulletTime;
-    [NonSerialized] public float BulletTime = 0;
-    [SerializeField]private Image BulletUI;
+    [SerializeField] private float MaxBulletTime;
+    [SerializeField] private Image BulletUI;
     public GameObject Arrow;
     public bool isMove = true;
-    private bool isfirst = true;
     [SerializeField] private int MaxJumpCount;
-    private int jumpCount;
-    private bool isJump = false;
-    private float startY;
     [SerializeField] private float MaxJumpHeight;
     [SerializeField] private Animator animator;
-    private AudioSource audioSource;
     [SerializeField] private AudioClip ReflectionSound;
     [SerializeField] private AudioClip ShotSound;
     [SerializeField] private AudioClip DamageSound;
+    private AudioSource audioSource;
+    [NonSerialized] public float BulletTime;
+    [NonSerialized] public int direction = 1;
+    private bool isfirst = true;
+    private bool isJump;
+    private int jumpCount;
+    private bool isGround;
+    private Rigidbody2D rb;
+    private float startY;
+
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
             Instance = this;
         else
-            Destroy(this.gameObject);
+            Destroy(gameObject);
     }
+
     private void Start()
     {
         MoveAction.actions["Move"].performed += OnMove;
@@ -57,17 +57,20 @@ public class Player : MonoBehaviour
         jumpCount = MaxJumpCount;
         audioSource = GetComponent<AudioSource>();
     }
-    void Update()
+
+    private void Update()
     {
         BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;
 
         if (!GetComponent<Renderer>().isVisible)
         {
             if (isfirst)
+            {
                 isfirst = false;
+            }
             else
             {
-                Vector3 pos = transform.position;
+                var pos = transform.position;
                 if (pos.x < 0)
                     transform.position = new Vector3(7f, pos.y, pos.z);
                 else
@@ -75,8 +78,8 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(BulletTime >0)
-            BulletTime-=Time.deltaTime;
+        if (BulletTime > 0)
+            BulletTime -= Time.deltaTime;
         if (!isMove)
             return;
         if (InputMove.x < 0)
@@ -92,46 +95,43 @@ public class Player : MonoBehaviour
             direction = 1;
         }
 
-        if(isJump)
+        if (isJump)
         {
             if (transform.position.y - startY < MaxJumpHeight)
-            {
                 rb.linearVelocityY = jumpPower;
-            }
             else
-            {
                 isJump = false;
-            }
         }
 
-        animator.SetFloat("Jump",rb.linearVelocityY);
+        animator.SetFloat("Jump", rb.linearVelocityY);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
-           jumpCount = MaxJumpCount;
+        if (collision.gameObject.tag == "Ground")
+            jumpCount = MaxJumpCount;
     }
+
     public void OnMove(InputAction.CallbackContext context)
     {
-        animator.SetBool("isMove",true);
+        animator.SetBool("isMove", true);
         InputMove = context.ReadValue<Vector2>();
-        if(InputMove != Vector2.zero)
+        if (InputMove != Vector2.zero)
             animator.SetBool("isMove", true);
         else
             animator.SetBool("isMove", false);
-        float Angle = Mathf.Atan2(InputMove.y, InputMove.x) * Mathf.Rad2Deg;
+        var Angle = Mathf.Atan2(InputMove.y, InputMove.x) * Mathf.Rad2Deg;
         Arrow.transform.rotation = Quaternion.Euler(0f, 0f, Angle);
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (jumpCount > 0) 
+        if (jumpCount > 0)
         {
             isJump = true;
             startY = transform.position.y;
             jumpCount--;
-            animator.SetBool("isJump",true);
+            animator.SetBool("isJump", true);
         }
     }
 
@@ -146,8 +146,8 @@ public class Player : MonoBehaviour
         if (BulletTime <= 0)
         {
             audioSource.PlayOneShot(ShotSound);
-            GameObject bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
-            Bullet bullet = bullets.GetComponent<Bullet>();
+            var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
+            var bullet = bullets.GetComponent<Bullet>();
             bullet.PowerDirection = direction;
             BulletTime = MaxBulletTime;
             animator.SetTrigger("isShot");
@@ -167,6 +167,7 @@ public class Player : MonoBehaviour
         Invoke("AttackFinish", 0.3f);
         animator.SetTrigger("isAttack");
     }
+
     public void AttackFinish()
     {
         AttackCollision.gameObject.SetActive(false);
