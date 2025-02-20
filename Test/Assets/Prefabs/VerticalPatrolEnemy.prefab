@@ -239,10 +239,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d9b1bc5a5878dd4280ee6d3c95d2a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 8
+  HP: 16
   DamageText: {fileID: 1068582490148530058}
   Bullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
-  BulletRate: 5
+  BulletRate: 1
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
 --- !u!58 &5127113108378831449
@@ -392,8 +392,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolEnemyData: {fileID: 11400000, guid: 6a9c8c5ce8099b14b99cf12e12dcdacd, type: 2}
   speed: 2
-  moveable: 0
-  waitTime: 0
+  moveable: 1
+  waitTime: 0.1
 --- !u!1 &8136479408866247873
 GameObject:
   m_ObjectHideFlags: 0
