@@ -145,15 +145,23 @@ public class Player : MonoBehaviour
     {
         if (BulletTime <= 0)
         {
-            audioSource.PlayOneShot(ShotSound);
-            var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
-            var bullet = bullets.GetComponent<Bullet>();
-            bullet.PowerDirection = direction;
+            // audioSource.PlayOneShot(ShotSound);
+            // var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
+            // var bullet = bullets.GetComponent<Bullet>();
+            // bullet.PowerDirection = direction;
             BulletTime = MaxBulletTime;
             animator.SetTrigger("isShot");
         }
     }
 
+    public void Shot()
+    {
+        Debug.Log("aaaa");
+        audioSource.PlayOneShot(ShotSound);
+        var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
+        var bullet = bullets.GetComponent<Bullet>();
+        bullet.PowerDirection = direction;
+    }
     public void OnAttack(InputAction.CallbackContext context)
     {
         AttackCollision.gameObject.SetActive(true);
