@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
             isJump = true;
             startY = transform.position.y;
             jumpCount--;
-            animator.SetBool("isJump", true);
+            animator.SetTrigger("isJump");
         }
     }
 
