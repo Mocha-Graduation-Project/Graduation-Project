@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject QuickAttackCollision;
     [SerializeField] private float MaxBulletTime;
     [SerializeField] private Image BulletUI;
+    [SerializeField] private Image ReflectionUI;
     public GameObject Arrow;
     public bool isMove = true;
     [SerializeField] private int MaxJumpCount;
@@ -33,6 +34,8 @@ public class Player : MonoBehaviour
     private bool isGround;
     private Rigidbody2D rb;
     private float startY;
+    [SerializeField] private float MaxReflectionTime ;
+    private float ReflectionTime = 0;
 
     private void Awake()
     {
@@ -56,11 +59,13 @@ public class Player : MonoBehaviour
         Arrow.SetActive(false);
         jumpCount = MaxJumpCount;
         audioSource = GetComponent<AudioSource>();
+
     }
 
     private void Update()
     {
         BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;
+        ReflectionUI.fillAmount = (MaxReflectionTime - ReflectionTime) / MaxReflectionTime;
 
         if (!GetComponent<Renderer>().isVisible)
         {
@@ -103,6 +108,8 @@ public class Player : MonoBehaviour
                 isJump = false;
         }
 
+        if (ReflectionTime > 0)
+            ReflectionTime -= Time.deltaTime;
         animator.SetFloat("Jump", rb.linearVelocityY);
     }
 
@@ -156,7 +163,14 @@ public class Player : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        AttackCollision.gameObject.SetActive(true);
+        if(ReflectionTime <= 0)
+        {
+            AttackCollision.gameObject.SetActive(true);
+            ReflectionTime = MaxReflectionTime;
+        }
+           
+        else
+            QuickAttackCollision.gameObject.SetActive(true);
         Invoke("AttackFinish", 0.3f);
         animator.SetTrigger("isAttack");
     }
