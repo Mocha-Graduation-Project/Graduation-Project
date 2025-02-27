@@ -68,7 +68,7 @@ public class Bullet : MonoBehaviour
             isAttack = true;
             Time.timeScale = 0.2f;
             Power = UnityEngine.Vector3.zero;
-            Invoke("Attack", 0.3f);
+            Invoke("Attack", 0.25f);
         }
 
         if (collision.gameObject.tag == "QuickAttack" && !destroyed)
@@ -100,6 +100,7 @@ public class Bullet : MonoBehaviour
         if (PowerDirection < 0)
             PowerDirection *= -1;
         float Angle = Mathf.Atan2(player.InputMove.y, player.InputMove.x);
+       
         UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
         Power = direction * PowerDirection * 10f;
         Time.timeScale =1f;

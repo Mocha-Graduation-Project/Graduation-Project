@@ -121,6 +121,9 @@ public class Player : MonoBehaviour
         else
             animator.SetBool("isMove", false);
         var Angle = Mathf.Atan2(InputMove.y, InputMove.x) * Mathf.Rad2Deg;
+        Debug.Log(Angle);
+        
+        
         Arrow.transform.rotation = Quaternion.Euler(0f, 0f, Angle);
     }
 
