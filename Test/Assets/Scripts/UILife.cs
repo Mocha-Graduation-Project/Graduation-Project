@@ -14,15 +14,11 @@ public class UILife : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Debug.Log("UILife Start");
-        // lifes=new List<GameObject>();
-        // initialpos = new Vector3(-360, 190, 0);
-        // lifeCount = 0;
+        
     }
 
     void Awake()
     {
-        Debug.Log("UILife Awake");
         lifes=new List<GameObject>();
         initialpos = new Vector3(-360, 190, 0);
         lifeCount = 0;
