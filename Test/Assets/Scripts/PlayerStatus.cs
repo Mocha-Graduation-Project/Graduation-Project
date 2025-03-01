@@ -19,7 +19,7 @@ public class PlayerStatus : MonoBehaviour
     
     [SerializeField,JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
     [SerializeField,JapaneseLabel("足元")] private Transform groundCheck; 
-    private float checkDistance = 0.1f; // Raycastの長さ
+    private float checkDistance = 0.05f; // Raycastの長さ
 
     [SerializeField]private Animator animator; 
     private bool isGrounded;
