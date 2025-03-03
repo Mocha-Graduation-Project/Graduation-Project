@@ -159,11 +159,17 @@ MonoBehaviour:
   Bullets: {fileID: 1057501140420241128, guid: 4e268d136a397974d86fa93e6efd45de, type: 3}
   ShotPosition: {fileID: 1683092044}
   AttackCollision: {fileID: 0}
+  QuickAttackCollision: {fileID: 0}
   MaxBulletTime: 5
   BulletUI: {fileID: 1484307187}
   Arrow: {fileID: 984337403}
   isMove: 1
   MaxJumpCount: 0
+  MaxJumpHeight: 0
+  animator: {fileID: 0}
+  ReflectionSound: {fileID: 0}
+  ShotSound: {fileID: 0}
+  DamageSound: {fileID: 0}
 --- !u!50 &7565410
 Rigidbody2D:
   serializedVersion: 5
@@ -584,7 +590,7 @@ GameObject:
   - component: {fileID: 473900606}
   - component: {fileID: 473900605}
   - component: {fileID: 473900604}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Ground
   m_Icon: {fileID: 0}
