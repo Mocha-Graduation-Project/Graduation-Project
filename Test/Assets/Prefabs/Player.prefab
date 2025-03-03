@@ -796,6 +796,7 @@ MonoBehaviour:
   QuickAttackCollision: {fileID: 4345442053038248739}
   MaxBulletTime: 4
   BulletUI: {fileID: 0}
+  ReflectionUI: {fileID: 0}
   Arrow: {fileID: 0}
   isMove: 1
   MaxJumpCount: 1
@@ -804,6 +805,9 @@ MonoBehaviour:
   ReflectionSound: {fileID: 8300000, guid: 29c151cd64dfd874298c8c23e76539ca, type: 3}
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
+  isAttack: 0
+  FinishAttack: 0
+  MaxReflectionTime: 6
 --- !u!114 &163183520200374533
 MonoBehaviour:
   m_ObjectHideFlags: 0

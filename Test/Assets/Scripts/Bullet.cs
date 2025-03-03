@@ -24,7 +24,6 @@ public class Bullet : MonoBehaviour
         Power *= PowerDirection;
         //meshRenderer = GetComponent<MeshRenderer>();
         //meshRendererChild = GetComponentInChildren<MeshRenderer>();
-        Debug.Log(meshRendererChild.name);
         reflectionCount = 0;
     }
     void Update()
@@ -43,6 +42,11 @@ public class Bullet : MonoBehaviour
                 transform.position = new UnityEngine.Vector3(7f, pos.y, pos.z);
             else
                 transform.position = new UnityEngine.Vector3(-7f, pos.y, pos.z);
+        }
+
+        if(player.FinishAttack&&isAttack)
+        {
+            Attack();
         }
     }
 
@@ -65,10 +69,10 @@ public class Bullet : MonoBehaviour
         {
             player.isMove = false;
             player.Arrow.SetActive(true);
+            player.isAttack = true;
             isAttack = true;
             Time.timeScale = 0.2f;
             Power = UnityEngine.Vector3.zero;
-            Invoke("Attack", 0.3f);
         }
 
         if (collision.gameObject.tag == "QuickAttack" && !destroyed)
@@ -103,6 +107,7 @@ public class Bullet : MonoBehaviour
         UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
         Power = direction * PowerDirection * 10f;
         Time.timeScale =1f;
+        player.FinishAttack = false;
         player.PlayReflectionSound();
     }
 

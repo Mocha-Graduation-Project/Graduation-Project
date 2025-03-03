@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
     [NonSerialized] public int direction = 1;
     private bool isfirst = true;
     private bool isJump;
+    public bool isAttack = false;
+    public bool FinishAttack = false;
     private int jumpCount;
     private bool isGround;
     private Rigidbody2D rb;
@@ -52,6 +54,7 @@ public class Player : MonoBehaviour
         MoveAction.actions["Jump"].started += OnJump;
         MoveAction.actions["Shot"].started += OnShot;
         MoveAction.actions["Attack"].performed += OnAttack;
+        MoveAction.actions["Attack"].canceled += OnAttackFinish;
         MoveAction.actions["Jump"].canceled += OffJump;
         MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
 
@@ -66,6 +69,7 @@ public class Player : MonoBehaviour
     {
         BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;
         ReflectionUI.fillAmount = (MaxReflectionTime - ReflectionTime) / MaxReflectionTime;
+
 
         if (!GetComponent<Renderer>().isVisible)
         {
@@ -85,6 +89,21 @@ public class Player : MonoBehaviour
 
         if (BulletTime > 0)
             BulletTime -= Time.deltaTime;
+        if (isAttack)
+        {
+            ReflectionTime += Time.deltaTime * 15;
+           
+            if (ReflectionTime >= MaxReflectionTime)
+            {
+                ReflectionTime = MaxReflectionTime;
+                FinishAttack = true;
+                isAttack = false;
+            }
+        }
+        else if (ReflectionTime > 0)
+        {
+            ReflectionTime -= Time.deltaTime;
+        }
         if (!isMove)
             return;
         if (InputMove.x < 0)
@@ -108,9 +127,11 @@ public class Player : MonoBehaviour
                 isJump = false;
         }
 
-        if (ReflectionTime > 0)
-            ReflectionTime -= Time.deltaTime;
+        
         animator.SetFloat("Jump", rb.linearVelocityY);
+
+      
+       
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -166,7 +187,6 @@ public class Player : MonoBehaviour
         if(ReflectionTime <= 0)
         {
             AttackCollision.gameObject.SetActive(true);
-            ReflectionTime = MaxReflectionTime;
         }
            
         else
@@ -182,6 +202,14 @@ public class Player : MonoBehaviour
         animator.SetTrigger("isAttack");
     }
 
+    public void OnAttackFinish(InputAction.CallbackContext context)
+    {
+        if(isAttack)
+        {
+            FinishAttack = true;
+            isAttack = false;
+        }
+    }
     public void AttackFinish()
     {
         AttackCollision.gameObject.SetActive(false);
