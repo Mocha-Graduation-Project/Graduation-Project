@@ -2,15 +2,20 @@ using UnityEditor;
 using UnityEngine;
 using UnityEditor.Animations;
 using UnityEngine.Events;
+using UnityEngine.Playables;
+using UnityEngine.Animations;
 
 public class AnimationEventTool : EditorWindow
 {
     private AnimationClip selectedClip;
     private float currentTime;
     private string eventName = "";
-    private int selectedTab = 0;
     private Vector2 scrollPosition;
-    
+    private GameObject previewObject;
+    private PlayableGraph playableGraph;
+    private AnimationPlayableOutput playableOutput;
+    private AnimationClipPlayable clipPlayable;
+
     [MenuItem("Tools/Animation Event Tool")]
     public static void ShowWindow()
     {
@@ -19,60 +24,47 @@ public class AnimationEventTool : EditorWindow
 
     private void OnGUI()
     {
-        selectedTab = GUILayout.Toolbar(selectedTab, new string[] {"Event Manager", "Animation Clips"});
-
-        switch (selectedTab)
-        {
-            case 0:
-                DrawEventManagerTab();
-                break;
-            case 1:
-                DrawAnimationClipTab();
-                break;
-        }
-    }
-
-    private void DrawEventManagerTab()
-    {
         GUILayout.Label("Animation Event Manager", EditorStyles.boldLabel);
-        selectedClip = (AnimationClip)EditorGUILayout.ObjectField("Animation Clip", selectedClip, typeof(AnimationClip), false);
+        selectedClip = (AnimationClip)EditorGUILayout.ObjectField("アニメーション", selectedClip, typeof(AnimationClip), false);
 
         if (selectedClip == null) return;
         
-        currentTime = EditorGUILayout.Slider("Event Time", currentTime, 0, selectedClip.length);
-        eventName = EditorGUILayout.TextField("Event Name", eventName);
+        float newTime = EditorGUILayout.Slider("イベントを起こす時間", currentTime, 0, selectedClip.length);
+        if (newTime != currentTime)
+        {
+            currentTime = newTime;
+            UpdatePreviewTime();
+        }
         
-        if (GUILayout.Button("Add Event"))
+        eventName = EditorGUILayout.TextField("イベントで呼ぶ関数名", eventName);
+        
+        if (GUILayout.Button("イベント追加"))
         {
             AddAnimationEvent(selectedClip, currentTime, eventName);
         }
         
         GUILayout.Space(10);
-        if (GUILayout.Button("Clear Events"))
+        if (GUILayout.Button("イベントリセット"))
         {
             ClearAnimationEvents(selectedClip);
         }
 
         GUILayout.Space(10);
-        GUILayout.Label("Existing Events:", EditorStyles.boldLabel);
+        GUILayout.Label("追加したイベント:", EditorStyles.boldLabel);
         DisplayExistingEvents();
-    }
-    
-    private void DrawAnimationClipTab()
-    {
-        GUILayout.Label("Animation Clips", EditorStyles.boldLabel);
-        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
-        AnimationClip[] clips = Resources.FindObjectsOfTypeAll<AnimationClip>();
+
+        GUILayout.Space(20);
+        GUILayout.Label("プレビュー", EditorStyles.boldLabel);
+
+        previewObject = (GameObject)EditorGUILayout.ObjectField("Preview Object", previewObject, typeof(GameObject), true);
         
-        foreach (var clip in clips)
+        if (selectedClip != null && previewObject != null)
         {
-            if (GUILayout.Button(clip.name))
+            if (GUILayout.Button("Play Preview"))
             {
-                selectedClip = clip;
-                selectedTab = 0;
+                PlayPreview();
             }
         }
-        EditorGUILayout.EndScrollView();
     }
     
     private void AddAnimationEvent(AnimationClip clip, float time, string functionName)
@@ -126,5 +118,44 @@ public class AnimationEventTool : EditorWindow
         AnimationEvent[] events = AnimationUtility.GetAnimationEvents(clip);
         events = System.Array.FindAll(events, e => e.functionName != eventToRemove.functionName || e.time != eventToRemove.time);
         AnimationUtility.SetAnimationEvents(clip, events);
+    }
+
+    private void PlayPreview()
+    {
+        if (previewObject == null || selectedClip == null) return;
+        
+        // 既存のPlayableGraphを破棄
+        if (playableGraph.IsValid())
+        {
+            playableGraph.Destroy();
+        }
+        
+        Animator animator = previewObject.GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.LogWarning("Preview Object needs an Animator component.");
+            return;
+        }
+        
+        // PlayableGraphを作成
+        playableGraph = PlayableGraph.Create("AnimationPreview");
+        playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+        
+        playableOutput = AnimationPlayableOutput.Create(playableGraph, "AnimationOutput", animator);
+        clipPlayable = AnimationClipPlayable.Create(playableGraph, selectedClip);
+        playableOutput.SetSourcePlayable(clipPlayable);
+        
+        playableGraph.Play();
+        clipPlayable.SetTime(currentTime); // 再生時間をスライダーに同期
+        playableGraph.Stop();
+    }
+
+    private void UpdatePreviewTime()
+    {
+        if (clipPlayable.IsValid())
+        {
+            clipPlayable.SetTime(currentTime);
+            playableGraph.Evaluate(); // グラフを即座に更新
+        }
     }
 }
