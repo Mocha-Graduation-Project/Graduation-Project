@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private MeshRenderer meshRendererChild;
     private int reflectionCount;
     private int maxReflectionCount = 4;
+    CameraAreaManager cameraAreaManager;
 
     private UnityEngine.Vector3 SavePower;
     private void Start()
@@ -26,6 +27,7 @@ public class Bullet : MonoBehaviour
         //meshRendererChild = GetComponentInChildren<MeshRenderer>();
         Debug.Log(meshRendererChild.name);
         reflectionCount = 0;
+        cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
     }
     void Update()
     {
@@ -39,10 +41,18 @@ public class Bullet : MonoBehaviour
                 return;
             }
             UnityEngine.Vector3 pos = transform.position;
-            if (pos.x < 0)
-                transform.position = new UnityEngine.Vector3(7f, pos.y, pos.z);
-            else
-                transform.position = new UnityEngine.Vector3(-7f, pos.y, pos.z);
+                
+            if (pos.x < cameraAreaManager.LeftMax)
+                pos.x = cameraAreaManager.RightMax;
+            else if(pos.x > cameraAreaManager.RightMax)
+                pos.x = cameraAreaManager.LeftMax;
+
+            if (pos.y < cameraAreaManager.DownMax)
+                pos.y = cameraAreaManager.UpMax;
+            else if (pos.y > cameraAreaManager.UpMax)
+                pos.y = cameraAreaManager.DownMax;
+
+            transform.position = pos;
         }
     }
 

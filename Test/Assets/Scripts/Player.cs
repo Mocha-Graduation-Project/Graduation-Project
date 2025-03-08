@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     private bool isGround;
     private Rigidbody2D rb;
     private float startY;
+    [SerializeField] CameraAreaManager cameraAreaManager;
 
     private void Awake()
     {
@@ -56,6 +57,8 @@ public class Player : MonoBehaviour
         Arrow.SetActive(false);
         jumpCount = MaxJumpCount;
         audioSource = GetComponent<AudioSource>();
+        
+        cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
     }
 
     private void Update()
@@ -70,11 +73,19 @@ public class Player : MonoBehaviour
             }
             else
             {
-                var pos = transform.position;
-                if (pos.x < 0)
-                    transform.position = new Vector3(7f, pos.y, pos.z);
-                else
-                    transform.position = new Vector3(-7f, pos.y, pos.z);
+                Vector3 pos = transform.position;
+                
+                if (pos.x < cameraAreaManager.LeftMax)
+                    pos.x = cameraAreaManager.RightMax;
+                else if(pos.x > cameraAreaManager.RightMax)
+                    pos.x = cameraAreaManager.LeftMax;
+
+                if (pos.y < cameraAreaManager.DownMax)
+                    pos.y = cameraAreaManager.UpMax;
+                else if (pos.y > cameraAreaManager.UpMax)
+                    pos.y = cameraAreaManager.DownMax;
+
+                transform.position = pos;
             }
         }
 
