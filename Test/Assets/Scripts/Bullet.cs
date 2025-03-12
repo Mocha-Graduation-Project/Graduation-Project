@@ -82,7 +82,10 @@ public class Bullet : MonoBehaviour
             Time.timeScale = 0.2f;
             SavePower = -Power;
             Power = UnityEngine.Vector3.zero;
-            Invoke("QuickAttack", 0.1f);
+            if (player.ReflectionTime > 0)
+                player.ReflectionTime -=0.5f;
+            
+            Invoke("QuickAttack", 0.01f);
         }
     }
 

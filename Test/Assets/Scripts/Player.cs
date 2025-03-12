@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject QuickAttackCollision;
     [SerializeField] private float MaxBulletTime;
     [SerializeField] private Image BulletUI;
-    [SerializeField] private Image ReflectionUI;
+    [SerializeField] private Slider ReflectionUI;
     public GameObject Arrow;
     public bool isMove = true;
     [SerializeField] private int MaxJumpCount;
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private float startY;
     [SerializeField] private float MaxReflectionTime ;
-    private float ReflectionTime = 0;
+    [NonSerialized]public float ReflectionTime = 0;
 
     private void Awake()
     {
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;
-        ReflectionUI.fillAmount = (MaxReflectionTime - ReflectionTime) / MaxReflectionTime;
+        ReflectionUI.value = (MaxReflectionTime - ReflectionTime) / MaxReflectionTime;
 
 
         if (!GetComponent<Renderer>().isVisible)
@@ -101,9 +101,8 @@ public class Player : MonoBehaviour
             }
         }
         else if (ReflectionTime > 0)
-        {
             ReflectionTime -= Time.deltaTime;
-        }
+        
         if (!isMove)
             return;
         if (InputMove.x < 0)
