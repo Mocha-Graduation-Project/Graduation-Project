@@ -111,6 +111,7 @@ public class Bullet : MonoBehaviour
         Power = direction * PowerDirection * 10f;
         Time.timeScale =1f;
         player.FinishAttack = false;
+        player.PlayEffect();
         player.PlayReflectionSound();
     }
 
@@ -133,6 +134,7 @@ public class Bullet : MonoBehaviour
         
         Power = SavePower * PowerDirection;
         Time.timeScale = 1f;
+        player.PlayEffect();
         player.PlayReflectionSound();
     }
 

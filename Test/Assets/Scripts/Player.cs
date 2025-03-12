@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 public class Player : MonoBehaviour
 {
@@ -39,6 +40,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float MaxReflectionTime ;
     [NonSerialized]public float ReflectionTime = 0;
 
+    [SerializeField] private VisualEffect ReflectionEffect;
+
     private void Awake()
     {
         if (Instance == null)
@@ -62,7 +65,6 @@ public class Player : MonoBehaviour
         Arrow.SetActive(false);
         jumpCount = MaxJumpCount;
         audioSource = GetComponent<AudioSource>();
-
     }
 
     private void Update()
@@ -178,6 +180,7 @@ public class Player : MonoBehaviour
             // bullet.PowerDirection = direction;
             BulletTime = MaxBulletTime;
             animator.SetTrigger("isShot");
+       
         }
     }
 
@@ -231,5 +234,11 @@ public class Player : MonoBehaviour
     public void PlayDamageSound()
     {
         audioSource.PlayOneShot(DamageSound);
+    }
+
+    public void PlayEffect()
+    {
+        ReflectionEffect.SendEvent("OnPlay");
+        Debug.Log("åƒÇ—èoÇ≥ÇÍÇΩÇÊ");
     }
 }
