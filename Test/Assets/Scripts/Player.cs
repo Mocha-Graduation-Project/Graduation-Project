@@ -19,18 +19,22 @@ public class Player : MonoBehaviour
     public GameObject Arrow;
     public bool isMove = true;
     [SerializeField] private int MaxJumpCount;
-    [SerializeField] private float MaxJumpHeight;
     [SerializeField] private Animator animator;
     [SerializeField] private AudioClip ReflectionSound;
     [SerializeField] private AudioClip ShotSound;
     [SerializeField] private AudioClip DamageSound;
+
+    [SerializeField] [JapaneseLabel("2回目のジャンプまでのクールタイム")]
+    private float jumpCooldown = 0.2f;
+
     private AudioSource audioSource;
     [NonSerialized] public float BulletTime;
     [NonSerialized] public int direction = 1;
     private bool isfirst = true;
+    private bool isGround;
     private bool isJump;
     private int jumpCount;
-    private bool isGround;
+    private float lastJumpTime; // 最後にジャンプした時間
     private Rigidbody2D rb;
     private float startY;
 
@@ -95,14 +99,6 @@ public class Player : MonoBehaviour
             direction = 1;
         }
 
-        if (isJump)
-        {
-            if (transform.position.y - startY < MaxJumpHeight)
-                rb.linearVelocityY = jumpPower;
-            else
-                isJump = false;
-        }
-
         animator.SetFloat("Jump", rb.linearVelocityY);
     }
 
@@ -126,11 +122,11 @@ public class Player : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (jumpCount > 0)
+        if (jumpCount > 0 && Time.time - lastJumpTime >= jumpCooldown)
         {
-            isJump = true;
-            startY = transform.position.y;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
             jumpCount--;
+            lastJumpTime = Time.time;
             animator.SetTrigger("isJump");
         }
     }
