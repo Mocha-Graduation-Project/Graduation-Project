@@ -1,48 +1,54 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 public class PlayerStatus : MonoBehaviour
 {
-    [SerializeField] CharacterData characterData;
+    [SerializeField] private CharacterData characterData;
     [SerializeField] private int playerHp;
-    
-    [SerializeField] UILife uiLife;
-    
-    private string playerBulletTag = "Bullet";
+
+    [SerializeField] private UILife uiLife;
+
+    [SerializeField] private SceneManager sceneManager;
+
+    [SerializeField] [JapaneseLabel("地面レイヤー")]
+    private LayerMask groundLayer;
+
+    [SerializeField] [JapaneseLabel("足元")] private Transform groundCheck;
+
+    [SerializeField] private Animator animator;
+
+    [SerializeField] [JapaneseLabel("無敵時間")]
+    private float invincibleDuration = 2.0f;
+
+    private readonly float checkDistance = 0.05f; // Raycastの長さ
     private string enemyBulletTag = "EnemyBullet";
-    
-    [SerializeField]SceneManager sceneManager;
-    
-    public int PlayerHp{ get { return playerHp; } }
 
-    Player player => Player.Instance;
-    
-    [SerializeField,JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
-    [SerializeField,JapaneseLabel("足元")] private Transform groundCheck; 
-    private float checkDistance = 0.05f; // Raycastの長さ
-
-    [SerializeField]private Animator animator; 
+    private bool invincible;
     private bool isGrounded;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private string playerBulletTag = "Bullet";
+
+    public int PlayerHp => playerHp;
+
+    private Player player => Player.Instance;
+
+    private void Start()
     {
         StartSetUp();
-        uiLife= uiLife.GetComponent<UILife>();
+        uiLife = uiLife.GetComponent<UILife>();
         sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         CheckGround();
     }
+
     private void CheckGround()
     {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
-        
-        animator.SetBool("isGround",isGrounded);
-        
+
+        animator.SetBool("isGround", isGrounded);
+
         Debug.DrawRay(groundCheck.position, Vector2.down * checkDistance, Color.red);
     }
 
@@ -50,6 +56,7 @@ public class PlayerStatus : MonoBehaviour
     {
         return isGrounded;
     }
+
     // void OnTriggerEnter2D(Collider2D other)
     // {
     //     if (other.CompareTag(playerBulletTag) || other.CompareTag(enemyBulletTag))
@@ -59,25 +66,30 @@ public class PlayerStatus : MonoBehaviour
     // }
     public void Damage(int damage)
     {
+        if (invincible) return; // 無敵時間中ならダメージを受けない
+
         playerHp -= damage;
         uiLife.RemoveLife();
-        Debug.Log("PlayerHP:"+playerHp);
+        Debug.Log("PlayerHP:" + playerHp);
         player.PlayDamageSound();
+
         if (playerHp <= 0 && sceneManager != null)
-        {
             sceneManager.Retry();
-        }
+        else
+            StartCoroutine(InvincibilityCoroutine()); // 無敵時間開始
+    }
+
+    private IEnumerator InvincibilityCoroutine()
+    {
+        invincible = true;
+        yield return new WaitForSeconds(invincibleDuration);
+        invincible = false;
     }
 
     public void StartSetUp()
     {
         Debug.Log("StartSetUp");
         playerHp = characterData.InitialHp;
-        for (int i = 0; i < characterData.InitialHp; i++)
-        {
-            uiLife.AddLife();
-        }
+        for (var i = 0; i < characterData.InitialHp; i++) uiLife.AddLife();
     }
-    
-    
 }
