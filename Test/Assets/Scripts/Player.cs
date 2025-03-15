@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     private float startY;
     [SerializeField] CameraAreaManager cameraAreaManager;
+    [SerializeField] MapManager mapManager;
+    [SerializeField] private const float MAXFALLSPEED = -20f;
 
     private void Awake()
     {
@@ -59,6 +61,7 @@ public class Player : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         
         cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
+        mapManager = GameObject.FindObjectOfType<MapManager>();
     }
 
     private void Update()
@@ -81,9 +84,33 @@ public class Player : MonoBehaviour
                     pos.x = cameraAreaManager.LeftMax;
 
                 if (pos.y < cameraAreaManager.DownMax)
-                    pos.y = cameraAreaManager.UpMax;
+                {
+                    if (mapManager.CanLoop(pos, MapManager.Side.down) == true)
+                    {
+                        pos.y = cameraAreaManager.UpMax;
+                    }
+                    else
+                    {
+                        pos.y = cameraAreaManager.DownMax;
+                    }
+
+                    // Debug.Log(rb.linearVelocity);
+                    if (rb.linearVelocity.y < MAXFALLSPEED)
+                    {
+                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, MAXFALLSPEED);
+                    }
+                }
                 else if (pos.y > cameraAreaManager.UpMax)
-                    pos.y = cameraAreaManager.DownMax;
+                {
+                    if (mapManager.CanLoop(pos, MapManager.Side.up) == true)
+                    {
+                        pos.y = cameraAreaManager.DownMax;
+                    }
+                    else
+                    {
+                        pos.y = cameraAreaManager.UpMax;
+                    }
+                }
 
                 transform.position = pos;
             }
