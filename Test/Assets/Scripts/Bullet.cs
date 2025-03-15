@@ -103,9 +103,13 @@ public class Bullet : MonoBehaviour
         player.Arrow.SetActive(false);
         player.isMove = true;
         Invoke("AttckFalse", 0.2f);
-        PowerDirection *= 1.25f;
+      
         if (PowerDirection < 0)
             PowerDirection *= -1;
+
+        if (PowerDirection <= 2.0f)
+            PowerDirection *= 1.25f;
+
         float Angle = Mathf.Atan2(player.InputMove.y, player.InputMove.x);
         UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
         Power = direction * PowerDirection * 10f;
@@ -128,10 +132,13 @@ public class Bullet : MonoBehaviour
         player.BulletTime -= 2.5f;
         player.isMove = true;
         Invoke("AttckFalse", 0.2f);
-        PowerDirection *= 1.25f;
+    
         if (PowerDirection < 0)
             PowerDirection *= -1;
-        
+
+        if (PowerDirection < 2.0f)
+            PowerDirection *= 1.25f;
+
         Power = SavePower * PowerDirection;
         Time.timeScale = 1f;
         player.PlayEffect();

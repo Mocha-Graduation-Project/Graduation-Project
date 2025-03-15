@@ -33,14 +33,13 @@ public class Player : MonoBehaviour
     [NonSerialized] public float BulletTime;
     [NonSerialized] public int direction = 1;
     private bool isfirst = true;
-    private bool isGround;
-    private bool isJump;
+  
     public bool isAttack = false;
     public bool FinishAttack = false;
     private int jumpCount;
     private float lastJumpTime; // 最後にジャンプした時間
     private Rigidbody2D rb;
-    private float startY;
+
     [SerializeField] private float MaxReflectionTime ;
     [NonSerialized]public float ReflectionTime = 0;
 
@@ -124,15 +123,7 @@ public class Player : MonoBehaviour
             direction = 1;
         }
 
-        if (isJump)
-        {
-            if (transform.position.y - startY < MaxJumpHeight)
-                rb.linearVelocityY = jumpPower;
-            else
-                isJump = false;
-        }
-
-        
+       
 
         animator.SetFloat("Jump", rb.linearVelocityY);
 
@@ -171,7 +162,6 @@ public class Player : MonoBehaviour
 
     public void OffJump(InputAction.CallbackContext context)
     {
-        isJump = false;
         animator.SetBool("isJump", false);
     }
 
