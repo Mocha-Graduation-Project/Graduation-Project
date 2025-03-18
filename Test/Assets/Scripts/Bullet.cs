@@ -21,7 +21,10 @@ public class Bullet : MonoBehaviour
     private UnityEngine.Vector3 SavePower;
     private void Start()
     {
-        Power *= PowerDirection;
+       // Power *= PowerDirection;
+        float Angle = Mathf.Atan2(player.InputMove.y, player.InputMove.x);
+        UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
+        Power = direction *10f;
         //meshRenderer = GetComponent<MeshRenderer>();
         //meshRendererChild = GetComponentInChildren<MeshRenderer>();
         Debug.Log(meshRendererChild.name);
