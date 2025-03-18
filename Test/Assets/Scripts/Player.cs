@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -35,7 +36,7 @@ public class Player : MonoBehaviour
     private float startY;
     [SerializeField] CameraAreaManager cameraAreaManager;
     [SerializeField] MapManager mapManager;
-    [SerializeField] private const float MAXFALLSPEED = -20f;
+    [FormerlySerializedAs("limitSpeed")] [SerializeField] private float maxFallSpeed = 20f;
 
     private void Awake()
     {
@@ -95,9 +96,9 @@ public class Player : MonoBehaviour
                     }
 
                     // Debug.Log(rb.linearVelocity);
-                    if (rb.linearVelocity.y < MAXFALLSPEED)
+                    if (rb.linearVelocity.y < maxFallSpeed * -1)
                     {
-                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, MAXFALLSPEED);
+                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxFallSpeed * -1);
                     }
                 }
                 else if (pos.y > cameraAreaManager.UpMax)
