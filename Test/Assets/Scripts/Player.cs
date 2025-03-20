@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
@@ -40,10 +41,16 @@ public class Player : MonoBehaviour
     private float lastJumpTime; // 最後にジャンプした時間
     private Rigidbody2D rb;
 
+
     [SerializeField] private float MaxReflectionTime ;
     [NonSerialized]public float ReflectionTime = 0;
 
     [SerializeField] private VisualEffect ReflectionEffect;
+
+    private float startY;
+    [SerializeField] CameraAreaManager cameraAreaManager;
+    [SerializeField] MapManager mapManager;
+    [FormerlySerializedAs("limitSpeed")] [SerializeField] private float maxFallSpeed = 20f;
 
     private void Awake()
     {
@@ -68,6 +75,9 @@ public class Player : MonoBehaviour
         Arrow.SetActive(false);
         jumpCount = MaxJumpCount;
         audioSource = GetComponent<AudioSource>();
+        
+        cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
+        mapManager = GameObject.FindObjectOfType<MapManager>();
     }
 
     private void Update()
@@ -84,11 +94,43 @@ public class Player : MonoBehaviour
             }
             else
             {
-                var pos = transform.position;
-                if (pos.x < 0)
-                    transform.position = new Vector3(7f, pos.y, pos.z);
-                else
-                    transform.position = new Vector3(-7f, pos.y, pos.z);
+                Vector3 pos = transform.position;
+                
+                if (pos.x < cameraAreaManager.LeftMax)
+                    pos.x = cameraAreaManager.RightMax;
+                else if(pos.x > cameraAreaManager.RightMax)
+                    pos.x = cameraAreaManager.LeftMax;
+
+                if (pos.y < cameraAreaManager.DownMax)
+                {
+                    if (mapManager.CanLoop(pos, MapManager.Side.down) == true)
+                    {
+                        pos.y = cameraAreaManager.UpMax;
+                    }
+                    else
+                    {
+                        pos.y = cameraAreaManager.DownMax;
+                    }
+
+                    // Debug.Log(rb.linearVelocity);
+                    if (rb.linearVelocity.y < maxFallSpeed * -1)
+                    {
+                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxFallSpeed * -1);
+                    }
+                }
+                else if (pos.y > cameraAreaManager.UpMax)
+                {
+                    if (mapManager.CanLoop(pos, MapManager.Side.up) == true)
+                    {
+                        pos.y = cameraAreaManager.DownMax;
+                    }
+                    else
+                    {
+                        pos.y = cameraAreaManager.UpMax;
+                    }
+                }
+
+                transform.position = pos;
             }
         }
 
