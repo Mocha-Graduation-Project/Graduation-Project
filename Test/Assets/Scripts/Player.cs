@@ -138,7 +138,8 @@ public class Player : MonoBehaviour
             BulletTime -= Time.deltaTime;
         if (isAttack)
         {
-            ReflectionTime += Time.deltaTime * 15;
+            Debug.Log(ReflectionTime);
+            ReflectionTime += Time.deltaTime * 16;
            
             if (ReflectionTime >= MaxReflectionTime)
             {
@@ -223,7 +224,6 @@ public class Player : MonoBehaviour
 
     public void Shot()
     {
-        Debug.Log("aaaa");
         audioSource.PlayOneShot(ShotSound);
         var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
         var bullet = bullets.GetComponent<Bullet>();
@@ -276,6 +276,5 @@ public class Player : MonoBehaviour
     public void PlayEffect()
     {
         ReflectionEffect.SendEvent("OnPlay");
-        Debug.Log("�Ăяo���ꂽ��");
     }
 }
