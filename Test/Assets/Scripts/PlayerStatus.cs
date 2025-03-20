@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 public class PlayerStatus : MonoBehaviour
 {
     [SerializeField] private CharacterData characterData;
@@ -7,7 +9,7 @@ public class PlayerStatus : MonoBehaviour
 
     [SerializeField] private UILife uiLife;
 
-    [SerializeField] private SceneManager sceneManager;
+    [FormerlySerializedAs("sceneManager")] [SerializeField] private SceneButtonManager sceneButtonManager;
 
     [SerializeField] [JapaneseLabel("地面レイヤー")]
     private LayerMask groundLayer;
@@ -35,7 +37,7 @@ public class PlayerStatus : MonoBehaviour
     {
         StartSetUp();
         uiLife = uiLife.GetComponent<UILife>();
-        sceneManager = GameObject.Find("SceneManager").GetComponent<SceneManager>();
+        sceneButtonManager = GameObject.Find("SceneManager").GetComponent<SceneButtonManager>();
     }
 
     private void Update()
@@ -73,8 +75,8 @@ public class PlayerStatus : MonoBehaviour
         Debug.Log("PlayerHP:" + playerHp);
         player.PlayDamageSound();
 
-        if (playerHp <= 0 && sceneManager != null)
-            sceneManager.Retry();
+        if (playerHp <= 0 && sceneButtonManager != null)
+            sceneButtonManager.Retry();
         else
             StartCoroutine(InvincibilityCoroutine()); // 無敵時間開始
     }
