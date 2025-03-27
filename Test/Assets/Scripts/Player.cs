@@ -3,7 +3,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using UnityEngine.VFX;
+using System.Collections.Generic;
 
+[Serializable]
+public class VFXEntry
+{
+    public string name;
+    public GameObject vfxObject;
+}
 public class Player : MonoBehaviour
 {
     public static Player Instance;
@@ -42,6 +50,9 @@ public class Player : MonoBehaviour
     [SerializeField] MapManager mapManager;
     [FormerlySerializedAs("limitSpeed")] [SerializeField] private float maxFallSpeed = 20f;
 
+    [SerializeField] private List<VFXEntry> vfxEntries = new List<VFXEntry>();
+    private Dictionary<string, GameObject> vfxDictionary = new Dictionary<string, GameObject>();
+
     private void Awake()
     {
         if (Instance == null)
@@ -67,6 +78,14 @@ public class Player : MonoBehaviour
         
         cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
         mapManager = GameObject.FindObjectOfType<MapManager>();
+        
+        foreach (var entry in vfxEntries)
+        {
+            if (!vfxDictionary.ContainsKey(entry.name))
+            {
+                vfxDictionary.Add(entry.name, entry.vfxObject);
+            }
+        }
     }
 
     private void Update()
@@ -191,7 +210,6 @@ public class Player : MonoBehaviour
 
     public void Shot()
     {
-        Debug.Log("aaaa");
         audioSource.PlayOneShot(ShotSound);
         var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
         var bullet = bullets.GetComponent<Bullet>();
@@ -224,6 +242,25 @@ public class Player : MonoBehaviour
 
     public void PlayDamageSound()
     {
+        animator.Play("Damage");
         audioSource.PlayOneShot(DamageSound);
+    }
+    public void TriggerVFX(string vfxName)
+    {
+        if (vfxDictionary.TryGetValue(vfxName, out var vfxObject))
+        {
+            if (vfxObject.TryGetComponent<VisualEffect>(out var vfx))
+            {
+                vfx.SendEvent("OnPlay"); // VFX のイベントを送信
+            }
+            else
+            {
+                Debug.LogWarning($"指定されたVFXオブジェクト '{vfxName}' に VisualEffect コンポーネントがありません。");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"VFX '{vfxName}' が見つかりません。");
+        }
     }
 }
