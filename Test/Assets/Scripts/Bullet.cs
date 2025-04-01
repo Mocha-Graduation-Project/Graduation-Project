@@ -76,19 +76,9 @@ public class Bullet : MonoBehaviour
             player.isMove = false;
             player.Arrow.SetActive(true);
             isAttack = true;
-            Time.timeScale = 0.2f;
-            Power = UnityEngine.Vector3.zero;
-            Invoke("Attack", 0.3f);
-        }
-
-        if (collision.gameObject.tag == "QuickAttack" && !destroyed)
-        {
-            player.isMove = false;
-            isAttack = true;
-            Time.timeScale = 0.2f;
             SavePower = -Power;
             Power = UnityEngine.Vector3.zero;
-            Invoke("QuickAttack", 0.1f);
+            Invoke("Attack", 0.1f);
         }
     }
 
@@ -106,13 +96,15 @@ public class Bullet : MonoBehaviour
         player.Arrow.SetActive(false);
         player.isMove = true;
         Invoke("AttckFalse", 0.2f);
+        
         PowerDirection *= 1.25f;
         if (PowerDirection < 0)
             PowerDirection *= -1;
+        
         float Angle = Mathf.Atan2(player.InputMove.y, player.InputMove.x);
         UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
         Power = direction * PowerDirection * 10f;
-        Time.timeScale =1f;
+        
         player.PlayReflectionSound();
     }
 
