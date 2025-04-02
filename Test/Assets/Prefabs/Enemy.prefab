@@ -150,7 +150,6 @@ GameObject:
   - component: {fileID: 5700466450639599074}
   - component: {fileID: 2234164896924348768}
   - component: {fileID: 3317964292277821450}
-  - component: {fileID: 7900115282096297914}
   - component: {fileID: 4151815204507809134}
   m_Layer: 8
   m_Name: Enemy
@@ -379,23 +378,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7900115282096297914
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6460471003761360793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb9edd410af17f47ae8bf4d57d1e535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolEnemyData: {fileID: 0}
-  speed: 0
-  moveable: 0
-  waitTime: 0
-  cameraAreaManager: {fileID: 0}
 --- !u!50 &4151815204507809134
 Rigidbody2D:
   serializedVersion: 5
