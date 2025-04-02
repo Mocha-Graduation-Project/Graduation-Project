@@ -32,8 +32,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.65, y: -0.6002601, z: -0.008630279}
-  m_LocalScale: {x: 0.8851, y: 0.8851, z: 0.8851}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2781815236256239345}
   m_Father: {fileID: 0}
@@ -258,6 +258,7 @@ MonoBehaviour:
   speed: 2
   moveable: 0
   waitTime: 0
+  cameraAreaManager: {fileID: 0}
 --- !u!1 &3220257421039231593
 GameObject:
   m_ObjectHideFlags: 0

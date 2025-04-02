@@ -54,6 +54,11 @@ public class Bullet : MonoBehaviour
 
             transform.position = pos;
         }
+
+        if (player.FinishAttack && isAttack)
+        {
+            Attack();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -76,9 +81,9 @@ public class Bullet : MonoBehaviour
             player.isMove = false;
             player.Arrow.SetActive(true);
             isAttack = true;
+            player.isAttack = true;
             Time.timeScale = 0.2f;
             Power = UnityEngine.Vector3.zero;
-            Invoke("Attack", 0.3f);
         }
 
         if (collision.gameObject.tag == "QuickAttack" && !destroyed)
@@ -88,7 +93,9 @@ public class Bullet : MonoBehaviour
             Time.timeScale = 0.2f;
             SavePower = -Power;
             Power = UnityEngine.Vector3.zero;
-            Invoke("QuickAttack", 0.1f);
+            if (player.ReflectionTime > 0)
+                player.ReflectionTime -= 0.5f;
+            Invoke("QuickAttack", 0.01f);
         }
     }
 
@@ -106,13 +113,20 @@ public class Bullet : MonoBehaviour
         player.Arrow.SetActive(false);
         player.isMove = true;
         Invoke("AttckFalse", 0.2f);
-        PowerDirection *= 1.25f;
+        AttckFalse();
+
         if (PowerDirection < 0)
             PowerDirection *= -1;
+
+        if (PowerDirection <= 2.0f)
+            PowerDirection *= 1.25f;
+
         float Angle = Mathf.Atan2(player.InputMove.y, player.InputMove.x);
         UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
         Power = direction * PowerDirection * 10f;
         Time.timeScale =1f;
+        player.FinishAttack = false;
+        player.PlayEffect();
         player.PlayReflectionSound();
     }
 
@@ -129,12 +143,16 @@ public class Bullet : MonoBehaviour
         player.BulletTime -= 2.5f;
         player.isMove = true;
         Invoke("AttckFalse", 0.2f);
-        PowerDirection *= 1.25f;
+
         if (PowerDirection < 0)
             PowerDirection *= -1;
-        
+
+        if (PowerDirection <= 2.0f)
+            PowerDirection *= 1.25f;
+
         Power = SavePower * PowerDirection;
         Time.timeScale = 1f;
+        player.PlayEffect();
         player.PlayReflectionSound();
     }
 

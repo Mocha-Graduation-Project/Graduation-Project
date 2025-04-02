@@ -168,8 +168,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.43, y: -3.78, z: -0.008630279}
-  m_LocalScale: {x: 0.8851, y: 0.8851, z: 0.8851}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5282237974050163242}
   m_Father: {fileID: 0}
@@ -242,7 +242,7 @@ MonoBehaviour:
   HP: 16
   DamageText: {fileID: 1068582490148530058}
   Bullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
-  BulletRate: 1
+  BulletRate: 2
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
 --- !u!58 &5127113108378831449
@@ -391,9 +391,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patrolEnemyData: {fileID: 11400000, guid: 6a9c8c5ce8099b14b99cf12e12dcdacd, type: 2}
-  speed: 2
-  moveable: 1
-  waitTime: 0.1
+  speed: 1.5
+  moveable: 0
+  waitTime: 0.5
+  cameraAreaManager: {fileID: 0}
 --- !u!1 &8136479408866247873
 GameObject:
   m_ObjectHideFlags: 0

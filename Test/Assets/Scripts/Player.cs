@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject QuickAttackCollision;
     [SerializeField] private float MaxBulletTime;
     [SerializeField] private Image BulletUI;
+    [SerializeField] private Slider ReflectionUI;
     public GameObject Arrow;
     public bool isMove = true;
     [SerializeField] private int MaxJumpCount;
@@ -40,11 +41,19 @@ public class Player : MonoBehaviour
     [NonSerialized] public float BulletTime;
     [NonSerialized] public int direction = 1;
     private bool isfirst = true;
-    private bool isGround;
-    private bool isJump;
+  
+    public bool isAttack = false;
+    public bool FinishAttack = false;
     private int jumpCount;
     private float lastJumpTime; // 最後にジャンプした時間
     private Rigidbody2D rb;
+
+
+    [SerializeField] private float MaxReflectionTime ;
+    [NonSerialized]public float ReflectionTime = 0;
+
+    [SerializeField] private VisualEffect ReflectionEffect;
+
     private float startY;
     [SerializeField] CameraAreaManager cameraAreaManager;
     [SerializeField] MapManager mapManager;
@@ -68,6 +77,7 @@ public class Player : MonoBehaviour
         MoveAction.actions["Jump"].started += OnJump;
         MoveAction.actions["Shot"].started += OnShot;
         MoveAction.actions["Attack"].performed += OnAttack;
+        MoveAction.actions["Attack"].canceled += OnAttackFinish;
         MoveAction.actions["Jump"].canceled += OffJump;
         MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
 
@@ -91,6 +101,8 @@ public class Player : MonoBehaviour
     private void Update()
     {
         BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;
+        ReflectionUI.value = (MaxReflectionTime - ReflectionTime) / MaxReflectionTime;
+
 
         if (!GetComponent<Renderer>().isVisible)
         {
@@ -142,6 +154,21 @@ public class Player : MonoBehaviour
 
         if (BulletTime > 0)
             BulletTime -= Time.deltaTime;
+        if (isAttack)
+        {
+            Debug.Log(ReflectionTime);
+            ReflectionTime += Time.deltaTime * 16;
+           
+            if (ReflectionTime >= MaxReflectionTime)
+            {
+                ReflectionTime = MaxReflectionTime;
+                FinishAttack = true;
+                isAttack = false;
+            }
+        }
+        else if (ReflectionTime > 0)
+            ReflectionTime -= Time.deltaTime;
+        
         if (!isMove)
             return;
         if (InputMove.x < 0)
@@ -157,7 +184,12 @@ public class Player : MonoBehaviour
             direction = 1;
         }
 
+       
+
         animator.SetFloat("Jump", rb.linearVelocityY);
+
+      
+       
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -191,7 +223,6 @@ public class Player : MonoBehaviour
 
     public void OffJump(InputAction.CallbackContext context)
     {
-        isJump = false;
         animator.SetBool("isJump", false);
     }
 
@@ -205,6 +236,7 @@ public class Player : MonoBehaviour
             // bullet.PowerDirection = direction;
             BulletTime = MaxBulletTime;
             animator.SetTrigger("isShot");
+       
         }
     }
 
@@ -217,7 +249,13 @@ public class Player : MonoBehaviour
     }
     public void OnAttack(InputAction.CallbackContext context)
     {
-        AttackCollision.gameObject.SetActive(true);
+        if(ReflectionTime <= 0)
+        {
+            AttackCollision.gameObject.SetActive(true);
+        }
+           
+        else
+            QuickAttackCollision.gameObject.SetActive(true);
         Invoke("AttackFinish", 0.3f);
         animator.SetTrigger("isAttack");
     }
@@ -229,6 +267,14 @@ public class Player : MonoBehaviour
         animator.SetTrigger("isAttack");
     }
 
+    public void OnAttackFinish(InputAction.CallbackContext context)
+    {
+        if(isAttack)
+        {
+            FinishAttack = true;
+            isAttack = false;
+        }
+    }
     public void AttackFinish()
     {
         AttackCollision.gameObject.SetActive(false);
@@ -245,6 +291,8 @@ public class Player : MonoBehaviour
         animator.Play("Damage");
         audioSource.PlayOneShot(DamageSound);
     }
+
+
     public void TriggerVFX(string vfxName)
     {
         if (vfxDictionary.TryGetValue(vfxName, out var vfxObject))
@@ -262,5 +310,6 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning($"VFX '{vfxName}' が見つかりません。");
         }
+>>>>>>> develop
     }
 }
