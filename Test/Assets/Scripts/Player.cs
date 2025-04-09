@@ -48,7 +48,8 @@ public class Player : MonoBehaviour
     private float startY;
     [SerializeField] CameraAreaManager cameraAreaManager;
     [SerializeField] MapManager mapManager;
-    [FormerlySerializedAs("limitSpeed")] [SerializeField] private float maxFallSpeed = 20f;
+    [SerializeField] SceneButtonManager sceneButtonManager;
+    [SerializeField] private float maxFallSpeed = 20f;
 
     [SerializeField] private List<VFXEntry> vfxEntries = new List<VFXEntry>();
     private Dictionary<string, GameObject> vfxDictionary = new Dictionary<string, GameObject>();
@@ -78,6 +79,7 @@ public class Player : MonoBehaviour
         
         cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
         mapManager = GameObject.FindObjectOfType<MapManager>();
+        sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
         
         foreach (var entry in vfxEntries)
         {
@@ -88,7 +90,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;
 
@@ -168,6 +170,8 @@ public class Player : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
+        
         animator.SetBool("isMove", true);
         InputMove = context.ReadValue<Vector2>();
         if (InputMove != Vector2.zero)
@@ -180,6 +184,8 @@ public class Player : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
+        
         if (jumpCount > 0 && Time.time - lastJumpTime >= jumpCooldown)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
@@ -191,12 +197,16 @@ public class Player : MonoBehaviour
 
     public void OffJump(InputAction.CallbackContext context)
     {
+        if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
+        
         isJump = false;
         animator.SetBool("isJump", false);
     }
 
     public void OnShot(InputAction.CallbackContext context)
     {
+        if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
+        
         if (BulletTime <= 0)
         {
             // audioSource.PlayOneShot(ShotSound);
@@ -217,6 +227,8 @@ public class Player : MonoBehaviour
     }
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
+        
         AttackCollision.gameObject.SetActive(true);
         Invoke("AttackFinish", 0.3f);
         animator.SetTrigger("isAttack");
@@ -224,6 +236,8 @@ public class Player : MonoBehaviour
 
     public void OnQuickAttack(InputAction.CallbackContext context)
     {
+        if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
+        
         QuickAttackCollision.gameObject.SetActive(true);
         Invoke("AttackFinish", 0.3f);
         animator.SetTrigger("isAttack");

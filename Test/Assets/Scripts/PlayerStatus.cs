@@ -37,7 +37,8 @@ public class PlayerStatus : MonoBehaviour
     {
         StartSetUp();
         uiLife = uiLife.GetComponent<UILife>();
-        sceneButtonManager = GameObject.Find("SceneManager").GetComponent<SceneButtonManager>();
+        sceneButtonManager=GameObject.FindObjectOfType<SceneButtonManager>();
+        //sceneButtonManager = GameObject.Find("SceneManager").GetComponent<SceneButtonManager>();
     }
 
     private void Update()
