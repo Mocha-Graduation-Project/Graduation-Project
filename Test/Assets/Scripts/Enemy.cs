@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Attack")
+        if(collision.gameObject.tag == "Attack"|| collision.gameObject.tag == "QuickAttack")
         {
             Debug.Log("当たった");
             HP--;
