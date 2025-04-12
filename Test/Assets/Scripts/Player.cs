@@ -66,10 +66,10 @@ public class Player : MonoBehaviour
     {
         MoveAction.actions["Move"].performed += OnMove;
         MoveAction.actions["Move"].canceled += OnMove;
-        MoveAction.actions["Jump"].started += OnJump;
+       // MoveAction.actions["Jump"].started += OnJump;
         MoveAction.actions["Shot"].started += OnShot;
         MoveAction.actions["Attack"].performed += OnAttack;
-        MoveAction.actions["Jump"].canceled += OffJump;
+      //  MoveAction.actions["Jump"].canceled += OffJump;
         MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
 
         rb = GetComponent<Rigidbody2D>();
@@ -158,6 +158,13 @@ public class Player : MonoBehaviour
             transform.localScale = new Vector3(1f, 1f, 1f);
             direction = 1;
         }
+
+        if (InputMove.y != 0)
+        {
+            transform.position += new Vector3(0, MoveSpeed * InputMove.y, 0) * Time.deltaTime;
+            
+        }
+       
 
         animator.SetFloat("Jump", rb.linearVelocityY);
     }
