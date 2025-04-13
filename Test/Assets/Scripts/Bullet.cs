@@ -20,12 +20,19 @@ public class Bullet : MonoBehaviour
     CameraAreaManager cameraAreaManager;
 
     private UnityEngine.Vector3 SavePower;
+    
+    [SerializeField] private float reflectionCooldown = 1.0f; // 反射できるようになるまでの秒数
+    private float spawnTime; // 発射された時間
     private void Start()
     {
         Power *= PowerDirection;
         //meshRenderer = GetComponent<MeshRenderer>();
         //meshRendererChild = GetComponentInChildren<MeshRenderer>();
         Debug.Log(meshRendererChild.name);
+        reflectionCount = 0;
+        cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
+        spawnTime = Time.time; // 現在の時間を記録
+        Power *= PowerDirection;
         reflectionCount = 0;
         cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
     }
@@ -58,6 +65,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.gameObject.tag == "Ground" || (collision.gameObject.tag == "Player" && !isAttack))
         {
             if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
@@ -71,7 +79,7 @@ public class Bullet : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        if (collision.gameObject.tag == "Attack" && !destroyed)
+        if (collision.gameObject.tag == "Attack" && !destroyed && Time.time - spawnTime >= reflectionCooldown)
         {
             player.isMove = false;
             player.Arrow.SetActive(true);
