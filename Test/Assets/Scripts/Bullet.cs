@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
+//using System.Numerics;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -135,6 +135,21 @@ public class Bullet : MonoBehaviour
         
         Power = SavePower * PowerDirection;
         Time.timeScale = 1f;
+        player.PlayReflectionSound();
+    }
+    
+    public Vector3 GetPower()
+    {
+        return Power;
+    }
+
+    public void SetPower(Vector3 newPower)
+    {
+        Power = newPower;
+    }
+    
+    public void OnReflect()
+    {
         player.PlayReflectionSound();
     }
 
