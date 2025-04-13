@@ -2,16 +2,19 @@ using UnityEngine;
 
 public class ReflectionWall : MonoBehaviour
 {
-    [SerializeField] private float reflectPower = 10f;
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out Bullet bullet))
         {
-            var reflectDir = transform.up.normalized;
+            Vector3 currentPower = bullet.GetPower();
+            float speed = currentPower.magnitude; // 現在の速さ（ベクトルの大きさ）
 
-            bullet.SetPower(reflectDir * reflectPower);
-            bullet.OnReflect(); // 反射時の演出など
+            Vector3 normal = transform.up.normalized; // 壁の面に垂直な方向（法線）
+
+            Vector3 reflectPower = normal * speed;
+
+            bullet.SetPower(reflectPower);
+            bullet.OnReflect();
         }
     }
 }
