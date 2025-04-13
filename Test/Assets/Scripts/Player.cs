@@ -38,13 +38,12 @@ public class Player : MonoBehaviour
     [SerializeField] [JapaneseLabel("2回目のジャンプまでのクールタイム")]
     private float jumpCooldown = 0.2f;
 
+    [FormerlySerializedAs("limitSpeed")]
+    [SerializeField] private List<VFXEntry> vfxEntries = new();
     [SerializeField] private CameraAreaManager cameraAreaManager;
     [SerializeField] private MapManager mapManager;
-
-    [FormerlySerializedAs("limitSpeed")] [SerializeField]
-    private float maxFallSpeed = 20f;
-
-    [SerializeField] private List<VFXEntry> vfxEntries = new();
+    [SerializeField] private SceneButtonManager sceneButtonManager;
+    [SerializeField] private float maxFallSpeed = 20f;
 
     private AudioSource audioSource;
     [NonSerialized] public float BulletTime;
@@ -56,13 +55,7 @@ public class Player : MonoBehaviour
     private float lastJumpTime; // 最後にジャンプした時間
     private Rigidbody2D rb;
     private float startY;
-    [SerializeField] CameraAreaManager cameraAreaManager;
-    [SerializeField] MapManager mapManager;
-    [SerializeField] SceneButtonManager sceneButtonManager;
-    [SerializeField] private float maxFallSpeed = 20f;
-
-    [SerializeField] private List<VFXEntry> vfxEntries = new List<VFXEntry>();
-    private Dictionary<string, GameObject> vfxDictionary = new Dictionary<string, GameObject>();
+    private readonly Dictionary<string, GameObject> vfxDictionary = new();
 
     private void Awake()
     {
@@ -87,9 +80,9 @@ public class Player : MonoBehaviour
         Arrow.SetActive(false);
         jumpCount = MaxJumpCount;
         audioSource = GetComponent<AudioSource>();
-        cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
-        mapManager = GameObject.FindObjectOfType<MapManager>();
-        sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
+        cameraAreaManager = FindObjectOfType<CameraAreaManager>();
+        mapManager = FindObjectOfType<MapManager>();
+        sceneButtonManager = FindObjectOfType<SceneButtonManager>();
 
         foreach (var entry in vfxEntries)
             if (!vfxDictionary.ContainsKey(entry.name))
@@ -167,7 +160,7 @@ public class Player : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
-        
+
         animator.SetBool("isMove", true);
         InputMove = context.ReadValue<Vector2>();
         // 攻撃中でなければ移動アニメーションも更新
@@ -188,7 +181,7 @@ public class Player : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
-        
+
         if (jumpCount > 0 && Time.time - lastJumpTime >= jumpCooldown)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
@@ -201,7 +194,7 @@ public class Player : MonoBehaviour
     public void OffJump(InputAction.CallbackContext context)
     {
         if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
-        
+
         isJump = false;
         animator.SetBool("isJump", false);
     }
@@ -209,7 +202,7 @@ public class Player : MonoBehaviour
     public void OnShot(InputAction.CallbackContext context)
     {
         if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
-        
+
         if (BulletTime <= 0)
         {
             BulletTime = MaxBulletTime;
@@ -235,7 +228,7 @@ public class Player : MonoBehaviour
         isMove = false;
         // 必要に応じてアニメーションも再生
         if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
-        
+
         AttackCollision.gameObject.SetActive(true);
         Invoke("AttackFinish", 0.3f);
         animator.SetTrigger("isAttack");
@@ -249,9 +242,9 @@ public class Player : MonoBehaviour
         AttackCollision.SetActive(false);
         Arrow.SetActive(false);
         isMove = true;
-        
+
         if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
-        
+
         QuickAttackCollision.gameObject.SetActive(true);
         Invoke("AttackFinish", 0.3f);
         animator.SetTrigger("isAttack");
