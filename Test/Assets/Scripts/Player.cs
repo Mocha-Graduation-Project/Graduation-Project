@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
     private float startY;
     private readonly Dictionary<string, GameObject> vfxDictionary = new();
 
+    private bool isArrowActive = false;
     private void Awake()
     {
         if (Instance == null)
@@ -161,17 +162,12 @@ public class Player : MonoBehaviour
     {
         if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
 
-        animator.SetBool("isMove", true);
         InputMove = context.ReadValue<Vector2>();
-        // 攻撃中でなければ移動アニメーションも更新
-        if (isMove)
-        {
-            var moving = InputMove != Vector2.zero;
-            animator.SetBool("isMove", moving);
-        }
+        isArrowActive = InputMove != Vector2.zero;
 
-        // 入力に合わせて矢印の向きを更新（攻撃中は移動できないが方向は変えられる）
-        if (InputMove != Vector2.zero)
+        animator.SetBool("isMove", isArrowActive);
+
+        if (isArrowActive)
         {
             var angle = Mathf.Atan2(InputMove.y, InputMove.x) * Mathf.Rad2Deg;
             Arrow.transform.rotation = Quaternion.Euler(0f, 0f, angle);
@@ -229,8 +225,10 @@ public class Player : MonoBehaviour
         // 必要に応じてアニメーションも再生
         if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
 
-        AttackCollision.gameObject.SetActive(true);
-        Invoke("AttackFinish", 0.3f);
+        AttackCollision.SetActive(true);
+        Arrow.SetActive(true);
+        isMove = false;
+        
         animator.SetTrigger("isAttack");
     }
 
@@ -245,8 +243,9 @@ public class Player : MonoBehaviour
 
         if (sceneButtonManager.CurrentState != SceneButtonManager.State.Gameplay) return;
 
-        QuickAttackCollision.gameObject.SetActive(true);
-        Invoke("AttackFinish", 0.3f);
+        AttackCollision.SetActive(false);
+        Arrow.SetActive(false);
+        isMove = true;
         animator.SetTrigger("isAttack");
     }
 

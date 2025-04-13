@@ -32,9 +32,6 @@ public class Bullet : MonoBehaviour
         reflectionCount = 0;
         cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
         spawnTime = Time.time; // 現在の時間を記録
-        Power *= PowerDirection;
-        reflectionCount = 0;
-        cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
     }
     void Update()
     {
@@ -60,6 +57,7 @@ public class Bullet : MonoBehaviour
                 pos.y = cameraAreaManager.DownMax;
 
             transform.position = pos;
+            spawnTime = 1;
         }
     }
 
