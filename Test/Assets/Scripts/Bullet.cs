@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
+//using System.Numerics;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -20,6 +20,9 @@ public class Bullet : MonoBehaviour
     CameraAreaManager cameraAreaManager;
 
     private UnityEngine.Vector3 SavePower;
+    
+    [SerializeField] private float reflectionCooldown = 1.0f; // 反射できるようになるまでの秒数
+    private float spawnTime; // 発射された時間
     private void Start()
     {
         Power *= PowerDirection;
@@ -28,6 +31,7 @@ public class Bullet : MonoBehaviour
         Debug.Log(meshRendererChild.name);
         reflectionCount = 0;
         cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
+        spawnTime = Time.time; // 現在の時間を記録
     }
     void Update()
     {
@@ -53,11 +57,13 @@ public class Bullet : MonoBehaviour
                 pos.y = cameraAreaManager.DownMax;
 
             transform.position = pos;
+            spawnTime = 1;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.gameObject.tag == "Ground" || (collision.gameObject.tag == "Player" && !isAttack))
         {
             if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
@@ -71,24 +77,14 @@ public class Bullet : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        if (collision.gameObject.tag == "Attack" && !destroyed)
+        if (collision.gameObject.tag == "Attack" && !destroyed && Time.time - spawnTime >= reflectionCooldown)
         {
             player.isMove = false;
             player.Arrow.SetActive(true);
             isAttack = true;
-            Time.timeScale = 0.2f;
-            Power = UnityEngine.Vector3.zero;
-            Invoke("Attack", 0.3f);
-        }
-
-        if (collision.gameObject.tag == "QuickAttack" && !destroyed)
-        {
-            player.isMove = false;
-            isAttack = true;
-            Time.timeScale = 0.2f;
             SavePower = -Power;
             Power = UnityEngine.Vector3.zero;
-            Invoke("QuickAttack", 0.1f);
+            Invoke("Attack", 0.1f);
         }
     }
 
@@ -106,13 +102,15 @@ public class Bullet : MonoBehaviour
         player.Arrow.SetActive(false);
         player.isMove = true;
         Invoke("AttckFalse", 0.2f);
+        
         PowerDirection *= 1.25f;
         if (PowerDirection < 0)
             PowerDirection *= -1;
+        
         float Angle = Mathf.Atan2(player.InputMove.y, player.InputMove.x);
         UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
         Power = direction * PowerDirection * 10f;
-        Time.timeScale =1f;
+        
         player.PlayReflectionSound();
     }
 
@@ -135,6 +133,21 @@ public class Bullet : MonoBehaviour
         
         Power = SavePower * PowerDirection;
         Time.timeScale = 1f;
+        player.PlayReflectionSound();
+    }
+    
+    public Vector3 GetPower()
+    {
+        return Power;
+    }
+
+    public void SetPower(Vector3 newPower)
+    {
+        Power = newPower;
+    }
+    
+    public void OnReflect()
+    {
         player.PlayReflectionSound();
     }
 
