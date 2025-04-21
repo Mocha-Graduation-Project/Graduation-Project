@@ -14,6 +14,7 @@ public class ScriptVersionManagerWindow : EditorWindow
     private string diffResult = "";
     private bool showDiff = true;
     private Vector2 scroll;
+    private string backupScriptName = "";
     private string backupMemo = "";
 
     [MenuItem("Tools/Script Version Manager")]
@@ -65,10 +66,11 @@ public class ScriptVersionManagerWindow : EditorWindow
         }
 
         EditorGUILayout.Space(10);
-        EditorGUILayout.LabelField("📝 バックアップメモ");
-        backupMemo = EditorGUILayout.TextField(backupMemo);
+        GUILayout.Label("🗄️ バックアップ設定", EditorStyles.boldLabel);
+        backupScriptName = EditorGUILayout.TextField("スクリプト名（任意）", backupScriptName);
+        backupMemo = EditorGUILayout.TextField("📝メモ（任意）", backupMemo);
 
-        if (GUILayout.Button("🗄️ 現在のスクリプトをバックアップ (Versionedへ保存)"))
+        if (GUILayout.Button("🗄️ 現在のスクリプトをバックアップ"))
         {
             BackupScript(baseScriptFiles[currentScriptIndex]);
         }
@@ -177,41 +179,50 @@ public class ScriptVersionManagerWindow : EditorWindow
     {
         string versionedPath = "Assets/Scripts/Versioned";
         string time = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
-        string backupName = $"{Path.GetFileNameWithoutExtension(scriptFile)}_backup_{time}.cs";
-        string backupFolderPath = $"{versionedPath}/{Path.GetFileNameWithoutExtension(backupName)}"; // フォルダ名もバックアップ名に
 
-        // バックアップフォルダを作成
-        if (!Directory.Exists(backupFolderPath))
+        string originalName = Path.GetFileNameWithoutExtension(scriptFile);
+        string baseName = string.IsNullOrEmpty(backupScriptName)
+            ? $"{originalName}_backup_{time}"
+            : backupScriptName;
+
+        string folderPath = Path.Combine(versionedPath, baseName);
+        string destScriptPath = Path.Combine(folderPath, baseName + ".cs");
+
+        // フォルダ作成
+        if (!Directory.Exists(folderPath))
         {
-            Directory.CreateDirectory(backupFolderPath);
+            Directory.CreateDirectory(folderPath);
             AssetDatabase.Refresh();
-            Debug.Log($"📂 バックアップフォルダ作成: {backupFolderPath}");
+            Debug.Log($"📁 バックアップフォルダ作成: {folderPath}");
         }
 
         string srcPath = $"Assets/Scripts/{scriptFile}";
-        string destPath = $"{backupFolderPath}/{backupName}";
         string content = File.ReadAllText(srcPath);
         
         content = System.Text.RegularExpressions.Regex.Replace(content, @"namespace\s+\w+", "");
-        
         int usingEndIndex = content.LastIndexOf("using ");
         if (usingEndIndex != -1)
         {
-            int insertPos = content.IndexOf("\n", usingEndIndex) + 1; // `using` の最後の行の次の位置
-            content = content.Insert(insertPos, $"namespace Backup_{backupName.Replace(".cs", "")} ");
+            int insertPos = content.IndexOf("\n", usingEndIndex) + 1;
+            content = content.Insert(insertPos, $"namespace Backup_{baseName} ");
         }
         else
         {
-            content = $"namespace Backup_{backupName.Replace(".cs", "")} " + content;
+            content = $"namespace Backup_{baseName} " + content;
         }
 
-        File.WriteAllText(destPath, content);
-        string memoPath = $"{backupFolderPath}/memo.txt";
-        File.WriteAllText(memoPath, backupMemo);
-        backupMemo = "";
+        File.WriteAllText(destScriptPath, content);
+        
+        if (!string.IsNullOrEmpty(backupMemo))
+        {
+            string memoPath = Path.Combine(folderPath, $"{baseName}_memo.txt");
+            File.WriteAllText(memoPath, backupMemo);
+        }
+
         AssetDatabase.Refresh();
-        Debug.Log($"✅ バックアップ完了: {destPath}");
+        Debug.Log($"✅ バックアップ完了: {destScriptPath}");
     }
+
     void SwitchScriptVersion(string targetScript, string versionScript)
     {
         if (targetScript == versionScript)
@@ -230,11 +241,9 @@ public class ScriptVersionManagerWindow : EditorWindow
         }
 
         string content = File.ReadAllText(versionPath);
-
-        // バックアップ時に変更された namespace を削除
+        
         content = System.Text.RegularExpressions.Regex.Replace(content, @"namespace\s+Backup_\w+\s*", "");
-
-        // 現在のフォルダ名を namespace として使う
+        
         string folderName = Path.GetFileName(Path.GetDirectoryName(targetPath));
         string namespaceLine = $"namespace {folderName}";
         
