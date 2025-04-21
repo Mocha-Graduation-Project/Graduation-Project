@@ -3,39 +3,45 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
-public class EnemyBullet : MonoBehaviour
+namespace Scripts
 {
-    Player player => Player.Instance;
-    [SerializeField] private UnityEngine.Vector3 Power;
-
-   
-    public void SetPower(UnityEngine.Vector3 Pos)
+    public class EnemyBullet : MonoBehaviour
     {
-        float Angle = Mathf.Atan2(player.gameObject.transform.position.y-Pos.y, player.gameObject.transform.position.x-Pos.x);
-        //Debug.Log(Angle);
-        UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
-        Power = direction * 5f;
-    }
-    void Update()
-    {
-        transform.position += Power * Time.deltaTime;
+        Player player => Player.Instance;
+        [SerializeField] private UnityEngine.Vector3 Power;
 
-        if (!GetComponent<Renderer>().isVisible)
+
+        public void SetPower(UnityEngine.Vector3 Pos)
         {
-          Destroy(gameObject);  
+            float Angle = Mathf.Atan2(player.gameObject.transform.position.y - Pos.y,
+                player.gameObject.transform.position.x - Pos.x);
+            //Debug.Log(Angle);
+            UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
+            Power = direction * 5f;
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Player")
+        void Update()
         {
-            if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
+            transform.position += Power * Time.deltaTime;
+
+            if (!GetComponent<Renderer>().isVisible)
             {
-                status.Damage(1);
+                Destroy(gameObject);
             }
-            Destroy(this.gameObject);
         }
 
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Player")
+            {
+                if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
+                {
+                    status.Damage(1);
+                }
+
+                Destroy(this.gameObject);
+            }
+
+        }
     }
 }

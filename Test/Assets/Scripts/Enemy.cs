@@ -5,72 +5,79 @@ using UnityEngine;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 
-public class Enemy : MonoBehaviour
+namespace Scripts
 {
-    public int HP;
-    [SerializeField] private TextMeshProUGUI DamageText;
-    Player player => Player.Instance;
-    private bool isfirst = true;
-    [SerializeField] private GameObject Bullet;
-    [SerializeField] private float BulletRate;
-    private AudioSource audioSource;
-    [SerializeField] private AudioClip ShotSound;
-    [SerializeField] private AudioClip DamageSound;
 
-    private void Start()
+
+    public class Enemy : MonoBehaviour
     {
-        DamageText.enabled = false;
-        audioSource = GetComponent<AudioSource>();
-        Invoke("Attack", BulletRate);
-    }
-    private void Attack()
-    {
-        GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
-        EnemyBullet bullet = bullets.GetComponent<EnemyBullet>();
-        bullet.SetPower(transform.position);
-        audioSource.PlayOneShot(ShotSound);
-        Invoke("Attack", BulletRate);
-    }
-    private void Update()
-    {
-        if (!GetComponent<Renderer>().isVisible)
+        public int HP;
+        [SerializeField] private TextMeshProUGUI DamageText;
+        Player player => Player.Instance;
+        private bool isfirst = true;
+        [SerializeField] private GameObject Bullet;
+        [SerializeField] private float BulletRate;
+        private AudioSource audioSource;
+        [SerializeField] private AudioClip ShotSound;
+        [SerializeField] private AudioClip DamageSound;
+
+        private void Start()
         {
-            if (isfirst)
-                isfirst = false;
-            else
+            DamageText.enabled = false;
+            audioSource = GetComponent<AudioSource>();
+            Invoke("Attack", BulletRate);
+        }
+
+        private void Attack()
+        {
+            GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
+            EnemyBullet bullet = bullets.GetComponent<EnemyBullet>();
+            bullet.SetPower(transform.position);
+            audioSource.PlayOneShot(ShotSound);
+            Invoke("Attack", BulletRate);
+        }
+
+        private void Update()
+        {
+            if (!GetComponent<Renderer>().isVisible)
             {
-                Vector3 pos = transform.position;
-                if (pos.x < 0)
-                    transform.position = new Vector3(8.5f, pos.y, pos.z);
+                if (isfirst)
+                    isfirst = false;
                 else
-                    transform.position = new Vector3(-8.5f, pos.y, pos.z);
+                {
+                    Vector3 pos = transform.position;
+                    if (pos.x < 0)
+                        transform.position = new Vector3(8.5f, pos.y, pos.z);
+                    else
+                        transform.position = new Vector3(-8.5f, pos.y, pos.z);
+                }
+
             }
-          
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Attack")
-        {
-            Debug.Log("当たった");
-            HP--;
-            DamageText.enabled = true;
-            DamageText.text = "1";
-            audioSource.PlayOneShot(DamageSound);
-        }
-            
-        else if(collision.gameObject.tag =="Bullet")
-        {
-            Debug.Log("当たった");
-            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            HP -= bullet.Damage;
-            DamageText.enabled = true;
-            DamageText.text = bullet.Damage.ToString();
-            audioSource.PlayOneShot(DamageSound);
         }
 
-        if (HP < 0)
-            Destroy(this.gameObject);
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Attack")
+            {
+                Debug.Log("当たった");
+                HP--;
+                DamageText.enabled = true;
+                DamageText.text = "1";
+                audioSource.PlayOneShot(DamageSound);
+            }
+
+            else if (collision.gameObject.tag == "Bullet")
+            {
+                Debug.Log("当たった");
+                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+                HP -= bullet.Damage;
+                DamageText.enabled = true;
+                DamageText.text = bullet.Damage.ToString();
+                audioSource.PlayOneShot(DamageSound);
+            }
+
+            if (HP < 0)
+                Destroy(this.gameObject);
+        }
     }
 }

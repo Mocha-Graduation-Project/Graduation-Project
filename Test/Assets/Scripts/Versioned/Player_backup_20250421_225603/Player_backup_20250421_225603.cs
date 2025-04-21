@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 using Scripts;
-namespace Scripts
+namespace Backup_Player_backup_20250421_225603 
 {
     [Serializable]
     public class VFXEntry
