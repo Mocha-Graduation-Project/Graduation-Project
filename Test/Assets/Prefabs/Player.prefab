@@ -812,12 +812,13 @@ MonoBehaviour:
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
   jumpCooldown: 0.2
-  cameraAreaManager: {fileID: 0}
-  mapManager: {fileID: 0}
-  maxFallSpeed: 20
   vfxEntries:
   - name: BasicImpacts
     vfxObject: {fileID: 441973028638082585}
+  cameraAreaManager: {fileID: 0}
+  mapManager: {fileID: 0}
+  sceneButtonManager: {fileID: 0}
+  maxFallSpeed: 5
 --- !u!114 &163183520200374533
 MonoBehaviour:
   m_ObjectHideFlags: 0
