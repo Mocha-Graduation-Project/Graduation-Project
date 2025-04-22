@@ -3,7 +3,7 @@ using System.Collections.Generic;
 //using System.Numerics;
 using UnityEngine;
 using Scripts;
-namespace Scripts
+namespace Backup_Bullet_Ver02 
 {
     public class Bullet : MonoBehaviour
     {

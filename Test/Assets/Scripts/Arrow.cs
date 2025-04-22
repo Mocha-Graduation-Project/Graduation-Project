@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
+namespace Scripts
 {
-    [SerializeField] private GameObject arrowpos;
-    private void Update()
+    public class Arrow : MonoBehaviour
     {
-        transform.position = arrowpos.transform.position;
+        [SerializeField] private GameObject arrowpos;
+
+        private void Update()
+        {
+            transform.position = arrowpos.transform.position;
+        }
     }
 }
