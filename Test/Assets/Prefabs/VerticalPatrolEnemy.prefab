@@ -242,7 +242,7 @@ MonoBehaviour:
   HP: 16
   DamageText: {fileID: 1068582490148530058}
   Bullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
-  BulletRate: 1
+  BulletRate: 5
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
 --- !u!58 &5127113108378831449
@@ -394,6 +394,7 @@ MonoBehaviour:
   speed: 2
   moveable: 1
   waitTime: 0.1
+  cameraAreaManager: {fileID: 0}
 --- !u!1 &8136479408866247873
 GameObject:
   m_ObjectHideFlags: 0
