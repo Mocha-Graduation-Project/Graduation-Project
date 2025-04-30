@@ -22,7 +22,7 @@ namespace Scripts
         public GameObject Arrow;
         public bool isMove = true;
         [SerializeField] private int MaxJumpCount;
-        [SerializeField] private Animator animator;
+        [SerializeField]private Animator animator;
         [SerializeField] private AudioClip ReflectionSound;
         [SerializeField] private AudioClip ShotSound;
         [SerializeField] private AudioClip DamageSound;
@@ -63,6 +63,7 @@ namespace Scripts
             MoveAction.actions["Attack"].performed += OnAttack;
             MoveAction.actions["Jump"].canceled += OffJump;
             MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
+
 
             rb = GetComponent<Rigidbody2D>();
             Arrow.SetActive(false);
@@ -231,6 +232,17 @@ namespace Scripts
         {
             animator.SetTrigger("Damage");
             audioSource.PlayOneShot(DamageSound);
+        }
+
+        public void PlayerReset()
+        {
+            MoveAction.actions["Move"].performed -= OnMove;
+            MoveAction.actions["Move"].canceled -= OnMove;
+            MoveAction.actions["Jump"].started -= OnJump;
+            MoveAction.actions["Shot"].started -= OnShot;
+            MoveAction.actions["Attack"].performed -= OnAttack;
+            MoveAction.actions["Jump"].canceled -= OffJump;
+            MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
         }
     }
 }

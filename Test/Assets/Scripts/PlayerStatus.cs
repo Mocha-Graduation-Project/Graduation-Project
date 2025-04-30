@@ -81,7 +81,10 @@ namespace Scripts
             player.PlayDamageSound();
 
             if (playerHp <= 0 && sceneButtonManager != null)
+            {
+                player.PlayerReset();
                 sceneButtonManager.Retry();
+            }
             else
                 StartCoroutine(InvincibilityCoroutine()); // 無敵時間開始
         }
