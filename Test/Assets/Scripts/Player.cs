@@ -266,7 +266,7 @@ namespace Scripts
 
         public void PlayDamageSound()
         {
-            animator.Play("Damage");
+            animator.SetTrigger("Damage");
             audioSource.PlayOneShot(DamageSound);
         }
 
