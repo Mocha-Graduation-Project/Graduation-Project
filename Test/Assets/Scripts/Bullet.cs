@@ -19,7 +19,7 @@ namespace Scripts
 
         //private MeshRenderer meshRenderer;
         [SerializeField] private MeshRenderer meshRendererChild;
-        private int reflectionCount;
+        public int reflectionCount;
         private int maxReflectionCount = 4;
         CameraAreaManager cameraAreaManager;
 
