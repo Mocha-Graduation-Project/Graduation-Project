@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5876375131283531815}
   m_Layer: 0
-  m_Name: ShiedEnemy
+  m_Name: ShiedEnemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 744760045719927192, guid: 79358b44e2f0f3042bd1b79025d5a9f2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3659528371099611498, guid: 79358b44e2f0f3042bd1b79025d5a9f2, type: 3}
       propertyPath: shieldPosition
@@ -116,7 +116,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 341449541034536326, guid: 79358b44e2f0f3042bd1b79025d5a9f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.2
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 341449541034536326, guid: 79358b44e2f0f3042bd1b79025d5a9f2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -182,11 +182,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5700466450639599074, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
       propertyPath: HP
-      value: 1
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5700466450639599074, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
       propertyPath: BulletRate
-      value: 50000
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6460471003761360793, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
       propertyPath: m_Name
@@ -195,7 +195,7 @@ PrefabInstance:
     - target: {fileID: 7256292872931493093, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 7624686fb31415c4fae44db9c78cd256, type: 2}
+      objectReference: {fileID: 2100000, guid: c63677dd4e49c5649b62cb403c8bfaba, type: 2}
     - target: {fileID: 7275087655487328869, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -326,7 +326,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 341449541034536326, guid: 79358b44e2f0f3042bd1b79025d5a9f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.2
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 341449541034536326, guid: 79358b44e2f0f3042bd1b79025d5a9f2, type: 3}
       propertyPath: m_LocalPosition.y
@@ -370,7 +370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 744760045719927192, guid: 79358b44e2f0f3042bd1b79025d5a9f2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3659528371099611498, guid: 79358b44e2f0f3042bd1b79025d5a9f2, type: 3}
       propertyPath: shieldPosition
