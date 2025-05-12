@@ -18,10 +18,18 @@ namespace DefaultNamespace
         [SerializeField,JapaneseLabel("！マークを表示する時間（秒）")]private float warningTime = 3f;
         
         public List<EnemySpawnData> enemiesToSpawn = new List<EnemySpawnData>();
-        private List<GameObject> activeEnemies = new List<GameObject>();
+        [SerializeField]private List<GameObject> activeEnemies = new List<GameObject>();
+
+        [SerializeField] SceneButtonManager sceneButtonManager;
+        private int enemies;
+        private int knockEnemies;
 
         private void Awake()
         {
+            enemies=enemiesToSpawn.Count;
+            knockEnemies = 0;
+            sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
+            Debug.Log(enemies);
             foreach (var enemy in enemiesToSpawn)
             {
                 StartCoroutine(SpawnEnemy(enemy));
@@ -55,6 +63,11 @@ namespace DefaultNamespace
             {
                 activeEnemies.Remove(enemy);
                 Destroy(enemy);
+                knockEnemies++;
+                if (knockEnemies == enemies)
+                {
+                    sceneButtonManager.GameClear();
+                }
             }
         }
     }

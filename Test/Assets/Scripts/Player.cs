@@ -42,6 +42,7 @@ namespace Scripts
         private float startY;
         [SerializeField] CameraAreaManager cameraAreaManager;
         [SerializeField] MapManager mapManager;
+        [SerializeField] SceneButtonManager sceneButtonManager;
 
         [FormerlySerializedAs("limitSpeed")] [SerializeField]
         private float maxFallSpeed = 20f;
@@ -71,6 +72,7 @@ namespace Scripts
 
             cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
             mapManager = GameObject.FindObjectOfType<MapManager>();
+            sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
         }
 
         private void Update()
@@ -153,6 +155,8 @@ namespace Scripts
 
         public void OnMove(InputAction.CallbackContext context)
         {
+            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            
             animator.SetBool("isMove", true);
             InputMove = context.ReadValue<Vector2>();
             if (InputMove != Vector2.zero)
@@ -165,6 +169,8 @@ namespace Scripts
 
         public void OnJump(InputAction.CallbackContext context)
         {
+            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            
             if (jumpCount > 0 && Time.time - lastJumpTime >= jumpCooldown)
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
@@ -176,12 +182,16 @@ namespace Scripts
 
         public void OffJump(InputAction.CallbackContext context)
         {
+            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            
             isJump = false;
             animator.SetBool("isJump", false);
         }
 
         public void OnShot(InputAction.CallbackContext context)
         {
+            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            
             if (BulletTime <= 0)
             {
                 // audioSource.PlayOneShot(ShotSound);
@@ -204,6 +214,8 @@ namespace Scripts
 
         public void OnAttack(InputAction.CallbackContext context)
         {
+            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            
             AttackCollision.gameObject.SetActive(true);
             Invoke("AttackFinish", 0.3f);
             animator.SetTrigger("isAttack");
@@ -211,6 +223,8 @@ namespace Scripts
 
         public void OnQuickAttack(InputAction.CallbackContext context)
         {
+            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            
             QuickAttackCollision.gameObject.SetActive(true);
             Invoke("AttackFinish", 0.3f);
             animator.SetTrigger("isAttack");

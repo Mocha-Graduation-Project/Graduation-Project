@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using TMPro;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
@@ -21,11 +22,14 @@ namespace Scripts
         [SerializeField] private AudioClip ShotSound;
         [SerializeField] private AudioClip DamageSound;
 
+        [SerializeField] private EnemySpawnManager enemySpawn;
+
         private void Start()
         {
             DamageText.enabled = false;
             audioSource = GetComponent<AudioSource>();
             Invoke("Attack", BulletRate);
+            enemySpawn = GameObject.FindObjectOfType<EnemySpawnManager>();
         }
 
         private void Attack()
@@ -77,7 +81,10 @@ namespace Scripts
             }
 
             if (HP < 0)
-                Destroy(this.gameObject);
+            {
+                enemySpawn.RemoveEnemy(this.gameObject);
+                //Destroy(this.gameObject);
+            }
         }
     }
 }
