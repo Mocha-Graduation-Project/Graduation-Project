@@ -12,6 +12,13 @@ namespace Scripts
 
     public class Enemy : MonoBehaviour
     {
+        enum EnemyType
+        {
+            normal,
+            shield,
+        }
+
+        [SerializeField] private EnemyType enemyType;
         public int HP;
         [SerializeField] private TextMeshProUGUI DamageText;
         Player player => Player.Instance;
@@ -82,8 +89,16 @@ namespace Scripts
 
             if (HP < 0)
             {
-                enemySpawn.RemoveEnemy(this.gameObject);
-                //Destroy(this.gameObject);
+                switch (enemyType)
+                {
+                    case EnemyType.normal:
+                        enemySpawn.RemoveEnemy(this.gameObject);
+                        break;
+                    case EnemyType.shield:
+                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
+                        break;
+                }
+                //enemySpawn.RemoveEnemy(this.gameObject);
             }
         }
     }
