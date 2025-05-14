@@ -1,3 +1,5 @@
+using System;
+using Scripts;
 using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,11 +11,15 @@ public class SceneButtonManager : MonoBehaviour
     {
         Gameplay,
         Pause,
+        Clear,
     }
     
     public State currentState = State.Gameplay;
+    [SerializeField] private GameObject player;
+    [SerializeField]private Player playerScript;
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject pauseObj;
+    [SerializeField] private GameObject clearObj;
     
     public State CurrentState { get { return currentState; } }
     
@@ -22,7 +28,9 @@ public class SceneButtonManager : MonoBehaviour
     {
         currentState = State.Gameplay;
         
-        playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
+        player=GameObject.Find("Player");
+        playerScript = player.GetComponent<Player>();
+        playerInput = player.GetComponent<PlayerInput>();
         if (playerInput != null)
         {
             playerInput.actions["Retry"].performed += OnRetry;
@@ -38,6 +46,8 @@ public class SceneButtonManager : MonoBehaviour
     
     public void PauseGame()
     {
+        if(currentState == State.Clear){return;}
+        
         if (currentState != State.Pause)
         {
             ChangeState(State.Pause);
@@ -52,31 +62,37 @@ public class SceneButtonManager : MonoBehaviour
             Time.timeScale = 1;
             Debug.Log("Play Game:" + currentState);
         }
-        //今は仮でメインメニューに飛びます
-        //SceneManager.LoadScene("MainMenu");
+    }
+
+    public void GameClear()
+    {
+        ChangeState(State.Clear);
+        Time.timeScale = 0;
+        if (clearObj != null) {clearObj.SetActive(true);}
+        Debug.Log("Game Clear:" + currentState);
     }
 
     public void SceneChangeTitle()
     {
-        Time.timeScale = 1;
+        InputReset();
         SceneManager.LoadScene("Title");
     }
 
     public void SceneChangeMainMenu()
     {
-        Time.timeScale = 1;
+        InputReset();
         SceneManager.LoadScene("MainMenu");
     }
     
     public void SceneChangeGame(string sceneName)
     {
-        Time.timeScale = 1;
+        InputReset();
         SceneManager.LoadScene(sceneName);
     }
 
     public void Retry()
     {
-        Time.timeScale = 1;
+        InputReset();
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
     }
 
@@ -104,5 +120,16 @@ public class SceneButtonManager : MonoBehaviour
     {
         if (!context.performed == true|| currentState!=State.Gameplay) return;
         FinishGame();
+    }
+
+    public void InputReset()
+    {
+        Time.timeScale = 1;
+        if (playerInput == null) return;
+        Debug.Log("Reset Input:");
+        playerScript.PlayerReset();
+        playerInput.actions["Retry"].performed -= OnRetry;
+        playerInput.actions["Finish"].performed -= OnFinished;
+        playerInput.actions["Pause"].performed -= OnPause;
     }
 }
