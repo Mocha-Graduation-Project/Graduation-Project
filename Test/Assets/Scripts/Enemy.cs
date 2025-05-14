@@ -12,6 +12,12 @@ namespace Scripts
 
     public class Enemy : MonoBehaviour
     {
+        enum BulletType
+        {
+            enemyBullet,
+            reflectionBullet,
+        }
+        [SerializeField] private BulletType bulletType;
         public int HP;
         [SerializeField] private TextMeshProUGUI DamageText;
         Player player => Player.Instance;
@@ -35,8 +41,17 @@ namespace Scripts
         private void Attack()
         {
             GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
-            EnemyBullet bullet = bullets.GetComponent<EnemyBullet>();
-            bullet.SetPower(transform.position);
+            switch (bulletType)
+            {
+                case BulletType.enemyBullet:
+                    EnemyBullet bullet = bullets.GetComponent<EnemyBullet>();
+                    bullet.SetPower(transform.position);
+                    break;
+                case BulletType.reflectionBullet:
+                    Bullet reflectionBullet = bullets.GetComponent<Bullet>();
+                    reflectionBullet.SetPowerEnemy(transform.position);
+                    break;
+            }
             audioSource.PlayOneShot(ShotSound);
             Invoke("Attack", BulletRate);
         }
