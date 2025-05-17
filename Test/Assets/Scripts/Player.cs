@@ -47,6 +47,13 @@ namespace Scripts
         [FormerlySerializedAs("limitSpeed")] [SerializeField]
         private float maxFallSpeed = 20f;
 
+        [SerializeField,JapaneseLabel("最大スタミナ")] private float maxStamina = 100f;
+        [SerializeField,JapaneseLabel("スタミナ回復量")] private float staminaRecoveryPerSecond = 10f;
+        [NonSerialized,JapaneseLabel("現スタミナ")] public float currentStamina;
+        [JapaneseLabel("スタミナ消費量")]public float staminaDrainPerSecond = 20f;
+        private bool IsAttacking = false;
+        public Slider staminaSlider;
+        
         private void Awake()
         {
             if (Instance == null)
@@ -62,6 +69,7 @@ namespace Scripts
             MoveAction.actions["Jump"].started += OnJump;
             MoveAction.actions["Shot"].started += OnShot;
             MoveAction.actions["Attack"].performed += OnAttack;
+            MoveAction.actions["Attack"].canceled += OffAttack;
             MoveAction.actions["Jump"].canceled += OffJump;
             MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
 
@@ -72,6 +80,8 @@ namespace Scripts
 
             cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
             mapManager = GameObject.FindObjectOfType<MapManager>();
+            currentStamina = maxStamina;
+            staminaSlider.maxValue = currentStamina;
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
         }
 
@@ -145,6 +155,13 @@ namespace Scripts
             }
 
             animator.SetFloat("Jump", rb.linearVelocityY);
+            
+            if (!IsAttacking && currentStamina < maxStamina)
+            {
+                currentStamina += staminaRecoveryPerSecond * Time.deltaTime;
+                currentStamina = Mathf.Min(currentStamina, maxStamina);
+            }
+            staminaSlider.value = currentStamina;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -159,12 +176,17 @@ namespace Scripts
             
             animator.SetBool("isMove", true);
             InputMove = context.ReadValue<Vector2>();
+
             if (InputMove != Vector2.zero)
+            {
                 animator.SetBool("isMove", true);
+                var Angle = Mathf.Atan2(InputMove.y, InputMove.x) * Mathf.Rad2Deg;
+                Arrow.transform.rotation = Quaternion.Euler(0f, 0f, Angle);
+            }
             else
+            {
                 animator.SetBool("isMove", false);
-            var Angle = Mathf.Atan2(InputMove.y, InputMove.x) * Mathf.Rad2Deg;
-            Arrow.transform.rotation = Quaternion.Euler(0f, 0f, Angle);
+            }
         }
 
         public void OnJump(InputAction.CallbackContext context)
@@ -205,7 +227,6 @@ namespace Scripts
 
         public void Shot()
         {
-            Debug.Log("aaaa");
             audioSource.PlayOneShot(ShotSound);
             var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
             var bullet = bullets.GetComponent<Bullet>();
@@ -214,24 +235,36 @@ namespace Scripts
 
         public void OnAttack(InputAction.CallbackContext context)
         {
+            if (currentStamina <= 0) return;
+
+            IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
             AttackCollision.gameObject.SetActive(true);
-            Invoke("AttackFinish", 0.3f);
-            animator.SetTrigger("isAttack");
+            //Invoke("AttackFinish", 0.3f);
+            //animator.SetTrigger("isAttack");
         }
 
         public void OnQuickAttack(InputAction.CallbackContext context)
         {
+            if (currentStamina <= 0) return;
+
+            IsAttacking = true;
+            AttackCollision.gameObject.SetActive(true);
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
             QuickAttackCollision.gameObject.SetActive(true);
             Invoke("AttackFinish", 0.3f);
             animator.SetTrigger("isAttack");
         }
-
+        private void OffAttack(InputAction.CallbackContext context)
+        {
+            AttackFinish();
+            animator.SetTrigger("isAttack");
+        }
         public void AttackFinish()
         {
+            IsAttacking = false;
             AttackCollision.gameObject.SetActive(false);
             QuickAttackCollision.gameObject.SetActive(false);
         }
@@ -253,6 +286,7 @@ namespace Scripts
             MoveAction.actions["Jump"].started -= OnJump;
             MoveAction.actions["Shot"].started -= OnShot;
             MoveAction.actions["Attack"].performed -= OnAttack;
+            MoveAction.actions["Attack"].canceled -= OffAttack;
             MoveAction.actions["Jump"].canceled -= OffJump;
             MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
         }

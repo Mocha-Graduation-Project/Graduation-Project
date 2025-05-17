@@ -673,7 +673,7 @@ PrefabInstance:
     - target: {fileID: 2463885730904072355, guid: 9be1418a083839441beaea19696c784a, type: 3}
       propertyPath: sceneButtonManager
       value: 
-      objectReference: {fileID: 1465471653}
+      objectReference: {fileID: 0}
     - target: {fileID: 3782708181428690570, guid: 9be1418a083839441beaea19696c784a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.78
@@ -734,6 +734,10 @@ PrefabInstance:
       propertyPath: BulletUI
       value: 
       objectReference: {fileID: 1844073146}
+    - target: {fileID: 7384788743195681184, guid: 9be1418a083839441beaea19696c784a, type: 3}
+      propertyPath: staminaSlider
+      value: 
+      objectReference: {fileID: 1602351436}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -837,15 +841,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7581430790472064038, guid: 6b06abdb4225d6f4f8ef919ca26b48a1, type: 3}
   m_PrefabInstance: {fileID: 666141133341960467}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1465471653 stripped
+--- !u!114 &1602351436 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6826869652305817269, guid: a6530c668a42a98498ec557efab67d21, type: 3}
-  m_PrefabInstance: {fileID: 716069630422161629}
+  m_CorrespondingSourceObject: {fileID: 6309628751481050861, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
+  m_PrefabInstance: {fileID: 1865394028}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca0a2a1ca1bd33e489ff115f3a484157, type: 3}
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1606888786
