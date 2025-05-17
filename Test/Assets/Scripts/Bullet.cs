@@ -142,6 +142,8 @@ namespace Scripts
 
         private void Attack()
         {
+            if (this.gameObject.CompareTag("EnemyBullet"))
+                this.gameObject.tag = "Bullet";
             Damage *= 2;
             //powerlevelの変更をここに入れたい
             reflectionCount++;
@@ -167,6 +169,8 @@ namespace Scripts
 
         private void QuickAttack()
         {
+            if (this.gameObject.CompareTag("EnemyBullet"))
+                this.gameObject.tag = "Bullet";
             Damage *= 2;
             //powerlevelの変更をここに入れたい
             reflectionCount++;
@@ -199,6 +203,18 @@ namespace Scripts
         public void SetPower(Vector3 newPower)
         {
             Power = newPower;
+        }
+        
+        public void SetPowerEnemy(Vector3 Pos)
+        {
+            float correctionAimPos = 0.5f;
+            float Angle = Mathf.Atan2(player.gameObject.transform.position.y - Pos.y + correctionAimPos,
+                player.gameObject.transform.position.x - Pos.x);
+            //Debug.Log(Angle);
+            Vector3 direction = new Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
+            Power = direction * 5f;
+            PowerDirection = 1f;
+            Debug.Log("Pos:"+Pos+"/Power:"+Power);;
         }
 
         public void OnReflect()

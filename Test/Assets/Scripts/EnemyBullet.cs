@@ -9,11 +9,11 @@ namespace Scripts
     {
         Player player => Player.Instance;
         [SerializeField] private UnityEngine.Vector3 Power;
-
+        private float correctionAimPos = 0.5f;
 
         public void SetPower(UnityEngine.Vector3 Pos)
         {
-            float Angle = Mathf.Atan2(player.gameObject.transform.position.y - Pos.y,
+            float Angle = Mathf.Atan2(player.gameObject.transform.position.y - Pos.y + correctionAimPos,
                 player.gameObject.transform.position.x - Pos.x);
             //Debug.Log(Angle);
             UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
