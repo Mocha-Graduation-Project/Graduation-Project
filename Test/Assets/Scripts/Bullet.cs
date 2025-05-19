@@ -22,7 +22,7 @@ namespace Scripts
         [SerializeField] private MeshRenderer meshRendererChild;
         public int reflectionCount;
         private int maxReflectionCount = 4;
-        CameraAreaManager cameraAreaManager;
+        //CameraAreaManager cameraAreaManager;
 
         private UnityEngine.Vector3 SavePower;
         private Vector2 lastInputDirection = Vector2.right;
@@ -33,16 +33,18 @@ namespace Scripts
         
         private float attackCoolMaxTime = 1f;
         private float attackCoolTime = 0f;
+        
+        // [SerializeField] private Collider2D loopAreaCollider;
+        // private  float minX,maxX,minY,maxY;
         private void Start()
         {
             Power *= PowerDirection;
             Debug.Log(meshRendererChild.name);
             reflectionCount = 0;
-            cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
+            //cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
             staminaDrainPerSecond = player.staminaDrainPerSecond;
             MoveAction = GetComponent<PlayerInput>();
             MoveAction.actions["Attack"].canceled += OffAttack;
-            
         }
 
         void Update()
@@ -56,28 +58,39 @@ namespace Scripts
                 lastInputDirection = input.normalized;
             }
             
-            if (!GetComponent<Renderer>().isVisible)
-            {
-                if (count >= 1)
-                {
-                    count--;
-                    return;
-                }
-
-                UnityEngine.Vector3 pos = transform.position;
-
-                if (pos.x < cameraAreaManager.LeftMax)
-                    pos.x = cameraAreaManager.RightMax;
-                else if (pos.x > cameraAreaManager.RightMax)
-                    pos.x = cameraAreaManager.LeftMax;
-
-                if (pos.y < cameraAreaManager.DownMax)
-                    pos.y = cameraAreaManager.UpMax;
-                else if (pos.y > cameraAreaManager.UpMax)
-                    pos.y = cameraAreaManager.DownMax;
-
-                transform.position = pos;
-            }
+            // Vector3 pos = transform.position;
+            // if (loopAreaCollider != null)
+            // {
+            //     if (pos.x < minX) pos.x = maxX;
+            //     else if (pos.x > maxX) pos.x = minX;
+            //
+            //     if (pos.y < minY) pos.y = maxY;
+            //     else if (pos.y > maxY) pos.y = minY;
+            //
+            //     transform.position = pos;
+            // }
+            // if (!GetComponent<Renderer>().isVisible)
+            // {
+            //     if (count >= 1)
+            //     {
+            //         count--;
+            //         return;
+            //     }
+            //
+            //     // UnityEngine.Vector3 pos = transform.position;
+            //     //
+            //     // // if (pos.x < cameraAreaManager.LeftMax)
+            //     // //     pos.x = cameraAreaManager.RightMax;
+            //     // // else if (pos.x > cameraAreaManager.RightMax)
+            //     // //     pos.x = cameraAreaManager.LeftMax;
+            //     // //
+            //     // // if (pos.y < cameraAreaManager.DownMax)
+            //     // //     pos.y = cameraAreaManager.UpMax;
+            //     // // else if (pos.y > cameraAreaManager.UpMax)
+            //     // //     pos.y = cameraAreaManager.DownMax;
+            //     //
+            //     // transform.position = pos;
+            // }
             //スタミナ消費
             if (isAttack)
             {

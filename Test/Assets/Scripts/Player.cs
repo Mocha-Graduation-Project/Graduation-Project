@@ -89,53 +89,53 @@ namespace Scripts
         {
             BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;
 
-            if (!GetComponent<Renderer>().isVisible)
-            {
-                if (isfirst)
-                {
-                    isfirst = false;
-                }
-                else
-                {
-                    Vector3 pos = transform.position;
-
-                    if (pos.x < cameraAreaManager.LeftMax)
-                        pos.x = cameraAreaManager.RightMax;
-                    else if (pos.x > cameraAreaManager.RightMax)
-                        pos.x = cameraAreaManager.LeftMax;
-
-                    if (pos.y < cameraAreaManager.DownMax)
-                    {
-                        if (mapManager.CanLoop(pos, MapManager.Side.down) == true)
-                        {
-                            pos.y = cameraAreaManager.UpMax;
-                        }
-                        else
-                        {
-                            pos.y = cameraAreaManager.DownMax;
-                        }
-
-                        // Debug.Log(rb.linearVelocity);
-                        if (rb.linearVelocity.y < maxFallSpeed * -1)
-                        {
-                            rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxFallSpeed * -1);
-                        }
-                    }
-                    else if (pos.y > cameraAreaManager.UpMax)
-                    {
-                        if (mapManager.CanLoop(pos, MapManager.Side.up) == true)
-                        {
-                            pos.y = cameraAreaManager.DownMax;
-                        }
-                        else
-                        {
-                            pos.y = cameraAreaManager.UpMax;
-                        }
-                    }
-
-                    transform.position = pos;
-                }
-            }
+            // if (!GetComponent<Renderer>().isVisible)
+            // {
+            //     if (isfirst)
+            //     {
+            //         isfirst = false;
+            //     }
+            //     else
+            //     {
+            //         Vector3 pos = transform.position;
+            //
+            //         if (pos.x < cameraAreaManager.LeftMax)
+            //             pos.x = cameraAreaManager.RightMax;
+            //         else if (pos.x > cameraAreaManager.RightMax)
+            //             pos.x = cameraAreaManager.LeftMax;
+            //
+            //         if (pos.y < cameraAreaManager.DownMax)
+            //         {
+            //             if (mapManager.CanLoop(pos, MapManager.Side.down) == true)
+            //             {
+            //                 pos.y = cameraAreaManager.UpMax;
+            //             }
+            //             else
+            //             {
+            //                 pos.y = cameraAreaManager.DownMax;
+            //             }
+            //
+            //             // Debug.Log(rb.linearVelocity);
+            //             if (rb.linearVelocity.y < maxFallSpeed * -1)
+            //             {
+            //                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxFallSpeed * -1);
+            //             }
+            //         }
+            //         else if (pos.y > cameraAreaManager.UpMax)
+            //         {
+            //             if (mapManager.CanLoop(pos, MapManager.Side.up) == true)
+            //             {
+            //                 pos.y = cameraAreaManager.DownMax;
+            //             }
+            //             else
+            //             {
+            //                 pos.y = cameraAreaManager.UpMax;
+            //             }
+            //         }
+            //
+            //         transform.position = pos;
+            //     }
+            // }
 
             if (BulletTime > 0)
                 BulletTime -= Time.deltaTime;
