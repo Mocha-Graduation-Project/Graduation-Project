@@ -310,6 +310,10 @@ PrefabInstance:
       propertyPath: BulletUI
       value: 
       objectReference: {fileID: 757783252}
+    - target: {fileID: 7384788743195681184, guid: 9be1418a083839441beaea19696c784a, type: 3}
+      propertyPath: staminaSlider
+      value: 
+      objectReference: {fileID: 1060789874}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -325,15 +329,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3194788029779790702, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4804296
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3194788029779790702, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -14.532918
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3194788029779790702, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 71.92601
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3194788029779790702, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: m_LocalRotation.w
@@ -687,8 +691,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
-  orthographic: 1
+  field of view: 40
+  orthographic: 0
   orthographic size: 4
   m_Depth: -1
   m_CullingMask:
@@ -978,6 +982,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowpos: {fileID: 729123842}
+--- !u!114 &1060789874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6309628751481050861, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
+  m_PrefabInstance: {fileID: 1208170935}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1063569735
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,15 +1242,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9081103985012870420, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.017777778
+      value: 0.16176456
       objectReference: {fileID: 0}
     - target: {fileID: 9081103985012870420, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.017777778
+      value: 0.16176456
       objectReference: {fileID: 0}
     - target: {fileID: 9081103985012870420, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.017777778
+      value: 0.16176456
       objectReference: {fileID: 0}
     - target: {fileID: 9081103985012870420, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
       propertyPath: m_LocalPosition.x
