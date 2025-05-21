@@ -773,6 +773,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3485683195366542829}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5542048663544205056}
   m_SourcePrefab: {fileID: 100100000, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
 --- !u!4 &2430278619490760744 stripped
 Transform:
@@ -890,6 +893,10 @@ MonoBehaviour:
   mapManager: {fileID: 0}
   sceneButtonManager: {fileID: 0}
   maxFallSpeed: 5
+  maxStamina: 100
+  staminaRecoveryPerSecond: 10
+  staminaDrainPerSecond: 20
+  staminaSlider: {fileID: 0}
 --- !u!114 &163183520200374533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1136,6 +1143,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5542048663544205056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554601162387817520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5048839d001741dab5ff90d7d89a7bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loopAreaCollider: {fileID: 5716307075337327074, guid: ae8a972ed4bf7a741b9659ae27feb0e6, type: 3}
 --- !u!1001 &8503113562011041865
 PrefabInstance:
   m_ObjectHideFlags: 0

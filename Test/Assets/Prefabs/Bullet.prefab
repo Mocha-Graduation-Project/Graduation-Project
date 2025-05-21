@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -7450406237200699315}
   - component: {fileID: 3989409182975949136}
   - component: {fileID: 242804695588464806}
+  - component: {fileID: -7792052319977231035}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Bullet
@@ -189,9 +190,22 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 6496a7d0-9037-49c8-b241-6ada1e2e178b
+  m_DefaultActionMap: bullet
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-7792052319977231035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057501140420241128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5048839d001741dab5ff90d7d89a7bbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loopAreaCollider: {fileID: 0}
 --- !u!1 &5919746632611300560
 GameObject:
   m_ObjectHideFlags: 0
