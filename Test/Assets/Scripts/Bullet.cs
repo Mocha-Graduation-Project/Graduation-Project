@@ -206,7 +206,10 @@ namespace Scripts
         private void OffAttack(InputAction.CallbackContext context)
         {
             //CancelInvoke("Attack");
-            Attack();
+            if (isAttack)
+            {
+                Attack();
+            }
         }
         public Vector3 GetPower()
         {
