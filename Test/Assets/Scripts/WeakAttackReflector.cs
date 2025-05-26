@@ -7,10 +7,11 @@ namespace Scripts
     {
         string playerBulletTag = "Bullet";
         [SerializeField,JapaneseLabel("〇以下の弱い弾を跳ね返す")] int destroyBulletCount = 1;
-        private Collider parentObjects;
+        private Collider2D parentObjects;
+        
         private void Awake()
         {
-            parentObjects = transform.parent.GetComponent<Collider>();
+            parentObjects = transform.parent.GetComponent<Collider2D>();
             parentObjects.enabled = false;
         }
         private void OnTriggerEnter2D(Collider2D collision)
