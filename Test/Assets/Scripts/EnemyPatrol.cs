@@ -7,38 +7,59 @@ public class EnemyPatrol : MonoBehaviour
 {
     [SerializeField] PatrolEnemyData patrolEnemyData;
     [SerializeField] float speed;
-    private float minPos;
-    private float maxPos;
+    private float leftMax, rightMax, upMax, downMax;
     Vector2 movement;
     [SerializeField] private bool moveable;
     [SerializeField] private float waitTime = 0;
-    [SerializeField] CameraAreaManager cameraAreaManager;
+    private Collider2D loopAreaCollider;
+    private float enemySize = 0.5f;
+    private Vector3 basePos;
+    
+    private void Awake()
+    {
+        GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
+        if (loopAreaObj != null)
+        {
+            loopAreaCollider = loopAreaObj.GetComponent<Collider2D>();
+        }
+        else
+        {
+            Debug.LogError("LoopAreaColliderが見つかりません。LoopAreaタグを持つGameObjectを配置してください。");
+            return;
+        }
+    }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
+        Bounds bounds = loopAreaCollider.bounds;
+        basePos = transform.position;
         
+        leftMax = basePos.x - patrolEnemyData.LeftRange;
+        rightMax = basePos.x + patrolEnemyData.RightRange;
+        downMax = basePos.y - patrolEnemyData.DownRange;
+        upMax = basePos.y + patrolEnemyData.UpRange;
+
+        leftMax = bounds.min.x + enemySize < leftMax ? leftMax : bounds.min.x + enemySize;
+        rightMax = bounds.max.x - enemySize > rightMax ? rightMax : bounds.max.x - enemySize;
+        downMax = bounds.min.y + enemySize < downMax ? downMax : bounds.min.y + enemySize;
+        upMax = bounds.max.y - enemySize > upMax ? upMax : bounds.max.y - enemySize;
+        
+        // Debug.Log("画面左:"+bounds.min.x+"画面右:"+bounds.max.x+"画面上:"+bounds.max.y+"画面下:"+bounds.min.y);
+        // Debug.Log("left:"+leftMax+"right:"+rightMax+"up:"+upMax+"down:"+downMax);
+        ;
         switch (patrolEnemyData.State)
         {
             case PatrolEnemyData.EnemyState.vertical:
-                //minPos = patrolEnemyData.MinVerticalPos;
-                //maxPos = patrolEnemyData.MaxVerticalPos;
-                minPos = cameraAreaManager.DownMax;
-                maxPos = cameraAreaManager.UpMax;
                 movement = Vector2.up;
                 break;
             case PatrolEnemyData.EnemyState.horizontal:
-                // minPos = patrolEnemyData.MinHorizontalPos;
-                // maxPos = patrolEnemyData.MaxHorizontalPos;
-                minPos = cameraAreaManager.LeftMax;
-                maxPos = cameraAreaManager.RightMax;
                 movement = Vector2.right;
                 break;
             default:
                 return;
         }
-        Debug.Log(this.name+":"+minPos+":"+maxPos);
+        
         moveable = true;
         if (waitTime <= 0)
         {
@@ -60,32 +81,34 @@ public class EnemyPatrol : MonoBehaviour
 
     void CheckEdge()
     {
+        Vector3 pos = transform.position;
+        
         switch (patrolEnemyData.State)
         {
             case PatrolEnemyData.EnemyState.vertical:
-                if (transform.position.y <= minPos)
+                if (transform.position.y <= downMax)
                 {
-                    transform.position = new Vector2(transform.position.x, minPos);
+                    pos.y = downMax;
                     moveable = false;
                     movement = Vector2.up;
                 }
-                else if (transform.position.y >= maxPos)
+                else if (transform.position.y >= upMax)
                 {
-                    transform.position = new Vector2(transform.position.x, maxPos);
+                    pos.y = upMax;
                     moveable = false;
                     movement = Vector2.down;
                 }
                 break;
             case PatrolEnemyData.EnemyState.horizontal:
-                if (transform.position.x <= minPos)
+                if (transform.position.x <= leftMax)
                 {
-                    transform.position = new Vector2(minPos, transform.position.y);
+                    pos.x = leftMax;
                     moveable = false;
                     movement =Vector2.right;
                 }
-                else if (transform.position.x >= maxPos)
+                else if (transform.position.x >= rightMax)
                 {
-                    transform.position = new Vector2(maxPos, transform.position.y);
+                    pos.x = rightMax;
                     moveable = false;
                     movement = Vector2.left;
                 }

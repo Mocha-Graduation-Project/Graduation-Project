@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f033dbb9720d2d4db7e5d281562ba94, type: 3}
-  m_Name: Vertical Enemy Data
+  m_Name: Jump Enemy Data
   m_EditorClassIdentifier: 
-  state: 0
-  minVerticalPos: -4
-  maxVerticalPos: 2.5
-  minHorizontalPos: -6.65
-  maxHorizontalPos: 6.65
+  state: 1
+  leftRange: 3
+  rightRange: 3
+  upRange: 0
+  downRange: 0

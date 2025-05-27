@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 4091261325074813165}
   - component: {fileID: 4380722470093538435}
   - component: {fileID: 7033426621156983641}
+  - component: {fileID: 7217612130812051956}
   - component: {fileID: 3199154082676064227}
   - component: {fileID: 576490511984205058}
   - component: {fileID: 8555333482593277418}
-  - component: {fileID: 7217612130812051956}
+  - component: {fileID: 2298025549173808308}
   m_Layer: 0
   m_Name: HorizontalPatrolEnemy
   m_TagString: Untagged
@@ -91,6 +92,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7217612130812051956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3159114115912618419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb9edd410af17f47ae8bf4d57d1e535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolEnemyData: {fileID: 11400000, guid: bfcdde73abbbf8543aa60bab7ef0dfb1, type: 2}
+  speed: 2
+  moveable: 0
+  waitTime: 0
 --- !u!114 &3199154082676064227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,12 +120,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d9b1bc5a5878dd4280ee6d3c95d2a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletType: 0
+  enemyType: 0
   HP: 8
   DamageText: {fileID: 3020687958309572816}
   Bullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
   BulletRate: 5
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
+  enemySpawn: {fileID: 0}
 --- !u!58 &576490511984205058
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -242,22 +262,33 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7217612130812051956
-MonoBehaviour:
+--- !u!50 &2298025549173808308
+Rigidbody2D:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3159114115912618419}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb9edd410af17f47ae8bf4d57d1e535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolEnemyData: {fileID: 11400000, guid: bfcdde73abbbf8543aa60bab7ef0dfb1, type: 2}
-  speed: 2
-  moveable: 0
-  waitTime: 0
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &3220257421039231593
 GameObject:
   m_ObjectHideFlags: 0

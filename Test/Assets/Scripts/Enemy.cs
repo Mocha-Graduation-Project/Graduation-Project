@@ -38,6 +38,26 @@ namespace Scripts
         [SerializeField] private AudioClip DamageSound;
 
         [SerializeField] private EnemySpawnManager enemySpawn;
+        
+        private Collider2D loopAreaCollider;
+
+        private float minX, maxX, minY, maxY;
+
+        private float enemySize = 0.5f;
+
+        private void Awake()
+        {
+            GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
+            if (loopAreaObj != null)
+            {
+                loopAreaCollider = loopAreaObj.GetComponent<Collider2D>();
+            }
+            else
+            {
+                Debug.LogError("LoopAreaColliderが見つかりません。LoopAreaタグを持つGameObjectを配置してください。");
+                return;
+            }
+        }
 
         private void Start()
         {
@@ -45,6 +65,12 @@ namespace Scripts
             audioSource = GetComponent<AudioSource>();
             Invoke("Attack", BulletRate);
             enemySpawn = GameObject.FindObjectOfType<EnemySpawnManager>();
+            
+            Bounds bounds = loopAreaCollider.bounds;
+            minX = bounds.min.x;
+            maxX = bounds.max.x;
+            minY = bounds.min.y;
+            maxY = bounds.max.y;
         }
 
         private void Attack()
@@ -74,10 +100,17 @@ namespace Scripts
                 else
                 {
                     Vector3 pos = transform.position;
-                    if (pos.x < 0)
-                        transform.position = new Vector3(8.5f, pos.y, pos.z);
-                    else
-                        transform.position = new Vector3(-8.5f, pos.y, pos.z);
+                    if (pos.x > maxX) pos.x = maxX - enemySize;
+                    else if (pos.x < minX) pos.x = minX + enemySize;
+
+                    if (pos.y > maxY)
+                    {
+                        pos.y = maxY - enemySize;
+                        GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
+                    }
+                    else if (pos.y < minY) pos.y = minY + enemySize;
+
+                    transform.position = pos;
                 }
 
             }
