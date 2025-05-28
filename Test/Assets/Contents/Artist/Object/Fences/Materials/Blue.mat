@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: aiStandardSurface1
+  m_Name: Blue
   m_Shader: {fileID: -6465566751694194690, guid: 4d4b1339bf56ec042a5a0685c73557f7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -25,11 +25,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AOTexture:
-        m_Texture: {fileID: 2800000, guid: 0851c8dab7ab9d946ba17f6100c43372, type: 3}
+        m_Texture: {fileID: 2800000, guid: 66bb6bbd860fa004682ae9378e95584b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlphaClipTexture:
-        m_Texture: {fileID: 2800000, guid: 3f9ff505709282d49b0a87ec3845c105, type: 3}
+        m_Texture: {fileID: 2800000, guid: fac561d4d2212de41bf599b60e5577dd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BASE_COLOR_MAP:
@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorTexture:
-        m_Texture: {fileID: 2800000, guid: 7ecbe3f58856b6243aeafca11003c3ba, type: 3}
+        m_Texture: {fileID: 2800000, guid: a50f324335c6e944e8986b95637c959c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EMISSION_COLOR_MAP:
@@ -53,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicTexture:
-        m_Texture: {fileID: 2800000, guid: 68a0c999b22f87e499525a8b4214c31a, type: 3}
+        m_Texture: {fileID: 2800000, guid: aa7818947703e9c4b8654067358ac511, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NORMAL_MAP:
@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapTexture:
-        m_Texture: {fileID: 2800000, guid: dd7c2a8560282a94baa44a9fc7c920fe, type: 3}
+        m_Texture: {fileID: 2800000, guid: ebeecedf19c5bce45b0b16a26cb526ea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OPACITY_MAP:
@@ -69,7 +69,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RoughnessTexture:
-        m_Texture: {fileID: 2800000, guid: 287eda7722180ab44b89a2d9247bc96d, type: 3}
+        m_Texture: {fileID: 2800000, guid: 74fcd4b22dec9d6498b04ba9fa3f9512, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SPECULAR_COLOR_MAP:
@@ -100,7 +100,7 @@ Material:
     m_Floats:
     - _AOStrength: 1
     - _AddPrecomputedVelocity: 0
-    - _AlphaClip: 0.066
+    - _AlphaClip: 0.009
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -121,7 +121,7 @@ Material:
     - _IsRoughness: 0
     - _METALNESS: 1
     - _Metallic: 0
-    - _MetallicStrength: 1
+    - _MetallicStrength: 0.45
     - _Mode: 3
     - _NormalStrength: 1
     - _OPACITY: 0
@@ -133,7 +133,7 @@ Material:
     - _SPECULAR_IOR: 1.5
     - _SPECULAR_ROUGHNESS: 0.2
     - _Smoothness: 0
-    - _SmoothnessStrength: 1
+    - _SmoothnessStrength: 0.75
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
