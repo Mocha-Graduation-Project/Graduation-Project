@@ -165,7 +165,7 @@ namespace Scripts
                 powerColor = 1.0f;
 
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-            player.BulletTime -= 2.5f;
+            player.currentStamina -= 2.5f;
             player.Arrow.SetActive(false);
             player.isMove = true;
             Invoke("AttckFalse", 0.2f);
@@ -191,7 +191,7 @@ namespace Scripts
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-            player.BulletTime -= 2.5f;
+            player.currentStamina -= 2.5f;
             player.isMove = true;
             Invoke("AttckFalse", 0.2f);
             PowerDirection *= 1.25f;

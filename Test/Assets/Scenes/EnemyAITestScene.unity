@@ -251,7 +251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5048839d001741dab5ff90d7d89a7bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopAreaCollider: {fileID: 1704293422}
 --- !u!1001 &332451467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -356,6 +355,18 @@ PrefabInstance:
       propertyPath: staminaSlider
       value: 
       objectReference: {fileID: 1867840705}
+    - target: {fileID: 7384788743195681184, guid: 9be1418a083839441beaea19696c784a, type: 3}
+      propertyPath: maxShotStamina
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384788743195681184, guid: 9be1418a083839441beaea19696c784a, type: 3}
+      propertyPath: shotStaminaDrainPerSecond
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7384788743195681184, guid: 9be1418a083839441beaea19696c784a, type: 3}
+      propertyPath: shotStaminaRecoveryPerSecond
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5542048663544205056, guid: 9be1418a083839441beaea19696c784a, type: 3}
     m_RemovedGameObjects: []
@@ -1684,6 +1695,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3768004163686276248, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4782663261511517043, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
       propertyPath: m_Name
       value: PlayerUI
@@ -2019,11 +2034,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 87838424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1704293422 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 5716307075337327074, guid: ae8a972ed4bf7a741b9659ae27feb0e6, type: 3}
-  m_PrefabInstance: {fileID: 6393157008468176622}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1867840705 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6309628751481050861, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
