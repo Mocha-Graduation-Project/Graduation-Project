@@ -46,17 +46,20 @@ namespace Scripts
 
         [FormerlySerializedAs("limitSpeed")] [SerializeField]
         private float maxFallSpeed = 20f;
-
+        //反射
         [SerializeField,JapaneseLabel("最大反射スタミナ")] private float maxStamina = 100f;
         [SerializeField,JapaneseLabel("反射スタミナ回復量")] private float staminaRecoveryPerSecond = 10f;
         [NonSerialized,JapaneseLabel("現反射スタミナ")] public float currentStamina;
         [JapaneseLabel("反射スタミナ消費量")]public float staminaDrainPerSecond = 20f;
-        
-        [SerializeField,JapaneseLabel(("最大発射スタミナ"))]private float maxShotStamina = 1f;
-        [SerializeField,JapaneseLabel("発射スタミナ回復量")]private float shotStaminaRecoveryPerSecond = 0.1f;
-        [SerializeField,JapaneseLabel("現発射スタミナ")]private float currentShotStamina;
-        [SerializeField,JapaneseLabel("発射スタミナ消費量")]private float shotStaminaDrainPerSecond = 0.25f;
+        //射撃
+        [SerializeField,JapaneseLabel(("最大射撃スタミナ"))]private float maxShotStamina = 1f;
+        [SerializeField,JapaneseLabel("射撃スタミナ回復量")]private float shotStaminaRecoveryPerSecond = 0.1f;
+        [SerializeField,JapaneseLabel("オーバーヒート時の射撃スタミナ回復量")]private float overheatRecoveryPerSecond = 0.1f;
+        [SerializeField,JapaneseLabel("現射撃スタミナ")]private float currentShotStamina;
+        [SerializeField,JapaneseLabel("射撃スタミナ消費量")]private float shotStaminaDrainPerSecond = 0.25f;
+        [SerializeField,JapaneseLabel("射撃クールタイム")]private float shotCoolTime = 0.2f;
         bool Overheat = false;
+        
         private bool IsAttacking = false;
         private bool IsShot = false;
         public Slider staminaSlider;
@@ -99,8 +102,14 @@ namespace Scripts
            BulletUI.fillAmount = currentShotStamina;
             // if (BulletTime > 0)
             //     BulletTime -= Time.deltaTime;
-            if (currentShotStamina < maxShotStamina)
+            if (!Overheat && currentShotStamina < maxShotStamina)
+            {
                 currentShotStamina += shotStaminaRecoveryPerSecond * Time.deltaTime;
+            }
+            else if (Overheat && currentShotStamina < maxShotStamina) 
+            {
+                currentShotStamina += overheatRecoveryPerSecond * Time.deltaTime;
+            }
             if (!isMove)
                 return;
             if (InputMove.x < 0)
@@ -133,6 +142,16 @@ namespace Scripts
             {
                 Overheat = false;
             }
+            
+            if (Overheat)
+            {
+                BulletUI.color = Color.red;
+            }
+            else
+            {
+                BulletUI.color = Color.white;
+            }
+            
             animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
             if (animatorStateInfo.IsName("isShot") && animatorStateInfo.normalizedTime >= 1.0f)
             {
@@ -207,8 +226,13 @@ namespace Scripts
             var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
             var bullet = bullets.GetComponent<Bullet>();
             bullet.PowerDirection = direction;
+            Invoke("ShotFinish",shotCoolTime);
         }
 
+        private void ShotFinish()
+        {
+            IsShot=false;
+        }
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (currentStamina <= 0) return;
