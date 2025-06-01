@@ -193,7 +193,7 @@ namespace Scripts
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
                 jumpCount--;
                 lastJumpTime = Time.time;
-                animator.SetTrigger("isJump");
+                animator.SetBool("isJump",true);
             }
         }
 
@@ -217,6 +217,7 @@ namespace Scripts
                 IsShot = true;
                 currentShotStamina -= shotStaminaDrainPerSecond;
                 animator.SetTrigger("isShot");
+                Invoke("Shot",0.45f);
             }
         }
 
@@ -241,6 +242,7 @@ namespace Scripts
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
             AttackCollision.gameObject.SetActive(true);
+            Invoke("AttackCollisionFalse", 0.1f);
             //Invoke("AttackFinish", 0.3f);
             //animator.SetTrigger("isAttack");
         }
@@ -277,6 +279,10 @@ namespace Scripts
         public void PlayDamageSound()
         {
             audioSource.PlayOneShot(DamageSound);
+        }
+        private void AttackCollisionFalse()
+        {
+            AttackCollision.gameObject.SetActive(false);
         }
 
         public void PlayerReset()
