@@ -106,7 +106,7 @@ namespace Backup_Bullet_Ver02
                 powerColor = 1.0f;
             //meshRenderer.material.SetFloat("_PowerLevel", powerColor);
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-            player.BulletTime -= 2.5f;
+            player.currentStamina -= 2.5f;
             player.Arrow.SetActive(false);
             player.isMove = true;
             Invoke("AttckFalse", 0.2f);
@@ -132,7 +132,7 @@ namespace Backup_Bullet_Ver02
                 powerColor = 1.0f;
             //meshRenderer.material.SetFloat("_PowerLevel", powerColor);
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-            player.BulletTime -= 2.5f;
+            player.currentStamina -= 2.5f;
             player.isMove = true;
             Invoke("AttckFalse", 0.2f);
             PowerDirection *= 1.25f;

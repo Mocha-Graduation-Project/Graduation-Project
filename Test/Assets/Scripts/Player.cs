@@ -17,7 +17,7 @@ namespace Scripts
         [SerializeField] private GameObject ShotPosition;
         [SerializeField] private GameObject AttackCollision;
         [SerializeField] private GameObject QuickAttackCollision;
-        [SerializeField] private float MaxBulletTime;
+        //[SerializeField] private float MaxBulletTime;
         [SerializeField] private Image BulletUI;
         public GameObject Arrow;
         public bool isMove = true;
@@ -31,7 +31,7 @@ namespace Scripts
         private float jumpCooldown = 0.2f;
 
         private AudioSource audioSource;
-        [NonSerialized] public float BulletTime;
+        //[NonSerialized] public float BulletTime;
         [NonSerialized] public int direction = 1;
         private bool isfirst = true;
         private bool isGround;
@@ -46,14 +46,24 @@ namespace Scripts
 
         [FormerlySerializedAs("limitSpeed")] [SerializeField]
         private float maxFallSpeed = 20f;
-
-        [SerializeField,JapaneseLabel("最大スタミナ")] private float maxStamina = 100f;
-        [SerializeField,JapaneseLabel("スタミナ回復量")] private float staminaRecoveryPerSecond = 10f;
-        [NonSerialized,JapaneseLabel("現スタミナ")] public float currentStamina;
-        [JapaneseLabel("スタミナ消費量")]public float staminaDrainPerSecond = 20f;
-        private bool IsAttacking = false;
-        public Slider staminaSlider;
+        //反射
+        [SerializeField,JapaneseLabel("最大反射スタミナ")] private float maxStamina = 100f;
+        [SerializeField,JapaneseLabel("反射スタミナ回復量")] private float staminaRecoveryPerSecond = 10f;
+        [NonSerialized,JapaneseLabel("現反射スタミナ")] public float currentStamina;
+        [JapaneseLabel("反射スタミナ消費量")]public float staminaDrainPerSecond = 20f;
+        //射撃
+        [SerializeField,JapaneseLabel(("最大射撃スタミナ"))]private float maxShotStamina = 1f;
+        [SerializeField,JapaneseLabel("射撃スタミナ回復量")]private float shotStaminaRecoveryPerSecond = 0.1f;
+        [SerializeField,JapaneseLabel("オーバーヒート時の射撃スタミナ回復量")]private float overheatRecoveryPerSecond = 0.1f;
+        [SerializeField,JapaneseLabel("現射撃スタミナ")]private float currentShotStamina;
+        [SerializeField,JapaneseLabel("射撃スタミナ消費量")]private float shotStaminaDrainPerSecond = 0.25f;
+        [SerializeField,JapaneseLabel("射撃クールタイム")]private float shotCoolTime = 0.2f;
+        bool Overheat = false;
         
+        private bool IsAttacking = false;
+        private bool IsShot = false;
+        public Slider staminaSlider;
+        AnimatorStateInfo animatorStateInfo;
         private void Awake()
         {
             if (Instance == null)
@@ -83,14 +93,23 @@ namespace Scripts
             currentStamina = maxStamina;
             staminaSlider.maxValue = currentStamina;
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
+            currentShotStamina = maxShotStamina;
         }
 
         private void Update()
         {
-            BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;
-
-            if (BulletTime > 0)
-                BulletTime -= Time.deltaTime;
+           // BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;
+           BulletUI.fillAmount = currentShotStamina;
+            // if (BulletTime > 0)
+            //     BulletTime -= Time.deltaTime;
+            if (!Overheat && currentShotStamina < maxShotStamina)
+            {
+                currentShotStamina += shotStaminaRecoveryPerSecond * Time.deltaTime;
+            }
+            else if (Overheat && currentShotStamina < maxShotStamina) 
+            {
+                currentShotStamina += overheatRecoveryPerSecond * Time.deltaTime;
+            }
             if (!isMove)
                 return;
             if (InputMove.x < 0)
@@ -114,6 +133,30 @@ namespace Scripts
                 currentStamina = Mathf.Min(currentStamina, maxStamina);
             }
             staminaSlider.value = currentStamina;
+
+            if (currentShotStamina <= 0)
+            {
+                Overheat = true;
+            }
+            if (currentShotStamina >= maxShotStamina)
+            {
+                Overheat = false;
+            }
+            
+            if (Overheat)
+            {
+                BulletUI.color = Color.red;
+            }
+            else
+            {
+                BulletUI.color = Color.white;
+            }
+            
+            animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            if (animatorStateInfo.IsName("isShot") && animatorStateInfo.normalizedTime >= 1.0f)
+            {
+                IsShot = false;
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -165,14 +208,14 @@ namespace Scripts
         public void OnShot(InputAction.CallbackContext context)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
-            
-            if (BulletTime <= 0)
+            if (Overheat == false && isJump == false && IsShot == false)
             {
                 // audioSource.PlayOneShot(ShotSound);
                 // var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
                 // var bullet = bullets.GetComponent<Bullet>();
                 // bullet.PowerDirection = direction;
-                BulletTime = MaxBulletTime;
+                IsShot = true;
+                currentShotStamina -= shotStaminaDrainPerSecond;
                 animator.SetTrigger("isShot");
                 Invoke("Shot",0.45f);
             }
@@ -184,8 +227,13 @@ namespace Scripts
             var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
             var bullet = bullets.GetComponent<Bullet>();
             bullet.PowerDirection = direction;
+            Invoke("ShotFinish",shotCoolTime);
         }
 
+        private void ShotFinish()
+        {
+            IsShot=false;
+        }
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (currentStamina <= 0) return;
