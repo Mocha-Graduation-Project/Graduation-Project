@@ -4,74 +4,113 @@ using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Scripts;
+using Scripts.Scriptable;
+
 namespace Scripts
 {
     public class Player : MonoBehaviour
     {
+        //コントローラー
         public static Player Instance;
-        [SerializeField] private PlayerInput MoveAction;
-        [SerializeField] private float MoveSpeed;
-        public Vector2 InputMove = Vector2.zero;
-        [SerializeField] private float jumpPower;
-        [SerializeField] private GameObject Bullets;
-        [SerializeField] private GameObject ShotPosition;
-        [SerializeField] private GameObject AttackCollision;
-        [SerializeField] private GameObject QuickAttackCollision;
-        //[SerializeField] private float MaxBulletTime;
-        [SerializeField] private Image BulletUI;
-        public GameObject Arrow;
-        public bool isMove = true;
-        [SerializeField] private int MaxJumpCount;
-        [SerializeField] private Animator animator;
-        [SerializeField] private AudioClip ReflectionSound;
-        [SerializeField] private AudioClip ShotSound;
-        [SerializeField] private AudioClip DamageSound;
-
-        [SerializeField] [JapaneseLabel("2回目のジャンプまでのクールタイム")]
-        private float jumpCooldown = 0.2f;
-
+        [SerializeField] private CharacterParams characterParams;
+        private PlayerInput MoveAction;
         private AudioSource audioSource;
-        //[NonSerialized] public float BulletTime;
+        [NonSerialized] public Vector2 InputMove = Vector2.zero;
+        private Rigidbody2D rb;
+        private float startY;
+        [SerializeField] MapManager mapManager;
+        [SerializeField] SceneButtonManager sceneButtonManager;
+        public Slider staminaSlider;
+        
+        //プレイヤーのステータス
+        private float MoveSpeed;
+        private float jumpPower;
+        private int MaxJumpCount;
+        [JapaneseLabel("2回目のジャンプまでのクールタイム")]
+        private float jumpCooldown = 0.2f;
+        [FormerlySerializedAs("limitSpeed")]
+        private float maxFallSpeed = 5f;
+        
+        //プレイヤーの状態
         [NonSerialized] public int direction = 1;
         private bool isfirst = true;
         private bool isGround;
         private bool isJump;
         private int jumpCount;
         private float lastJumpTime; // 最後にジャンプした時間
-        private Rigidbody2D rb;
-        private float startY;
-        [SerializeField] CameraAreaManager cameraAreaManager;
-        [SerializeField] MapManager mapManager;
-        [SerializeField] SceneButtonManager sceneButtonManager;
-
-        [FormerlySerializedAs("limitSpeed")] [SerializeField]
-        private float maxFallSpeed = 20f;
-        //反射
-        [SerializeField,JapaneseLabel("最大反射スタミナ")] private float maxStamina = 100f;
-        [SerializeField,JapaneseLabel("反射スタミナ回復量")] private float staminaRecoveryPerSecond = 10f;
-        [NonSerialized,JapaneseLabel("現反射スタミナ")] public float currentStamina;
-        [JapaneseLabel("反射スタミナ消費量")]public float staminaDrainPerSecond = 20f;
-        //射撃
-        [SerializeField,JapaneseLabel(("最大射撃スタミナ"))]private float maxShotStamina = 1f;
-        [SerializeField,JapaneseLabel("射撃スタミナ回復量")]private float shotStaminaRecoveryPerSecond = 0.1f;
-        [SerializeField,JapaneseLabel("オーバーヒート時の射撃スタミナ回復量")]private float overheatRecoveryPerSecond = 0.1f;
-        [SerializeField,JapaneseLabel("現射撃スタミナ")]private float currentShotStamina;
-        [SerializeField,JapaneseLabel("射撃スタミナ消費量")]private float shotStaminaDrainPerSecond = 0.25f;
-        [SerializeField,JapaneseLabel("射撃クールタイム")]private float shotCoolTime = 0.2f;
-        bool Overheat = false;
-        
         private bool IsAttacking = false;
         private bool IsShot = false;
-        public Slider staminaSlider;
+        [NonSerialized] public bool isMove = true;
+        
+        //オブジェクト
+        private GameObject Bullets;
+        [SerializeField] private GameObject ShotPosition;
+        [SerializeField] private GameObject AttackCollision;
+        [SerializeField] private GameObject QuickAttackCollision;
+        public GameObject Arrow;
+        
+        //[SerializeField] private float MaxBulletTime;
+        
+        [SerializeField] private Image BulletUI;
+        
+        //アニメーション関連
+        private Animator animator;
+         
         AnimatorStateInfo animatorStateInfo;
+        
+        //サウンド関連
+        private AudioClip ReflectionSound;
+        private AudioClip ShotSound;
+        private AudioClip DamageSound;
+
+        //反射
+        [JapaneseLabel("最大反射スタミナ")] private float maxStamina = 100f;
+        [JapaneseLabel("反射スタミナ回復量")] private float staminaRecoveryPerSecond = 10f;
+        [NonSerialized,JapaneseLabel("現反射スタミナ")] public float currentStamina;
+        [NonSerialized,JapaneseLabel("反射スタミナ消費量")]public float staminaDrainPerSecond = 20f;
+        
+        //射撃
+        [JapaneseLabel(("最大射撃スタミナ"))]private float maxShotStamina = 1f;
+        [JapaneseLabel("射撃スタミナ回復量")]private float shotStaminaRecoveryPerSecond = 0.1f;
+        [JapaneseLabel("オーバーヒート時の射撃スタミナ回復量")]private float overheatRecoveryPerSecond = 0.1f;
+        [JapaneseLabel("現射撃スタミナ")]private float currentShotStamina;
+        [JapaneseLabel("射撃スタミナ消費量")]private float shotStaminaDrainPerSecond = 0.25f;
+        [JapaneseLabel("射撃クールタイム")]private float shotCoolTime = 0.2f;
+        bool Overheat = false;
+        
+        
         private void Awake()
         {
             if (Instance == null)
                 Instance = this;
             else
                 Destroy(gameObject);
+            
+            PlayerParamReset();
         }
 
+        private void PlayerParamReset()
+        {
+            MoveAction = characterParams.moveAction;
+            MoveSpeed = characterParams.moveSpeed;
+            jumpPower = characterParams.jumpPower;
+            MaxJumpCount = characterParams.MaxJumpCount;
+            jumpCooldown = characterParams.jumpCooldown;
+            maxFallSpeed = characterParams.maxFallSpeed;
+            Bullets = characterParams.bullets;
+            ReflectionSound = characterParams.ReflectionSound;
+            ShotSound = characterParams.ShotSound;
+            DamageSound = characterParams.DamageSound;
+            maxStamina = characterParams.maxStamina;
+            staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
+            staminaRecoveryPerSecond = characterParams.staminaRecoveryPerSecond;
+            shotStaminaRecoveryPerSecond = characterParams.shotStaminaRecoveryPerSecond;
+            overheatRecoveryPerSecond = characterParams.overheatRecoveryPerSecond;
+            shotStaminaDrainPerSecond = characterParams.shotStaminaDrainPerSecond;
+            shotCoolTime = characterParams.shotCoolTime;
+
+        }
+        
         private void Start()
         {
             MoveAction.actions["Move"].performed += OnMove;
@@ -83,19 +122,19 @@ namespace Scripts
             MoveAction.actions["Jump"].canceled += OffJump;
             MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
 
+            animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody2D>();
             Arrow.SetActive(false);
             jumpCount = MaxJumpCount;
             audioSource = GetComponent<AudioSource>();
-
-            cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
+            
             mapManager = GameObject.FindObjectOfType<MapManager>();
             currentStamina = maxStamina;
             staminaSlider.maxValue = currentStamina;
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
             currentShotStamina = maxShotStamina;
         }
-
+        
         private void Update()
         {
            // BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;

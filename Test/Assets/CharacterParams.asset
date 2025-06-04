@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a339b6950813460d9032c624431df4eb, type: 3}
+  m_Name: CharacterParams
+  m_EditorClassIdentifier: 
+  moveAction: {fileID: 163183520200374533, guid: 9be1418a083839441beaea19696c784a, type: 3}
+  moveSpeed: 5
+  jumpPower: 8
+  MaxJumpCount: 2
+  jumpCooldown: 0.2
+  maxFallSpeed: 5
+  bullets: {fileID: 1057501140420241128, guid: 4e268d136a397974d86fa93e6efd45de, type: 3}
+  ReflectionSound: {fileID: 8300000, guid: 29c151cd64dfd874298c8c23e76539ca, type: 3}
+  ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
+  DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
+  maxStamina: 100
+  staminaRecoveryPerSecond: 10
+  staminaDrainPerSecond: 20
+  shotStaminaRecoveryPerSecond: 0.2
+  overheatRecoveryPerSecond: 0.1
+  shotStaminaDrainPerSecond: 0.5
+  shotCoolTime: 0.2
