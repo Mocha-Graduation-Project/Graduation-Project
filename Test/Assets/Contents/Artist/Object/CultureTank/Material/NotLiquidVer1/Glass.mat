@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Glass
-  m_Shader: {fileID: -6465566751694194690, guid: b3e2ef9e08c71794b917a16eb0e0dc34, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: a9309f328ef4a9441806794973fdfbd1, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -82,7 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OpacityTexture:
-        m_Texture: {fileID: 2800000, guid: 0d2ee1f483993d34a91dc81bb94e7586, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8ad81f3e076873f48a2c63331b18ff3c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RoughnessTexture:
@@ -133,6 +133,7 @@ Material:
     - _DstBlendAlpha: 0
     - _EmissionStrength: 0
     - _EnvironmentReflections: 1
+    - _FresnelPower: 1.36
     - _GlossMapScale: 1
     - _Glossiness: 0.2
     - _GlossyReflections: 1
@@ -149,6 +150,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _ReflactionStrength: 0
     - _SPECULAR_IOR: 1.5
     - _SPECULAR_ROUGHNESS: 0.95
     - _Smoothness: 0
@@ -171,6 +173,7 @@ Material:
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmmisionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _FresnelColor: {r: 0, g: 1, b: 0.1096406, a: 0}
     - _SPECULAR_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
