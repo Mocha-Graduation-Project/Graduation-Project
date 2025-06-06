@@ -147,12 +147,13 @@ GameObject:
   - component: {fileID: 7275087655487328869}
   - component: {fileID: 8014104560786095915}
   - component: {fileID: 7256292872931493093}
-  - component: {fileID: 5700466450639599074}
   - component: {fileID: 2234164896924348768}
   - component: {fileID: 3317964292277821450}
   - component: {fileID: 4151815204507809134}
+  - component: {fileID: -8705475340661231006}
+  - component: {fileID: 6429249054025689727}
   m_Layer: 8
-  m_Name: Enemy
+  m_Name: NoBulletHolizonMoveEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -205,7 +206,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c63677dd4e49c5649b62cb403c8bfaba, type: 2}
+  - {fileID: 2100000, guid: 7624686fb31415c4fae44db9c78cd256, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,27 +228,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5700466450639599074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6460471003761360793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d9b1bc5a5878dd4280ee6d3c95d2a1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletType: 0
-  enemyType: 0
-  HP: 8
-  DamageText: {fileID: 7551962666937020407}
-  Bullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
-  BulletRate: 3
-  ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
-  DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
-  enemySpawn: {fileID: 0}
 --- !u!58 &2234164896924348768
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -408,6 +388,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &-8705475340661231006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6460471003761360793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a837ea750f48ec40a66838218e627b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 8
+  DamageText: {fileID: 7551962666937020407}
+  DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
+  enemySpawn: {fileID: 0}
+--- !u!114 &6429249054025689727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6460471003761360793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb9edd410af17f47ae8bf4d57d1e535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolEnemyData: {fileID: 11400000, guid: bfcdde73abbbf8543aa60bab7ef0dfb1, type: 2}
+  speed: 2
+  moveable: 0
+  waitTime: 0
 --- !u!1 &6722164026637600296
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3989409182975949136}
   - component: {fileID: 242804695588464806}
   - component: {fileID: -7792052319977231035}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -205,7 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5048839d001741dab5ff90d7d89a7bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopAreaCollider: {fileID: 0}
 --- !u!1 &5919746632611300560
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,7 +216,7 @@ GameObject:
   - component: {fileID: 7049217215620934409}
   - component: {fileID: 8807551810863203366}
   - component: {fileID: 6681353420888942644}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
