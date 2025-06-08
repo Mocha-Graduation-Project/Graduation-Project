@@ -22,7 +22,6 @@ namespace Scripts
         [SerializeField] private MeshRenderer meshRendererChild;
         public int reflectionCount;
         private int maxReflectionCount = 4;
-        //CameraAreaManager cameraAreaManager;
 
         private UnityEngine.Vector3 SavePower;
         private Vector2 lastInputDirection = Vector2.right;
@@ -33,9 +32,6 @@ namespace Scripts
         
         private float attackCoolMaxTime = 1f;
         private float attackCoolTime = 0f;
-        
-        // [SerializeField] private Collider2D loopAreaCollider;
-        // private  float minX,maxX,minY,maxY;
         private void Start()
         {
             Power *= PowerDirection;
