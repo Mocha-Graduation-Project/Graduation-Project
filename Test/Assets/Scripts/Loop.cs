@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Scripts
@@ -11,30 +10,25 @@ namespace Scripts
 
         private void Awake()
         {
-            GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
+            var loopAreaObj = GameObject.FindWithTag("LoopArea");
             if (loopAreaObj != null)
-            {
                 loopAreaCollider = loopAreaObj.GetComponent<Collider2D>();
-            }
             else
-            {
                 Debug.LogError("LoopAreaColliderが見つかりません。LoopAreaタグを持つGameObjectを配置してください。");
-                return;
-            }
         }
 
-        void Start()
+        private void Start()
         {
-            Bounds bounds = loopAreaCollider.bounds;
+            var bounds = loopAreaCollider.bounds;
             minX = bounds.min.x;
             maxX = bounds.max.x;
             minY = bounds.min.y;
             maxY = bounds.max.y;
         }
 
-        void Update()
+        private void Update()
         {
-            Vector3 pos = transform.position;
+            var pos = transform.position;
 
             if (pos.x > maxX) pos.x = minX;
             else if (pos.x < minX) pos.x = maxX;

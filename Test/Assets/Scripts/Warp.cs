@@ -1,16 +1,19 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Scripts
 {
     public class Warp : MonoBehaviour
     {
-        [SerializeField,JapaneseLabel("ワープ先")]private Transform targetWarp;
-        [SerializeField,JapaneseLabel("ワープさせるタグ"),Tag]private List<string> Tags = new List<string>() { "Player" };
+        [SerializeField] [JapaneseLabel("ワープ先")]
+        private Transform targetWarp;
 
-        private bool isWarping = false;
-        
+        [SerializeField] [JapaneseLabel("ワープさせるタグ")] [Tag]
+        private List<string> Tags;
+
+        private bool isWarping;
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             Debug.Log($"触れた: {other.tag}");
@@ -21,21 +24,19 @@ namespace Scripts
                 StartCoroutine(WarpPoint(other));
             }
         }
+
         private IEnumerator WarpPoint(Collider2D target)
         {
             isWarping = true;
 
-            Warp targetWarpPoint = targetWarp.GetComponent<Warp>();
-            if (targetWarpPoint != null)
-            {
-                targetWarpPoint.isWarping = true;
-            }
+            var targetWarpPoint = targetWarp.GetComponent<Warp>();
+            if (targetWarpPoint != null) targetWarpPoint.isWarping = true;
 
             // 親（ルート）ごと移動
-            Transform rootTransform = target.transform.root;
+            var rootTransform = target.transform.root;
 
             // CharacterController対策
-            CharacterController controller = rootTransform.GetComponent<CharacterController>();
+            var controller = rootTransform.GetComponent<CharacterController>();
             if (controller != null)
             {
                 controller.enabled = false;
@@ -50,10 +51,7 @@ namespace Scripts
             yield return new WaitForSeconds(0.2f);
 
             isWarping = false;
-            if (targetWarpPoint != null)
-            {
-                targetWarpPoint.isWarping = false;
-            }
+            if (targetWarpPoint != null) targetWarpPoint.isWarping = false;
         }
     }
 }
