@@ -173,7 +173,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0a2a1ca1bd33e489ff115f3a484157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
+  player: {fileID: 0}
+  playerScript: {fileID: 0}
   playerInput: {fileID: 0}
+  pauseObj: {fileID: 0}
+  clearObj: {fileID: 0}
 --- !u!1 &281609946
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +236,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3mStage
+  m_text: Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -527,7 +532,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &722349854
 RectTransform:
   m_ObjectHideFlags: 0
@@ -949,7 +954,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 3minsStage
+          m_StringArgument: 03
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &843513249
@@ -1713,7 +1718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1988536983
 RectTransform:
   m_ObjectHideFlags: 0

@@ -146,7 +146,7 @@ RectTransform:
   m_GameObject: {fileID: 60262930}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.6805, y: 1.6805, z: 1.6805}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1072709376}
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Title
+  m_text: Project:Loop
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -203,8 +203,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 256
-  m_fontSizeBase: 256
+  m_fontSize: 125
+  m_fontSizeBase: 125
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -982,7 +982,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0a2a1ca1bd33e489ff115f3a484157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
+  player: {fileID: 0}
+  playerScript: {fileID: 0}
   playerInput: {fileID: 0}
+  pauseObj: {fileID: 0}
+  clearObj: {fileID: 0}
 --- !u!1 &1415254863
 GameObject:
   m_ObjectHideFlags: 0
