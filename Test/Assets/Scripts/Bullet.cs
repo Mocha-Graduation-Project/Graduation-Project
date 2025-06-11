@@ -32,6 +32,8 @@ namespace Scripts
         
         private float attackCoolMaxTime = 1f;
         private float attackCoolTime = 0f;
+        
+        public float maxBulletSpeed;
         private void Start()
         {
             Power *= PowerDirection;
@@ -54,39 +56,6 @@ namespace Scripts
                 lastInputDirection = input.normalized;
             }
             
-            // Vector3 pos = transform.position;
-            // if (loopAreaCollider != null)
-            // {
-            //     if (pos.x < minX) pos.x = maxX;
-            //     else if (pos.x > maxX) pos.x = minX;
-            //
-            //     if (pos.y < minY) pos.y = maxY;
-            //     else if (pos.y > maxY) pos.y = minY;
-            //
-            //     transform.position = pos;
-            // }
-            // if (!GetComponent<Renderer>().isVisible)
-            // {
-            //     if (count >= 1)
-            //     {
-            //         count--;
-            //         return;
-            //     }
-            //
-            //     // UnityEngine.Vector3 pos = transform.position;
-            //     //
-            //     // // if (pos.x < cameraAreaManager.LeftMax)
-            //     // //     pos.x = cameraAreaManager.RightMax;
-            //     // // else if (pos.x > cameraAreaManager.RightMax)
-            //     // //     pos.x = cameraAreaManager.LeftMax;
-            //     // //
-            //     // // if (pos.y < cameraAreaManager.DownMax)
-            //     // //     pos.y = cameraAreaManager.UpMax;
-            //     // // else if (pos.y > cameraAreaManager.UpMax)
-            //     // //     pos.y = cameraAreaManager.DownMax;
-            //     //
-            //     // transform.position = pos;
-            // }
             //スタミナ消費
             if (isAttack)
             {
@@ -141,10 +110,9 @@ namespace Scripts
             {
                 player.isMove = false;
                 isAttack = true;
-                Time.timeScale = 0.2f;
                 SavePower = -Power;
-                Power = UnityEngine.Vector3.zero;
-                Invoke("QuickAttack", 0.1f);
+                //Power = UnityEngine.Vector3.zero;
+                QuickAttack();
 
             }
         }
@@ -183,19 +151,22 @@ namespace Scripts
             Damage *= 2;
             //powerlevelの変更をここに入れたい
             reflectionCount++;
+            
             float powerColor = reflectionCount * 0.26f;
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
+            
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-            player.currentStamina -= 2.5f;
             player.isMove = true;
             Invoke("AttckFalse", 0.2f);
-            PowerDirection *= 1.25f;
-            if (PowerDirection < 0)
-                PowerDirection *= -1;
+            Vector3 reversePower = -1 * GetPower().normalized * GetPower().magnitude;
+            SetPower(reversePower);
 
-            Power = SavePower * PowerDirection;
-            Time.timeScale = 1f;
+            // PowerDirection *= 1.25f;
+            // if (PowerDirection < 0)
+            //     PowerDirection *= -1;
+            //
+            // Power = SavePower * PowerDirection;
             player.PlayReflectionSound();
         }
 

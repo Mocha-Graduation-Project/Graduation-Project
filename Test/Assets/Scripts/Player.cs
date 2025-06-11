@@ -68,6 +68,7 @@ namespace Scripts
         [JapaneseLabel("反射スタミナ回復量")] private float staminaRecoveryPerSecond = 10f;
         [NonSerialized,JapaneseLabel("現反射スタミナ")] public float currentStamina;
         [NonSerialized,JapaneseLabel("反射スタミナ消費量")]public float staminaDrainPerSecond = 20f;
+        [JapaneseLabel("quick反射消費量")] private float quickStaminaDrainPerSecond = 20f;
         
         //射撃
         [JapaneseLabel(("最大射撃スタミナ"))]private float maxShotStamina = 1f;
@@ -108,6 +109,7 @@ namespace Scripts
             overheatRecoveryPerSecond = characterParams.overheatRecoveryPerSecond;
             shotStaminaDrainPerSecond = characterParams.shotStaminaDrainPerSecond;
             shotCoolTime = characterParams.shotCoolTime;
+            quickStaminaDrainPerSecond = characterParams.quickStaminaDrainPerSecond;
 
         }
         
@@ -121,6 +123,7 @@ namespace Scripts
             MoveAction.actions["Attack"].canceled += OffAttack;
             MoveAction.actions["Jump"].canceled += OffJump;
             MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
+            MoveAction.actions["QuickAttack"].canceled += OffAttack;
 
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody2D>();
@@ -291,17 +294,18 @@ namespace Scripts
             if (currentStamina <= 0) return;
 
             IsAttacking = true;
-            AttackCollision.gameObject.SetActive(true);
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
+            currentStamina -= quickStaminaDrainPerSecond;
             QuickAttackCollision.gameObject.SetActive(true);
-            Invoke("AttackFinish", 0.3f);
             animator.SetTrigger("isAttack");
+            Invoke("AttackCollisionFalse", 0.1f);
+            //Invoke("AttackFinish", 0.3f);
+            //animator.SetTrigger("isAttack");
         }
         private void OffAttack(InputAction.CallbackContext context)
         {
             AttackFinish();
-            animator.SetTrigger("isAttack");
         }
         public void AttackFinish()
         {
@@ -322,6 +326,7 @@ namespace Scripts
         private void AttackCollisionFalse()
         {
             AttackCollision.gameObject.SetActive(false);
+            QuickAttackCollision.gameObject.SetActive(false);
         }
 
         public void PlayerReset()
@@ -334,6 +339,7 @@ namespace Scripts
             MoveAction.actions["Attack"].canceled -= OffAttack;
             MoveAction.actions["Jump"].canceled -= OffJump;
             MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
+            MoveAction.actions["QuickAttack"].canceled -= OffAttack;
         }
     }
 }

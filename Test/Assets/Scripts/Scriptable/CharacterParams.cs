@@ -44,7 +44,7 @@ namespace Scripts.Scriptable
         [JapaneseLabel("最大反射スタミナ")] public float maxStamina = 100f;
         [JapaneseLabel("反射スタミナ回復量")] public float staminaRecoveryPerSecond = 10f;
         [JapaneseLabel("反射スタミナ消費量")] public float staminaDrainPerSecond = 20f;
-        
+        [JapaneseLabel("quick反射消費量")] public float quickStaminaDrainPerSecond = 20f;
         //射撃
         [Space(5)]
         [Header("射撃")]
