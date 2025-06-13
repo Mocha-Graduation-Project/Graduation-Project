@@ -37,12 +37,120 @@
             A simple websocket client with built-in reconnection and error handling
             </summary>
         </member>
+        <member name="P:Websocket.Client.IWebsocketClient.Url">
+            <summary>
+            Get or set target websocket url
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.MessageReceived">
+            <summary>
+            Stream with received message (raw format)
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.ReconnectionHappened">
+            <summary>
+            Stream for reconnection event (triggered after the new connection) 
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.DisconnectionHappened">
+            <summary>
+            Stream for disconnection event (triggered after the connection was lost) 
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.ReconnectTimeout">
+            <summary>
+            Time range for how long to wait before reconnecting if no message comes from server.
+            Set null to disable this feature. 
+            Default: 1 minute.
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.ErrorReconnectTimeout">
+            <summary>
+            Time range for how long to wait before reconnecting if last reconnection failed.
+            Set null to disable this feature. 
+            Default: 1 minute.
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.LostReconnectTimeout">
+            <summary>
+            Time range for how long to wait before reconnecting if connection is lost with a transient error.
+            Set null to disable this feature. 
+            Default: null/disabled (immediately)
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.Name">
+            <summary>
+            Get or set the name of the current websocket client instance.
+            For logging purpose (in case you use more parallel websocket clients and want to distinguish between them)
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.IsStarted">
+            <summary>
+            Returns true if Start() method was called at least once. False if not started or disposed
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.IsRunning">
+            <summary>
+            Returns true if client is running and connected to the server
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.IsReconnectionEnabled">
+            <summary>
+            Enable or disable reconnection functionality (enabled by default)
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.IsTextMessageConversionEnabled">
+            <summary>
+            Enable or disable text message conversion from binary to string (via 'MessageEncoding' property).
+            Default: true
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.NativeClient">
+            <summary>
+            Returns currently used native websocket client.
+            Use with caution, on every reconnection there will be a new instance. 
+            </summary>
+        </member>
+        <member name="P:Websocket.Client.IWebsocketClient.MessageEncoding">
+            <summary>
+            Sets used encoding for sending and receiving text messages. 
+            Default: UTF8
+            </summary>
+        </member>
+        <member name="M:Websocket.Client.IWebsocketClient.Start">
+            <summary>
+            Start listening to the websocket stream on the background thread.
+            In case of connection error it doesn't throw an exception.
+            Only streams a message via 'DisconnectionHappened' and logs it. 
+            </summary>
+        </member>
+        <member name="M:Websocket.Client.IWebsocketClient.StartOrFail">
+            <summary>
+            Start listening to the websocket stream on the background thread. 
+            In case of connection error it throws an exception.
+            Fail fast approach. 
+            </summary>
+        </member>
+        <member name="M:Websocket.Client.IWebsocketClient.Stop(System.Net.WebSockets.WebSocketCloseStatus,System.String)">
+            <summary>
+            Stop/close websocket connection with custom close code.
+            Method doesn't throw exception, only logs it and mark client as closed. 
+            </summary>
+            <returns>Returns true if close was initiated successfully</returns>
+        </member>
+        <member name="M:Websocket.Client.IWebsocketClient.StopOrFail(System.Net.WebSockets.WebSocketCloseStatus,System.String)">
+            <summary>
+            Stop/close websocket connection with custom close code.
+            Method could throw exceptions, but client is marked as closed anyway.
+            </summary>
+            <returns>Returns true if close was initiated successfully</returns>
+        </member>
         <member name="M:Websocket.Client.IWebsocketClient.Send(System.String)">
             <summary>
-            Send text message to the websocket channel. 
+            Send message to the websocket channel. 
             It inserts the message to the queue and actual sending is done on another thread
             </summary>
-            <param name="message">Text message to be sent</param>
+            <param name="message">Message to be sent</param>
             <returns>true if the message was written to the queue</returns>
         </member>
         <member name="M:Websocket.Client.IWebsocketClient.Send(System.Byte[])">
@@ -61,17 +169,9 @@
             <param name="message">Binary message to be sent</param>
             <returns>true if the message was written to the queue</returns>
         </member>
-        <member name="M:Websocket.Client.IWebsocketClient.Send(System.Buffers.ReadOnlySequence{System.Byte})">
-            <summary>
-            Send binary message to the websocket channel. 
-            It inserts the message to the queue and actual sending is done on another thread
-            </summary>
-            <param name="message">Binary message to be sent</param>
-            <returns>true if the message was written to the queue</returns>
-        </member>
         <member name="M:Websocket.Client.IWebsocketClient.SendInstant(System.String)">
             <summary>
-            Send text message to the websocket channel. 
+            Send message to the websocket channel. 
             It doesn't use a sending queue, 
             beware of issue while sending two messages in the exact same time 
             on the full .NET Framework platform
@@ -105,142 +205,6 @@
             <param name="message">Message to be sent</param>
             <returns>true if the message was written to the queue</returns>
         </member>
-        <member name="M:Websocket.Client.IWebsocketClient.SendAsText(System.Buffers.ReadOnlySequence{System.Byte})">
-            <summary>
-            Send already converted text message to the websocket channel. 
-            Use this method to avoid double serialization of the text message.
-            It inserts the message to the queue and actual sending is done on another thread
-            </summary>
-            <param name="message">Message to be sent</param>
-            <returns>true if the message was written to the queue</returns>
-        </member>
-        <member name="M:Websocket.Client.IWebsocketClient.StreamFakeMessage(Websocket.Client.ResponseMessage)">
-            <summary>
-            Stream/publish fake message (via 'MessageReceived' observable).
-            Use for testing purposes to simulate a server message. 
-            </summary>
-            <param name="message">Message to be streamed</param>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.Url">
-            <summary>
-            Remote server address. Reconnect after the change.
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.MessageReceived">
-            <summary>
-            Stream with received message (raw format)
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.ReconnectionHappened">
-            <summary>
-            Stream for reconnection event (triggered after the new connection) 
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.DisconnectionHappened">
-            <summary>
-            Stream for disconnection event (triggered after the connection was lost) 
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.ReconnectTimeout">
-            <summary>
-            Time range for how long to wait before reconnecting if no message comes from server.
-            Set null to disable this feature. 
-            Default: 1 minute
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.ErrorReconnectTimeout">
-            <summary>
-            Time range for how long to wait before reconnecting if last reconnection failed.
-            Set null to disable this feature. 
-            Default: 1 minute
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.LostReconnectTimeout">
-            <summary>
-            Time range for how long to wait before reconnecting if connection is lost with a transient error.
-            Set null to disable this feature. 
-            Default: null/disabled (immediately)
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.IsReconnectionEnabled">
-            <summary>
-            Enable or disable reconnection functionality (enabled by default)
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.Name">
-            <summary>
-            Get or set the name of the current websocket client instance.
-            For logging purpose (in case you use more parallel websocket clients and want to distinguish between them)
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.IsStarted">
-            <summary>
-            Returns true if Start() method was called at least once. False if not started or disposed
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.IsRunning">
-            <summary>
-            Returns true if client is running and connected to the server
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.IsTextMessageConversionEnabled">
-            <summary>
-            Enable or disable text message conversion from binary to string (via 'MessageEncoding' property).
-            Default: true
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.IsStreamDisposedAutomatically">
-            <summary>
-            Enable or disable automatic <see cref="M:System.IO.MemoryStream.Dispose(System.Boolean)"/> of the <see cref="T:System.IO.MemoryStream"/> 
-            after sending data (only available for binary response).
-            Setting value to false allows you to access the stream directly.
-            <warning>However, keep in mind that you need to handle the dispose yourself.</warning>
-            Default: true
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.MessageEncoding">
-            <summary>
-            Target encoding for text messages
-            </summary>
-        </member>
-        <member name="P:Websocket.Client.IWebsocketClient.NativeClient">
-            <summary>
-            Underlying client, will change after every reconnection, use with caution
-            </summary>
-        </member>
-        <member name="M:Websocket.Client.IWebsocketClient.Dispose">
-            <summary>
-            Terminate the websocket connection and cleanup everything
-            </summary>
-        </member>
-        <member name="M:Websocket.Client.IWebsocketClient.Start">
-            <summary>
-            Start listening to the websocket stream on the background thread.
-            In case of connection error it doesn't throw an exception.
-            Only streams a message via 'DisconnectionHappened' and logs it. 
-            </summary>
-        </member>
-        <member name="M:Websocket.Client.IWebsocketClient.StartOrFail">
-            <summary>
-            Start listening to the websocket stream on the background thread. 
-            In case of connection error it throws an exception.
-            Fail fast approach. 
-            </summary>
-        </member>
-        <member name="M:Websocket.Client.IWebsocketClient.Stop(System.Net.WebSockets.WebSocketCloseStatus,System.String)">
-            <summary>
-            Stop/close websocket connection with custom close code.
-            Method doesn't throw exception, only logs it and mark client as closed. 
-            </summary>
-            <returns>Returns true if close was initiated successfully</returns>
-        </member>
-        <member name="M:Websocket.Client.IWebsocketClient.StopOrFail(System.Net.WebSockets.WebSocketCloseStatus,System.String)">
-            <summary>
-            Stop/close websocket connection with custom close code.
-            Method could throw exceptions, but client is marked as closed anyway.
-            </summary>
-            <returns>Returns true if close was initiated successfully</returns>
-        </member>
         <member name="M:Websocket.Client.IWebsocketClient.Reconnect">
             <summary>
             Force reconnection. 
@@ -254,6 +218,13 @@
             Closes current websocket stream and perform a new connection to the server.
             In case of connection error it throws an exception and doesn't perform any other reconnection try. 
             </summary>
+        </member>
+        <member name="M:Websocket.Client.IWebsocketClient.StreamFakeMessage(Websocket.Client.ResponseMessage)">
+            <summary>
+            Stream/publish fake message (via 'MessageReceived' observable).
+            Use for testing purposes to simulate a server message. 
+            </summary>
+            <param name="message">Message to be stream</param>
         </member>
         <member name="T:Websocket.Client.DisconnectionInfo">
             <summary>
@@ -522,36 +493,31 @@
             A simple websocket client with built-in reconnection and error handling
             </summary>
         </member>
-        <member name="M:Websocket.Client.WebsocketClient.#ctor(System.Uri,System.Func{System.Net.WebSockets.ClientWebSocket},Microsoft.IO.RecyclableMemoryStreamManager)">
+        <member name="M:Websocket.Client.WebsocketClient.#ctor(System.Uri,System.Func{System.Net.WebSockets.ClientWebSocket})">
             <summary>
             A simple websocket client with built-in reconnection and error handling
             </summary>
             <param name="url">Target websocket url (wss://)</param>
             <param name="clientFactory">Optional factory for native ClientWebSocket, use it whenever you need some custom features (proxy, settings, etc)</param>
-            <param name="memoryStreamManager">Optional memory stream manager that can be reused on multiple occasions</param>
         </member>
-        <member name="M:Websocket.Client.WebsocketClient.#ctor(System.Uri,Microsoft.Extensions.Logging.ILogger{Websocket.Client.WebsocketClient},System.Func{System.Net.WebSockets.ClientWebSocket},Microsoft.IO.RecyclableMemoryStreamManager)">
+        <member name="M:Websocket.Client.WebsocketClient.#ctor(System.Uri,Microsoft.Extensions.Logging.ILogger{Websocket.Client.WebsocketClient},System.Func{System.Net.WebSockets.ClientWebSocket})">
             <summary>
             A simple websocket client with built-in reconnection and error handling
             </summary>
             <param name="url">Target websocket url (wss://)</param>
             <param name="logger">Logger instance, can be null</param>
             <param name="clientFactory">Optional factory for native ClientWebSocket, use it whenever you need some custom features (proxy, settings, etc)</param>
-            <param name="memoryStreamManager">Optional memory stream manager that can be reused on multiple occasions</param>
         </member>
-        <member name="M:Websocket.Client.WebsocketClient.#ctor(System.Uri,Microsoft.Extensions.Logging.ILogger{Websocket.Client.WebsocketClient},System.Func{System.Uri,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.WebSockets.WebSocket}},Microsoft.IO.RecyclableMemoryStreamManager)">
+        <member name="M:Websocket.Client.WebsocketClient.#ctor(System.Uri,Microsoft.Extensions.Logging.ILogger{Websocket.Client.WebsocketClient},System.Func{System.Uri,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Net.WebSockets.WebSocket}})">
             <summary>
             A simple websocket client with built-in reconnection and error handling
             </summary>
             <param name="url">Target websocket url (wss://)</param>
             <param name="logger">Logger instance, can be null</param>
             <param name="connectionFactory">Optional factory for native creating and connecting to a websocket. The method should return a <see cref="T:System.Net.WebSockets.WebSocket"/> which is connected. Use it whenever you need some custom features (proxy, settings, etc)</param>
-            <param name="memoryStreamManager">Optional memory stream manager that can be reused on multiple occasions</param>
         </member>
         <member name="P:Websocket.Client.WebsocketClient.Url">
-            <summary>
-            Remote server address. Reconnect after the change.
-            </summary>
+            <inheritdoc />
         </member>
         <member name="P:Websocket.Client.WebsocketClient.MessageReceived">
             <summary>
@@ -702,14 +668,6 @@
             <param name="message">Binary message to be sent</param>
             <returns>true if the message was written to the queue</returns>
         </member>
-        <member name="M:Websocket.Client.WebsocketClient.Send(System.Buffers.ReadOnlySequence{System.Byte})">
-            <summary>
-            Send binary message to the websocket channel. 
-            It inserts the message to the queue and actual sending is done on another thread
-            </summary>
-            <param name="message">Binary message to be sent</param>
-            <returns>true if the message was written to the queue</returns>
-        </member>
         <member name="M:Websocket.Client.WebsocketClient.SendInstant(System.String)">
             <summary>
             Send text message to the websocket channel. 
@@ -738,15 +696,6 @@
             <returns>true if the message was written to the queue</returns>
         </member>
         <member name="M:Websocket.Client.WebsocketClient.SendAsText(System.ArraySegment{System.Byte})">
-            <summary>
-            Send already converted text message to the websocket channel. 
-            Use this method to avoid double serialization of the text message.
-            It inserts the message to the queue and actual sending is done on another thread
-            </summary>
-            <param name="message">Message to be sent</param>
-            <returns>true if the message was written to the queue</returns>
-        </member>
-        <member name="M:Websocket.Client.WebsocketClient.SendAsText(System.Buffers.ReadOnlySequence{System.Byte})">
             <summary>
             Send already converted text message to the websocket channel. 
             Use this method to avoid double serialization of the text message.

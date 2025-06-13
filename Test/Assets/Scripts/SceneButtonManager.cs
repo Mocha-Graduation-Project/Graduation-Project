@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Threading;
+using System.Threading.Tasks;
 using Scripts;
 using UnityEditor.Timeline;
 using UnityEngine;
@@ -20,6 +23,9 @@ public class SceneButtonManager : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject pauseObj;
     [SerializeField] private GameObject clearObj;
+    [SerializeField] private GameObject startUIObj;
+    [SerializeField] private GameObject canTakeFhotoObj;
+    [SerializeField] private GameObject connectingTextObj;
     
     public State CurrentState { get { return currentState; } }
     
@@ -29,8 +35,11 @@ public class SceneButtonManager : MonoBehaviour
         currentState = State.Gameplay;
         
         player=GameObject.Find("Player");
-        playerScript = player.GetComponent<Player>();
-        playerInput = player.GetComponent<PlayerInput>();
+        if (player != null)
+        {
+            playerScript = player.GetComponent<Player>();
+            playerInput = player.GetComponent<PlayerInput>();
+        }
         if (playerInput != null)
         {
             playerInput.actions["Retry"].performed += OnRetry;
@@ -72,9 +81,48 @@ public class SceneButtonManager : MonoBehaviour
         Debug.Log("Game Clear:" + currentState);
     }
 
+    public void AskCanTakeOBS()
+    {
+        if(canTakeFhotoObj != null){canTakeFhotoObj.SetActive(true);}
+        Debug.Log("SetActiveTakeOBS");
+    }
+
+    public void TakeOBS()
+    {
+        if(startUIObj != null){startUIObj.SetActive(false);}
+        if(canTakeFhotoObj != null){canTakeFhotoObj.SetActive(false);}
+        if(connectingTextObj != null){connectingTextObj.SetActive(true);}
+        StartCoroutine(OBSConnection());
+        //OBSConnect();
+    }
+
+    private static async void OBSConnect()
+    {
+        Debug.Log("Host:" + RecordController.Host + "/Port:" + RecordController.Port + "/Password:" +
+                  RecordController.Password);
+        await RecordController.OBSConnect(new CancellationToken());
+        Debug.Log("OBS Conecting");
+        Debug.unityLogger.Log("OBS Connected");
+        await Task.Delay(1000);
+        RecordController.OBSRecordStart();
+    }
+    IEnumerator OBSConnection()
+    {
+        Debug.Log("Host:" + RecordController.Host + "/Port:" + RecordController.Port + "/Password:" +
+                  RecordController.Password);
+        RecordController.OBSConnect(CancellationToken.None);
+        Debug.Log("OBS Conecting");
+        //yield return new WaitUntil(RecordController.OBSIsConnected);
+        yield return new WaitForSeconds (1.0f);
+        Debug.unityLogger.Log("OBS Connected");
+        RecordController.OBSRecordStart();
+        SceneChangeMainMenu();
+    }
     public void SceneChangeTitle()
     {
         InputReset();
+        RecordController.OBSRecordStop();
+        RecordController.OBSDisconnect();
         SceneManager.LoadScene("Title");
     }
 
@@ -98,6 +146,8 @@ public class SceneButtonManager : MonoBehaviour
 
     public void FinishGame()
     {
+        RecordController.OBSRecordStop();
+        RecordController.OBSDisconnect();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
