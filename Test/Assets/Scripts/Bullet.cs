@@ -1,26 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 //using System.Numerics;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using Scripts;
+using Scripts.Scriptable;
 
 namespace Scripts
 {
     public class Bullet : MonoBehaviour
-    {
-        [SerializeField] private UnityEngine.Vector3 Power;
+    { 
+        private UnityEngine.Vector3 Power;
         Player player => Player.Instance;
-        public float PowerDirection;
+        [NonSerialized]public float PowerDirection;
         private int count = 1;
         private bool isAttack = false;
-        public int Damage = 1;
+        
         private Material material;
-
         private bool destroyed = false; //Destroyで消してもAttckに反応することがあるので仮で配置、バグ治せれば消す
         
         [SerializeField] private MeshRenderer meshRendererChild;
-        public int reflectionCount;
+        [NonSerialized]public int reflectionCount;
         private int maxReflectionCount = 4;
 
         private UnityEngine.Vector3 SavePower;
@@ -32,9 +33,15 @@ namespace Scripts
         
         private float attackCoolMaxTime = 1f;
         private float attackCoolTime = 0f;
-        
-        [SerializeField][JapaneseLabel("最大スピード")] private float maxBulletSpeed;
-        [SerializeField][JapaneseLabel("最大ダメージ")] private int maxDamage;
+        [NonSerialized][JapaneseLabel("初期ダメージ値")]public int Damage = 1;
+        [JapaneseLabel("最大スピード")] private float maxBulletSpeed;
+        [JapaneseLabel("最大ダメージ")] private int maxDamage;
+        [SerializeField] private CharacterParams characterParams;
+
+        private void Awake()
+        {
+            PlayerParamReset();
+        }
         private void Start()
         {
             Power *= PowerDirection;
@@ -91,6 +98,12 @@ namespace Scripts
             
         }
 
+        private void PlayerParamReset()
+        {
+            Damage = characterParams.Damage;
+            maxBulletSpeed = characterParams.maxBulletSpeed;
+            maxDamage = characterParams.maxDamage;
+        }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.tag == "Ground" || (collision.gameObject.tag == "Player" && !isAttack))
