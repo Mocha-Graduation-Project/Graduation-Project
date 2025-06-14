@@ -33,7 +33,8 @@ namespace Scripts
         private float attackCoolMaxTime = 1f;
         private float attackCoolTime = 0f;
         
-        public float maxBulletSpeed;
+        [SerializeField][JapaneseLabel("最大スピード")] private float maxBulletSpeed;
+        [SerializeField][JapaneseLabel("最大ダメージ")] private int maxDamage;
         private void Start()
         {
             Power *= PowerDirection;
@@ -47,7 +48,20 @@ namespace Scripts
 
         void Update()
         {
+            // 最大スピード制限
+            if (Power.magnitude > maxBulletSpeed)
+            {
+                Power = Power.normalized * maxBulletSpeed;
+            }
+            
             transform.position += Power * Time.deltaTime;
+            
+            if (Power != Vector3.zero)
+            {
+                float angle = Mathf.Atan2(Power.y, Power.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            }
+            
             Vector2 input = player.InputMove;
 
             // 入力があれば更新、なければ前回の方向を維持
@@ -121,7 +135,9 @@ namespace Scripts
         {
             if (this.gameObject.CompareTag("EnemyBullet"))
                 this.gameObject.tag = "Bullet";
-            Damage *= 2;
+            
+            Damage = Mathf.Min(Damage * 2, maxDamage);
+            
             //powerlevelの変更をここに入れたい
             reflectionCount++;
             float powerColor = reflectionCount * 0.26f;
@@ -132,7 +148,7 @@ namespace Scripts
             player.currentStamina -= 2.5f;
             player.Arrow.SetActive(false);
             player.isMove = true;
-            Invoke("AttckFalse", 0.2f);
+            Invoke("AttackFalse", 0.2f);
             PowerDirection *= 1.25f;
             if (PowerDirection < 0)
                 PowerDirection *= -1;
@@ -140,6 +156,7 @@ namespace Scripts
             float Angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
             UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
             Power = direction * PowerDirection * 10f;
+            
             Time.timeScale = 1f;
             player.PlayReflectionSound();
         }
@@ -148,7 +165,9 @@ namespace Scripts
         {
             if (this.gameObject.CompareTag("EnemyBullet"))
                 this.gameObject.tag = "Bullet";
-            Damage *= 2;
+            
+            Damage = Mathf.Min(Damage * 2, maxDamage);
+            
             //powerlevelの変更をここに入れたい
             reflectionCount++;
             
@@ -158,7 +177,7 @@ namespace Scripts
             
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
             player.isMove = true;
-            Invoke("AttckFalse", 0.2f);
+            Invoke("AttackFalse", 0.2f);
             Vector3 reversePower = -1 * GetPower().normalized * GetPower().magnitude;
             SetPower(reversePower);
 
@@ -204,7 +223,7 @@ namespace Scripts
         {
             player.PlayReflectionSound();
         }
-        public void AttckFalse()
+        public void AttackFalse()
         {
             isAttack = false;
         }

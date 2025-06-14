@@ -91,6 +91,8 @@ MonoBehaviour:
   Damage: 1
   meshRendererChild: {fileID: 6681353420888942644}
   reflectionCount: 0
+  maxBulletSpeed: 10
+  maxDamage: 40
 --- !u!50 &-7450406237200699315
 Rigidbody2D:
   serializedVersion: 5
@@ -205,7 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5048839d001741dab5ff90d7d89a7bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loopAreaCollider: {fileID: 0}
 --- !u!1 &5919746632611300560
 GameObject:
   m_ObjectHideFlags: 0
