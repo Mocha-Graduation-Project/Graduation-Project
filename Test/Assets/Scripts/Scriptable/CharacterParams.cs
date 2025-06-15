@@ -54,9 +54,9 @@ namespace Scripts.Scriptable
         [JapaneseLabel("射撃クールタイム")]public float shotCoolTime = 0.2f;
         
         //弾のステータス
-        [Space(5)]
-        [Header("<弾のステータス>")]
-        [JapaneseLabel("初期ダメージ値")]public int Damage = 1;
+        [Space(5)] [Header("<弾のステータス>")] [JapaneseLabel("初期スピード")]
+        public UnityEngine.Vector3 power;
+        [JapaneseLabel("初期ダメージ値")]public int damage = 1;
         [JapaneseLabel("最大スピード")] public float maxBulletSpeed;
         [JapaneseLabel("最大ダメージ")] public int maxDamage;
         

@@ -11,7 +11,7 @@ namespace Scripts
 {
     public class Bullet : MonoBehaviour
     { 
-        private UnityEngine.Vector3 Power;
+        private UnityEngine.Vector3 power;
         Player player => Player.Instance;
         [NonSerialized]public float PowerDirection;
         private int count = 1;
@@ -29,7 +29,7 @@ namespace Scripts
         
         private float staminaDrainPerSecond = 0f;
         
-        private PlayerInput MoveAction;
+        private PlayerInput moveAction;
         
         private float attackCoolMaxTime = 1f;
         private float attackCoolTime = 0f;
@@ -44,28 +44,28 @@ namespace Scripts
         }
         private void Start()
         {
-            Power *= PowerDirection;
+            power *= PowerDirection;
             Debug.Log(meshRendererChild.name);
             reflectionCount = 0;
             //cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
             staminaDrainPerSecond = player.staminaDrainPerSecond;
-            MoveAction = GetComponent<PlayerInput>();
-            MoveAction.actions["Attack"].canceled += OffAttack;
+            moveAction = GetComponent<PlayerInput>();
+            moveAction.actions["Attack"].canceled += OffAttack;
         }
 
         void Update()
         {
             // 最大スピード制限
-            if (Power.magnitude > maxBulletSpeed)
+            if (power.magnitude > maxBulletSpeed)
             {
-                Power = Power.normalized * maxBulletSpeed;
+                power = power.normalized * maxBulletSpeed;
             }
             
-            transform.position += Power * Time.deltaTime;
+            transform.position += power * Time.deltaTime;
             
-            if (Power != Vector3.zero)
+            if (power != Vector3.zero)
             {
-                float angle = Mathf.Atan2(Power.y, Power.x) * Mathf.Rad2Deg;
+                float angle = Mathf.Atan2(power.y, power.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0f, 0f, angle);
             }
             
@@ -100,9 +100,10 @@ namespace Scripts
 
         private void PlayerParamReset()
         {
-            Damage = characterParams.Damage;
+            Damage = characterParams.damage;
             maxBulletSpeed = characterParams.maxBulletSpeed;
             maxDamage = characterParams.maxDamage;
+            power = characterParams.power;
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -128,7 +129,7 @@ namespace Scripts
                 player.Arrow.SetActive(true);
                 isAttack = true;
                 Time.timeScale = 0.2f;
-                Power = UnityEngine.Vector3.zero;
+                power = UnityEngine.Vector3.zero;
                 //Invoke("Attack", 0.3f);
 
             }
@@ -137,7 +138,7 @@ namespace Scripts
             {
                 player.isMove = false;
                 isAttack = true;
-                SavePower = -Power;
+                SavePower = -power;
                 //Power = UnityEngine.Vector3.zero;
                 QuickAttack();
 
@@ -168,7 +169,7 @@ namespace Scripts
             
             float Angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
             UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
-            Power = direction * PowerDirection * 10f;
+            power = direction * PowerDirection * 10f;
             
             Time.timeScale = 1f;
             player.PlayReflectionSound();
@@ -212,12 +213,12 @@ namespace Scripts
         }
         public Vector3 GetPower()
         {
-            return Power;
+            return power;
         }
         
         public void SetPower(Vector3 newPower)
         {
-            Power = newPower;
+            power = newPower;
         }
         
         public void SetPowerEnemy(Vector3 Pos)
@@ -227,9 +228,9 @@ namespace Scripts
                 player.gameObject.transform.position.x - Pos.x);
             //Debug.Log(Angle);
             Vector3 direction = new Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
-            Power = direction * 5f;
+            power = direction * 5f;
             PowerDirection = 1f;
-            Debug.Log("Pos:"+Pos+"/Power:"+Power);;
+            Debug.Log("Pos:"+Pos+"/Power:"+power);;
         }
 
         public void OnReflect()
@@ -242,7 +243,7 @@ namespace Scripts
         }
         public void ResetBullet()
         {
-            MoveAction.actions["Attack"].canceled -= OffAttack;
+            moveAction.actions["Attack"].canceled -= OffAttack;
         }
     }
 }
