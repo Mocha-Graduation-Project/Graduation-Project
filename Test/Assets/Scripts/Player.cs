@@ -296,7 +296,7 @@ namespace Scripts
             IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
-            currentStamina -= quickStaminaDrainPerSecond;
+
             QuickAttackCollision.gameObject.SetActive(true);
             animator.SetTrigger("isAttack");
             Invoke("AttackCollisionFalse", 0.1f);

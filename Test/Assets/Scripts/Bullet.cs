@@ -16,6 +16,7 @@ namespace Scripts
         [NonSerialized]public float PowerDirection;
         private int count = 1;
         private bool isAttack = false;
+        private bool isQuick = false;
         
         private Material material;
         private bool destroyed = false; //Destroyで消してもAttckに反応することがあるので仮で配置、バグ治せれば消す
@@ -28,6 +29,7 @@ namespace Scripts
         private Vector2 lastInputDirection = Vector2.right;
         
         private float staminaDrainPerSecond = 0f;
+        private float quickStaminaDrainPerSecond = 0f;
         
         private PlayerInput moveAction;
         
@@ -48,7 +50,6 @@ namespace Scripts
             Debug.Log(meshRendererChild.name);
             reflectionCount = 0;
             //cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
-            staminaDrainPerSecond = player.staminaDrainPerSecond;
             moveAction = GetComponent<PlayerInput>();
             moveAction.actions["Attack"].canceled += OffAttack;
         }
@@ -80,7 +81,7 @@ namespace Scripts
             //スタミナ消費
             if (isAttack)
             {
-                player.currentStamina -= staminaDrainPerSecond * Time.deltaTime*5;
+                player.currentStamina -= staminaDrainPerSecond * Time.deltaTime * 5;
                 if (player.currentStamina <= 0)
                 {
                     player.currentStamina = 0;
@@ -93,6 +94,24 @@ namespace Scripts
 
                 }
             }
+
+            if (isQuick)
+            {
+                player.currentStamina -= quickStaminaDrainPerSecond * Time.deltaTime * 5;
+                if (player.currentStamina <= 0)
+                {
+                    player.currentStamina = 0;
+                    player.AttackFinish();
+                    if (attackCoolTime > attackCoolMaxTime)
+                    {
+                        QuickAttack(); 
+                        attackCoolTime = 0;
+                    }
+
+                }
+            }
+            
+            
             attackCoolTime+= Time.deltaTime;
             player.staminaSlider.value = player.currentStamina;
             
@@ -104,6 +123,8 @@ namespace Scripts
             maxBulletSpeed = characterParams.maxBulletSpeed;
             maxDamage = characterParams.maxDamage;
             power = characterParams.power;
+            staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
+            quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -137,7 +158,7 @@ namespace Scripts
             if (collision.gameObject.tag == "QuickAttack" && !destroyed)
             {
                 player.isMove = false;
-                isAttack = true;
+                isQuick = true;
                 SavePower = -power;
                 //Power = UnityEngine.Vector3.zero;
                 QuickAttack();
@@ -240,6 +261,7 @@ namespace Scripts
         public void AttackFalse()
         {
             isAttack = false;
+            isQuick = false;
         }
         public void ResetBullet()
         {
