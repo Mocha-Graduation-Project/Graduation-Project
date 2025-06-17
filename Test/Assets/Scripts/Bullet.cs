@@ -1,55 +1,75 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 //using System.Numerics;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using Scripts;
+using Scripts.Scriptable;
 
 namespace Scripts
 {
     public class Bullet : MonoBehaviour
-    {
-        [SerializeField] private UnityEngine.Vector3 Power;
+    { 
+        private UnityEngine.Vector3 power;
         Player player => Player.Instance;
-        public float PowerDirection;
+        [NonSerialized]public float PowerDirection;
         private int count = 1;
         private bool isAttack = false;
-        public int Damage = 1;
+        private bool isQuick = false;
+        
         private Material material;
-
         private bool destroyed = false; //Destroyで消してもAttckに反応することがあるので仮で配置、バグ治せれば消す
         
         [SerializeField] private MeshRenderer meshRendererChild;
-        public int reflectionCount;
+        [NonSerialized]public int reflectionCount;
         private int maxReflectionCount = 4;
-        //CameraAreaManager cameraAreaManager;
 
         private UnityEngine.Vector3 SavePower;
         private Vector2 lastInputDirection = Vector2.right;
         
         private float staminaDrainPerSecond = 0f;
+        private float quickStaminaDrainPerSecond = 0f;
         
-        private PlayerInput MoveAction;
+        private PlayerInput moveAction;
         
         private float attackCoolMaxTime = 1f;
         private float attackCoolTime = 0f;
-        
-        // [SerializeField] private Collider2D loopAreaCollider;
-        // private  float minX,maxX,minY,maxY;
+        [NonSerialized][JapaneseLabel("初期ダメージ値")]public int Damage = 1;
+        [JapaneseLabel("最大スピード")] private float maxBulletSpeed;
+        [JapaneseLabel("最大ダメージ")] private int maxDamage;
+        [SerializeField] private CharacterParams characterParams;
+
+        private void Awake()
+        {
+            PlayerParamReset();
+        }
         private void Start()
         {
-            Power *= PowerDirection;
+            power *= PowerDirection;
             Debug.Log(meshRendererChild.name);
             reflectionCount = 0;
             //cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
-            staminaDrainPerSecond = player.staminaDrainPerSecond;
-            MoveAction = GetComponent<PlayerInput>();
-            MoveAction.actions["Attack"].canceled += OffAttack;
+            moveAction = GetComponent<PlayerInput>();
+            moveAction.actions["Attack"].canceled += OffAttack;
         }
 
         void Update()
         {
-            transform.position += Power * Time.deltaTime;
+            // 最大スピード制限
+            if (power.magnitude > maxBulletSpeed)
+            {
+                power = power.normalized * maxBulletSpeed;
+            }
+            
+            transform.position += power * Time.deltaTime;
+            
+            if (power != Vector3.zero)
+            {
+                float angle = Mathf.Atan2(power.y, power.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            }
+            
             Vector2 input = player.InputMove;
 
             // 入力があれば更新、なければ前回の方向を維持
@@ -58,43 +78,10 @@ namespace Scripts
                 lastInputDirection = input.normalized;
             }
             
-            // Vector3 pos = transform.position;
-            // if (loopAreaCollider != null)
-            // {
-            //     if (pos.x < minX) pos.x = maxX;
-            //     else if (pos.x > maxX) pos.x = minX;
-            //
-            //     if (pos.y < minY) pos.y = maxY;
-            //     else if (pos.y > maxY) pos.y = minY;
-            //
-            //     transform.position = pos;
-            // }
-            // if (!GetComponent<Renderer>().isVisible)
-            // {
-            //     if (count >= 1)
-            //     {
-            //         count--;
-            //         return;
-            //     }
-            //
-            //     // UnityEngine.Vector3 pos = transform.position;
-            //     //
-            //     // // if (pos.x < cameraAreaManager.LeftMax)
-            //     // //     pos.x = cameraAreaManager.RightMax;
-            //     // // else if (pos.x > cameraAreaManager.RightMax)
-            //     // //     pos.x = cameraAreaManager.LeftMax;
-            //     // //
-            //     // // if (pos.y < cameraAreaManager.DownMax)
-            //     // //     pos.y = cameraAreaManager.UpMax;
-            //     // // else if (pos.y > cameraAreaManager.UpMax)
-            //     // //     pos.y = cameraAreaManager.DownMax;
-            //     //
-            //     // transform.position = pos;
-            // }
             //スタミナ消費
             if (isAttack)
             {
-                player.currentStamina -= staminaDrainPerSecond * Time.deltaTime*5;
+                player.currentStamina -= staminaDrainPerSecond * Time.deltaTime * 5;
                 if (player.currentStamina <= 0)
                 {
                     player.currentStamina = 0;
@@ -107,11 +94,38 @@ namespace Scripts
 
                 }
             }
+
+            if (isQuick)
+            {
+                player.currentStamina -= quickStaminaDrainPerSecond * Time.deltaTime * 5;
+                if (player.currentStamina <= 0)
+                {
+                    player.currentStamina = 0;
+                    player.AttackFinish();
+                    if (attackCoolTime > attackCoolMaxTime)
+                    {
+                        QuickAttack(); 
+                        attackCoolTime = 0;
+                    }
+
+                }
+            }
+            
+            
             attackCoolTime+= Time.deltaTime;
             player.staminaSlider.value = player.currentStamina;
             
         }
 
+        private void PlayerParamReset()
+        {
+            Damage = characterParams.damage;
+            maxBulletSpeed = characterParams.maxBulletSpeed;
+            maxDamage = characterParams.maxDamage;
+            power = characterParams.power;
+            staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
+            quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
+        }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.tag == "Ground" || (collision.gameObject.tag == "Player" && !isAttack))
@@ -136,7 +150,7 @@ namespace Scripts
                 player.Arrow.SetActive(true);
                 isAttack = true;
                 Time.timeScale = 0.2f;
-                Power = UnityEngine.Vector3.zero;
+                power = UnityEngine.Vector3.zero;
                 //Invoke("Attack", 0.3f);
 
             }
@@ -144,11 +158,10 @@ namespace Scripts
             if (collision.gameObject.tag == "QuickAttack" && !destroyed)
             {
                 player.isMove = false;
-                isAttack = true;
-                Time.timeScale = 0.2f;
-                SavePower = -Power;
-                Power = UnityEngine.Vector3.zero;
-                Invoke("QuickAttack", 0.1f);
+                isQuick = true;
+                SavePower = -power;
+                //Power = UnityEngine.Vector3.zero;
+                QuickAttack();
 
             }
         }
@@ -157,7 +170,9 @@ namespace Scripts
         {
             if (this.gameObject.CompareTag("EnemyBullet"))
                 this.gameObject.tag = "Bullet";
-            Damage *= 2;
+            
+            Damage = Mathf.Min(Damage * 2, maxDamage);
+            
             //powerlevelの変更をここに入れたい
             reflectionCount++;
             float powerColor = reflectionCount * 0.26f;
@@ -168,14 +183,15 @@ namespace Scripts
             player.currentStamina -= 2.5f;
             player.Arrow.SetActive(false);
             player.isMove = true;
-            Invoke("AttckFalse", 0.2f);
+            Invoke("AttackFalse", 0.2f);
             PowerDirection *= 1.25f;
             if (PowerDirection < 0)
                 PowerDirection *= -1;
             
             float Angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
             UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
-            Power = direction * PowerDirection * 10f;
+            power = direction * PowerDirection * 10f;
+            
             Time.timeScale = 1f;
             player.PlayReflectionSound();
         }
@@ -184,22 +200,27 @@ namespace Scripts
         {
             if (this.gameObject.CompareTag("EnemyBullet"))
                 this.gameObject.tag = "Bullet";
-            Damage *= 2;
+            
+            Damage = Mathf.Min(Damage * 2, maxDamage);
+            
             //powerlevelの変更をここに入れたい
             reflectionCount++;
+            
             float powerColor = reflectionCount * 0.26f;
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
+            
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-            player.currentStamina -= 2.5f;
             player.isMove = true;
-            Invoke("AttckFalse", 0.2f);
-            PowerDirection *= 1.25f;
-            if (PowerDirection < 0)
-                PowerDirection *= -1;
+            Invoke("AttackFalse", 0.2f);
+            Vector3 reversePower = -1 * GetPower().normalized * GetPower().magnitude;
+            SetPower(reversePower);
 
-            Power = SavePower * PowerDirection;
-            Time.timeScale = 1f;
+            // PowerDirection *= 1.25f;
+            // if (PowerDirection < 0)
+            //     PowerDirection *= -1;
+            //
+            // Power = SavePower * PowerDirection;
             player.PlayReflectionSound();
         }
 
@@ -213,12 +234,12 @@ namespace Scripts
         }
         public Vector3 GetPower()
         {
-            return Power;
+            return power;
         }
         
         public void SetPower(Vector3 newPower)
         {
-            Power = newPower;
+            power = newPower;
         }
         
         public void SetPowerEnemy(Vector3 Pos)
@@ -228,22 +249,23 @@ namespace Scripts
                 player.gameObject.transform.position.x - Pos.x);
             //Debug.Log(Angle);
             Vector3 direction = new Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
-            Power = direction * 5f;
+            power = direction * 5f;
             PowerDirection = 1f;
-            Debug.Log("Pos:"+Pos+"/Power:"+Power);;
+            Debug.Log("Pos:"+Pos+"/Power:"+power);;
         }
 
         public void OnReflect()
         {
             player.PlayReflectionSound();
         }
-        public void AttckFalse()
+        public void AttackFalse()
         {
             isAttack = false;
+            isQuick = false;
         }
         public void ResetBullet()
         {
-            MoveAction.actions["Attack"].canceled -= OffAttack;
+            moveAction.actions["Attack"].canceled -= OffAttack;
         }
     }
 }
