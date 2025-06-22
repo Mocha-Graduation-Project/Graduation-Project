@@ -104,7 +104,7 @@ namespace Scripts
                     player.AttackFinish();
                     if (attackCoolTime > attackCoolMaxTime)
                     {
-                        QuickAttack(); 
+                        //QuickAttack(); 
                         attackCoolTime = 0;
                     }
 
@@ -231,6 +231,11 @@ namespace Scripts
             {
                 Attack();
             }
+
+            // if (isQuick)
+            // {
+            //     QuickAttack();
+            // }
         }
         public Vector3 GetPower()
         {

@@ -278,7 +278,7 @@ namespace Scripts
         }
         public void OnAttack(InputAction.CallbackContext context)
         {
-            if (currentStamina <= 0) return;
+            if (currentStamina <= staminaDrainPerSecond) return;
 
             IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
@@ -291,7 +291,7 @@ namespace Scripts
 
         public void OnQuickAttack(InputAction.CallbackContext context)
         {
-            if (currentStamina <= 0) return;
+            if (currentStamina <= quickStaminaDrainPerSecond) return;
 
             IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
