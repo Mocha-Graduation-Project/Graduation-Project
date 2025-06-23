@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using Scripts.UI;
 using TMPro;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
@@ -28,7 +29,10 @@ namespace Scripts
         [SerializeField] private EnemyType enemyType;
 
         public int HP;
-        [SerializeField] private TextMeshProUGUI DamageText;
+        [SerializeField] private DamageUI damageText;
+        [SerializeField][JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
+        [SerializeField][JapaneseLabel("攻撃の〇秒前")] private float beforeAttackTime;
+        [SerializeField][JapaneseLabel("警告マークの点滅間隔")] private float blinkDuration = 0.2f;
         Player player => Player.Instance;
         private bool isfirst = true;
         [SerializeField] private GameObject Bullet;
@@ -44,7 +48,7 @@ namespace Scripts
         private float minX, maxX, minY, maxY;
 
         private float enemySize = 0.5f;
-
+        
         private void Awake()
         {
             GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
@@ -61,8 +65,8 @@ namespace Scripts
 
         private void Start()
         {
-            DamageText.enabled = false;
             audioSource = GetComponent<AudioSource>();
+            Invoke("BeforeAttack", BulletRate - beforeAttackTime);
             Invoke("Attack", BulletRate);
             enemySpawn = GameObject.FindObjectOfType<EnemySpawnManager>();
             
@@ -75,6 +79,7 @@ namespace Scripts
 
         private void Attack()
         {
+            beforeAttackText.After();
             GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
             switch (bulletType)
             {
@@ -88,6 +93,7 @@ namespace Scripts
                     break;
             }
             audioSource.PlayOneShot(ShotSound);
+            Invoke("BeforeAttack", BulletRate - beforeAttackTime);
             Invoke("Attack", BulletRate);
         }
 
@@ -122,8 +128,9 @@ namespace Scripts
             {
                 Debug.Log("当たった");
                 HP--;
-                DamageText.enabled = true;
-                DamageText.text = "1";
+                // DamageText.enabled = true;
+                // DamageText.text = "1";
+                damageText.ShowDamage(1);
                 audioSource.PlayOneShot(DamageSound);
             }
 
@@ -132,8 +139,9 @@ namespace Scripts
                 Debug.Log("当たった");
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
                 HP -= bullet.Damage;
-                DamageText.enabled = true;
-                DamageText.text = bullet.Damage.ToString();
+                // DamageText.enabled = true;
+                // DamageText.text = bullet.Damage.ToString();
+                damageText.ShowDamage(bullet.Damage);
                 audioSource.PlayOneShot(DamageSound);
             }
 
@@ -150,6 +158,11 @@ namespace Scripts
                 }
                 //enemySpawn.RemoveEnemy(this.gameObject);
             }
+        }
+
+        private void BeforeAttack()
+        {
+            beforeAttackText.Warning(blinkDuration);
         }
     }
 }
