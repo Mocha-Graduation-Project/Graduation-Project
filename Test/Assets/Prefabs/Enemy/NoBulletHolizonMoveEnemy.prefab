@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5316272433804389530}
   - component: {fileID: 2860922602979225419}
   - component: {fileID: 7551962666937020407}
+  - component: {fileID: 623706688927445012}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -65,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -136,6 +137,28 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &623706688927445012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6254773146155943745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc1922239b6c4b15b64e1bf987157f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveY: 1
+  duration: 1
+  smallDamage: 10
+  mediumDamage: 30
+  smallDamageSize: 0
+  mediumDamageSize: 5
+  bigDamageSize: 20
+  smallDamageColor: {r: 1, g: 1, b: 1, a: 1}
+  mediumDamageColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  bigDamageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &6460471003761360793
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,8 +174,9 @@ GameObject:
   - component: {fileID: 3317964292277821450}
   - component: {fileID: 4151815204507809134}
   - component: {fileID: -8705475340661231006}
+  - component: {fileID: 6429249054025689727}
   m_Layer: 8
-  m_Name: NoBulletEnemy
+  m_Name: NoBulletHolizonMoveEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -400,8 +424,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 8
-  DamageText: {fileID: 7551962666937020407}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
+  enemySpawn: {fileID: 0}
+  damageText: {fileID: 623706688927445012}
+--- !u!114 &6429249054025689727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6460471003761360793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb9edd410af17f47ae8bf4d57d1e535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolEnemyData: {fileID: 11400000, guid: bfcdde73abbbf8543aa60bab7ef0dfb1, type: 2}
+  speed: 2
+  moveable: 0
+  waitTime: 0
 --- !u!1 &6722164026637600296
 GameObject:
   m_ObjectHideFlags: 0

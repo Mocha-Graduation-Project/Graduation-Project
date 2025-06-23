@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
+using Scripts.UI;
 
 namespace Scripts
 {
@@ -13,7 +14,7 @@ namespace Scripts
     public class NoBulletEnemyEnemy : MonoBehaviour
     {
         public int HP;
-        [SerializeField] private TextMeshProUGUI DamageText;
+        
         Player player => Player.Instance;
         private bool isfirst = true;
         private AudioSource audioSource;
@@ -21,9 +22,13 @@ namespace Scripts
 
         [SerializeField] private EnemySpawnManager enemySpawn;
 
+        [SerializeField] private DamageUI damageText;
+        // [SerializeField][JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
+        // [SerializeField][JapaneseLabel("攻撃の〇秒前")] private float beforeAttackTime;
+
+
         private void Start()
         {
-            DamageText.enabled = false;
             audioSource = GetComponent<AudioSource>();
             enemySpawn = GameObject.FindObjectOfType<EnemySpawnManager>();
         }
@@ -54,8 +59,7 @@ namespace Scripts
             {
                 Debug.Log("当たった");
                 HP--;
-                DamageText.enabled = true;
-                DamageText.text = "1";
+                damageText.ShowDamage(1);
                 audioSource.PlayOneShot(DamageSound);
             }
 
@@ -64,8 +68,7 @@ namespace Scripts
                 Debug.Log("当たった");
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
                 HP -= bullet.Damage;
-                DamageText.enabled = true;
-                DamageText.text = bullet.Damage.ToString();
+                damageText.ShowDamage(bullet.Damage);
                 audioSource.PlayOneShot(DamageSound);
             }
 
