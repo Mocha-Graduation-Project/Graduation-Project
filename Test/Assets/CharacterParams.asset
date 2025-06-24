@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CharacterParams
   m_EditorClassIdentifier: 
   moveAction: {fileID: 163183520200374533, guid: 9be1418a083839441beaea19696c784a, type: 3}
-  moveSpeed: 5
+  moveSpeed: 5.5
   jumpPower: 8
   MaxJumpCount: 2
   jumpCooldown: 0.2
@@ -27,10 +27,10 @@ MonoBehaviour:
   staminaDrainPerSecond: 20
   quickStaminaDrainPerSecond: 20
   shotStaminaRecoveryPerSecond: 0.2
-  overheatRecoveryPerSecond: 0.1
+  overheatRecoveryPerSecond: 0.25
   shotStaminaDrainPerSecond: 0.5
   shotCoolTime: 0.2
-  power: {x: 8, y: 0, z: 0}
+  power: {x: 7, y: 0, z: 0}
   damage: 1
   maxBulletSpeed: 12
   maxDamage: 50
