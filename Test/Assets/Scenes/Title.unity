@@ -154,7 +154,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 200}
-  m_SizeDelta: {x: 750, y: 400}
+  m_SizeDelta: {x: 750, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &60262932
 MonoBehaviour:
@@ -888,7 +888,7 @@ GameObject:
   - component: {fileID: 1016797768}
   - component: {fileID: 1016797767}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1142,7 +1142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MainMenu
+  m_text: Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1304,16 +1304,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1634046994}
-        m_TargetAssemblyTypeName: SceneButtonManager, Assembly-CSharp
-        m_MethodName: SceneChangeMainMenu
-        m_Mode: 1
+      - m_Target: {fileID: 1969930340}
+        m_TargetAssemblyTypeName: OBSController, Assembly-CSharp
+        m_MethodName: SetSceneName
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: "\u30B2\u30FC\u30E0\u753B\u9762\u306E\u307F"
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1188878587
@@ -1534,16 +1534,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1634046994}
-        m_TargetAssemblyTypeName: SceneButtonManager, Assembly-CSharp
-        m_MethodName: TakeOBS
-        m_Mode: 1
+      - m_Target: {fileID: 1969930340}
+        m_TargetAssemblyTypeName: OBSController, Assembly-CSharp
+        m_MethodName: SetSceneName
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: "\u30B7\u30FC\u30F3"
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1554354940
@@ -1845,9 +1845,6 @@ MonoBehaviour:
   playerInput: {fileID: 0}
   pauseObj: {fileID: 0}
   clearObj: {fileID: 0}
-  startUIObj: {fileID: 1072709375}
-  canTakeFhotoObj: {fileID: 1142455527}
-  connectingTextObj: {fileID: 1601994990}
 --- !u!1 &1679529146
 GameObject:
   m_ObjectHideFlags: 0
@@ -2134,6 +2131,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818413707}
   m_CullTransparentMesh: 1
+--- !u!1 &1969930339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1969930341}
+  - component: {fileID: 1969930340}
+  m_Layer: 0
+  m_Name: OBSController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1969930340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969930339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0244f844513236d47b8e339ca10c94a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneButtonManager: {fileID: 1634046994}
+  startUIObj: {fileID: 1072709375}
+  canTakeFhotoObj: {fileID: 1142455527}
+  connectingTextObj: {fileID: 1601994990}
+  isRecording: 1
+--- !u!4 &1969930341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1969930339}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1328.1958, y: 303.35947, z: -8.822251}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2002638982
 GameObject:
   m_ObjectHideFlags: 0
@@ -2147,7 +2193,7 @@ GameObject:
   - component: {fileID: 2002638985}
   - component: {fileID: 2002638984}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2217,8 +2263,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1634046994}
-        m_TargetAssemblyTypeName: SceneButtonManager, Assembly-CSharp
+      - m_Target: {fileID: 1969930340}
+        m_TargetAssemblyTypeName: OBSController, Assembly-CSharp
         m_MethodName: AskCanTakeOBS
         m_Mode: 1
         m_Arguments:
@@ -2354,3 +2400,4 @@ SceneRoots:
   - {fileID: 1415254865}
   - {fileID: 1634046993}
   - {fileID: 2060740816}
+  - {fileID: 1969930341}

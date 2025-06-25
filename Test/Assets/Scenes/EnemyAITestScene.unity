@@ -527,6 +527,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WarpZone (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6101501329489277467, guid: 43db042f753d29a4d965cda0e8b61a12, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1000,6 +1004,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2572837507878866759, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
+      propertyPath: blinkDuration
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6460471003761360793, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
       propertyPath: m_Name
       value: VerticalPatrolEnemy
@@ -1043,6 +1051,10 @@ PrefabInstance:
     - target: {fileID: 7275087655487328869, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7551962666937020407, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
+      propertyPath: m_text
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7900115282096297914, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
       propertyPath: speed
@@ -1276,8 +1288,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6254773146155943745, guid: f9bdf48188d13414a8bafe671b18a979, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 948245526}
   m_SourcePrefab: {fileID: 100100000, guid: f9bdf48188d13414a8bafe671b18a979, type: 3}
+--- !u!1 &948245525 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6254773146155943745, guid: f9bdf48188d13414a8bafe671b18a979, type: 3}
+  m_PrefabInstance: {fileID: 948245523}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &948245526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948245525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc1922239b6c4b15b64e1bf987157f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveY: 1
+  duration: 1
+  smallDamage: 10
+  mediumDamage: 30
+  smallDamageSize: 0
+  mediumDamageSize: 5
+  bigDamageSize: 20
+  smallDamageColor: {r: 1, g: 1, b: 1, a: 1}
+  mediumDamageColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  bigDamageColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &969427007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2125,6 +2167,10 @@ PrefabInstance:
     - target: {fileID: 6101501329489277467, guid: 43db042f753d29a4d965cda0e8b61a12, type: 3}
       propertyPath: m_Name
       value: WarpZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101501329489277467, guid: 43db042f753d29a4d965cda0e8b61a12, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
