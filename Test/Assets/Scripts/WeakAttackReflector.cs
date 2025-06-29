@@ -16,22 +16,29 @@ namespace Scripts
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag(playerBulletTag) == true)
+            if (collision.CompareTag(playerBulletTag))
             {
-                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+                Bullet bullet = collision.GetComponent<Bullet>();
                 int count = bullet.reflectionCount;
 
                 if (count <= destroyBulletCount)
                 {
                     // 弱い弾は反射
-                    Vector3 reversePower = -bullet.GetPower().normalized * bullet.GetPower().magnitude;
-                    bullet.SetPower(reversePower);
+                    Vector3 originalPower = bullet.GetPower();
+                    Vector3 reversedDirection = -originalPower.normalized;
+                    float speed = originalPower.magnitude;
+                    
+                    bullet.SetDirection(reversedDirection);
+                    bullet.SetSpeed(speed);
+                    bullet.UpdatePower();
+
                     bullet.OnReflect();
                 }
                 else
                 {
+                    // 強い弾は貫通 → 一時的に親のコライダーを有効にする
                     parentObjects.enabled = true;
-                    Invoke("ParentCollider",0.5f);
+                    Invoke(nameof(ParentCollider), 0.5f);
                 }
             }
         }

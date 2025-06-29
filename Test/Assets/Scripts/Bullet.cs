@@ -38,7 +38,12 @@ namespace Scripts
         [NonSerialized][JapaneseLabel("初期ダメージ値")]public int Damage = 1;
         [JapaneseLabel("最大スピード")] private float maxBulletSpeed;
         [JapaneseLabel("最大ダメージ")] private int maxDamage;
+        [JapaneseLabel("弾くたびに＋〇〇速度を追加")] private float addSpeed;
+        [JapaneseLabel("弾くたびに＋〇〇ダメージを追加")] private int addDamage;
         [SerializeField] private CharacterParams characterParams;
+
+        [JapaneseLabel("現在の速度")]private float currentSpeed;
+        [JapaneseLabel("現在の移動方向")]private Vector3 currentDirection = Vector3.right;
 
         private void Awake()
         {
@@ -46,10 +51,14 @@ namespace Scripts
         }
         private void Start()
         {
-            power *= PowerDirection;
-            Debug.Log(meshRendererChild.name);
+            // power *= PowerDirection;
+            // reflectionCount = 0;
+            
+            currentDirection = characterParams.power.normalized * PowerDirection;
+            currentSpeed = characterParams.power.magnitude;
+            UpdatePower();
+
             reflectionCount = 0;
-            //cameraAreaManager = GameObject.FindObjectOfType<CameraAreaManager>();
             moveAction = GetComponent<PlayerInput>();
             moveAction.actions["Attack"].canceled += OffAttack;
         }
@@ -57,16 +66,29 @@ namespace Scripts
         void Update()
         {
             // 最大スピード制限
-            if (power.magnitude > maxBulletSpeed)
-            {
-                power = power.normalized * maxBulletSpeed;
-            }
+            // if (power.magnitude > maxBulletSpeed)
+            // {
+            //     power = power.normalized * maxBulletSpeed;
+            // }
             
-            transform.position += power * Time.deltaTime;
+            //transform.position += power * Time.deltaTime;
             
-            if (power != Vector3.zero)
+            // if (power != Vector3.zero)
+            // {
+            //     float angle = Mathf.Atan2(power.y, power.x) * Mathf.Rad2Deg;
+            //     transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            // }
+            
+            // 最大スピード制限
+            currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
+
+            // 移動
+            transform.position += currentDirection * currentSpeed * Time.deltaTime;
+
+            // 回転
+            if (currentDirection != Vector3.zero)
             {
-                float angle = Mathf.Atan2(power.y, power.x) * Mathf.Rad2Deg;
+                float angle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0f, 0f, angle);
             }
             
@@ -125,6 +147,8 @@ namespace Scripts
             power = characterParams.power;
             staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
             quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
+            addSpeed = characterParams.addSpeed;
+            addDamage = characterParams.addDamage;
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -171,28 +195,34 @@ namespace Scripts
             if (this.gameObject.CompareTag("EnemyBullet"))
                 this.gameObject.tag = "Bullet";
             
-            Damage = Mathf.Min(Damage * 2, maxDamage);
-            
-            //powerlevelの変更をここに入れたい
+            Damage = Mathf.Min(Damage +addDamage, maxDamage);
             reflectionCount++;
-            float powerColor = reflectionCount * 0.26f;
+            
+            float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
-
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
+            
             player.currentStamina -= 2.5f;
             player.Arrow.SetActive(false);
             player.isMove = true;
-            Invoke("AttackFalse", 0.2f);
+            
             PowerDirection *= 1.25f;
             if (PowerDirection < 0)
                 PowerDirection *= -1;
             
-            float Angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
-            UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
-            power = direction * PowerDirection * 10f;
+            float angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
+            // UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
+            // power = direction * PowerDirection;
+            currentDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0).normalized;
+
+            // スピード増加
+            currentSpeed += addSpeed;
+            currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
+            UpdatePower();
             
             Time.timeScale = 1f;
+            Invoke("AttackFalse", 0.2f);
             player.PlayReflectionSound();
         }
 
@@ -201,26 +231,22 @@ namespace Scripts
             if (this.gameObject.CompareTag("EnemyBullet"))
                 this.gameObject.tag = "Bullet";
             
-            Damage = Mathf.Min(Damage * 2, maxDamage);
-            
-            //powerlevelの変更をここに入れたい
+            Damage = Mathf.Min(Damage + addDamage, maxDamage);
             reflectionCount++;
             
-            float powerColor = reflectionCount * 0.26f;
+            float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
+            meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
             
-            meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
+
+            currentDirection = -currentDirection; // 逆方向
+            currentSpeed += addSpeed;
+            currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
+            UpdatePower();
+            
             player.isMove = true;
             Invoke("AttackFalse", 0.2f);
-            Vector3 reversePower = -1 * GetPower().normalized * GetPower().magnitude;
-            SetPower(reversePower);
-
-            // PowerDirection *= 1.25f;
-            // if (PowerDirection < 0)
-            //     PowerDirection *= -1;
-            //
-            // Power = SavePower * PowerDirection;
             player.PlayReflectionSound();
         }
 
@@ -237,14 +263,26 @@ namespace Scripts
             //     QuickAttack();
             // }
         }
-        public Vector3 GetPower()
+         public Vector3 GetPower()
+         {
+             return power;
+         }
+        public void UpdatePower()
         {
-            return power;
+            power = currentDirection.normalized * currentSpeed;
         }
-        
-        public void SetPower(Vector3 newPower)
+        // public void SetPower(Vector3 newPower)
+        // {
+        //     power = newPower;
+        // }
+        public void SetDirection(Vector3 newDirection)
         {
-            power = newPower;
+            currentDirection = newDirection.normalized;
+        }
+
+        public void SetSpeed(float newSpeed)
+        {
+            currentSpeed = newSpeed;
         }
         
         public void SetPowerEnemy(Vector3 Pos)
