@@ -37,9 +37,8 @@ namespace Scripts
         private float attackCoolTime = 0f;
         [NonSerialized][JapaneseLabel("初期ダメージ値")]public int Damage = 1;
         [JapaneseLabel("最大スピード")] private float maxBulletSpeed;
-        [JapaneseLabel("最大ダメージ")] private int maxDamage;
         [JapaneseLabel("弾くたびに＋〇〇速度を追加")] private float addSpeed;
-        [JapaneseLabel("弾くたびに＋〇〇ダメージを追加")] private int addDamage;
+        [SerializeField, JapaneseLabel("1回目〇ダメージ、2回目〇ダメージ...")] private int[] damageByReflectionCount;
         [SerializeField] private CharacterParams characterParams;
 
         [JapaneseLabel("現在の速度")]private float currentSpeed;
@@ -143,12 +142,11 @@ namespace Scripts
         {
             Damage = characterParams.damage;
             maxBulletSpeed = characterParams.maxBulletSpeed;
-            maxDamage = characterParams.maxDamage;
             power = characterParams.power;
             staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
             quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
             addSpeed = characterParams.addSpeed;
-            addDamage = characterParams.addDamage;
+            damageByReflectionCount = characterParams.damageByReflectionCount;
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -195,8 +193,14 @@ namespace Scripts
             if (this.gameObject.CompareTag("EnemyBullet"))
                 this.gameObject.tag = "Bullet";
             
-            Damage = Mathf.Min(Damage +addDamage, maxDamage);
             reflectionCount++;
+            if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
+            {
+                int index = Mathf.Min(reflectionCount - 1, damageByReflectionCount.Length - 1);
+                Damage = damageByReflectionCount[index];
+            }
+            //Damage = Mathf.Min(Damage +addDamage, maxDamage);
+            
             
             float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
             if (reflectionCount >= maxReflectionCount)
@@ -231,8 +235,14 @@ namespace Scripts
             if (this.gameObject.CompareTag("EnemyBullet"))
                 this.gameObject.tag = "Bullet";
             
-            Damage = Mathf.Min(Damage + addDamage, maxDamage);
+            // Damage = Mathf.Min(Damage + addDamage, maxDamage);
             reflectionCount++;
+            
+            if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
+            {
+                int index = Mathf.Min(reflectionCount - 1, damageByReflectionCount.Length - 1);
+                Damage = damageByReflectionCount[index];
+            }
             
             float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
