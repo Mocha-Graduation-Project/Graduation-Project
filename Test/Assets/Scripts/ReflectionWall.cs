@@ -9,14 +9,19 @@ namespace Scripts
         {
             if (collision.TryGetComponent(out Bullet bullet))
             {
-                Vector3 currentPower = bullet.GetPower();
-                float speed = currentPower.magnitude; // 現在の速さ（ベクトルの大きさ）
+                Vector3 incomingPower = bullet.GetPower();
+                float speed = incomingPower.magnitude;
 
-                Vector3 normal = transform.up.normalized; // 壁の面に垂直な方向（法線）
+                Vector3 normal = transform.up.normalized;
 
-                Vector3 reflectPower = normal * speed;
+                // Vector3.Reflectで反射ベクトルを求める
+                Vector3 reflectedDirection = Vector3.Reflect(incomingPower.normalized, normal);
 
-                bullet.SetPower(reflectPower);
+                // Bulletに新しい方向とスピードを設定
+                bullet.SetDirection(reflectedDirection);
+                bullet.SetSpeed(speed);
+                bullet.UpdatePower();
+
                 bullet.OnReflect();
             }
         }

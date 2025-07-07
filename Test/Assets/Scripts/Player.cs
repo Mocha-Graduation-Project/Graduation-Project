@@ -23,31 +23,31 @@ namespace Scripts
         public Slider staminaSlider;
         
         //プレイヤーのステータス
-        private float MoveSpeed;
-        private float jumpPower;
-        private int MaxJumpCount;
+        [JapaneseLabel("移動スピード")]private float MoveSpeed;
+        [JapaneseLabel("ジャンプ力")]private float jumpPower;
+        [JapaneseLabel("最大ジャンプ数")]private int MaxJumpCount;
         [JapaneseLabel("2回目のジャンプまでのクールタイム")]
         private float jumpCooldown = 0.2f;
         [FormerlySerializedAs("limitSpeed")]
-        private float maxFallSpeed = 5f;
+        [JapaneseLabel("最大落下速度")]private float maxFallSpeed = 5f;
         
         //プレイヤーの状態
         [NonSerialized] public int direction = 1;
-        private bool isfirst = true;
-        private bool isGround;
-        private bool isJump;
-        private int jumpCount;
-        private float lastJumpTime; // 最後にジャンプした時間
-        private bool IsAttacking = false;
-        private bool IsShot = false;
-        [NonSerialized] public bool isMove = true;
+        [JapaneseLabel("")]private bool isfirst = true;
+        [JapaneseLabel("地面についているか")]private bool isGround;
+        [JapaneseLabel("ジャンプ中か")]private bool isJump;
+        [JapaneseLabel("ジャンプ数")]private int jumpCount;
+        [JapaneseLabel("最後にジャンプした時間")]private float lastJumpTime;
+        [JapaneseLabel("攻撃中か")]private bool IsAttacking = false;
+        [JapaneseLabel("発射中か")]private bool IsShot = false;
+        [JapaneseLabel("移動中か")][NonSerialized] public bool isMove = true;
         
         //オブジェクト
         private GameObject Bullets;
-        [SerializeField] private GameObject ShotPosition;
-        [SerializeField] private GameObject AttackCollision;
-        [SerializeField] private GameObject QuickAttackCollision;
-        public GameObject Arrow;
+        [JapaneseLabel("弾発射位置")][SerializeField] private GameObject ShotPosition;
+        [JapaneseLabel("弾き判定")][SerializeField] private GameObject AttackCollision;
+        [JapaneseLabel("即弾き判定")][SerializeField] private GameObject QuickAttackCollision;
+        [JapaneseLabel("矢印")]public GameObject Arrow;
         
         //[SerializeField] private float MaxBulletTime;
         
@@ -59,9 +59,9 @@ namespace Scripts
         AnimatorStateInfo animatorStateInfo;
         
         //サウンド関連
-        private AudioClip ReflectionSound;
-        private AudioClip ShotSound;
-        private AudioClip DamageSound;
+        [JapaneseLabel("反射音")]private AudioClip ReflectionSound;
+        [JapaneseLabel("発射音")]private AudioClip ShotSound;
+        [JapaneseLabel("被ダメージ音")]private AudioClip DamageSound;
 
         //反射
         [JapaneseLabel("最大反射スタミナ")] private float maxStamina = 100f;
@@ -77,7 +77,7 @@ namespace Scripts
         [JapaneseLabel("現射撃スタミナ")]private float currentShotStamina;
         [JapaneseLabel("射撃スタミナ消費量")]private float shotStaminaDrainPerSecond = 0.25f;
         [JapaneseLabel("射撃クールタイム")]private float shotCoolTime = 0.2f;
-        bool Overheat = false;
+        [JapaneseLabel("オーバーヒートしているか")]bool Overheat = false;
         
         
         private void Awake()
@@ -199,6 +199,11 @@ namespace Scripts
             {
                 IsShot = false;
             }
+            //落下速度制限
+            if (rb.linearVelocity.y < -maxFallSpeed)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -278,12 +283,14 @@ namespace Scripts
         }
         public void OnAttack(InputAction.CallbackContext context)
         {
+            if(IsAttacking) return;
             if (currentStamina <= staminaDrainPerSecond) return;
 
             IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
             AttackCollision.gameObject.SetActive(true);
+            animator.SetTrigger("isAttack");
             Invoke("AttackCollisionFalse", 0.1f);
             //Invoke("AttackFinish", 0.3f);
             //animator.SetTrigger("isAttack");
@@ -291,6 +298,7 @@ namespace Scripts
 
         public void OnQuickAttack(InputAction.CallbackContext context)
         {
+            if(IsAttacking) return;
             if (currentStamina <= quickStaminaDrainPerSecond) return;
 
             IsAttacking = true;
