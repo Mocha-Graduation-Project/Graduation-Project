@@ -13,6 +13,7 @@ namespace Scripts
     { 
         private UnityEngine.Vector3 power;
         Player player => Player.Instance;
+        PlayerStatus pStatus => PlayerStatus.Instance;
         [NonSerialized]public float PowerDirection;
         private int count = 1;
         private bool isAttack = false;
@@ -20,6 +21,7 @@ namespace Scripts
         
         private Material material;
         private bool destroyed = false; //Destroyで消してもAttckに反応することがあるので仮で配置、バグ治せれば消す
+        private bool isPaused = false;
         
         [SerializeField] private MeshRenderer meshRendererChild;
         [NonSerialized]public int reflectionCount;
@@ -38,12 +40,13 @@ namespace Scripts
         [NonSerialized][JapaneseLabel("初期ダメージ値")]public int Damage = 1;
         [JapaneseLabel("最大スピード")] private float maxBulletSpeed;
         [JapaneseLabel("弾くたびに＋〇〇速度を追加")] private float addSpeed;
-        [SerializeField, JapaneseLabel("1回目〇ダメージ、2回目〇ダメージ...")] private int[] damageByReflectionCount;
+        [JapaneseLabel("1回目〇ダメージ、2回目〇ダメージ...")] private int[] damageByReflectionCount;
         [SerializeField] private CharacterParams characterParams;
 
         [JapaneseLabel("現在の速度")]private float currentSpeed;
         [JapaneseLabel("現在の移動方向")]private Vector3 currentDirection = Vector3.right;
-
+        
+        [JapaneseLabel("反射後の無敵時間")]　private float reflectInvincible = 1;
         private void Awake()
         {
             PlayerParamReset();
@@ -64,6 +67,7 @@ namespace Scripts
 
         void Update()
         {
+            if (isPaused) return;
             // 最大スピード制限
             // if (power.magnitude > maxBulletSpeed)
             // {
@@ -147,6 +151,7 @@ namespace Scripts
             quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
             addSpeed = characterParams.addSpeed;
             damageByReflectionCount = characterParams.damageByReflectionCount;
+            reflectInvincible = characterParams.reflectInvincible;
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -167,8 +172,9 @@ namespace Scripts
 
             if (collision.gameObject.tag == "Attack" && !destroyed)
             {
-                
+                pStatus.StartReflectInvincibility(1000);
                 player.isMove = false;
+                isPaused = true;
                 player.Arrow.SetActive(true);
                 isAttack = true;
                 Time.timeScale = 0.2f;
@@ -179,6 +185,7 @@ namespace Scripts
 
             if (collision.gameObject.tag == "QuickAttack" && !destroyed)
             {
+                pStatus.StartReflectInvincibility(1000);
                 player.isMove = false;
                 isQuick = true;
                 SavePower = -power;
@@ -210,6 +217,7 @@ namespace Scripts
             player.currentStamina -= 2.5f;
             player.Arrow.SetActive(false);
             player.isMove = true;
+            isPaused = false;
             
             PowerDirection *= 1.25f;
             if (PowerDirection < 0)
@@ -228,6 +236,8 @@ namespace Scripts
             Time.timeScale = 1f;
             Invoke("AttackFalse", 0.2f);
             player.PlayReflectionSound();
+            pStatus.StartReflectInvincibility(reflectInvincible);
+            
         }
 
         private void QuickAttack()
@@ -250,7 +260,18 @@ namespace Scripts
                 powerColor = 1.0f;
             
 
-            currentDirection = -currentDirection; // 逆方向
+            // プレイヤーの方向ベクトル
+            Vector3 toPlayer = (player.transform.position - transform.position).normalized;
+
+            // 弾の進行方向との内積をとって、正面かどうか判定
+            float dot = Vector3.Dot(currentDirection.normalized, toPlayer);
+
+            // dot が 0.5以上なら正面にいると見なす（角度で言うと約60度以内）
+            if (dot > 0.5f)
+            {
+                currentDirection = -currentDirection; // 逆方向に反転
+            }
+            
             currentSpeed += addSpeed;
             currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
             UpdatePower();
@@ -258,6 +279,7 @@ namespace Scripts
             player.isMove = true;
             Invoke("AttackFalse", 0.2f);
             player.PlayReflectionSound();
+            pStatus.StartReflectInvincibility(reflectInvincible);
         }
 
         private void OffAttack(InputAction.CallbackContext context)

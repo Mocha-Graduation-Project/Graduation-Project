@@ -1,12 +1,15 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Scripts.Scriptable;
 
 namespace Scripts
 {
 
     public class PlayerStatus : MonoBehaviour
     {
+        public static PlayerStatus Instance;
+        [SerializeField] private CharacterParams characterParams;
         [SerializeField] private CharacterData characterData;
         [SerializeField] private int playerHp;
 
@@ -22,7 +25,7 @@ namespace Scripts
 
         [SerializeField] private Animator animator;
 
-        [SerializeField] [JapaneseLabel("無敵時間")]
+        [JapaneseLabel("被弾時無敵時間")]
         private float invincibleDuration = 2.0f;
 
         private readonly float checkDistance = 0.05f; // Raycastの長さ
@@ -36,9 +39,16 @@ namespace Scripts
         public int PlayerHp => playerHp;
 
         private Player player => Player.Instance;
+        private Coroutine invincibilityCoroutine;
+        
 
         private void Start()
         {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
+            
             StartSetUp();
             uiLife = uiLife.GetComponent<UILife>();
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
@@ -48,6 +58,11 @@ namespace Scripts
         private void Update()
         {
             CheckGround();
+        }
+
+        private void SetScriptable()
+        {
+            invincibleDuration = characterParams.invincibleDuration;
         }
 
         private void CheckGround()
@@ -94,6 +109,23 @@ namespace Scripts
             invincible = true;
             yield return new WaitForSeconds(invincibleDuration);
             invincible = false;
+        }
+
+        public IEnumerator ReflectInvincibilityCoroutine(float reflectInvincible)
+        {
+            invincible = true;
+            yield return new WaitForSeconds(reflectInvincible);
+            invincible = false;
+        }
+        
+        public void StartReflectInvincibility(float duration)
+        {
+            if (invincibilityCoroutine != null)
+            {
+                StopCoroutine(invincibilityCoroutine);
+                invincibilityCoroutine = null;
+            }
+            invincibilityCoroutine = StartCoroutine(ReflectInvincibilityCoroutine(duration));
         }
 
         public void StartSetUp()

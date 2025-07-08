@@ -290,7 +290,7 @@ namespace Scripts
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
             AttackCollision.gameObject.SetActive(true);
-            animator.SetTrigger("isAttack");
+            //animator.SetTrigger("isAttack");
             Invoke("AttackCollisionFalse", 0.1f);
             //Invoke("AttackFinish", 0.3f);
             //animator.SetTrigger("isAttack");
@@ -306,7 +306,7 @@ namespace Scripts
             
 
             QuickAttackCollision.gameObject.SetActive(true);
-            animator.SetTrigger("isAttack");
+            //animator.SetTrigger("isAttack");
             Invoke("AttackCollisionFalse", 0.1f);
             //Invoke("AttackFinish", 0.3f);
             //animator.SetTrigger("isAttack");
@@ -322,6 +322,11 @@ namespace Scripts
             QuickAttackCollision.gameObject.SetActive(false);
         }
 
+        public void PlayAttackAnimation()
+        {
+            animator.SetTrigger("isAttack");
+        }
+
         public void PlayReflectionSound()
         {
             audioSource.PlayOneShot(ReflectionSound);
@@ -333,6 +338,7 @@ namespace Scripts
         }
         private void AttackCollisionFalse()
         {
+            PlayAttackAnimation();
             AttackCollision.gameObject.SetActive(false);
             QuickAttackCollision.gameObject.SetActive(false);
         }

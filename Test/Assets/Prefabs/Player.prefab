@@ -466,6 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1455ecc3e73b6c4f89b94c05b0e9d74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterParams: {fileID: 11400000, guid: ba6e45e6d168adb41bcb14b428391fe5, type: 2}
   characterData: {fileID: 11400000, guid: 7812e98a291b22241a901b1de0ae041e, type: 2}
   playerHp: 0
   uiLife: {fileID: 0}
@@ -475,7 +476,6 @@ MonoBehaviour:
     m_Bits: 128
   groundCheck: {fileID: 2335780435290033169}
   animator: {fileID: 8906615988043019670}
-  invincibleDuration: 2
 --- !u!1 &4827083004097579758
 GameObject:
   m_ObjectHideFlags: 0

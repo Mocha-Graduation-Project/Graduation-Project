@@ -62,5 +62,10 @@ namespace Scripts.Scriptable
         [Header("反射時のダメージ")]
         public int[] damageByReflectionCount;
         
+        //無敵時間
+        [Space(5)][Header("<無敵時間>")]
+        [JapaneseLabel("被弾時無敵時間")] public float invincibleDuration = 2.0f;
+        [JapaneseLabel("反射後の無敵時間")]　public float reflectInvincible = 1;
+        
     }
 }
