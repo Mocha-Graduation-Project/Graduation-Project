@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f033dbb9720d2d4db7e5d281562ba94, type: 3}
   m_Name: Horiizontal Enemy Data
   m_EditorClassIdentifier: 
-  state: 1
+  state: 2
   leftRange: 3
   rightRange: 3
+  moveVerticalTime: 0
   upRange: 0
   downRange: 0
+  moveHorizontalTime: 0
+  waitTime: 1

@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f033dbb9720d2d4db7e5d281562ba94, type: 3}
   m_Name: Vertical Enemy Data
   m_EditorClassIdentifier: 
-  state: 0
+  state: 1
   leftRange: 0
   rightRange: 0
+  moveVerticalTime: 0
   upRange: 3
   downRange: 3
+  moveHorizontalTime: 0
+  waitTime: 1
