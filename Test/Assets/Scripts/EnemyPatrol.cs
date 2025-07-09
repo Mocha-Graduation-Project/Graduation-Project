@@ -10,7 +10,6 @@ public class EnemyPatrol : MonoBehaviour
     private float leftMax, rightMax, upMax, downMax;
     Vector2 movement;
     [SerializeField] private bool moveable;
-    [SerializeField] private float waitTime = 0;
     private Collider2D loopAreaCollider;
     private float enemySize = 0.5f;
     private Vector3 basePos;
@@ -47,7 +46,7 @@ public class EnemyPatrol : MonoBehaviour
         
         // Debug.Log("画面左:"+bounds.min.x+"画面右:"+bounds.max.x+"画面上:"+bounds.max.y+"画面下:"+bounds.min.y);
         // Debug.Log("left:"+leftMax+"right:"+rightMax+"up:"+upMax+"down:"+downMax);
-        ;
+        
         switch (patrolEnemyData.State)
         {
             case PatrolEnemyData.EnemyState.vertical:
@@ -56,15 +55,11 @@ public class EnemyPatrol : MonoBehaviour
             case PatrolEnemyData.EnemyState.horizontal:
                 movement = Vector2.right;
                 break;
-            default:
-                return;
+            case PatrolEnemyData.EnemyState.none:
+                break;
         }
         
         moveable = true;
-        if (waitTime <= 0)
-        {
-            waitTime = 1.0f;
-        }
     }
 
     // Update is called once per frame
@@ -119,7 +114,7 @@ public class EnemyPatrol : MonoBehaviour
 
         if (moveable == false)
         {
-            Invoke("ChangeMoveable", waitTime);
+            Invoke("ChangeMoveable", patrolEnemyData.WaitTime);
         }
     }
 
@@ -135,7 +130,7 @@ public class EnemyPatrol : MonoBehaviour
         {
             moveable = false;
             movement *= -1;
-            Invoke("ChangeMoveable", waitTime);
+            Invoke("ChangeMoveable", patrolEnemyData.WaitTime);
         }
     }
 }

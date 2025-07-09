@@ -24,6 +24,7 @@ namespace Scripts
         {
             normal,
             shield,
+            boss,
         }
 
         [SerializeField] private EnemyType enemyType;
@@ -154,6 +155,9 @@ namespace Scripts
                         enemySpawn.RemoveEnemy(this.gameObject);
                         break;
                     case EnemyType.shield:
+                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
+                        break;
+                    case EnemyType.boss:
                         enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
                         break;
                 }
