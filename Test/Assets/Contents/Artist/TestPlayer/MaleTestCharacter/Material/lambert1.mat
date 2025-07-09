@@ -64,6 +64,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetallicMatcapTexture:
+        m_Texture: {fileID: 2800000, guid: 13ccc71bbea90774cb8003e72f68a7bc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -131,6 +135,8 @@ Material:
     - _LightSmooth: 0.005
     - _MaskFresnelPower: 4.86
     - _Metallic: 0
+    - _MetallicStrength: 0.07
+    - _MetallicUse: 1
     - _Mode: 0
     - _NormalInfruence: 1.2
     - _NormalStrength: 0
@@ -161,7 +167,7 @@ Material:
     - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
     - _CutoffThreshold: {r: 0.005, g: 0.005, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 0.7605763, g: 0.81671154, b: 0.7780208, a: 0}
+    - _MainColor: {r: 0.2776279, g: 0.2776279, b: 0.2776279, a: 0}
     - _RimLightColor: {r: 0.36445913, g: 1.3837547, b: 25.75516, a: 0}
     - _SSSColor: {r: 84.44851, g: 22.735071, b: 19.385965, a: 0}
     - _ShadowColor: {r: 0.18575484, g: 0.19964968, b: 0.2830187, a: 0}
