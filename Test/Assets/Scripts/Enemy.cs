@@ -80,6 +80,7 @@ namespace Scripts
         private void Attack()
         {
             beforeAttackText.After();
+            Debug.Log(Bullet);
             GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
             switch (bulletType)
             {

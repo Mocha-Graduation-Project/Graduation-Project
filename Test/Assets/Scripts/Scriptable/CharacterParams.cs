@@ -56,9 +56,16 @@ namespace Scripts.Scriptable
         //弾のステータス
         [Space(5)] [Header("<弾のステータス>")] [JapaneseLabel("初期スピード")]
         public UnityEngine.Vector3 power;
-        [JapaneseLabel("初期ダメージ値")]public int damage = 1;
         [JapaneseLabel("最大スピード")] public float maxBulletSpeed;
-        [JapaneseLabel("最大ダメージ")] public int maxDamage;
+        [JapaneseLabel("弾くたびに＋〇〇速度を追加")] public float addSpeed = 0.2f;
+        [JapaneseLabel("初期ダメージ値")]public int damage = 1;
+        [Header("反射時のダメージ")]
+        public int[] damageByReflectionCount;
+        
+        //無敵時間
+        [Space(5)][Header("<無敵時間>")]
+        [JapaneseLabel("被弾時無敵時間")] public float invincibleDuration = 2.0f;
+        [JapaneseLabel("反射後の無敵時間")]　public float reflectInvincible = 1;
         
     }
 }

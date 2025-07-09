@@ -8,7 +8,8 @@ namespace Scripts
     public class EnemyBullet : MonoBehaviour
     {
         Player player => Player.Instance;
-        [SerializeField] private UnityEngine.Vector3 Power;
+        private UnityEngine.Vector3 PowerDirection;
+        [SerializeField] private float Power;
         private float correctionAimPos = 0.5f;
 
         public void SetPower(UnityEngine.Vector3 Pos)
@@ -17,12 +18,12 @@ namespace Scripts
                 player.gameObject.transform.position.x - Pos.x);
             //Debug.Log(Angle);
             UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
-            Power = direction * 5f;
+            PowerDirection = direction * Power;
         }
 
         void Update()
         {
-            transform.position += Power * Time.deltaTime;
+            transform.position += PowerDirection * Time.deltaTime;
 
             if (!GetComponent<Renderer>().isVisible)
             {

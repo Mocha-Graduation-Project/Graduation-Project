@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4009499700356285305}
   - component: {fileID: 4783080800016099584}
   - component: {fileID: 4868761627808615847}
+  - component: {fileID: 278464125188283481}
   m_Layer: 0
   m_Name: ReflectionEnemyBullet
   m_TagString: EnemyBullet
@@ -170,11 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2c94ac3eae3f64d9248a0bcf5133dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Power: {x: 8, y: 0, z: 0}
-  PowerDirection: 0
-  Damage: 1
   meshRendererChild: {fileID: 3374528619123801823}
-  reflectionCount: 0
+  characterParams: {fileID: 11400000, guid: ba6e45e6d168adb41bcb14b428391fe5, type: 2}
 --- !u!50 &4783080800016099584
 Rigidbody2D:
   serializedVersion: 5
@@ -247,3 +245,33 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &278464125188283481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8163489775466864948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 98c24cdf0767baf4295d6f2a2176b958, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: bullet
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
