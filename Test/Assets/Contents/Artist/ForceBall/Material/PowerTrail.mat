@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
-  m_Shader: {fileID: -6465566751694194690, guid: 0b801a47b7e10664199d985bf8dc1a1b, type: 3}
+  m_Name: PowerTrail
+  m_Shader: {fileID: -6465566751694194690, guid: cce389a81e4a8fc4d964d1b0af01c1fe, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -56,6 +56,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 23772a62fc521c748a6a502421886af7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MaskTexture:
+        m_Texture: {fileID: 2800000, guid: 23772a62fc521c748a6a502421886af7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -66,6 +70,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PowerBallGradationTexture:
+        m_Texture: {fileID: 2800000, guid: 7eaf61d74b0a5da4db8649b269f51c2a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -107,6 +115,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
+    - _PowerLevel: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -123,8 +132,10 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveSpeed: {r: 0.64, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HDRPowerColor: {r: 29.857058, g: 29.857058, b: 29.857058, a: 0}
     - _MainColor: {r: 83.230675, g: 36.935406, b: 7.066743, a: 0}
     - _MainTextureSpeed: {r: 2.72, g: 0, b: 0, a: 0}
+    - _ResidueColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SubColor: {r: 16.94838, g: 8.586187, b: 0, a: 0}
     - _TextureTiling: {r: 1, g: 1, b: 0, a: 0}
