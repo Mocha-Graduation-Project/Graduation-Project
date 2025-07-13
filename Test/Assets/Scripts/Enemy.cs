@@ -34,6 +34,7 @@ namespace Scripts
         [SerializeField][JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
         [SerializeField][JapaneseLabel("攻撃の〇秒前")] private float beforeAttackTime;
         [SerializeField][JapaneseLabel("警告マークの点滅間隔")] private float blinkDuration = 0.2f;
+        [SerializeField][JapaneseLabel("Canvas")] private GameObject canvas;
         Player player => Player.Instance;
         private bool isfirst = true;
         [SerializeField] private GameObject Bullet;
@@ -81,7 +82,17 @@ namespace Scripts
         private void Attack()
         {
             beforeAttackText.After();
-            Debug.Log(Bullet);
+            // プレイヤーの方向に向く
+            Vector3 direction = player.transform.position - transform.position;
+            direction.z = 0;
+            if (direction != Vector3.zero)
+            {
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, 0, angle);
+                
+                canvas.transform.rotation = Quaternion.Euler(0, 0, transform.rotation.z - angle);
+            }
+            
             GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
             switch (bulletType)
             {

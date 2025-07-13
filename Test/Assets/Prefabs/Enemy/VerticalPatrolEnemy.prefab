@@ -415,7 +415,6 @@ MonoBehaviour:
   patrolEnemyData: {fileID: 11400000, guid: 6a9c8c5ce8099b14b99cf12e12dcdacd, type: 2}
   speed: 2
   moveable: 1
-  waitTime: 0.1
 --- !u!114 &4265780119909550230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,6 +433,8 @@ MonoBehaviour:
   damageText: {fileID: 8597574886849479444}
   beforeAttackText: {fileID: 7930962146855206665}
   beforeAttackTime: 0
+  blinkDuration: 0.2
+  canvas: {fileID: 8136479408866247873}
   Bullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
   BulletRate: 5
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
@@ -611,6 +612,7 @@ GameObject:
   - component: {fileID: 5350090357768484255}
   - component: {fileID: 2361799711324198394}
   - component: {fileID: 5197221944559934916}
+  - component: {fileID: 2101959540771825183}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -702,3 +704,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2101959540771825183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8136479408866247873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7895573f54074da8a830fef3b839e68f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
