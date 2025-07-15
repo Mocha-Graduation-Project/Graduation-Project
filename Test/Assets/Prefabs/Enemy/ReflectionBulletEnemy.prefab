@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 3565224139276382286}
   - component: {fileID: 891115451805753242}
   - component: {fileID: 6262080160807767848}
+  - component: {fileID: 486988537454087238}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -262,6 +263,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &486988537454087238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5034282866700450874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7895573f54074da8a830fef3b839e68f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5786863223050452144
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +384,8 @@ MonoBehaviour:
   damageText: {fileID: 5763088248008638126}
   beforeAttackText: {fileID: 217689664663732950}
   beforeAttackTime: 1
+  blinkDuration: 0.2
+  canvas: {fileID: 5034282866700450874}
   Bullet: {fileID: 8163489775466864948, guid: 292132853404cfc4aa1daac75686c34d, type: 3}
   BulletRate: 5
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}

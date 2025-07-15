@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
+using DG.Tweening;
 
 namespace Scripts
 {
@@ -34,6 +35,7 @@ namespace Scripts
         [SerializeField][JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
         [SerializeField][JapaneseLabel("攻撃の〇秒前")] private float beforeAttackTime;
         [SerializeField][JapaneseLabel("警告マークの点滅間隔")] private float blinkDuration = 0.2f;
+        [SerializeField][JapaneseLabel("Canvas")] private GameObject canvas;
         Player player => Player.Instance;
         private bool isfirst = true;
         [SerializeField] private GameObject Bullet;
@@ -81,7 +83,16 @@ namespace Scripts
         private void Attack()
         {
             beforeAttackText.After();
-            Debug.Log(Bullet);
+            // プレイヤーの位置に応じて左右を向く
+            Vector3 enemyPos = transform.position;
+            Vector3 playerPos = player.transform.position;
+
+            // プレイヤーが右にいれば右を向く、左にいれば左を向く（y軸回転）
+            float targetYRotation = (playerPos.x > enemyPos.x) ? 0f : 180f;
+            
+            transform.DORotate(new Vector3(0f, targetYRotation, 0f), 0.3f, RotateMode.Fast);
+
+            
             GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
             switch (bulletType)
             {

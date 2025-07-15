@@ -25,7 +25,9 @@ namespace Scripts.Scriptable
         public float jumpCooldown = 0.2f;
         [FormerlySerializedAs("limitSpeed")] [JapaneseLabel("最大降下速度")]
         public float maxFallSpeed = 5f;
-        
+        [Space(5)]
+        [Header("<地面判定タグ>")]
+        [JapaneseLabel("地面判定タグ"),Tag] public string[] tag;
         //オブジェクト
         [Space(5)]
         [Header("<オブジェクト>")]
@@ -61,6 +63,7 @@ namespace Scripts.Scriptable
         [JapaneseLabel("初期ダメージ値")]public int damage = 1;
         [Header("反射時のダメージ")]
         public int[] damageByReflectionCount;
+        
         
         //無敵時間
         [Space(5)][Header("<無敵時間>")]
