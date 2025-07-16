@@ -19,7 +19,7 @@ namespace Scripts
         private SceneButtonManager sceneButtonManager;
 
         [SerializeField] [JapaneseLabel("地面レイヤー")]
-        private LayerMask groundLayer;
+        private LayerMask[] groundLayer;
 
         [SerializeField] [JapaneseLabel("足元")] private Transform groundCheck;
 
@@ -67,11 +67,14 @@ namespace Scripts
 
         private void CheckGround()
         {
-            isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
-
-            animator.SetBool("isGround", isGrounded);
-
-            Debug.DrawRay(groundCheck.position, Vector2.down * checkDistance, Color.red);
+            foreach (var ground in groundLayer)
+            {
+                isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkDistance, ground);
+                
+                animator.SetBool("isGround", isGrounded);
+                
+                Debug.DrawRay(groundCheck.position, Vector2.down * checkDistance, Color.red);
+            }
         }
 
         public bool IsGrounded()

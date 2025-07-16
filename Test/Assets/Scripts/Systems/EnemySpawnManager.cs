@@ -7,17 +7,29 @@ namespace DefaultNamespace
 {
     public class EnemySpawnManager :MonoBehaviour
     {
+        
         [System.Serializable]
         public class EnemySpawnData
         {
+            [JapaneseLabel("id")] public string id;
             [JapaneseLabel("出現させる敵のプレハブ")] public GameObject enemyPrefab;
             [JapaneseLabel("出現するまでの時間（秒）")] public float spawnDelay;
             [JapaneseLabel("出現位置")] public Transform spawnPoint;
         }
+        [System.Serializable]
+        public class ConditionEnemySpawn
+        {
+            [JapaneseLabel("特定の敵を倒したら出現する敵")] public GameObject conditionGameObject;
+            [Header("条件")]　public List<string> condition;
+            [JapaneseLabel("倒した後出現までの時間")] public float conditionSpawnDelay;
+            [JapaneseLabel("出現位置")] public Transform spawnPoint;
+        }
         [SerializeField,JapaneseLabel("！マークのプレハブ")]private GameObject warningMarkerPrefab;
         [SerializeField,JapaneseLabel("！マークを表示する時間（秒）")]private float warningTime = 3f;
-        
+        [Header("<時間スポーン>")]
         public List<EnemySpawnData> enemiesToSpawn = new List<EnemySpawnData>();
+        [Header("<条件スポーン>")]
+        public List<ConditionEnemySpawn> ConditionToSpawn = new List<ConditionEnemySpawn>();
         [SerializeField]private List<GameObject> activeEnemies = new List<GameObject>();
 
         [SerializeField] SceneButtonManager sceneButtonManager;
@@ -26,13 +38,24 @@ namespace DefaultNamespace
 
         private void Awake()
         {
-            enemies=enemiesToSpawn.Count;
+            enemies = enemiesToSpawn.Count;
             knockEnemies = 0;
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
             Debug.Log(enemies);
             foreach (var enemy in enemiesToSpawn)
             {
                 StartCoroutine(SpawnEnemy(enemy));
+            }
+        }
+
+        private void Update()
+        {
+            foreach (var VARIABLE in ConditionToSpawn)
+            {
+                foreach (var condition in VARIABLE.condition)
+                {
+                    StartCoroutine(ConditionSpawnEnemy(VARIABLE));
+                }
             }
         }
         IEnumerator SpawnEnemy(EnemySpawnData enemyData)
@@ -44,6 +67,17 @@ namespace DefaultNamespace
             yield return new WaitForSeconds(adjustedWarningTime);
             Destroy(warningMarker);
             GameObject spawnedEnemy = Instantiate(enemyData.enemyPrefab, enemyData.spawnPoint.position, Quaternion.identity);
+            activeEnemies.Add(spawnedEnemy);
+        }
+        IEnumerator ConditionSpawnEnemy(ConditionEnemySpawn enemyData)
+        {
+            float adjustedWarningTime = Mathf.Min(warningTime, enemyData.conditionSpawnDelay);
+            yield return new WaitForSeconds(enemyData.conditionSpawnDelay - adjustedWarningTime);
+            GameObject warningMarker = Instantiate(warningMarkerPrefab, enemyData.spawnPoint.position, warningMarkerPrefab.transform.rotation);
+            StartCoroutine(BlinkWarningMarker(warningMarker));
+            yield return new WaitForSeconds(adjustedWarningTime);
+            Destroy(warningMarker);
+            GameObject spawnedEnemy = Instantiate(enemyData.conditionGameObject, enemyData.spawnPoint.position, Quaternion.identity);
             activeEnemies.Add(spawnedEnemy);
         }
         IEnumerator BlinkWarningMarker(GameObject marker)
