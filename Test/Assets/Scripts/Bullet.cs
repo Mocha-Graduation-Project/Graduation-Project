@@ -67,26 +67,17 @@ namespace Scripts
 
         void Update()
         {
-            if (isPaused) return;
-            // 最大スピード制限
-            // if (power.magnitude > maxBulletSpeed)
-            // {
-            //     power = power.normalized * maxBulletSpeed;
-            // }
+            if (!isPaused)
+            {
+                //return;
+                // 最大スピード制限
+                currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
+                       
+                // 移動
+                transform.position += currentDirection * currentSpeed * Time.deltaTime;
+            }
             
-            //transform.position += power * Time.deltaTime;
-            
-            // if (power != Vector3.zero)
-            // {
-            //     float angle = Mathf.Atan2(power.y, power.x) * Mathf.Rad2Deg;
-            //     transform.rotation = Quaternion.Euler(0f, 0f, angle);
-            // }
-            
-            // 最大スピード制限
-            currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
 
-            // 移動
-            transform.position += currentDirection * currentSpeed * Time.deltaTime;
 
             // 回転
             if (currentDirection != Vector3.zero)
