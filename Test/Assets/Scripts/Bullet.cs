@@ -31,7 +31,7 @@ namespace Scripts
         private Vector2 lastInputDirection = Vector2.right;
         
         private float staminaDrainPerSecond = 0f;
-        private float quickStaminaDrainPerSecond = 0f;
+        //private float quickStaminaDrainPerSecond = 0f;
         
         private PlayerInput moveAction;
         
@@ -116,7 +116,7 @@ namespace Scripts
 
             if (isQuick)
             {
-                player.currentStamina -= quickStaminaDrainPerSecond * Time.deltaTime * 5;
+                //player.currentStamina -= quickStaminaDrainPerSecond * Time.deltaTime * 5;
                 if (player.currentStamina <= 0)
                 {
                     player.currentStamina = 0;
@@ -154,7 +154,7 @@ namespace Scripts
             maxBulletSpeed = characterParams.maxBulletSpeed;
             power = characterParams.power;
             staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
-            quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
+            //quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
             addSpeed = characterParams.addSpeed;
             damageByReflectionCount = characterParams.damageByReflectionCount;
             reflectInvincible = characterParams.reflectInvincible;

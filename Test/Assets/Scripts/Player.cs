@@ -69,7 +69,7 @@ namespace Scripts
         [JapaneseLabel("反射スタミナ回復量")] private float staminaRecoveryPerSecond = 10f;
         [NonSerialized,JapaneseLabel("現反射スタミナ")] public float currentStamina;
         [NonSerialized,JapaneseLabel("反射スタミナ消費量")]public float staminaDrainPerSecond = 20f;
-        [JapaneseLabel("quick反射消費量")] private float quickStaminaDrainPerSecond = 20f;
+        //[JapaneseLabel("quick反射消費量")] private float quickStaminaDrainPerSecond = 20f;
         
         //射撃
         [JapaneseLabel(("最大射撃スタミナ"))]private float maxShotStamina = 1f;
@@ -110,7 +110,7 @@ namespace Scripts
             overheatRecoveryPerSecond = characterParams.overheatRecoveryPerSecond;
             shotStaminaDrainPerSecond = characterParams.shotStaminaDrainPerSecond;
             shotCoolTime = characterParams.shotCoolTime;
-            quickStaminaDrainPerSecond = characterParams.quickStaminaDrainPerSecond;
+           // quickStaminaDrainPerSecond = characterParams.quickStaminaDrainPerSecond;
             groundLayer = characterParams.groundLayer;
         }
         
@@ -261,10 +261,6 @@ namespace Scripts
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             if (Overheat == false && isJump == false && IsShot == false)
             {
-                // audioSource.PlayOneShot(ShotSound);
-                // var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
-                // var bullet = bullets.GetComponent<Bullet>();
-                // bullet.PowerDirection = direction;
                 IsShot = true;
                 currentShotStamina -= shotStaminaDrainPerSecond;
                 animator.SetTrigger("isShot");
@@ -288,8 +284,12 @@ namespace Scripts
         public void OnAttack(InputAction.CallbackContext context)
         {
             if(IsAttacking) return;
-            if (currentStamina <= staminaDrainPerSecond) return;
-
+            if (currentStamina <= staminaDrainPerSecond)
+            {
+                OnQuickAttack(context);
+                return;
+            }
+            
             IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
@@ -303,7 +303,7 @@ namespace Scripts
         public void OnQuickAttack(InputAction.CallbackContext context)
         {
             if(IsAttacking) return;
-            if (currentStamina <= quickStaminaDrainPerSecond) return;
+            //if (currentStamina <= quickStaminaDrainPerSecond) return;
 
             IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
