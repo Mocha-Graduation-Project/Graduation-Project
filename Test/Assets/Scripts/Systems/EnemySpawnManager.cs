@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
 
 namespace DefaultNamespace
 {
@@ -23,13 +24,18 @@ namespace DefaultNamespace
         [SerializeField] SceneButtonManager sceneButtonManager;
         private int enemies;
         private int knockEnemies;
+        private int remainnEnemies;
+        [SerializeField] TextMeshProUGUI remainingEnemiesText;
 
         private void Awake()
         {
-            enemies=enemiesToSpawn.Count;
+            enemies = enemiesToSpawn.Count;
             knockEnemies = 0;
+            remainnEnemies = enemiesToSpawn.Count;
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
-            Debug.Log(enemies);
+            remainingEnemiesText = GameObject.Find("RemainEnemies").GetComponent<TextMeshProUGUI>();
+            remainingEnemiesText.text = remainnEnemies.ToString();
+            //Debug.Log(enemies);
             foreach (var enemy in enemiesToSpawn)
             {
                 StartCoroutine(SpawnEnemy(enemy));
@@ -64,6 +70,8 @@ namespace DefaultNamespace
                 activeEnemies.Remove(enemy);
                 Destroy(enemy);
                 knockEnemies++;
+                remainnEnemies--;
+                remainingEnemiesText.text = remainnEnemies.ToString();
                 if (knockEnemies == enemies)
                 {
                     sceneButtonManager.GameClear();
