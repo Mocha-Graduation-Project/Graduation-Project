@@ -30,7 +30,7 @@ namespace Scripts
         private float jumpCooldown = 0.2f;
         [FormerlySerializedAs("limitSpeed")]
         [JapaneseLabel("最大落下速度")]private float maxFallSpeed = 5f;
-        [JapaneseLabel("地面レイヤー")] private LayerMask[] groundLayer;
+        [JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
         [JapaneseLabel("判定消えるまでの時間")]　private float collisionRadius;
         
         //プレイヤーの状態
@@ -209,13 +209,9 @@ namespace Scripts
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        public void Ground()
         {
-            foreach (var ground in groundLayer)
-            {
-                if (collision.gameObject.layer == ground)
                     jumpCount = MaxJumpCount;
-            }
         }
 
         public void OnMove(InputAction.CallbackContext context)

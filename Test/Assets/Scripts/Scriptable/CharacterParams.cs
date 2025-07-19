@@ -25,7 +25,7 @@ namespace Scripts.Scriptable
         [JapaneseLabel("判定消えるまでの時間")]　public float collisionRadius;
         [Space(5)]
         [Header("<地面判定レイヤー>")]
-        [JapaneseLabel("地面レイヤー")] public LayerMask[] groundLayer;
+        [JapaneseLabel("地面レイヤー")] public LayerMask groundLayer;
         //オブジェクト
         [Space(5)]
         [Header("<オブジェクト>")]
