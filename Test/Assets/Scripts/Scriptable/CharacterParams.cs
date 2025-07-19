@@ -22,6 +22,7 @@ namespace Scripts.Scriptable
         public float jumpCooldown = 0.2f;
         [FormerlySerializedAs("limitSpeed")] [JapaneseLabel("最大降下速度")]
         public float maxFallSpeed = 5f;
+        [JapaneseLabel("判定消えるまでの時間")]　public float collisionRadius;
         [Space(5)]
         [Header("<地面判定レイヤー>")]
         [JapaneseLabel("地面レイヤー")] public LayerMask[] groundLayer;

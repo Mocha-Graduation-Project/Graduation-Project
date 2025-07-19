@@ -18,6 +18,7 @@ MonoBehaviour:
   MaxJumpCount: 2
   jumpCooldown: 0.2
   maxFallSpeed: 10
+  collisionRadius: 1
   groundLayer:
   - serializedVersion: 2
     m_Bits: 512
@@ -30,7 +31,6 @@ MonoBehaviour:
   maxStamina: 100
   staminaRecoveryPerSecond: 10
   staminaDrainPerSecond: 20
-  quickStaminaDrainPerSecond: 20
   shotStaminaRecoveryPerSecond: 0.2
   overheatRecoveryPerSecond: 0.25
   shotStaminaDrainPerSecond: 0.5

@@ -31,6 +31,7 @@ namespace Scripts
         [FormerlySerializedAs("limitSpeed")]
         [JapaneseLabel("最大落下速度")]private float maxFallSpeed = 5f;
         [JapaneseLabel("地面レイヤー")] private LayerMask[] groundLayer;
+        [JapaneseLabel("判定消えるまでの時間")]　private float collisionRadius;
         
         //プレイヤーの状態
         [NonSerialized] public int direction = 1;
@@ -112,6 +113,7 @@ namespace Scripts
             shotCoolTime = characterParams.shotCoolTime;
            // quickStaminaDrainPerSecond = characterParams.quickStaminaDrainPerSecond;
             groundLayer = characterParams.groundLayer;
+            collisionRadius = characterParams.collisionRadius;
         }
         
         private void Start()
@@ -295,7 +297,7 @@ namespace Scripts
             
             AttackCollision.gameObject.SetActive(true);
             //animator.SetTrigger("isAttack");
-            Invoke("AttackCollisionFalse", 0.1f);
+            Invoke("AttackCollisionFalse", collisionRadius);
             //Invoke("AttackFinish", 0.3f);
             //animator.SetTrigger("isAttack");
         }
@@ -311,7 +313,7 @@ namespace Scripts
 
             QuickAttackCollision.gameObject.SetActive(true);
             //animator.SetTrigger("isAttack");
-            Invoke("AttackCollisionFalse", 0.1f);
+            Invoke("AttackCollisionFalse", collisionRadius);
             //Invoke("AttackFinish", 0.3f);
             //animator.SetTrigger("isAttack");
         }
