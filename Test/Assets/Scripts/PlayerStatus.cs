@@ -18,8 +18,7 @@ namespace Scripts
         [FormerlySerializedAs("sceneManager")] [SerializeField]
         private SceneButtonManager sceneButtonManager;
 
-        [SerializeField] [JapaneseLabel("地面レイヤー")]
-        private LayerMask[] groundLayer;
+        [JapaneseLabel("地面レイヤー")] private LayerMask[] groundLayer;
 
         [SerializeField] [JapaneseLabel("足元")] private Transform groundCheck;
 
@@ -40,7 +39,11 @@ namespace Scripts
 
         private Player player => Player.Instance;
         private Coroutine invincibilityCoroutine;
-        
+
+        private void Awake()
+        {
+            SetScriptable();
+        }
 
         private void Start()
         {
@@ -63,6 +66,7 @@ namespace Scripts
         private void SetScriptable()
         {
             invincibleDuration = characterParams.invincibleDuration;
+            groundLayer = characterParams.groundLayer;
         }
 
         private void CheckGround()

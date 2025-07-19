@@ -18,8 +18,11 @@ MonoBehaviour:
   MaxJumpCount: 2
   jumpCooldown: 0.2
   maxFallSpeed: 10
-  tag:
-  - Ground
+  groundLayer:
+  - serializedVersion: 2
+    m_Bits: 512
+  - serializedVersion: 2
+    m_Bits: 128
   bullets: {fileID: 1057501140420241128, guid: 4e268d136a397974d86fa93e6efd45de, type: 3}
   ReflectionSound: {fileID: 8300000, guid: 29c151cd64dfd874298c8c23e76539ca, type: 3}
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}

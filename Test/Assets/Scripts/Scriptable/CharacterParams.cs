@@ -1,10 +1,7 @@
-using System;
-using UnityEngine;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
+
 
 namespace Scripts.Scriptable
 {
@@ -27,7 +24,7 @@ namespace Scripts.Scriptable
         public float maxFallSpeed = 5f;
         [Space(5)]
         [Header("<地面判定タグ>")]
-        [JapaneseLabel("地面判定タグ"),Tag] public string[] tag;
+        [JapaneseLabel("地面レイヤー")] public LayerMask[] groundLayer;
         //オブジェクト
         [Space(5)]
         [Header("<オブジェクト>")]

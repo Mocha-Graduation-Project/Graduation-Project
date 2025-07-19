@@ -30,7 +30,7 @@ namespace Scripts
         private float jumpCooldown = 0.2f;
         [FormerlySerializedAs("limitSpeed")]
         [JapaneseLabel("最大落下速度")]private float maxFallSpeed = 5f;
-        [JapaneseLabel("地面判定タグ"),Tag]private string tag;
+        [JapaneseLabel("地面レイヤー")] private LayerMask[] groundLayer;
         
         //プレイヤーの状態
         [NonSerialized] public int direction = 1;
@@ -111,6 +111,7 @@ namespace Scripts
             shotStaminaDrainPerSecond = characterParams.shotStaminaDrainPerSecond;
             shotCoolTime = characterParams.shotCoolTime;
             quickStaminaDrainPerSecond = characterParams.quickStaminaDrainPerSecond;
+            groundLayer = characterParams.groundLayer;
         }
         
         private void Start()
@@ -208,8 +209,11 @@ namespace Scripts
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.tag == "Ground")
-                jumpCount = MaxJumpCount;
+            foreach (var ground in groundLayer)
+            {
+                if (collision.gameObject.layer == ground)
+                    jumpCount = MaxJumpCount;
+            }
         }
 
         public void OnMove(InputAction.CallbackContext context)
