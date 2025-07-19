@@ -23,7 +23,7 @@ namespace Scripts.Scriptable
         [FormerlySerializedAs("limitSpeed")] [JapaneseLabel("最大降下速度")]
         public float maxFallSpeed = 5f;
         [Space(5)]
-        [Header("<地面判定タグ>")]
+        [Header("<地面判定レイヤー>")]
         [JapaneseLabel("地面レイヤー")] public LayerMask[] groundLayer;
         //オブジェクト
         [Space(5)]
@@ -66,6 +66,6 @@ namespace Scripts.Scriptable
         [Space(5)][Header("<無敵時間>")]
         [JapaneseLabel("被弾時無敵時間")] public float invincibleDuration = 2.0f;
         [JapaneseLabel("反射後の無敵時間")]　public float reflectInvincible = 1;
-        
+
     }
 }
