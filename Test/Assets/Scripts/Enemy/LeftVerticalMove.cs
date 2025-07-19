@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LeftVerticalMove : MonoBehaviour,IState
 {
-    //右の縦移動
+    //左の縦移動
     private readonly EnemyAI enemyAI;
     
     int moveCounter;
@@ -16,6 +16,9 @@ public class LeftVerticalMove : MonoBehaviour,IState
     private Vector3 x;
     private bool finishMoving;
     private bool finishRotating;
+    private float angleZ;
+    Vector3 rotateAxisRotate;
+    private bool isCoolTime;
     
     public LeftVerticalMove(EnemyAI enemyAI)
     {
@@ -24,22 +27,46 @@ public class LeftVerticalMove : MonoBehaviour,IState
 
     public void Enter()
     {
-        Debug.Log("3_Enter");
+        Debug.Log("2_Enter");
         moveCounter = 0;
         moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
-        rotateAxis = moveBoss.RotateAxis;
         boss = moveBoss.Boss;
+        isCoolTime = true;
         Initialization();
         finishMoving = false;
         finishRotating = false;
         startPos = boss.transform.position;
+        rotateAxis = moveBoss.RotateAxis;
+        rotateAxisRotate = new Vector3(0, 0, 180);
+        if (rotateAxis.transform.eulerAngles == rotateAxisRotate)
+        {
+            finishRotating = true;
+        }
+        else //if (rotateAxis.transform.eulerAngles.z == rotateAxisRotate.z)
+        {
+            angleZ = 45;
+        }
     }
 
     public void Execute()
     {
-        //Debug.Log("3_Execute");
+        //Debug.Log("2_Execute");
+        if (isCoolTime == true)
+        {
+            float diff = Time.time - startTime;
+            if (diff < moveBoss.CoolTime)
+            {
+                //Debug.Log("クールタイム中");
+                return;
+            }
+            else
+            {
+                Initialization();
+                isCoolTime = false;
+            }
+        }
         MoveLeftCenter();
-        Rotate(new Vector3(0, 0, 0));
+        Rotate(rotateAxisRotate);
         if (finishMoving == true && finishRotating == true)
         {
             moveBoss.Change();
@@ -48,7 +75,7 @@ public class LeftVerticalMove : MonoBehaviour,IState
 
     public void Exit()
     {
-        Debug.Log("3_Exit");
+        Debug.Log("2_Exit");
     }
 
     void Initialization()
@@ -75,14 +102,12 @@ public class LeftVerticalMove : MonoBehaviour,IState
     void Rotate(Vector3 angles)
     {
         //Debug.Log("angle:"+rotateAxis.transform.rotation.eulerAngles);
-        if (finishRotating == true || rotateAxis.transform.eulerAngles == angles)
+        if (finishRotating == true)
         {
-            finishRotating = true;
             return;
         }
-
         t += Time.deltaTime;
-        rotateAxis.transform.Rotate(0, 0, 45 * Time.deltaTime);
+        rotateAxis.transform.Rotate(0, 0, angleZ * Time.deltaTime);
         if (t >= 2.0f)
         {
             rotateAxis.transform.eulerAngles = angles;

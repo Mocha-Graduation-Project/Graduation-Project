@@ -36,6 +36,8 @@ namespace Scripts
         [SerializeField][JapaneseLabel("攻撃の〇秒前")] private float beforeAttackTime;
         [SerializeField][JapaneseLabel("警告マークの点滅間隔")] private float blinkDuration = 0.2f;
         [SerializeField][JapaneseLabel("Canvas")] private GameObject canvas;
+
+        [SerializeField] [JapaneseLabel("弾を出す場所")] private GameObject shotObj;
         Player player => Player.Instance;
         private bool isfirst = true;
         [SerializeField] private GameObject Bullet;
@@ -78,6 +80,11 @@ namespace Scripts
             maxX = bounds.max.x;
             minY = bounds.min.y;
             maxY = bounds.max.y;
+
+            if (shotObj == null)
+            {
+                shotObj = this.gameObject;
+            }
         }
 
         private void Attack()
@@ -92,8 +99,8 @@ namespace Scripts
             
             transform.DORotate(new Vector3(0f, targetYRotation, 0f), 0.3f, RotateMode.Fast);
 
-            
-            GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
+
+            GameObject bullets = Instantiate(Bullet, shotObj.transform.position, Quaternion.identity);
             switch (bulletType)
             {
                 case BulletType.enemyBullet:
