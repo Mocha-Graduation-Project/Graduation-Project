@@ -47,6 +47,8 @@ namespace Scripts
         [JapaneseLabel("現在の移動方向")]private Vector3 currentDirection = Vector3.right;
         
         [JapaneseLabel("反射後の無敵時間")]　private float reflectInvincible = 1;
+        [NonSerialized] public Transform arrowTransform;
+
         private void Awake()
         {
             PlayerParamReset();
@@ -58,6 +60,7 @@ namespace Scripts
             
             currentDirection = characterParams.power.normalized * PowerDirection;
             currentSpeed = characterParams.power.magnitude;
+            arrowTransform = player.Arrow.transform;
             UpdatePower();
 
             reflectionCount = 0;
@@ -126,6 +129,18 @@ namespace Scripts
 
                 }
             }
+            if (isAttack && arrowTransform != null)
+            {
+                // 矢印の方向ベクトルを取得
+                Vector3 dir = arrowTransform.right; // 右方向が矢印の先なら .right、上方向なら .up
+
+                // currentDirectionを矢印方向に更新
+                currentDirection = dir.normalized;
+
+                // 回転も矢印の回転に合わせる（オプション）
+                transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+            }
+
             
             
             attackCoolTime+= Time.deltaTime;
