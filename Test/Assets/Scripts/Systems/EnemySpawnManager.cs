@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using TMPro;
 
 namespace DefaultNamespace
 {
@@ -42,6 +43,9 @@ namespace DefaultNamespace
         [SerializeField] SceneButtonManager sceneButtonManager;
         private int enemies;
         private int knockEnemies;
+        private int remainnEnemies;
+        [SerializeField] TextMeshProUGUI remainingEnemiesText;
+
         private HashSet<string> defeatedEnemyIds = new HashSet<string>();
         
         private void Awake()
@@ -69,6 +73,10 @@ namespace DefaultNamespace
             enemies = enemiesToSpawn.Count + conditionToSpawn.Count;
 
             knockEnemies = 0;
+            
+            remainnEnemies = enemiesToSpawn.Count + conditionToSpawn.Count;
+            remainingEnemiesText = GameObject.Find("RemainEnemies").GetComponent<TextMeshProUGUI>();
+            remainingEnemiesText.text = remainnEnemies.ToString();
 
             Debug.Log($"このマップの敵総数: {enemies}");
 
@@ -122,6 +130,8 @@ namespace DefaultNamespace
                 activeEnemies.Remove(enemy);
                 Destroy(enemy);
                 knockEnemies++;
+                remainnEnemies--;
+                remainingEnemiesText.text = remainnEnemies.ToString();
 
                 // 撃破ID記録
                 defeatedEnemyIds.Add(defeatedId);
