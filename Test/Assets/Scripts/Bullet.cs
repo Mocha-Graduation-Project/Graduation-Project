@@ -53,10 +53,16 @@ namespace Scripts
         }
         private void Start()
         {
-            // power *= PowerDirection;
-            // reflectionCount = 0;
+            if (this.gameObject.CompareTag("EnemyBullet"))
+            {
+                currentDirection = power * PowerDirection;
+            }
+            else
+            {
+                currentDirection = characterParams.power.normalized * PowerDirection;
+            }
             
-            currentDirection = characterParams.power.normalized * PowerDirection;
+            //currentDirection = characterParams.power.normalized * PowerDirection;
             currentSpeed = characterParams.power.magnitude;
             UpdatePower();
 
@@ -310,14 +316,14 @@ namespace Scripts
         
         public void SetPowerEnemy(Vector3 Pos)
         {
-            float correctionAimPos = 0.5f;
+            float correctionAimPos = 1.5f;
             float Angle = Mathf.Atan2(player.gameObject.transform.position.y - Pos.y + correctionAimPos,
                 player.gameObject.transform.position.x - Pos.x);
-            //Debug.Log(Angle);
+            Debug.Log("角度:"+Angle);
             Vector3 direction = new Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
-            power = direction * 5f;
+            power = direction;
             PowerDirection = 1f;
-            Debug.Log("Pos:"+Pos+"/Power:"+power);;
+            //Debug.Log("Pos:"+Pos+"/Power:"+power);;
         }
 
         public void OnReflect()

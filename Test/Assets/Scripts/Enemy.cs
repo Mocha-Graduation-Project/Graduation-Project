@@ -20,6 +20,13 @@ namespace Scripts
             reflectionBullet,
         }
         [SerializeField] private BulletType bulletType;
+
+        enum AttckType
+        {
+            playerAim,
+            straight,
+        }
+        [SerializeField]  private AttckType attckType;
         
         enum EnemyType
         {
@@ -38,6 +45,8 @@ namespace Scripts
         [SerializeField][JapaneseLabel("Canvas")] private GameObject canvas;
 
         [SerializeField] [JapaneseLabel("弾を出す場所")] private GameObject shotObj;
+        [SerializeField] [JapaneseLabel("ストレートの参照オブジェ")] private GameObject straightObj;
+        
         Player player => Player.Instance;
         private bool isfirst = true;
         [SerializeField] private GameObject Bullet;
@@ -84,6 +93,11 @@ namespace Scripts
             if (shotObj == null)
             {
                 shotObj = this.gameObject;
+                straightObj = shotObj;
+            }
+            else
+            {
+                straightObj = shotObj.transform.parent.gameObject;
             }
         }
 
@@ -105,11 +119,25 @@ namespace Scripts
             {
                 case BulletType.enemyBullet:
                     EnemyBullet bullet = bullets.GetComponent<EnemyBullet>();
-                    bullet.SetPower(transform.position);
+                    if (attckType == AttckType.playerAim)
+                    {
+                        bullet.SetPower(transform.position);
+                    }
+                    else if (attckType == AttckType.straight)
+                    {
+                        bullet.SetStraightPower(straightObj.transform.rotation.eulerAngles);
+                    }
                     break;
                 case BulletType.reflectionBullet:
                     Bullet reflectionBullet = bullets.GetComponent<Bullet>();
-                    reflectionBullet.SetPowerEnemy(transform.position);
+                    if (attckType == AttckType.playerAim)
+                    {
+                        reflectionBullet.SetPowerEnemy(transform.position);
+                    }
+                    else if (attckType == AttckType.straight)
+                    {
+                        
+                    }
                     break;
             }
             audioSource.PlayOneShot(ShotSound);
