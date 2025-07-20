@@ -1,9 +1,8 @@
-using System.Collections;
 using UnityEngine;
 
-public class RightVerticalMove : MonoBehaviour,IState
+public class DownHorizontalMove : MonoBehaviour,IState
 {
-    //右の縦移動
+    //上の横移動
     private readonly EnemyAI enemyAI;
     
     int moveCounter;
@@ -21,14 +20,14 @@ public class RightVerticalMove : MonoBehaviour,IState
     Vector3 rotateAxisRotate;
     private bool isCoolTime;
     
-    public RightVerticalMove(EnemyAI enemyAI)
+    public DownHorizontalMove(EnemyAI enemyAI)
     {
         this.enemyAI = enemyAI;
     }
 
     public void Enter()
     {
-        Debug.Log("1_Enter");
+        Debug.Log("4_Enter");
         moveCounter = 0;
         moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
         boss = moveBoss.Boss;
@@ -38,7 +37,7 @@ public class RightVerticalMove : MonoBehaviour,IState
         finishRotating = false;
         startPos = boss.transform.position;
         rotateAxis = moveBoss.RotateAxis;
-        rotateAxisRotate = new Vector3(0, 0, 0);
+        rotateAxisRotate = new Vector3(0, 0, 90);
         if (rotateAxis.transform.eulerAngles == rotateAxisRotate)
         {
             finishRotating = true;
@@ -51,7 +50,7 @@ public class RightVerticalMove : MonoBehaviour,IState
 
     public void Execute()
     {
-        //Debug.Log("1_Execute");
+        //Debug.Log("4_Execute");
         if (isCoolTime == true)
         {
             float diff = Time.time - startTime;
@@ -66,7 +65,7 @@ public class RightVerticalMove : MonoBehaviour,IState
                 isCoolTime = false;
             }
         }
-        MoveRightCenter();
+        MoveUpCenter();
         Rotate(rotateAxisRotate);
         if (finishMoving == true && finishRotating == true)
         {
@@ -76,7 +75,7 @@ public class RightVerticalMove : MonoBehaviour,IState
 
     public void Exit()
     {
-        Debug.Log("1_Exit");
+        Debug.Log("4_Exit");
     }
 
     void Initialization()
@@ -116,26 +115,20 @@ public class RightVerticalMove : MonoBehaviour,IState
         }
     }
     
-    void MoveRightCenter()
+    void MoveUpCenter()
     {
-        //Debug.Log("MoveRightCenter");
+        //Debug.Log("MoveDownCenter");
         if (finishMoving == true) {return;}
         
         switch (moveCounter)
         {
             case 0:
-                Move(moveBoss.RightCenterPos, moveBoss.MoveTime);
+                Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.MoveTime);
                 break;
             case 1:
-                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.MoveTime);
+                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.MoveTime * 2);
                 break;
             case 2:
-                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.DownCenterPos.y, 0), moveBoss.MoveTime * 2);
-                break;
-            case 3:
-                Move(moveBoss.RightCenterPos, moveBoss.MoveTime);
-                break;
-            case 4:
                 Debug.Log("終了");
                 Initialization();
                 finishMoving = true;

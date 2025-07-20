@@ -20,6 +20,13 @@ namespace Scripts
             reflectionBullet,
         }
         [SerializeField] private BulletType bulletType;
+
+        enum AttckType
+        {
+            playerAim,
+            straight,
+        }
+        [SerializeField]  private AttckType attckType;
         
         enum EnemyType
         {
@@ -36,6 +43,10 @@ namespace Scripts
         [SerializeField][JapaneseLabel("攻撃の〇秒前")] private float beforeAttackTime;
         [SerializeField][JapaneseLabel("警告マークの点滅間隔")] private float blinkDuration = 0.2f;
         [SerializeField][JapaneseLabel("Canvas")] private GameObject canvas;
+
+        [SerializeField] [JapaneseLabel("弾を出す場所")] private GameObject shotObj;
+        [SerializeField] [JapaneseLabel("ストレートの参照オブジェ")] private GameObject straightObj;
+        
         Player player => Player.Instance;
         private bool isfirst = true;
         [SerializeField] private GameObject Bullet;
@@ -78,6 +89,16 @@ namespace Scripts
             maxX = bounds.max.x;
             minY = bounds.min.y;
             maxY = bounds.max.y;
+
+            if (shotObj == null)
+            {
+                shotObj = this.gameObject;
+                straightObj = shotObj;
+            }
+            else
+            {
+                straightObj = shotObj.transform.parent.gameObject;
+            }
         }
 
         private void Attack()
@@ -92,17 +113,31 @@ namespace Scripts
             
             transform.DORotate(new Vector3(0f, targetYRotation, 0f), 0.3f, RotateMode.Fast);
 
-            
-            GameObject bullets = Instantiate(Bullet, transform.position, Quaternion.identity);
+
+            GameObject bullets = Instantiate(Bullet, shotObj.transform.position, Quaternion.identity);
             switch (bulletType)
             {
                 case BulletType.enemyBullet:
                     EnemyBullet bullet = bullets.GetComponent<EnemyBullet>();
-                    bullet.SetPower(transform.position);
+                    if (attckType == AttckType.playerAim)
+                    {
+                        bullet.SetPower(transform.position);
+                    }
+                    else if (attckType == AttckType.straight)
+                    {
+                        bullet.SetStraightPower(straightObj.transform.rotation.eulerAngles);
+                    }
                     break;
                 case BulletType.reflectionBullet:
                     Bullet reflectionBullet = bullets.GetComponent<Bullet>();
-                    reflectionBullet.SetPowerEnemy(transform.position);
+                    if (attckType == AttckType.playerAim)
+                    {
+                        reflectionBullet.SetPowerEnemy(transform.position);
+                    }
+                    else if (attckType == AttckType.straight)
+                    {
+                        
+                    }
                     break;
             }
             audioSource.PlayOneShot(ShotSound);

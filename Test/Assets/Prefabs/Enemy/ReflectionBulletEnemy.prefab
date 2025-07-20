@@ -379,6 +379,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletType: 1
+  attckType: 0
   enemyType: 0
   HP: 8
   damageText: {fileID: 5763088248008638126}
@@ -386,7 +387,9 @@ MonoBehaviour:
   beforeAttackTime: 1
   blinkDuration: 0.2
   canvas: {fileID: 5034282866700450874}
-  Bullet: {fileID: 8163489775466864948, guid: 292132853404cfc4aa1daac75686c34d, type: 3}
+  shotObj: {fileID: 0}
+  straightObj: {fileID: 0}
+  Bullet: {fileID: 6079434019846936883, guid: 292132853404cfc4aa1daac75686c34d, type: 3}
   BulletRate: 5
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
