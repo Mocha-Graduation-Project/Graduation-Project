@@ -1,10 +1,7 @@
-using System;
-using UnityEngine;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
-using UnityEngine.UI;
+
 
 namespace Scripts.Scriptable
 {
@@ -25,9 +22,10 @@ namespace Scripts.Scriptable
         public float jumpCooldown = 0.2f;
         [FormerlySerializedAs("limitSpeed")] [JapaneseLabel("最大降下速度")]
         public float maxFallSpeed = 5f;
+        [JapaneseLabel("判定消えるまでの時間")]　public float collisionRadius;
         [Space(5)]
-        [Header("<地面判定タグ>")]
-        [JapaneseLabel("地面判定タグ"),Tag] public string[] tag;
+        [Header("<地面判定レイヤー>")]
+        [JapaneseLabel("地面レイヤー")] public LayerMask groundLayer;
         //オブジェクト
         [Space(5)]
         [Header("<オブジェクト>")]
@@ -46,7 +44,7 @@ namespace Scripts.Scriptable
         [JapaneseLabel("最大反射スタミナ")] public float maxStamina = 100f;
         [JapaneseLabel("反射スタミナ回復量")] public float staminaRecoveryPerSecond = 10f;
         [JapaneseLabel("反射スタミナ消費量")] public float staminaDrainPerSecond = 20f;
-        [JapaneseLabel("quick反射消費量")] public float quickStaminaDrainPerSecond = 20f;
+        //[JapaneseLabel("quick反射消費量")] public float quickStaminaDrainPerSecond = 20f;
         //射撃
         [Space(5)]
         [Header("<射撃>")]
@@ -69,6 +67,6 @@ namespace Scripts.Scriptable
         [Space(5)][Header("<無敵時間>")]
         [JapaneseLabel("被弾時無敵時間")] public float invincibleDuration = 2.0f;
         [JapaneseLabel("反射後の無敵時間")]　public float reflectInvincible = 1;
-        
+
     }
 }

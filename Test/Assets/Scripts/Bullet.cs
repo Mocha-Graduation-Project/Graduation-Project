@@ -31,7 +31,7 @@ namespace Scripts
         private Vector2 lastInputDirection = Vector2.right;
         
         private float staminaDrainPerSecond = 0f;
-        private float quickStaminaDrainPerSecond = 0f;
+        //private float quickStaminaDrainPerSecond = 0f;
         
         private PlayerInput moveAction;
         
@@ -47,6 +47,8 @@ namespace Scripts
         [JapaneseLabel("現在の移動方向")]private Vector3 currentDirection = Vector3.right;
         
         [JapaneseLabel("反射後の無敵時間")]　private float reflectInvincible = 1;
+        [NonSerialized] public Transform arrowTransform;
+
         private void Awake()
         {
             PlayerParamReset();
@@ -58,6 +60,7 @@ namespace Scripts
             
             currentDirection = characterParams.power.normalized * PowerDirection;
             currentSpeed = characterParams.power.magnitude;
+            arrowTransform = player.Arrow.transform;
             UpdatePower();
 
             reflectionCount = 0;
@@ -113,7 +116,7 @@ namespace Scripts
 
             if (isQuick)
             {
-                player.currentStamina -= quickStaminaDrainPerSecond * Time.deltaTime * 5;
+                //player.currentStamina -= quickStaminaDrainPerSecond * Time.deltaTime * 5;
                 if (player.currentStamina <= 0)
                 {
                     player.currentStamina = 0;
@@ -126,6 +129,18 @@ namespace Scripts
 
                 }
             }
+            if (isAttack && arrowTransform != null)
+            {
+                // 矢印の方向ベクトルを取得
+                Vector3 dir = arrowTransform.right; // 右方向が矢印の先なら .right、上方向なら .up
+
+                // currentDirectionを矢印方向に更新
+                currentDirection = dir.normalized;
+
+                // 回転も矢印の回転に合わせる（オプション）
+                transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+            }
+
             
             
             attackCoolTime+= Time.deltaTime;
@@ -139,7 +154,7 @@ namespace Scripts
             maxBulletSpeed = characterParams.maxBulletSpeed;
             power = characterParams.power;
             staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
-            quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
+            //quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
             addSpeed = characterParams.addSpeed;
             damageByReflectionCount = characterParams.damageByReflectionCount;
             reflectInvincible = characterParams.reflectInvincible;

@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveAction: {fileID: 163183520200374533, guid: 9be1418a083839441beaea19696c784a, type: 3}
   moveSpeed: 5.5
-  jumpPower: 8
-  MaxJumpCount: 2
+  jumpPower: 6
+  MaxJumpCount: 1
   jumpCooldown: 0.2
   maxFallSpeed: 10
-  tag:
-  - Ground
+  collisionRadius: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 640
   bullets: {fileID: 1057501140420241128, guid: 4e268d136a397974d86fa93e6efd45de, type: 3}
   ReflectionSound: {fileID: 8300000, guid: 29c151cd64dfd874298c8c23e76539ca, type: 3}
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
@@ -27,7 +29,6 @@ MonoBehaviour:
   maxStamina: 100
   staminaRecoveryPerSecond: 10
   staminaDrainPerSecond: 20
-  quickStaminaDrainPerSecond: 20
   shotStaminaRecoveryPerSecond: 0.2
   overheatRecoveryPerSecond: 0.25
   shotStaminaDrainPerSecond: 0.5
@@ -36,6 +37,6 @@ MonoBehaviour:
   maxBulletSpeed: 12
   addSpeed: 1
   damage: 1
-  damageByReflectionCount: 03000000050000000a00000014000000
+  damageByReflectionCount: 02000000040000000800000010000000
   invincibleDuration: 2
   reflectInvincible: 0.5
