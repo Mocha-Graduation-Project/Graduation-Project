@@ -30,7 +30,8 @@ namespace Scripts
         private float jumpCooldown = 0.2f;
         [FormerlySerializedAs("limitSpeed")]
         [JapaneseLabel("最大落下速度")]private float maxFallSpeed = 5f;
-        [JapaneseLabel("地面判定タグ"),Tag]private string[] tag;
+        [JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
+        [JapaneseLabel("判定消えるまでの時間")]　private float collisionRadius;
         
         //プレイヤーの状態
         [NonSerialized] public int direction = 1;
@@ -69,7 +70,7 @@ namespace Scripts
         [JapaneseLabel("反射スタミナ回復量")] private float staminaRecoveryPerSecond = 10f;
         [NonSerialized,JapaneseLabel("現反射スタミナ")] public float currentStamina;
         [NonSerialized,JapaneseLabel("反射スタミナ消費量")]public float staminaDrainPerSecond = 20f;
-        [JapaneseLabel("quick反射消費量")] private float quickStaminaDrainPerSecond = 20f;
+        //[JapaneseLabel("quick反射消費量")] private float quickStaminaDrainPerSecond = 20f;
         
         //射撃
         [JapaneseLabel(("最大射撃スタミナ"))]private float maxShotStamina = 1f;
@@ -110,8 +111,9 @@ namespace Scripts
             overheatRecoveryPerSecond = characterParams.overheatRecoveryPerSecond;
             shotStaminaDrainPerSecond = characterParams.shotStaminaDrainPerSecond;
             shotCoolTime = characterParams.shotCoolTime;
-            quickStaminaDrainPerSecond = characterParams.quickStaminaDrainPerSecond;
-            tag = characterParams.tag;
+           // quickStaminaDrainPerSecond = characterParams.quickStaminaDrainPerSecond;
+            groundLayer = characterParams.groundLayer;
+            collisionRadius = characterParams.collisionRadius;
         }
         
         private void Start()
@@ -207,16 +209,9 @@ namespace Scripts
             }
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        public void Ground()
         {
-            foreach (var groundTag in tag)
-            {
-                if (collision.gameObject.CompareTag(groundTag))
-                {
                     jumpCount = MaxJumpCount;
-                    break;
-                }
-            }
         }
 
         public void OnMove(InputAction.CallbackContext context)
@@ -264,10 +259,6 @@ namespace Scripts
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             if (Overheat == false && isJump == false && IsShot == false)
             {
-                // audioSource.PlayOneShot(ShotSound);
-                // var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
-                // var bullet = bullets.GetComponent<Bullet>();
-                // bullet.PowerDirection = direction;
                 IsShot = true;
                 currentShotStamina -= shotStaminaDrainPerSecond;
                 animator.SetTrigger("isShot");
@@ -291,14 +282,18 @@ namespace Scripts
         public void OnAttack(InputAction.CallbackContext context)
         {
             if(IsAttacking) return;
-            if (currentStamina <= staminaDrainPerSecond) return;
-
+            if (currentStamina <= staminaDrainPerSecond)
+            {
+                OnQuickAttack(context);
+                return;
+            }
+            
             IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
             AttackCollision.gameObject.SetActive(true);
             //animator.SetTrigger("isAttack");
-            Invoke("AttackCollisionFalse", 0.1f);
+            Invoke("AttackCollisionFalse", collisionRadius);
             //Invoke("AttackFinish", 0.3f);
             //animator.SetTrigger("isAttack");
         }
@@ -306,7 +301,7 @@ namespace Scripts
         public void OnQuickAttack(InputAction.CallbackContext context)
         {
             if(IsAttacking) return;
-            if (currentStamina <= quickStaminaDrainPerSecond) return;
+            //if (currentStamina <= quickStaminaDrainPerSecond) return;
 
             IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
@@ -314,7 +309,7 @@ namespace Scripts
 
             QuickAttackCollision.gameObject.SetActive(true);
             //animator.SetTrigger("isAttack");
-            Invoke("AttackCollisionFalse", 0.1f);
+            Invoke("AttackCollisionFalse", collisionRadius);
             //Invoke("AttackFinish", 0.3f);
             //animator.SetTrigger("isAttack");
         }

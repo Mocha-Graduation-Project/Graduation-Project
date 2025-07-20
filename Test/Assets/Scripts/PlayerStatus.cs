@@ -18,8 +18,7 @@ namespace Scripts
         [FormerlySerializedAs("sceneManager")] [SerializeField]
         private SceneButtonManager sceneButtonManager;
 
-        [SerializeField] [JapaneseLabel("地面レイヤー")]
-        private LayerMask groundLayer;
+        [JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
 
         [SerializeField] [JapaneseLabel("足元")] private Transform groundCheck;
 
@@ -40,7 +39,14 @@ namespace Scripts
 
         private Player player => Player.Instance;
         private Coroutine invincibilityCoroutine;
+        [JapaneseLabel("被弾エフェクト")] public GameObject hitEffect;
+        [JapaneseLabel("被弾時間")] public float hitTime;
         
+
+        private void Awake()
+        {
+            SetScriptable();
+        }
 
         private void Start()
         {
@@ -63,14 +69,18 @@ namespace Scripts
         private void SetScriptable()
         {
             invincibleDuration = characterParams.invincibleDuration;
+            groundLayer = characterParams.groundLayer;
         }
 
         private void CheckGround()
         {
+            isGrounded = false;
             isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
-
+            if(!isGrounded) return;
+                
             animator.SetBool("isGround", isGrounded);
-
+            player.Ground();
+                
             Debug.DrawRay(groundCheck.position, Vector2.down * checkDistance, Color.red);
         }
 
@@ -89,6 +99,12 @@ namespace Scripts
         public void Damage(int damage)
         {
             if (invincible) return; // 無敵時間中ならダメージを受けない
+            
+            if (hitEffect != null)
+            {
+                hitEffect.SetActive(true);
+                StartCoroutine(HideHitEffectCoroutine());
+            }
 
             playerHp -= damage;
             uiLife.RemoveLife();
@@ -133,6 +149,14 @@ namespace Scripts
             Debug.Log("StartSetUp");
             playerHp = characterData.InitialHp;
             for (var i = 0; i < characterData.InitialHp; i++) uiLife.AddLife();
+        }
+        private IEnumerator HideHitEffectCoroutine()
+        {
+            yield return new WaitForSeconds(hitTime); // 表示する秒数（ここは調整可）
+            if (hitEffect != null)
+            {
+                hitEffect.SetActive(false);
+            }
         }
     }
 }
