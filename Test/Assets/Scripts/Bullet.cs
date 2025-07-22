@@ -210,7 +210,11 @@ namespace Scripts
         private void Attack()
         {
             if (this.gameObject.CompareTag("EnemyBullet"))
+            {
                 this.gameObject.tag = "Bullet";
+                ReflectionEnemyBullet reflectionEnemyBullet = GetComponent<ReflectionEnemyBullet>();
+                reflectionEnemyBullet.ChangeMaterial();
+            }
             
             reflectionCount++;
             if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
@@ -255,7 +259,11 @@ namespace Scripts
         private void QuickAttack()
         {
             if (this.gameObject.CompareTag("EnemyBullet"))
+            {
                 this.gameObject.tag = "Bullet";
+                ReflectionEnemyBullet reflectionEnemyBullet = GetComponent<ReflectionEnemyBullet>();
+                reflectionEnemyBullet.ChangeMaterial();
+            }
             
             // Damage = Mathf.Min(Damage + addDamage, maxDamage);
             reflectionCount++;
