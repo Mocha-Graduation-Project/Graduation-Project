@@ -31,6 +31,7 @@ public class DownHorizontalMove : MonoBehaviour,IState
         moveCounter = 0;
         moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
         boss = moveBoss.Boss;
+        moveBoss.EnemyScript.StopAttck();
         isCoolTime = true;
         Initialization();
         finishMoving = false;
@@ -92,6 +93,7 @@ public class DownHorizontalMove : MonoBehaviour,IState
             //Debug.Log("Change");
             Initialization();
             startPos = boss.transform.position;
+            if (moveCounter == 0) { moveBoss.EnemyScript.ReStartAttck();}
             moveCounter++;
             return;
         }
@@ -126,7 +128,7 @@ public class DownHorizontalMove : MonoBehaviour,IState
                 Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.MoveTime);
                 break;
             case 1:
-                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.MoveTime * 2);
+                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.EnemyData.MoveVerticalTime * 2);
                 break;
             case 2:
                 Debug.Log("終了");
