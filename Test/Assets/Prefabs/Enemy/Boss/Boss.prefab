@@ -982,15 +982,15 @@ MonoBehaviour:
   pattern: 0
   rotateAxis: {fileID: 7834526241826933591}
   boss: {fileID: 2313769065159366323}
-  moveTime: 2
+  enemyScript: {fileID: 3347531083724630867}
+  moveTime: 1.5
   coolTime: 1
   enemyData: {fileID: 11400000, guid: 2f875283be2fe4e47a93b6385d26133e, type: 2}
-  bulletRate1_2: 1
+  bulletRate1_2: 0.9
   bulletRate3_4: 0.5
   changeHPPercent: 50
   changeHP: 0
   patten5Flag: 0
-  enemyScript: {fileID: 3347531083724630867}
   loopCounter: 0
   maxLoop: 0
 --- !u!114 &3347531083724630867
@@ -1008,11 +1008,11 @@ MonoBehaviour:
   bulletType: 1
   attckType: 1
   enemyType: 2
-  HP: 10
+  HP: 200
   damageText: {fileID: 1474479737437088787}
   beforeAttackText: {fileID: 2120872017452714694}
   beforeAttackTime: 1
-  blinkDuration: 0.2
+  blinkDuration: 0.3
   canvas: {fileID: 8515457239726388513}
   shotObj: {fileID: 4545780901280632173}
   straightObj: {fileID: 0}
