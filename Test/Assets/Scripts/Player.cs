@@ -51,8 +51,8 @@ namespace Scripts
         [JapaneseLabel("即弾き判定")][SerializeField] private GameObject QuickAttackCollision;
         [JapaneseLabel("矢印")]public GameObject Arrow;
 
-        //[Header("<エフェクト>")] [JapaneseLabel("バットの斬撃")]
-        //private GameObject batSlash;
+        [Header("<エフェクト>")] [SerializeField][JapaneseLabel("バットの斬撃")]
+        private GameObject batSlash;
         
         //[SerializeField] private float MaxBulletTime;
         
@@ -330,8 +330,14 @@ namespace Scripts
         public void PlayAttackAnimation()
         {
             animator.SetTrigger("isAttack");
+            batSlash.SetActive(true);
+            Invoke("EffectCancel", 0.2f);
         }
 
+        private void EffectCancel()
+        {
+            batSlash.SetActive(false);
+        }
         public void PlayReflectionSound()
         {
             audioSource.PlayOneShot(ReflectionSound);
@@ -343,7 +349,6 @@ namespace Scripts
         }
         private void AttackCollisionFalse()
         {
-            PlayAttackAnimation();
             AttackCollision.gameObject.SetActive(false);
             QuickAttackCollision.gameObject.SetActive(false);
         }

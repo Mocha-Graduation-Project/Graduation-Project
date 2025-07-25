@@ -308,6 +308,7 @@ namespace Scripts
             if (isAttack)
             {
                 Attack();
+                player.PlayAttackAnimation();
             }
 
             // if (isQuick)
