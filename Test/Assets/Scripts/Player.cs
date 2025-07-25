@@ -221,6 +221,12 @@ namespace Scripts
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
+            if (animator == null)
+            {
+                Debug.LogWarning("Animatorがnullです。Playerオブジェクトが既に破棄されているか、適切に初期化されていません。");
+                return;
+            }
+            
             animator.SetBool("isMove", true);
             InputMove = context.ReadValue<Vector2>();
 
@@ -232,7 +238,7 @@ namespace Scripts
             }
             else
             {
-                animator.SetBool("isMove", false);
+                animator.SetBool("isMove", false); 
             }
         }
 
@@ -365,5 +371,36 @@ namespace Scripts
             MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
             MoveAction.actions["QuickAttack"].canceled -= OffAttack;
         }
+        private void OnEnable()
+        {
+            // OnEnable で購読を開始
+            MoveAction.actions["Move"].performed += OnMove;
+            MoveAction.actions["Move"].canceled += OnMove;
+            MoveAction.actions["Jump"].started += OnJump;
+            MoveAction.actions["Shot"].started += OnShot;
+            MoveAction.actions["Attack"].performed += OnAttack;
+            MoveAction.actions["Attack"].canceled += OffAttack;
+            MoveAction.actions["Jump"].canceled += OffJump;
+            MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
+            MoveAction.actions["QuickAttack"].canceled += OffAttack;
+        }
+
+        private void OnDisable()
+        {
+            // OnDisable で購読を解除
+            if (MoveAction != null)
+            {
+                MoveAction.actions["Move"].performed -= OnMove;
+                MoveAction.actions["Move"].canceled -= OnMove;
+                MoveAction.actions["Jump"].started -= OnJump;
+                MoveAction.actions["Shot"].started -= OnShot;
+                MoveAction.actions["Attack"].performed -= OnAttack;
+                MoveAction.actions["Attack"].canceled -= OffAttack;
+                MoveAction.actions["Jump"].canceled -= OffJump;
+                MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
+                MoveAction.actions["QuickAttack"].canceled -= OffAttack;
+            }
+        }
+
     }
 }
