@@ -243,6 +243,7 @@ namespace Scripts
         public void StopAttck()
         {
             dontAttck = true;
+            CancelInvoke();
             beforeAttackText.After();
         }
 

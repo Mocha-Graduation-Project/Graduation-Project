@@ -29,6 +29,10 @@ public class ReflectionEnemyBullet : MonoBehaviour
         {
             loop.enabled = true;
         }
+        if (loopAble == false)
+        {
+            CancelInvoke("Destroy");
+        }
     }
 
     void Destroy()
