@@ -150,7 +150,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: bb49222df8c33c3458e783c2eb1db67f, type: 2}
+  - {fileID: 2100000, guid: ec1a2cccb97b8ac4b9a33dcc36875af6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 4976443450439509812}
   - component: {fileID: 8443123524045288339}
   - component: {fileID: 4018568449771187965}
+  - component: {fileID: 5779874853303082382}
   m_Layer: 10
   m_Name: ReflectionEnemyBullet
   m_TagString: EnemyBullet
@@ -375,3 +376,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5048839d001741dab5ff90d7d89a7bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5779874853303082382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6079434019846936883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7fca0540112174d9cb6696ed209d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: bb49222df8c33c3458e783c2eb1db67f, type: 2}
+  childObj: {fileID: 3939702617726632076}
+  loop: {fileID: 4018568449771187965}
