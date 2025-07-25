@@ -68,5 +68,7 @@ namespace Scripts.Scriptable
         [JapaneseLabel("被弾時無敵時間")] public float invincibleDuration = 2.0f;
         [JapaneseLabel("反射後の無敵時間")]　public float reflectInvincible = 1;
 
+        [Space(5)][Header("<エフェクト>")] 
+        [JapaneseLabel("バットのアニメーション開始からエフェクトがでるまでの時間")] public float butEffectDuration = 0.1f;
     }
 }

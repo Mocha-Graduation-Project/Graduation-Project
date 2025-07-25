@@ -53,7 +53,7 @@ namespace Scripts
 
         [Header("<エフェクト>")] [SerializeField][JapaneseLabel("バットの斬撃")]
         private GameObject batSlash;
-        
+        [JapaneseLabel("バットのアニメーションからエフェクトがでるまでの時間")] private float butEffectDuration = 0.1f;
         //[SerializeField] private float MaxBulletTime;
         
         [SerializeField] private Image BulletUI;
@@ -117,6 +117,7 @@ namespace Scripts
            // quickStaminaDrainPerSecond = characterParams.quickStaminaDrainPerSecond;
             groundLayer = characterParams.groundLayer;
             collisionRadius = characterParams.collisionRadius;
+            butEffectDuration = characterParams.butEffectDuration;
         }
         
         private void Start()
@@ -319,6 +320,7 @@ namespace Scripts
             QuickAttackCollision.gameObject.SetActive(true);
             //animator.SetTrigger("isAttack");
             Invoke("AttackCollisionFalse", collisionRadius);
+            PlayAttackAnimation();
             //Invoke("AttackFinish", 0.3f);
             //animator.SetTrigger("isAttack");
         }
@@ -336,6 +338,11 @@ namespace Scripts
         public void PlayAttackAnimation()
         {
             animator.SetTrigger("isAttack");
+            Invoke("PlayEffect",butEffectDuration);
+        }
+
+        private void PlayEffect()
+        {
             batSlash.SetActive(true);
             Invoke("EffectCancel", 0.2f);
         }
