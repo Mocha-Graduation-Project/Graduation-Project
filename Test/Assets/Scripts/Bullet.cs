@@ -206,7 +206,7 @@ namespace Scripts
 
             }
         }
-
+        
         private void Attack()
         {
             if (this.gameObject.CompareTag("EnemyBullet"))
@@ -215,45 +215,45 @@ namespace Scripts
                 ReflectionEnemyBullet reflectionEnemyBullet = GetComponent<ReflectionEnemyBullet>();
                 reflectionEnemyBullet.ChangeMaterial();
             }
-            
+    
             reflectionCount++;
             if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
             {
                 int index = Mathf.Min(reflectionCount - 1, damageByReflectionCount.Length - 1);
                 Damage = damageByReflectionCount[index];
             }
-            //Damage = Mathf.Min(Damage +addDamage, maxDamage);
-            
-            
+    
             float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-            
+    
             player.currentStamina -= 2.5f;
             player.Arrow.SetActive(false);
             player.isMove = true;
-            isPaused = false;
-            
+            isPaused = false; // スローモーション解除
+
             PowerDirection *= 1.25f;
             if (PowerDirection < 0)
                 PowerDirection *= -1;
             
             float angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
-            // UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
-            // power = direction * PowerDirection;
             currentDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0).normalized;
 
             // スピード増加
             currentSpeed += addSpeed;
             currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
-            UpdatePower();
-            
+            UpdatePower(); // 最終的な速度と方向でpowerを更新
+    
             Time.timeScale = 1f;
+            
+            isAttack = false;
+
             Invoke("AttackFalse", 0.2f);
+
             player.PlayReflectionSound();
             pStatus.StartReflectInvincibility(reflectInvincible);
-            
+    
         }
 
         private void QuickAttack()

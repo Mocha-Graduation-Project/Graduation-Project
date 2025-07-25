@@ -50,6 +50,9 @@ namespace Scripts
         [JapaneseLabel("弾き判定")][SerializeField] private GameObject AttackCollision;
         [JapaneseLabel("即弾き判定")][SerializeField] private GameObject QuickAttackCollision;
         [JapaneseLabel("矢印")]public GameObject Arrow;
+
+        //[Header("<エフェクト>")] [JapaneseLabel("バットの斬撃")]
+        //private GameObject batSlash;
         
         //[SerializeField] private float MaxBulletTime;
         
