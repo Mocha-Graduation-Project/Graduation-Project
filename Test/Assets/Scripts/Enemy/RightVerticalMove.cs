@@ -32,6 +32,7 @@ public class RightVerticalMove : MonoBehaviour,IState
         moveCounter = 0;
         moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
         boss = moveBoss.Boss;
+        moveBoss.EnemyScript.StopAttck();
         isCoolTime = true;
         Initialization();
         finishMoving = false;
@@ -93,6 +94,7 @@ public class RightVerticalMove : MonoBehaviour,IState
             //Debug.Log("Change");
             Initialization();
             startPos = boss.transform.position;
+            if (moveCounter == 0) { moveBoss.EnemyScript.ReStartAttck();}
             moveCounter++;
             return;
         }
@@ -127,13 +129,13 @@ public class RightVerticalMove : MonoBehaviour,IState
                 Move(moveBoss.RightCenterPos, moveBoss.MoveTime);
                 break;
             case 1:
-                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.MoveTime);
+                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.EnemyData.MoveHorizontalTime);
                 break;
             case 2:
-                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.DownCenterPos.y, 0), moveBoss.MoveTime * 2);
+                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.DownCenterPos.y, 0), moveBoss.EnemyData.MoveHorizontalTime * 2);
                 break;
             case 3:
-                Move(moveBoss.RightCenterPos, moveBoss.MoveTime);
+                Move(moveBoss.RightCenterPos, moveBoss.EnemyData.MoveHorizontalTime);
                 break;
             case 4:
                 Debug.Log("終了");

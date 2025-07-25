@@ -584,7 +584,7 @@ Transform:
   m_GameObject: {fileID: 4545780901280632173}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.85, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -985,6 +985,8 @@ MonoBehaviour:
   moveTime: 2
   coolTime: 1
   enemyData: {fileID: 11400000, guid: 2f875283be2fe4e47a93b6385d26133e, type: 2}
+  bulletRate1_2: 1
+  bulletRate3_4: 0.5
   changeHPPercent: 50
   changeHP: 0
   patten5Flag: 0
@@ -1003,7 +1005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d9b1bc5a5878dd4280ee6d3c95d2a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletType: 0
+  bulletType: 1
   attckType: 1
   enemyType: 2
   HP: 10
@@ -1014,8 +1016,11 @@ MonoBehaviour:
   canvas: {fileID: 8515457239726388513}
   shotObj: {fileID: 4545780901280632173}
   straightObj: {fileID: 0}
-  Bullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
-  BulletRate: 3
+  dontAttck: 0
+  bullet: {fileID: 0}
+  enemyBullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
+  reflectionBullet: {fileID: 1734557430232284754, guid: 50aaa5bb5e5a5f44fa3f2ac7b7cb1f5d, type: 3}
+  bulletRate: 0
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
   enemySpawn: {fileID: 0}

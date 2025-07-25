@@ -7,6 +7,7 @@ using UnityEngine;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 namespace Scripts
 {
@@ -49,8 +50,12 @@ namespace Scripts
         
         Player player => Player.Instance;
         private bool isfirst = true;
-        [SerializeField] private GameObject Bullet;
-        [SerializeField] private float BulletRate;
+
+        [SerializeField] private bool dontAttck;
+        [SerializeField] [JapaneseLabel("現在の発射する弾")] private GameObject bullet;
+        [SerializeField] private GameObject enemyBullet;
+        [SerializeField] private GameObject reflectionBullet;
+        [SerializeField] private float bulletRate;
         private AudioSource audioSource;
         [SerializeField] private AudioClip ShotSound;
         [SerializeField] private AudioClip DamageSound;
@@ -62,6 +67,8 @@ namespace Scripts
         private float minX, maxX, minY, maxY;
 
         private float enemySize = 0.5f;
+        
+        public float BulletRate { get => bulletRate; set => bulletRate = value; }
         
         private void Awake()
         {
@@ -80,8 +87,11 @@ namespace Scripts
         private void Start()
         {
             audioSource = GetComponent<AudioSource>();
-            Invoke("BeforeAttack", BulletRate - beforeAttackTime);
-            Invoke("Attack", BulletRate);
+            if (dontAttck == false)
+            {
+                Invoke("BeforeAttack", bulletRate - beforeAttackTime);
+                Invoke("Attack", bulletRate);
+            }
             enemySpawn = GameObject.FindObjectOfType<EnemySpawnManager>();
             
             Bounds bounds = loopAreaCollider.bounds;
@@ -99,10 +109,22 @@ namespace Scripts
             {
                 straightObj = shotObj.transform.parent.gameObject;
             }
+
+            switch (bulletType)
+            {
+                case BulletType.enemyBullet:
+                    bullet = enemyBullet;
+                    break;
+                case BulletType.reflectionBullet:
+                    bullet = reflectionBullet;
+                    break;
+            }
         }
 
         private void Attack()
         {
+            if (dontAttck == true) { return; }
+            
             beforeAttackText.After();
             // プレイヤーの位置に応じて左右を向く
             Vector3 enemyPos = transform.position;
@@ -114,7 +136,7 @@ namespace Scripts
             transform.DORotate(new Vector3(0f, targetYRotation, 0f), 0.3f, RotateMode.Fast);
 
 
-            GameObject bullets = Instantiate(Bullet, shotObj.transform.position, Quaternion.identity);
+            GameObject bullets = Instantiate(bullet, shotObj.transform.position, Quaternion.identity);
             switch (bulletType)
             {
                 case BulletType.enemyBullet:
@@ -136,13 +158,13 @@ namespace Scripts
                     }
                     else if (attckType == AttckType.straight)
                     {
-                        
+                        reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
                     }
                     break;
             }
             audioSource.PlayOneShot(ShotSound);
-            Invoke("BeforeAttack", BulletRate - beforeAttackTime);
-            Invoke("Attack", BulletRate);
+            Invoke("BeforeAttack", bulletRate - beforeAttackTime);
+            Invoke("Attack", bulletRate);
         }
 
         private void Update()
@@ -213,7 +235,23 @@ namespace Scripts
 
         private void BeforeAttack()
         {
+            if (dontAttck == true) { return; }
+            
             beforeAttackText.Warning(blinkDuration);
+        }
+
+        public void StopAttck()
+        {
+            dontAttck = true;
+            CancelInvoke();
+            beforeAttackText.After();
+        }
+
+        public void ReStartAttck()
+        {
+            dontAttck = false;
+            Invoke("BeforeAttack", bulletRate - beforeAttackTime);
+            Invoke("Attack", bulletRate);
         }
     }
 }

@@ -7,12 +7,17 @@ public class ReflectionEnemyBullet : MonoBehaviour
     Material childMaterial;
     [SerializeField] private GameObject childObj;
     [SerializeField] private Loop loop;
+    [SerializeField] private bool loopAble;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         childMaterial = childObj.GetComponent<Renderer>().material;
-        Debug.Log(childMaterial);
+        if (loopAble == false)
+        {
+            Invoke("Destroy", 5);
+        }
+        //Debug.Log(childMaterial);
     }
 
     public void ChangeMaterial()
@@ -24,5 +29,14 @@ public class ReflectionEnemyBullet : MonoBehaviour
         {
             loop.enabled = true;
         }
+        if (loopAble == false)
+        {
+            CancelInvoke("Destroy");
+        }
+    }
+
+    void Destroy()
+    {
+        Destroy(this.gameObject);
     }
 }

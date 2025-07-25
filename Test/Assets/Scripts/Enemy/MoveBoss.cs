@@ -21,13 +21,15 @@ public class MoveBoss : EnemyAI
     [SerializeField] [JapaneseLabel("回転軸")] private GameObject rotateAxis;
 
     [SerializeField] [JapaneseLabel("動かすオブジェクト")] private GameObject boss;
+    
+    [SerializeField] private Enemy enemyScript;
 
     [JapaneseLabel("初期")] private Vector3 basePos;
     
     [JapaneseLabel("中央")] private Vector3 centerPos;
 
     [Space(15)] 
-    [SerializeField] [JapaneseLabel("端から中央の\n移動にかかる時間")][Space(5)]  private float moveTime;
+    [SerializeField] [JapaneseLabel("パターン開始位置までの\n移動にかかる時間")][Space(5)]  private float moveTime;
     
     [Space(15)]
     [SerializeField] [JapaneseLabel("パターン移行のクールタイム")] float coolTime;
@@ -37,6 +39,12 @@ public class MoveBoss : EnemyAI
     [SerializeField] [JapaneseLabel("パターン1～4に使うデータ")]
     private PatrolEnemyData enemyData;
 
+    [SerializeField] [JapaneseLabel("1,2の発射レート")]
+    private float bulletRate1_2;
+    
+    [SerializeField] [JapaneseLabel("3,4の発射レート")]
+    private float bulletRate3_4;
+
     [Space(5)] 
     [Header("パターン5")]
     [SerializeField] [JapaneseLabel("パターン5発動のHPの割合(%)")][Space(5)] 
@@ -44,7 +52,6 @@ public class MoveBoss : EnemyAI
     [SerializeField] [JapaneseLabel("パターン5を行うようになるHP")][Space(5)] 
     private float changeHP;
     [SerializeField] private bool patten5Flag;
-    [SerializeField] private Enemy enemyScript;
     [JapaneseLabel("パターン1～4を行った回数")]
     private int actioncounter;
     [JapaneseLabel("パターンの総数")]
@@ -65,6 +72,10 @@ public class MoveBoss : EnemyAI
     public GameObject Boss{get{ return boss; }}
     public float MoveTime{get{ return moveTime; }}
     public float CoolTime{get{ return coolTime; }}
+    
+    public Enemy EnemyScript { get { return enemyScript; } }
+
+    public PatrolEnemyData EnemyData { get { return enemyData; } }
     
     public Vector3 RightCenterPos{get{ return rightCenterPos; }}
     public Vector3 LeftCenterPos{get{ return leftCenterPos; }}
@@ -92,6 +103,7 @@ public class MoveBoss : EnemyAI
         maxAction = 4;
 
         changeHP = enemyScript.HP * (changeHPPercent * 0.01f);
+        //enemyScript.StopAttck();
         Debug.Log("ChangeHP:" + changeHP);
         patten5Flag = false;
         
@@ -108,7 +120,7 @@ public class MoveBoss : EnemyAI
     public void Change()
     {
         Debug.Log("パターン変更");
-        CheckFlag5();
+        //CheckFlag5();
         
         switch (pattern)
         {
@@ -137,15 +149,19 @@ public class MoveBoss : EnemyAI
             case Patterns.none:
                 break;
             case Patterns.pattern1:
+                enemyScript.BulletRate = bulletRate1_2;
                 stateMachine.ChangeState(new RightVerticalMove(this));
                 break;
             case Patterns.pattern2:
+                enemyScript.BulletRate = bulletRate1_2;
                 stateMachine.ChangeState(new LeftVerticalMove(this));
                 break;
             case Patterns.pattern3:
+                enemyScript.BulletRate = bulletRate3_4;
                 stateMachine.ChangeState(new UpHorizontalMove(this));
                 break;
             case Patterns.pattern4:
+                enemyScript.BulletRate = bulletRate3_4;
                 stateMachine.ChangeState(new DownHorizontalMove(this));
                 break;
         }

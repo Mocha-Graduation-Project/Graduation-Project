@@ -348,6 +348,31 @@ namespace Scripts
             PowerDirection = 1f;
             //Debug.Log("Pos:"+Pos+"/Power:"+power);;
         }
+        
+        public void SetStraightPowerEnemy(UnityEngine.Vector3 angle)
+        {
+            UnityEngine.Vector3 direction=Vector3.zero;
+
+            if (angle.z >= 0 && angle.z <= 45)
+            {
+                direction = Vector3.left;
+            }
+            else if (angle.z > 45 && angle.z <= 135)
+            {
+                direction = Vector3.down;
+            }
+            else if (angle.z > 135 && angle.z <= 180)
+            {
+                direction = Vector3.right;
+            }
+            else
+            {
+                Debug.Log("範囲外");
+            }
+
+            power = direction;
+            PowerDirection = 1f;
+        }
 
         public void OnReflect()
         {
