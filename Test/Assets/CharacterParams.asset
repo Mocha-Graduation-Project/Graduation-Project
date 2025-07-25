@@ -18,7 +18,7 @@ MonoBehaviour:
   MaxJumpCount: 1
   jumpCooldown: 0.2
   maxFallSpeed: 10
-  collisionRadius: 1
+  collisionRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 640
@@ -40,3 +40,4 @@ MonoBehaviour:
   damageByReflectionCount: 02000000040000000800000010000000
   invincibleDuration: 2
   reflectInvincible: 0.5
+  butEffectDuration: 0.2

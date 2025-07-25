@@ -50,7 +50,10 @@ namespace Scripts
         [JapaneseLabel("弾き判定")][SerializeField] private GameObject AttackCollision;
         [JapaneseLabel("即弾き判定")][SerializeField] private GameObject QuickAttackCollision;
         [JapaneseLabel("矢印")]public GameObject Arrow;
-        
+
+        [Header("<エフェクト>")] [SerializeField][JapaneseLabel("バットの斬撃")]
+        private GameObject batSlash;
+        [JapaneseLabel("バットのアニメーションからエフェクトがでるまでの時間")] private float butEffectDuration = 0.1f;
         //[SerializeField] private float MaxBulletTime;
         
         [SerializeField] private Image BulletUI;
@@ -114,6 +117,7 @@ namespace Scripts
            // quickStaminaDrainPerSecond = characterParams.quickStaminaDrainPerSecond;
             groundLayer = characterParams.groundLayer;
             collisionRadius = characterParams.collisionRadius;
+            butEffectDuration = characterParams.butEffectDuration;
         }
         
         private void Start()
@@ -218,6 +222,12 @@ namespace Scripts
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
+            if (animator == null)
+            {
+                Debug.LogWarning("Animatorがnullです。Playerオブジェクトが既に破棄されているか、適切に初期化されていません。");
+                return;
+            }
+            
             animator.SetBool("isMove", true);
             InputMove = context.ReadValue<Vector2>();
 
@@ -229,7 +239,7 @@ namespace Scripts
             }
             else
             {
-                animator.SetBool("isMove", false);
+                animator.SetBool("isMove", false); 
             }
         }
 
@@ -310,6 +320,7 @@ namespace Scripts
             QuickAttackCollision.gameObject.SetActive(true);
             //animator.SetTrigger("isAttack");
             Invoke("AttackCollisionFalse", collisionRadius);
+            PlayAttackAnimation();
             //Invoke("AttackFinish", 0.3f);
             //animator.SetTrigger("isAttack");
         }
@@ -327,8 +338,19 @@ namespace Scripts
         public void PlayAttackAnimation()
         {
             animator.SetTrigger("isAttack");
+            Invoke("PlayEffect",butEffectDuration);
         }
 
+        private void PlayEffect()
+        {
+            batSlash.SetActive(true);
+            Invoke("EffectCancel", 0.2f);
+        }
+
+        private void EffectCancel()
+        {
+            batSlash.SetActive(false);
+        }
         public void PlayReflectionSound()
         {
             audioSource.PlayOneShot(ReflectionSound);
@@ -340,7 +362,6 @@ namespace Scripts
         }
         private void AttackCollisionFalse()
         {
-            PlayAttackAnimation();
             AttackCollision.gameObject.SetActive(false);
             QuickAttackCollision.gameObject.SetActive(false);
         }
@@ -357,5 +378,36 @@ namespace Scripts
             MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
             MoveAction.actions["QuickAttack"].canceled -= OffAttack;
         }
+        private void OnEnable()
+        {
+            // OnEnable で購読を開始
+            MoveAction.actions["Move"].performed += OnMove;
+            MoveAction.actions["Move"].canceled += OnMove;
+            MoveAction.actions["Jump"].started += OnJump;
+            MoveAction.actions["Shot"].started += OnShot;
+            MoveAction.actions["Attack"].performed += OnAttack;
+            MoveAction.actions["Attack"].canceled += OffAttack;
+            MoveAction.actions["Jump"].canceled += OffJump;
+            MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
+            MoveAction.actions["QuickAttack"].canceled += OffAttack;
+        }
+
+        private void OnDisable()
+        {
+            // OnDisable で購読を解除
+            if (MoveAction != null)
+            {
+                MoveAction.actions["Move"].performed -= OnMove;
+                MoveAction.actions["Move"].canceled -= OnMove;
+                MoveAction.actions["Jump"].started -= OnJump;
+                MoveAction.actions["Shot"].started -= OnShot;
+                MoveAction.actions["Attack"].performed -= OnAttack;
+                MoveAction.actions["Attack"].canceled -= OffAttack;
+                MoveAction.actions["Jump"].canceled -= OffJump;
+                MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
+                MoveAction.actions["QuickAttack"].canceled -= OffAttack;
+            }
+        }
+
     }
 }
