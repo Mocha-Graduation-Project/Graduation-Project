@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using Scripts;
 using Scripts.Scriptable;
+namespace Backup_Bullet_backup_20250728_193205 
 
-namespace Scripts
 {
     public class Bullet : MonoBehaviour
     { 
@@ -279,47 +279,27 @@ namespace Scripts
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
             
-            Vector2 inputMove = player.InputMove;
-            if (inputMove.sqrMagnitude > 0.01f) // 入力がある場合
-            {
-                currentDirection = new Vector3(inputMove.x, inputMove.y, 0).normalized;
-            }
-            else
-            {
-                currentDirection = new Vector3(player.direction, 0, 0).normalized; 
-            }
 
+            // プレイヤーの方向ベクトル
+            Vector3 toPlayer = (player.transform.position - transform.position).normalized;
+
+            // 弾の進行方向との内積をとって、正面かどうか判定
+            float dot = Vector3.Dot(currentDirection.normalized, toPlayer);
+
+            // dot が 0.5以上なら正面にいると見なす（角度で言うと約60度以内）
+            if (dot > 0.5f)
+            {
+                currentDirection = -currentDirection; // 逆方向に反転
+            }
+            
             currentSpeed += addSpeed;
             currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
             UpdatePower();
             
             player.isMove = true;
-            isQuick = false; // 即座に状態をリセット
+            Invoke("AttackFalse", 0.2f);
             player.PlayReflectionSound();
             pStatus.StartReflectInvincibility(reflectInvincible);
-
-            player.AttackFinish();
-
-            // // プレイヤーの方向ベクトル
-            // Vector3 toPlayer = (player.transform.position - transform.position).normalized;
-            //
-            // // 弾の進行方向との内積をとって、正面かどうか判定
-            // float dot = Vector3.Dot(currentDirection.normalized, toPlayer);
-            //
-            // // dot が 0.5以上なら正面にいると見なす（角度で言うと約60度以内）
-            // if (dot > 0.5f)
-            // {
-            //     currentDirection = -currentDirection; // 逆方向に反転
-            // }
-            //
-            // currentSpeed += addSpeed;
-            // currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
-            // UpdatePower();
-            //
-            // player.isMove = true;
-            // Invoke("AttackFalse", 0.2f);
-            // player.PlayReflectionSound();
-            // pStatus.StartReflectInvincibility(reflectInvincible);
         }
 
         private void OffAttack(InputAction.CallbackContext context)
