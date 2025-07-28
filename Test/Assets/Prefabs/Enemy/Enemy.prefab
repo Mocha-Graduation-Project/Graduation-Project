@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d9b1bc5a5878dd4280ee6d3c95d2a1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletType: 0
+  bulletType: 1
   attckType: 0
   enemyType: 0
   HP: 8
@@ -422,10 +422,11 @@ MonoBehaviour:
   canvas: {fileID: 6722164026637600296}
   shotObj: {fileID: 0}
   straightObj: {fileID: 0}
+  dontAttck: 0
   bullet: {fileID: 0}
   enemyBullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
-  reflectionBullet: {fileID: 0}
-  BulletRate: 3
+  reflectionBullet: {fileID: 1734557430232284754, guid: 50aaa5bb5e5a5f44fa3f2ac7b7cb1f5d, type: 3}
+  bulletRate: 4
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
   enemySpawn: {fileID: 0}
