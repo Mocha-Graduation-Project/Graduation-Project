@@ -48,6 +48,8 @@ namespace Scripts
         
         [JapaneseLabel("反射後の無敵時間")]　private float reflectInvincible = 1;
         [NonSerialized] public Transform arrowTransform;
+        
+        [SerializeField] private Renderer trailRenderer;
 
         private void Awake()
         {
@@ -227,6 +229,7 @@ namespace Scripts
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
+            trailRenderer.material.SetFloat("_PowerLevel", powerColor);
     
             player.currentStamina -= 2.5f;
             player.Arrow.SetActive(false);
@@ -276,6 +279,7 @@ namespace Scripts
             
             float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
+            trailRenderer.material.SetFloat("_PowerLevel", powerColor);
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
             
