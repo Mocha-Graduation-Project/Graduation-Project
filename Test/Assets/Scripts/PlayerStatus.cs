@@ -12,10 +12,10 @@ namespace Scripts
         [SerializeField] private CharacterParams characterParams;
         [SerializeField] private CharacterData characterData;
         [SerializeField] private int playerHp;
+        
+        private UILife uiLife;
 
-        [SerializeField] private UILife uiLife;
-
-        [FormerlySerializedAs("sceneManager")] [SerializeField]
+        [FormerlySerializedAs("sceneManager")]
         private SceneButtonManager sceneButtonManager;
 
         [JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
@@ -46,6 +46,7 @@ namespace Scripts
         private void Awake()
         {
             SetScriptable();
+            uiLife = GameObject.FindObjectOfType<UILife>();
         }
 
         private void Start()
@@ -56,7 +57,7 @@ namespace Scripts
                 Destroy(gameObject);
             
             StartSetUp();
-            uiLife = uiLife.GetComponent<UILife>();
+            
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
             //sceneButtonManager = GameObject.Find("SceneManager").GetComponent<SceneButtonManager>();
         }
