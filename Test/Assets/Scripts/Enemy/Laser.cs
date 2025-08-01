@@ -1,3 +1,4 @@
+using Scripts;
 using UnityEngine;
 
 public class Laser : MonoBehaviour
@@ -19,6 +20,10 @@ public class Laser : MonoBehaviour
         if (other.tag == "Player")
         {
             Debug.Log("LaserHit");
+            if (other.TryGetComponent<PlayerStatus>(out PlayerStatus status))
+            {
+                status.Damage(1);
+            }
         }
     }
 }
