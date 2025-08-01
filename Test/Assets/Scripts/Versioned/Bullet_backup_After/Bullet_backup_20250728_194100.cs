@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using Scripts;
 using Scripts.Scriptable;
+namespace Backup_Bullet_backup_20250728_194100 
 
-namespace Scripts
 {
     public class Bullet : MonoBehaviour
     { 
