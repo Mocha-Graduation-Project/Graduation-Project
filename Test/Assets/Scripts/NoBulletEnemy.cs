@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
+using Scripts.UI;
+#if UNITY_EDITOR
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
-using Scripts.UI;
-
+#endif
 namespace Scripts
 {
 
