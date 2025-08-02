@@ -1,11 +1,13 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-using UnityEditor.Animations;
-using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Animations;
 using System.Collections.Generic;
-
+#if UNITY_EDITOR
+using UnityEditor.Animations;
+using UnityEngine.Events;
+#endif
 public class AnimationEventTool : EditorWindow
 {
     private AnimationClip selectedClip;
@@ -207,3 +209,4 @@ public class AnimationEventTool : EditorWindow
         }
     }
 }
+#endif
