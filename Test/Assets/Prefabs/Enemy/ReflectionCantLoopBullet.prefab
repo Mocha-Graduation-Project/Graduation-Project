@@ -90,6 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshRendererChild: {fileID: 8867892984592169197}
   characterParams: {fileID: 11400000, guid: ba6e45e6d168adb41bcb14b428391fe5, type: 2}
+  trailRenderer: {fileID: 7729072353109492909}
 --- !u!50 &1231518423397365870
 Rigidbody2D:
   serializedVersion: 5
@@ -219,6 +220,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: bb49222df8c33c3458e783c2eb1db67f, type: 2}
   childObj: {fileID: 4480461824481670634}
   loop: {fileID: 2477288409102013744}
+  loopAble: 0
 --- !u!1 &3144457938912378130
 GameObject:
   m_ObjectHideFlags: 0
