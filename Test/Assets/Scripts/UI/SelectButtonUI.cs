@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class SelectButtonUI : MonoBehaviour
@@ -9,29 +10,33 @@ public class SelectButtonUI : MonoBehaviour
     bool isCoolTime = false;
     private float startTime;
     private float coolTime;
-    private float inputValueV;
     private float inputValueVBefore;
-    
+
+    private PlayerInput UIAction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        UIAction = GetComponent<PlayerInput>();
         startTime = Time.realtimeSinceStartup;
         coolTime = 0.2f;
-        inputValueV = 0;
         inputValueVBefore = 0;
+        UIAction.actions["On"].started += EnterButton;
+        UIAction.actions["Set"].performed += MoveSet;
     }
 
     // Update is called once per frame
-    void Update()
+   
+    public void MoveSet(InputAction.CallbackContext context)
     {
-        float inputValueV = Input.GetAxis("Vertical"); 
-        Debug.Log(inputValueV+"//"+inputValueVBefore);
-        Debug.Log("cooltime:"+isCoolTime);
+        float inputValueV = context.ReadValue<Vector2>().y;
+       //Debug.Log(inputValueV);
+       // Debug.Log(inputValueV + "//" + inputValueVBefore);
+       // Debug.Log("cooltime:" + isCoolTime);
 
         if (isCoolTime == true)
         {
             float diff = Time.realtimeSinceStartup - startTime;
-            Debug.Log(diff + "=" + Time.time + "-" + startTime);
+           // Debug.Log(diff + "=" + Time.time + "-" + startTime);
             if (diff > coolTime)
             {
                 isCoolTime = false;
@@ -39,19 +44,19 @@ public class SelectButtonUI : MonoBehaviour
         }
         else
         {
-            if (inputValueV == 1 && inputValueV != inputValueVBefore)
+            if (inputValueV >= 0.8f && inputValueV != inputValueVBefore)
             {
                 NextButton(-1);
             }
-            else if (inputValueV == -1 && inputValueV != inputValueVBefore)
+            else if (inputValueV <= -0.8f && inputValueV != inputValueVBefore)
             {
                 NextButton(1);
             }
+          
         }
-        EnterButton();
+
         inputValueVBefore = inputValueV;
     }
-
     void NextButton(int next)
     {
         if (next == 1 && currentButtonIndex + 1 < buttons.Length)
@@ -70,12 +75,9 @@ public class SelectButtonUI : MonoBehaviour
         }
     }
 
-    void EnterButton()
+    public void EnterButton(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown("joystick button 0"))
-        {
-            ButtonInvoke();
-        }
+        ButtonInvoke();
     }
 
     void ButtonInvoke()
