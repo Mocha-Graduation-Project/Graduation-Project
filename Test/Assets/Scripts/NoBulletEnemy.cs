@@ -56,15 +56,15 @@ namespace Scripts
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.tag == "Attack")
-            {
-                Debug.Log("当たった");
-                HP--;
-                damageText.ShowDamage(1);
-                audioSource.PlayOneShot(DamageSound);
-            }
+            //if (collision.gameObject.tag == "Attack")
+            //{
+            //    Debug.Log("当たった");
+            //    HP--;
+            //    damageText.ShowDamage(1);
+            //    audioSource.PlayOneShot(DamageSound);
+            //}
 
-            else if (collision.gameObject.tag == "Bullet")
+            if (collision.gameObject.tag == "Bullet")
             {
                 Debug.Log("当たった");
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
