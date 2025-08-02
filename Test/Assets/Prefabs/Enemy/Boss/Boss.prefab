@@ -212,7 +212,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 18.5, z: 0}
-  m_LocalScale: {x: 0.1, y: 36, z: 0.5}
+  m_LocalScale: {x: 0.708983, y: 36, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1171351837290704002}
@@ -358,7 +358,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 18.5, z: 0}
-  m_LocalScale: {x: 0.1, y: 36, z: 0.5}
+  m_LocalScale: {x: 0.708983, y: 36, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3095302300020729338}
@@ -1071,11 +1071,11 @@ MonoBehaviour:
   laser:
   - {fileID: 2764925282164886474}
   - {fileID: 2516122783139091720}
-  rotatePerSec: 45
+  rotatePerSec: 60
   changeHPPercent: 50
   changeHP: 0
   patten5Flag: 0
-  loopCounter: 0
+  loopCounter: 4
   maxLoop: 1
 --- !u!114 &3347531083724630867
 MonoBehaviour:
