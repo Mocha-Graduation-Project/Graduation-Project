@@ -193,7 +193,8 @@ GameObject:
   - component: {fileID: 1902909798016546382}
   - component: {fileID: 7850114440198246526}
   - component: {fileID: 571014512685998233}
-  - component: {fileID: 7134396693839308352}
+  - component: {fileID: 1621391100611991787}
+  - component: {fileID: 3011621265069522158}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -269,13 +270,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7134396693839308352
-BoxCollider:
+--- !u!61 &1621391100611991787
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2516122783139091720}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -284,12 +288,46 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -2.2737368e-13, y: 0.00000017881393}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.0000006, y: 1.0000005}
+  m_EdgeRadius: 0
+--- !u!114 &3011621265069522158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2516122783139091720}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae46b7bbe6d55ea4db1596f427851d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2764925282164886474
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +339,8 @@ GameObject:
   - component: {fileID: 999462073380326190}
   - component: {fileID: 839707299004385011}
   - component: {fileID: 1421813589501375631}
-  - component: {fileID: 140370482426085094}
+  - component: {fileID: 1154017684893431731}
+  - component: {fileID: 3075416314642452890}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -377,13 +416,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &140370482426085094
-BoxCollider:
+--- !u!61 &1154017684893431731
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2764925282164886474}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -392,12 +434,46 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.00000017881393}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.0000006, y: 1.0000005}
+  m_EdgeRadius: 0
+--- !u!114 &3075416314642452890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2764925282164886474}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae46b7bbe6d55ea4db1596f427851d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3526102378641595988
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,11 +1068,15 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 2f875283be2fe4e47a93b6385d26133e, type: 2}
   bulletRate1_2: 1
   bulletRate3_4: 0.5
+  laser:
+  - {fileID: 2764925282164886474}
+  - {fileID: 2516122783139091720}
+  rotatePerSec: 45
   changeHPPercent: 50
   changeHP: 0
   patten5Flag: 0
   loopCounter: 0
-  maxLoop: 0
+  maxLoop: 1
 --- !u!114 &3347531083724630867
 MonoBehaviour:
   m_ObjectHideFlags: 0

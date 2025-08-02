@@ -4,11 +4,12 @@ using DefaultNamespace;
 using Scripts.UI;
 using TMPro;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.GraphicsBuffer;
 using DG.Tweening;
 using UnityEngine.Serialization;
-
+#if UNITY_EDITOR
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.GraphicsBuffer;
+#endif
 namespace Scripts
 {
 

@@ -13,6 +13,7 @@ namespace Scripts
         //コントローラー
         public static Player Instance;
         [SerializeField] private CharacterParams characterParams;
+        [SerializeField] private GameObject playerUI;
         private PlayerInput MoveAction;
         private AudioSource audioSource;
         [NonSerialized] public Vector2 InputMove = Vector2.zero;
@@ -20,7 +21,7 @@ namespace Scripts
         private float startY;
         [SerializeField] MapManager mapManager;
         [SerializeField] SceneButtonManager sceneButtonManager;
-        public Slider staminaSlider;
+        [NonSerialized]public Slider staminaSlider;
         
         //プレイヤーのステータス
         [JapaneseLabel("移動スピード")]private float MoveSpeed;
@@ -56,7 +57,7 @@ namespace Scripts
         [JapaneseLabel("バットのアニメーションからエフェクトがでるまでの時間")] private float butEffectDuration = 0.1f;
         //[SerializeField] private float MaxBulletTime;
         
-        [SerializeField] private Image BulletUI;
+        private Image BulletUI;
         
         //アニメーション関連
         private Animator animator;
@@ -91,6 +92,8 @@ namespace Scripts
                 Instance = this;
             else
                 Destroy(gameObject);
+            staminaSlider = playerUI.GetComponentInChildren<Slider>();
+            BulletUI = playerUI.GetComponentInChildren<Image>();
             
             PlayerParamReset();
         }

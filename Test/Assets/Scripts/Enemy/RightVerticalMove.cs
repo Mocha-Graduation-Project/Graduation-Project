@@ -44,6 +44,10 @@ public class RightVerticalMove : MonoBehaviour,IState
         {
             finishRotating = true;
         }
+        else if (rotateAxis.transform.eulerAngles == new Vector3(0, 0, 180))
+        {
+            angleZ = -90;
+        }
         else //if (rotateAxis.transform.eulerAngles.z == rotateAxisRotate.z)
         {
             angleZ = -45;
