@@ -24,8 +24,13 @@ public class SelectButtonUI : MonoBehaviour
         UIAction.actions["Set"].performed += MoveSet;
     }
 
+    void OnDisable()
+    {
+        UIAction.actions["On"].started -= EnterButton;
+        UIAction.actions["Set"].performed -= MoveSet;
+    }
     // Update is called once per frame
-   
+
     public void MoveSet(InputAction.CallbackContext context)
     {
         float inputValueV = context.ReadValue<Vector2>().y;
