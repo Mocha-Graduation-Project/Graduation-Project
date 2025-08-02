@@ -50,7 +50,7 @@ PlayerSettings:
   m_ActiveColorSpace: 1
   unsupportedMSAAFallback: 0
   m_SpriteBatchMaxVertexCount: 65535
-  m_SpriteBatchVertexThreshold: 300
+  m_SpriteBatchVertexThreshold: 1597
   m_MTRendering: 1
   mipStripping: 0
   numberOfMipsStripped: 0
@@ -106,7 +106,7 @@ PlayerSettings:
   xboxEnableFitness: 0
   visibleInBackground: 1
   allowFullscreenSwitch: 1
-  fullscreenMode: 3
+  fullscreenMode: 1
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
   xboxEnableGuest: 0
@@ -513,6 +513,9 @@ PlayerSettings:
     m_Automatic: 1
   - m_BuildTarget: iOSSupport
     m_APIs: 10000000
+    m_Automatic: 1
+  - m_BuildTarget: WindowsStandaloneSupport
+    m_APIs: 02000000
     m_Automatic: 1
   m_BuildTargetVRSettings: []
   m_DefaultShaderChunkSizeInMB: 16
