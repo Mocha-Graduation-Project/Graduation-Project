@@ -249,7 +249,7 @@ namespace Scripts
             UpdatePower(); // 最終的な速度と方向でpowerを更新
     
             Time.timeScale = 1f;
-            
+            player.IsAttacking = false;
             isAttack = false;
 
             Invoke("AttackFalse", 0.2f);

@@ -41,7 +41,7 @@ namespace Scripts
         [JapaneseLabel("ジャンプ中か")]private bool isJump;
         [JapaneseLabel("ジャンプ数")]private int jumpCount;
         [JapaneseLabel("最後にジャンプした時間")]private float lastJumpTime;
-        [JapaneseLabel("攻撃中か")]private bool IsAttacking = false;
+        [JapaneseLabel("攻撃中か")]public bool IsAttacking = false;
         [JapaneseLabel("発射中か")]private bool IsShot = false;
         [JapaneseLabel("移動中か")][NonSerialized] public bool isMove = true;
         
@@ -316,7 +316,7 @@ namespace Scripts
             if(IsAttacking) return;
             //if (currentStamina <= quickStaminaDrainPerSecond) return;
 
-            IsAttacking = true;
+            //IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
 
@@ -333,7 +333,7 @@ namespace Scripts
         }
         public void AttackFinish()
         {
-            IsAttacking = false;
+            //IsAttacking = false;
             AttackCollision.gameObject.SetActive(false);
             QuickAttackCollision.gameObject.SetActive(false);
         }
