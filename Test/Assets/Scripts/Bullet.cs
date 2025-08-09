@@ -169,7 +169,7 @@ namespace Scripts
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject.tag == "Ground" || (collision.gameObject.tag == "Player" && !isAttack))
+            if (collision.gameObject.tag == "Ground"&& !isAttack)
             {
                 if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
                 {
@@ -183,7 +183,21 @@ namespace Scripts
                 destroyed = true;
                 Destroy(this.gameObject);
             }
+            if (collision.gameObject.tag == "Player" && !isAttack)
+            {
+                if(!CompareTag("EnemyBullet")) return;
+                if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
+                {
+                    status.Damage(1);
+                }
 
+                ResetBullet();
+                Time.timeScale = 1f;
+                player.isMove = true;
+                isAttack = false;
+                destroyed = true;
+                Destroy(this.gameObject);
+            }
             if (collision.gameObject.tag == "Attack" && !destroyed)
             {
                 pStatus.StartReflectInvincibility(1000);
