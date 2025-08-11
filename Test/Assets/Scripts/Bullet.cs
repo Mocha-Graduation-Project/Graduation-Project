@@ -31,7 +31,6 @@ namespace Scripts
         private Vector2 lastInputDirection = Vector2.right;
         
         private float staminaDrainPerSecond = 0f;
-        //private float quickStaminaDrainPerSecond = 0f;
         
         private PlayerInput moveAction;
         
@@ -148,8 +147,6 @@ namespace Scripts
                 // 回転も矢印の回転に合わせる（オプション）
                 transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
             }
-
-            
             
             attackCoolTime+= Time.deltaTime;
             player.staminaSlider.value = player.currentStamina;
@@ -317,27 +314,6 @@ namespace Scripts
             pStatus.StartReflectInvincibility(reflectInvincible);
 
             player.AttackFinish();
-
-            // // プレイヤーの方向ベクトル
-            // Vector3 toPlayer = (player.transform.position - transform.position).normalized;
-            //
-            // // 弾の進行方向との内積をとって、正面かどうか判定
-            // float dot = Vector3.Dot(currentDirection.normalized, toPlayer);
-            //
-            // // dot が 0.5以上なら正面にいると見なす（角度で言うと約60度以内）
-            // if (dot > 0.5f)
-            // {
-            //     currentDirection = -currentDirection; // 逆方向に反転
-            // }
-            //
-            // currentSpeed += addSpeed;
-            // currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
-            // UpdatePower();
-            //
-            // player.isMove = true;
-            // Invoke("AttackFalse", 0.2f);
-            // player.PlayReflectionSound();
-            // pStatus.StartReflectInvincibility(reflectInvincible);
         }
 
         private void OffAttack(InputAction.CallbackContext context)
@@ -349,10 +325,6 @@ namespace Scripts
                 player.PlayAttackAnimation();
             }
 
-            // if (isQuick)
-            // {
-            //     QuickAttack();
-            // }
         }
          public Vector3 GetPower()
          {
@@ -362,10 +334,6 @@ namespace Scripts
         {
             power = currentDirection.normalized * currentSpeed;
         }
-        // public void SetPower(Vector3 newPower)
-        // {
-        //     power = newPower;
-        // }
         public void SetDirection(Vector3 newDirection)
         {
             currentDirection = newDirection.normalized;

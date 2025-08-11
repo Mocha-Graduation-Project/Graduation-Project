@@ -305,27 +305,19 @@ namespace Scripts
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
             AttackCollision.gameObject.SetActive(true);
-            //animator.SetTrigger("isAttack");
             Invoke("AttackCollisionFalse", collisionRadius);
-            //Invoke("AttackFinish", 0.3f);
-            //animator.SetTrigger("isAttack");
+            
         }
 
         public void OnQuickAttack(InputAction.CallbackContext context)
         {
             if(IsAttacking) return;
-            //if (currentStamina <= quickStaminaDrainPerSecond) return;
-
-            //IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
 
             QuickAttackCollision.gameObject.SetActive(true);
-            //animator.SetTrigger("isAttack");
             Invoke("AttackCollisionFalse", collisionRadius);
             PlayAttackAnimation();
-            //Invoke("AttackFinish", 0.3f);
-            //animator.SetTrigger("isAttack");
         }
         private void OffAttack(InputAction.CallbackContext context)
         {
@@ -333,7 +325,6 @@ namespace Scripts
         }
         public void AttackFinish()
         {
-            //IsAttacking = false;
             AttackCollision.gameObject.SetActive(false);
             QuickAttackCollision.gameObject.SetActive(false);
         }
@@ -367,6 +358,7 @@ namespace Scripts
         {
             AttackCollision.gameObject.SetActive(false);
             QuickAttackCollision.gameObject.SetActive(false);
+            IsAttacking = false;
         }
 
         public void PlayerReset()
