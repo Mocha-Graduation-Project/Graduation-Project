@@ -1,16 +1,32 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class SelectButtonUI : MonoBehaviour
 {
+    public enum ButtonType
+    {
+        both,
+        vertical,
+        horizontal,
+    }
+
+    [SerializeField] [JapaneseLabel("ボタンの配置")] private ButtonType buttonType;
+    
     [SerializeField] Button[] buttons;
     [SerializeField] private GameObject cursol;
     [SerializeField] int currentButtonIndex = 0;
-    bool isCoolTime = false;
+
+    [SerializeField] [JapaneseLabel("縦の個数")] private int verticalCount;
+    [SerializeField] private bool isCoolTime = false;
     private float startTime;
     private float coolTime;
+    private float inputValueV;
+    private float inputValueH;
     private float inputValueVBefore;
+    private float inputValueHBefore;
+    float inputValue;
 
     private PlayerInput UIAction;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -19,21 +35,36 @@ public class SelectButtonUI : MonoBehaviour
         UIAction = GetComponent<PlayerInput>();
         startTime = Time.realtimeSinceStartup;
         coolTime = 0.2f;
+        inputValue = 0.8f;
+        inputValueV = 0;
+        inputValueH = 0;
         inputValueVBefore = 0;
+        inputValueHBefore = 0;
         UIAction.actions["On"].started += EnterButton;
         UIAction.actions["Set"].performed += MoveSet;
+    }
+
+    private void OnEnable()
+    {
+        if (UIAction != null)
+        {
+            UIAction.actions["On"].started += EnterButton;
+            UIAction.actions["Set"].performed += MoveSet;
+        }
+        startTime = Time.realtimeSinceStartup;
     }
 
     void OnDisable()
     {
         UIAction.actions["On"].started -= EnterButton;
         UIAction.actions["Set"].performed -= MoveSet;
+        isCoolTime = false;
     }
-    // Update is called once per frame
 
     public void MoveSet(InputAction.CallbackContext context)
     {
-        float inputValueV = context.ReadValue<Vector2>().y;
+        inputValueV = context.ReadValue<Vector2>().y;
+        inputValueH = context.ReadValue<Vector2>().x;
        //Debug.Log(inputValueV);
        // Debug.Log(inputValueV + "//" + inputValueVBefore);
        // Debug.Log("cooltime:" + isCoolTime);
@@ -49,32 +80,106 @@ public class SelectButtonUI : MonoBehaviour
         }
         else
         {
-            if (inputValueV >= 0.8f && inputValueV != inputValueVBefore)
+            switch (buttonType)
             {
-                NextButton(-1);
+                case ButtonType.both:
+                    //Exitに行く処理
+                    if (currentButtonIndex == verticalCount && inputValueV <= (-1) * inputValue)
+                    {
+                        MoveSetVertical(buttons.Length - 1 - verticalCount);
+                    }
+                    //Exitから戻る処理
+                    else if (currentButtonIndex == buttons.Length - 1 && inputValueV >= inputValue)
+                    {
+                        MoveSetVertical(buttons.Length - 1 - verticalCount);
+                    }
+                    //Titleから戻る処理
+                    else if (currentButtonIndex == 0 && inputValueH >=  inputValue)
+                    {
+                        MoveSetHorizontal(1);
+                    }
+                    else
+                    {
+                        MoveSetVertical(1);
+                        MoveSetHorizontal(verticalCount);
+                    }
+                    break;
+                case ButtonType.vertical:
+                    MoveSetVertical(1);
+                    break;
+                case ButtonType.horizontal:
+                    //Exitに行く処理
+                    if (currentButtonIndex == 0 && inputValueV <= (-1) * inputValue)
+                    {
+                        MoveSetVertical(buttons.Length - 1);
+                    }
+                    //Exitから戻る処理
+                    else if (currentButtonIndex == buttons.Length - 1 && inputValueV >= inputValue)
+                    {
+                        MoveSetVertical(buttons.Length - 1 );
+                    }
+                    else
+                    {
+                        MoveSetHorizontal(verticalCount);
+                    }
+                    break;
             }
-            else if (inputValueV <= -0.8f && inputValueV != inputValueVBefore)
-            {
-                NextButton(1);
-            }
-          
         }
 
         inputValueVBefore = inputValueV;
+        inputValueHBefore = inputValueH;
+    }
+
+    void MoveSetVertical(int next)
+    {
+        if (inputValueV >= inputValue && inputValueV != inputValueVBefore)
+        {
+            NextButton((-1) * next);
+        }
+        else if (inputValueV <= (-1) * inputValue && inputValueV != inputValueVBefore)
+        {
+            NextButton(next);
+        }
+    }
+
+    void MoveSetHorizontal(int next)
+    {
+        if (inputValueH >= inputValue && inputValueV != inputValueHBefore)
+        {
+            NextButton(next);
+        }
+        else if (inputValueH <= (-1) * inputValue && inputValueV != inputValueHBefore)
+        {
+            NextButton((-1) * next);
+        }
     }
     void NextButton(int next)
     {
-        if (next == 1 && currentButtonIndex + 1 < buttons.Length)
+        if (next > 0)
         {
-            currentButtonIndex++;
-            cursol.transform.localPosition=buttons[currentButtonIndex].transform.localPosition;
+            if (currentButtonIndex + next < buttons.Length)
+            {
+                currentButtonIndex += next;
+            }
+            else
+            {
+                currentButtonIndex = buttons.Length - 1;
+            }
+            cursol.transform.localPosition = buttons[currentButtonIndex].transform.localPosition;
             isCoolTime = true;
             startTime = Time.realtimeSinceStartup;
         }
-        else if (next == -1 && currentButtonIndex - 1 >= 0)
+        else if (next < 0)
         {
-            currentButtonIndex--;
-            cursol.transform.localPosition=buttons[currentButtonIndex].transform.localPosition;
+            if (currentButtonIndex + next >= 0)
+            {
+                currentButtonIndex += next;
+            }
+            else
+            {
+                currentButtonIndex = 0;
+            }
+            cursol.transform.localPosition = buttons[currentButtonIndex].transform.localPosition;
             isCoolTime = true;
             startTime = Time.realtimeSinceStartup;
         }

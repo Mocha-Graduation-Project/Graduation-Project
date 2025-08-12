@@ -809,6 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bff81da37ccca4b96229e2e484e30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonType: 0
   buttons:
   - {fileID: 6647915627231903178}
   - {fileID: 1610947507560927765}
@@ -817,6 +818,7 @@ MonoBehaviour:
   - {fileID: 8731005200131627070}
   cursol: {fileID: 2905167773086576698}
   currentButtonIndex: 1
+  verticalCount: 3
 --- !u!114 &3148349172554757945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3078,12 +3080,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6bff81da37ccca4b96229e2e484e30b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonType: 2
   buttons:
   - {fileID: 8311626083169382683}
   - {fileID: 1861653174122894766}
   - {fileID: 2038190239239720443}
   cursol: {fileID: 7761274966592260470}
   currentButtonIndex: 1
+  verticalCount: 1
 --- !u!114 &1324156114043790223
 MonoBehaviour:
   m_ObjectHideFlags: 0
