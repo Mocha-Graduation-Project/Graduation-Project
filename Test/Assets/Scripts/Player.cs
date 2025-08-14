@@ -332,9 +332,8 @@ namespace Scripts
         public void PlayAttackAnimation()
         {
             animator.SetTrigger("isAttack");
-            Invoke("PlayEffect",butEffectDuration);
         }
-
+        
         private void PlayEffect()
         {
             batSlash.SetActive(true);
