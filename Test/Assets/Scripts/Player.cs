@@ -337,7 +337,7 @@ namespace Scripts
         private void PlayEffect()
         {
             batSlash.SetActive(true);
-            Invoke("EffectCancel", 0.2f);
+            //Invoke("EffectCancel", 0.2f);
         }
 
         private void EffectCancel()
