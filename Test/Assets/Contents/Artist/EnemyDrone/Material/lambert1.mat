@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: lambert1
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 8b01a9e0eff26854da1c87fc1bc1e499, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -30,14 +30,17 @@ Material:
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap:
-    RenderType: Opaque
+  stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseColor:
+        m_Texture: {fileID: 2800000, guid: 080dc0e365f7b5242993349b854d6ef6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,11 +65,27 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissionTexture:
+        m_Texture: {fileID: 2800000, guid: afb2b4f53af3a29499f12ce05f596a1e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetalicMask:
+        m_Texture: {fileID: 2800000, guid: 56d278baeac58a845b39573bc974010a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMatcapTexture:
+        m_Texture: {fileID: 2800000, guid: 13ccc71bbea90774cb8003e72f68a7bc, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -76,6 +95,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SSSMaskTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadowColor:
+        m_Texture: {fileID: 2800000, guid: 5fec85dcc85aeef479cd136e6d1f515a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -108,18 +135,37 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DirectionalLightColorOpacity: 0.017
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _EmissionIntensity: 0
+    - _EmissionIntensityB: 0.24
+    - _EmissionIntensityG: 1.76
+    - _EmissionIntensityR: 3.01
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _IsNormalUse: 0
+    - _LightSmooth: 0.01
+    - _MaskFresnelPower: 2.7
     - _Metallic: 0
+    - _MetallicStrength: 0.07
+    - _MetallicUse: 1
     - _Mode: 0
+    - _NormalInfruence: 0.48
+    - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _RimEdge1: 0.75
+    - _RimEdge2: 1.22
+    - _SSSColorOpacity: 0.51
+    - _SSSLIghtStrength: 0.47
+    - _SSSOpacity: 0
+    - _SSSPower: 1
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -132,7 +178,16 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
     - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _CutoffThreshold: {r: 0.05, g: 0.01, b: 0, a: 0}
+    - _EmissionColor: {r: 1, g: 0, b: 0, a: 1}
+    - _EmissionColorG: {r: 0.10863641, g: 12.996039, b: 0, a: 0}
+    - _EmissionColorR: {r: 5.3403134, g: 0.07869371, b: 0.016792312, a: 0}
+    - _EmissionColor_B: {r: 0, g: 0.4300097, b: 95.87451, a: 0}
+    - _MainColor: {r: 0.9308176, g: 0.9308176, b: 0.9308176, a: 0}
+    - _RimLightColor: {r: 6.4980197, g: 0, b: 0.0612387, a: 0}
+    - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}
+    - _ShadowColor: {r: 0.26719186, g: 0.26610887, b: 0.40880498, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
