@@ -216,7 +216,7 @@ namespace Scripts
                 audioSource.PlayOneShot(DamageSound);
             }
 
-            if (HP < 0)
+            if (HP <= 0)
             {
                 switch (enemyType)
                 {
