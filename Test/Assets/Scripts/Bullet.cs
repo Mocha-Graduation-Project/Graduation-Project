@@ -15,6 +15,7 @@ namespace Scripts
         Player player => Player.Instance;
         PlayerStatus pStatus => PlayerStatus.Instance;
         [NonSerialized]public float PowerDirection;
+        [NonSerialized] public Vector2 quickAttackDirectionInput = Vector2.zero;
         private int count = 1;
         private bool isAttack = false;
         private bool isQuick = false;
@@ -72,7 +73,7 @@ namespace Scripts
 
             reflectionCount = 0;
             moveAction = GetComponent<PlayerInput>();
-            moveAction.actions["Attack"].canceled += OffAttack;
+            // moveAction.actions["Attack"].canceled += OffAttack;
         }
 
         void Update()
@@ -105,21 +106,21 @@ namespace Scripts
             }
             
             //スタミナ消費
-            if (isAttack)
-            {
-                player.currentStamina -= staminaDrainPerSecond * Time.deltaTime * 5;
-                if (player.currentStamina <= 0)
-                {
-                    player.currentStamina = 0;
-                    player.AttackFinish();
-                    if (attackCoolTime > attackCoolMaxTime)
-                    {
-                        Attack(); 
-                        attackCoolTime = 0;
-                    }
-
-                }
-            }
+            // if (isAttack)
+            // {
+            //     player.currentStamina -= staminaDrainPerSecond * Time.deltaTime * 5;
+            //     if (player.currentStamina <= 0)
+            //     {
+            //         player.currentStamina = 0;
+            //         player.AttackFinish();
+            //         if (attackCoolTime > attackCoolMaxTime)
+            //         {
+            //             Attack(); 
+            //             attackCoolTime = 0;
+            //         }
+            //
+            //     }
+            // }
 
             if (isQuick)
             {
@@ -173,7 +174,7 @@ namespace Scripts
                     status.Damage(1);
                 }
 
-                ResetBullet();
+                //ResetBullet();
                 Time.timeScale = 1f;
                 player.isMove = true;
                 isAttack = false;
@@ -188,7 +189,7 @@ namespace Scripts
                     status.Damage(1);
                 }
 
-                ResetBullet();
+                //ResetBullet();
                 Time.timeScale = 1f;
                 player.isMove = true;
                 isAttack = false;
@@ -220,55 +221,55 @@ namespace Scripts
             }
         }
         
-        private void Attack()
-        {
-            if (this.gameObject.CompareTag("EnemyBullet"))
-            {
-                this.gameObject.tag = "Bullet";
-                ReflectionEnemyBullet reflectionEnemyBullet = GetComponent<ReflectionEnemyBullet>();
-                reflectionEnemyBullet.ChangeMaterial();
-            }
-    
-            reflectionCount++;
-            if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
-            {
-                int index = Mathf.Min(reflectionCount - 1, damageByReflectionCount.Length - 1);
-                Damage = damageByReflectionCount[index];
-            }
-    
-            float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
-            if (reflectionCount >= maxReflectionCount)
-                powerColor = 1.0f;
-            meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-            trailRenderer.material.SetFloat("_PowerLevel", powerColor);
-    
-            player.currentStamina -= 2.5f;
-            player.Arrow.SetActive(false);
-            player.isMove = true;
-            isPaused = false; // スローモーション解除
-
-            PowerDirection *= 1.25f;
-            if (PowerDirection < 0)
-                PowerDirection *= -1;
-            
-            float angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
-            currentDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0).normalized;
-
-            // スピード増加
-            currentSpeed += addSpeed;
-            currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
-            UpdatePower(); // 最終的な速度と方向でpowerを更新
-    
-            Time.timeScale = 1f;
-            player.IsAttacking = false;
-            isAttack = false;
-
-            Invoke("AttackFalse", 0.2f);
-
-            player.PlayReflectionSound();
-            pStatus.StartReflectInvincibility(reflectInvincible);
-    
-        }
+        // private void Attack()
+        // {
+        //     if (this.gameObject.CompareTag("EnemyBullet"))
+        //     {
+        //         this.gameObject.tag = "Bullet";
+        //         ReflectionEnemyBullet reflectionEnemyBullet = GetComponent<ReflectionEnemyBullet>();
+        //         reflectionEnemyBullet.ChangeMaterial();
+        //     }
+        //
+        //     reflectionCount++;
+        //     if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
+        //     {
+        //         int index = Mathf.Min(reflectionCount - 1, damageByReflectionCount.Length - 1);
+        //         Damage = damageByReflectionCount[index];
+        //     }
+        //
+        //     float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
+        //     if (reflectionCount >= maxReflectionCount)
+        //         powerColor = 1.0f;
+        //     meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
+        //     trailRenderer.material.SetFloat("_PowerLevel", powerColor);
+        //
+        //     player.currentStamina -= 2.5f;
+        //     player.Arrow.SetActive(false);
+        //     player.isMove = true;
+        //     isPaused = false; // スローモーション解除
+        //
+        //     PowerDirection *= 1.25f;
+        //     if (PowerDirection < 0)
+        //         PowerDirection *= -1;
+        //     
+        //     float angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
+        //     currentDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0).normalized;
+        //
+        //     // スピード増加
+        //     currentSpeed += addSpeed;
+        //     currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
+        //     UpdatePower(); // 最終的な速度と方向でpowerを更新
+        //
+        //     Time.timeScale = 1f;
+        //     player.IsAttacking = false;
+        //     isAttack = false;
+        //
+        //     Invoke("AttackFalse", 0.2f);
+        //
+        //     player.PlayReflectionSound();
+        //     pStatus.StartReflectInvincibility(reflectInvincible);
+        //
+        // }
 
         private void QuickAttack()
         {
@@ -294,7 +295,7 @@ namespace Scripts
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
             
-            Vector2 inputMove = player.InputMove;
+            Vector2 inputMove = player.quickAttackDirection;
             if (inputMove.sqrMagnitude > 0.01f) // 入力がある場合
             {
                 currentDirection = new Vector3(inputMove.x, inputMove.y, 0).normalized;
@@ -316,16 +317,16 @@ namespace Scripts
             player.AttackFinish();
         }
 
-        private void OffAttack(InputAction.CallbackContext context)
-        {
-            //CancelInvoke("Attack");
-            if (isAttack)
-            {
-                Attack();
-                player.PlayAttackAnimation();
-            }
-
-        }
+        // private void OffAttack(InputAction.CallbackContext context)
+        // {
+        //     //CancelInvoke("Attack");
+        //     if (isAttack)
+        //     {
+        //         Attack();
+        //         player.PlayAttackAnimation();
+        //     }
+        //
+        // }
          public Vector3 GetPower()
          {
              return power;
@@ -390,9 +391,9 @@ namespace Scripts
             isAttack = false;
             isQuick = false;
         }
-        public void ResetBullet()
-        {
-            moveAction.actions["Attack"].canceled -= OffAttack;
-        }
+        // public void ResetBullet()
+        // {
+        //     moveAction.actions["Attack"].canceled -= OffAttack;
+        // }
     }
 }
