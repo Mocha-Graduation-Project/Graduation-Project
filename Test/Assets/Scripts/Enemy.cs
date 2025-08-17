@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 #if UNITY_EDITOR
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
@@ -62,6 +63,8 @@ namespace Scripts
         [SerializeField] private AudioClip DamageSound;
 
         [SerializeField] private EnemySpawnManager enemySpawn;
+
+        [SerializeField] [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
         
         private Collider2D loopAreaCollider;
 
@@ -118,6 +121,15 @@ namespace Scripts
                     break;
                 case BulletType.reflectionBullet:
                     bullet = reflectionBullet;
+                    break;
+            }
+
+            switch (enemyType)
+            {
+                case EnemyType.boss:
+                    enemyHPSlider = GameObject.FindWithTag("EnemyHPBar").GetComponent<Slider>();
+                    enemyHPSlider.maxValue = HP;
+                    enemyHPSlider.value = HP;
                     break;
             }
         }
@@ -210,6 +222,11 @@ namespace Scripts
                 Debug.Log("当たった");
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
                 HP -= bullet.Damage;
+                
+                if (enemyHPSlider != null)
+                {
+                    enemyHPSlider.value = HP;
+                }
                 // DamageText.enabled = true;
                 // DamageText.text = bullet.Damage.ToString();
                 damageText.ShowDamage(bullet.Damage);
