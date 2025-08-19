@@ -146,7 +146,6 @@ namespace Scripts
             
             mapManager = GameObject.FindObjectOfType<MapManager>();
             currentStamina = maxStamina;
-            staminaSlider.maxValue = currentStamina;
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
             currentShotStamina = maxShotStamina;
         }
@@ -187,7 +186,6 @@ namespace Scripts
                 currentStamina += staminaRecoveryPerSecond * Time.deltaTime;
                 currentStamina = Mathf.Min(currentStamina, maxStamina);
             }
-            staminaSlider.value = currentStamina;
 
             if (currentShotStamina <= 0)
             {

@@ -150,7 +150,7 @@ namespace Scripts
             }
             
             attackCoolTime+= Time.deltaTime;
-            player.staminaSlider.value = player.currentStamina;
+            //player.staminaSlider.value = player.currentStamina;
             
         }
 
