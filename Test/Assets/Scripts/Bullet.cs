@@ -165,15 +165,67 @@ namespace Scripts
             damageByReflectionCount = characterParams.damageByReflectionCount;
             reflectInvincible = characterParams.reflectInvincible;
         }
-        private void OnTriggerEnter2D(Collider2D collision)
+
+        void OnTriggerEnter(Collider collider)
         {
-            if (collision.gameObject.tag == "Ground"&& !isAttack)
+            if (collider.gameObject.tag == "Ground"&& !isAttack)
             {
-                if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
+                if (collider.gameObject.layer == LayerMask.NameToLayer("FloatFloor"))
+                    return;
+
+                //ResetBullet();
+                Time.timeScale = 1f;
+                player.isMove = true;
+                isAttack = false;
+                destroyed = true;
+                Destroy(this.gameObject);
+            }
+            if (collider.gameObject.tag == "Player" && !isAttack)
+            {
+                if(!CompareTag("EnemyBullet")) return;
+                if (collider.TryGetComponent<PlayerStatus>(out PlayerStatus status))
                 {
                     status.Damage(1);
                 }
 
+                //ResetBullet();
+                Time.timeScale = 1f;
+                player.isMove = true;
+                isAttack = false;
+                destroyed = true;
+                Destroy(this.gameObject);
+            }
+            if (collider.gameObject.tag == "Attack" && !destroyed)
+            {
+                pStatus.StartReflectInvincibility(1000);
+                player.isMove = false;
+                isPaused = true;
+                player.Arrow.SetActive(true);
+                isAttack = true;
+                Time.timeScale = 0.2f;
+                power = UnityEngine.Vector3.zero;
+                //Invoke("Attack", 0.3f);
+
+            }
+
+            if (collider.gameObject.tag == "QuickAttack" && !destroyed)
+            {
+                pStatus.StartReflectInvincibility(1000);
+                player.isMove = false;
+                isQuick = true;
+                SavePower = -power;
+                //Power = UnityEngine.Vector3.zero;
+                QuickAttack();
+
+            }
+        }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "Ground"&& !isAttack)
+            {
+                if (collision.gameObject.layer == LayerMask.NameToLayer("FloatFloor"))
+                return;
+                
                 //ResetBullet();
                 Time.timeScale = 1f;
                 player.isMove = true;
@@ -206,7 +258,6 @@ namespace Scripts
                 Time.timeScale = 0.2f;
                 power = UnityEngine.Vector3.zero;
                 //Invoke("Attack", 0.3f);
-
             }
 
             if (collision.gameObject.tag == "QuickAttack" && !destroyed)
@@ -217,7 +268,6 @@ namespace Scripts
                 SavePower = -power;
                 //Power = UnityEngine.Vector3.zero;
                 QuickAttack();
-
             }
         }
         
@@ -350,7 +400,7 @@ namespace Scripts
             float correctionAimPos = 1.5f;
             float Angle = Mathf.Atan2(player.gameObject.transform.position.y - Pos.y + correctionAimPos,
                 player.gameObject.transform.position.x - Pos.x);
-            Debug.Log("角度:"+Angle);
+            //Debug.Log("角度:"+Angle);
             Vector3 direction = new Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
             power = direction;
             PowerDirection = 1f;

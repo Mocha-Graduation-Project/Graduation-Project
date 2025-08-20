@@ -66,7 +66,7 @@ namespace Scripts
 
         [SerializeField] [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
         
-        private Collider2D loopAreaCollider;
+        private Collider loopAreaCollider;
 
         private float minX, maxX, minY, maxY;
 
@@ -79,7 +79,7 @@ namespace Scripts
             GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
             if (loopAreaObj != null)
             {
-                loopAreaCollider = loopAreaObj.GetComponent<Collider2D>();
+                loopAreaCollider = loopAreaObj.GetComponent<Collider>();
             }
             else
             {
@@ -189,13 +189,19 @@ namespace Scripts
                 else
                 {
                     Vector3 pos = transform.position;
-                    if (pos.x > maxX) pos.x = maxX - enemySize;
-                    else if (pos.x < minX) pos.x = minX + enemySize;
+                    if (pos.x > maxX)
+                    {
+                        pos.x = maxX - enemySize;
+                    }
+                    else if (pos.x < minX)
+                    {
+                        pos.x = minX + enemySize;
+                    }
 
                     if (pos.y > maxY)
                     {
                         pos.y = maxY - enemySize;
-                        GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
+                        GetComponent<Rigidbody>().linearVelocity = new Vector2(0, 0);
                     }
                     else if (pos.y < minY) pos.y = minY + enemySize;
 
@@ -205,6 +211,41 @@ namespace Scripts
             }
         }
 
+        void OnTriggerEnter(Collider collider)
+        {
+            if (collider.gameObject.tag == "Bullet")
+            {
+                Debug.Log("当たった");
+                Bullet bullet = collider.gameObject.GetComponent<Bullet>();
+                HP -= bullet.Damage;
+                
+                if (enemyHPSlider != null)
+                {
+                    enemyHPSlider.value = HP;
+                }
+                // DamageText.enabled = true;
+                // DamageText.text = bullet.Damage.ToString();
+                damageText.ShowDamage(bullet.Damage);
+                audioSource.PlayOneShot(DamageSound);
+            }
+
+            if (HP <= 0)
+            {
+                switch (enemyType)
+                {
+                    case EnemyType.normal:
+                        enemySpawn.RemoveEnemy(this.gameObject);
+                        break;
+                    case EnemyType.shield:
+                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
+                        break;
+                    case EnemyType.boss:
+                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
+                        break;
+                }
+            }
+        }
+        
         private void OnTriggerEnter2D(Collider2D collision)
         {
             //if (collision.gameObject.tag == "Attack")
