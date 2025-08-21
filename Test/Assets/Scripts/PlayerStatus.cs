@@ -27,7 +27,7 @@ namespace Scripts
         [JapaneseLabel("被弾時無敵時間")]
         private float invincibleDuration = 2.0f;
 
-        private readonly float checkDistance = 0.08f; // Raycastの長さ
+        private readonly float checkDistance = 0.05f; // Raycastの長さ
         private string enemyBulletTag = "EnemyBullet";
 
         private bool invincible;
@@ -76,7 +76,7 @@ namespace Scripts
         private void CheckGround()
         {
             isGrounded = false;
-            isGrounded = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
+            isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
             if(!isGrounded) return;
                 
             animator.SetBool("isGround", isGrounded);

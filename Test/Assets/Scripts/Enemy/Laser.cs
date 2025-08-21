@@ -1,19 +1,18 @@
-using System;
 using Scripts;
 using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        if (other.tag == "Player")
-        {
-            Debug.Log("LaserHit");
-            if (other.TryGetComponent<PlayerStatus>(out PlayerStatus status))
-            {
-                status.Damage(1);
-            }
-        }
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)

@@ -1,4 +1,3 @@
-using System;
 using Scripts;
 using UnityEngine;
 
@@ -14,37 +13,17 @@ public class Shield : MonoBehaviour
 
     [SerializeField] private ShieldPosition shieldPosition;
     string playerBulletTag = "Bullet";
-
-    private void OnTriggerEnter(Collider collision)
+    
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        if (collision.CompareTag(playerBulletTag) == true)
-        {
-            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            float speed = 0f;
-            //Debug.Log("ball:" + bullet.GetPower());
-            switch (shieldPosition)
-            {
-                case ShieldPosition.left:
-                    speed = bullet.GetPower().x;
-                    break;
-                case ShieldPosition.right:
-                    speed = bullet.GetPower().x * (-1);
-                    break;
-                case ShieldPosition.up:
-                    speed = bullet.GetPower().y * (-1);
-                    break;
-                case ShieldPosition.down:
-                    speed = bullet.GetPower().y;
-                    break;
-                default:
-                    break;
-            }
+        
+    }
 
-            if (speed > 0)
-            {
-                Destroy(collision.gameObject);
-            }
-        }
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -17,7 +17,7 @@ namespace Scripts
         private PlayerInput MoveAction;
         private AudioSource audioSource;
         [NonSerialized] public Vector2 InputMove = Vector2.zero;
-        private Rigidbody rb;
+        private Rigidbody2D rb;
         private float startY;
         [SerializeField] MapManager mapManager;
         [SerializeField] SceneButtonManager sceneButtonManager;
@@ -39,7 +39,7 @@ namespace Scripts
         [JapaneseLabel("")]private bool isfirst = true;
         [JapaneseLabel("地面についているか")]private bool isGround;
         [JapaneseLabel("ジャンプ中か")]private bool isJump;
-        [SerializeField][JapaneseLabel("ジャンプ数")]private int jumpCount;
+        [JapaneseLabel("ジャンプ数")]private int jumpCount;
         [JapaneseLabel("最後にジャンプした時間")]private float lastJumpTime;
         [JapaneseLabel("攻撃中か")]public bool IsAttacking = false;
         [JapaneseLabel("発射中か")]private bool IsShot = false;
@@ -139,7 +139,7 @@ namespace Scripts
             MoveAction.actions["Aim"].canceled += OnQuickAttackAim;
 
             animator = GetComponent<Animator>();
-            rb = GetComponent<Rigidbody>();
+            rb = GetComponent<Rigidbody2D>();
             Arrow.SetActive(false);
             jumpCount = MaxJumpCount;
             audioSource = GetComponent<AudioSource>();
@@ -164,32 +164,22 @@ namespace Scripts
             {
                 currentShotStamina += overheatRecoveryPerSecond * Time.deltaTime;
             }
-            
-            Vector3 temp = transform.position;
-            temp.z = 0f;
             if (!isMove)
-            {
-                transform.position = temp;
                 return;
-            }
-            
             if (InputMove.x < 0)
             {
-                temp+=new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
-                //transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
+                transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
                 transform.localScale = new Vector3(1f, 1f, -1f);
                 direction = -1;
             }
             else if (InputMove.x > 0)
             {
-                temp+=new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
-                //transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
+                transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
                 transform.localScale = new Vector3(1f, 1f, 1f);
                 direction = 1;
             }
-            transform.position = temp;
 
-            animator.SetFloat("Jump", rb.linearVelocity.magnitude);
+            animator.SetFloat("Jump", rb.linearVelocityY);
             
             if (!IsAttacking && currentStamina < maxStamina)
             {

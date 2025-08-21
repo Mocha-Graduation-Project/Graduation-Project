@@ -4,7 +4,7 @@ namespace Scripts
 {
     public class Loop : MonoBehaviour
     {
-        private Collider loopAreaCollider;
+        private Collider2D loopAreaCollider;
 
         private float minX, maxX, minY, maxY;
 
@@ -12,7 +12,7 @@ namespace Scripts
         {
             var loopAreaObj = GameObject.FindWithTag("LoopArea");
             if (loopAreaObj != null)
-                loopAreaCollider = loopAreaObj.GetComponent<Collider>();
+                loopAreaCollider = loopAreaObj.GetComponent<Collider2D>();
             else
                 Debug.LogError("LoopAreaColliderが見つかりません。LoopAreaタグを持つGameObjectを配置してください。");
         }

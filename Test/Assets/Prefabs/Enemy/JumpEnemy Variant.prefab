@@ -60,10 +60,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8768057027669054680, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -110,3 +106,4 @@ MonoBehaviour:
   patrolEnemyData: {fileID: 11400000, guid: 6d1e32adaf2692d4f9445201e1e2f66d, type: 2}
   speed: 0
   moveable: 0
+  waitTime: 0
