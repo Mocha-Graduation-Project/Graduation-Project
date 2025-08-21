@@ -139,14 +139,14 @@ namespace Scripts
             if (dontAttck == true) { return; }
             
             beforeAttackText.After();
-            // プレイヤーの位置に応じて左右を向く
-            Vector3 enemyPos = transform.position;
-            Vector3 playerPos = player.transform.position;
-
-            // プレイヤーが右にいれば右を向く、左にいれば左を向く（y軸回転）
-            float targetYRotation = (playerPos.x > enemyPos.x) ? 0f : 180f;
-            
-            transform.DORotate(new Vector3(0f, targetYRotation, 0f), 0.3f, RotateMode.Fast);
+            // // プレイヤーの位置に応じて左右を向く
+            // Vector3 enemyPos = transform.position;
+            // Vector3 playerPos = player.transform.position;
+            //
+            // // プレイヤーが右にいれば右を向く、左にいれば左を向く（y軸回転）
+            // float targetYRotation = (playerPos.x > enemyPos.x) ? 0f : 180f;
+            //
+            // transform.DORotate(new Vector3(0f, targetYRotation, 0f), 0.3f, RotateMode.Fast);
 
 
             GameObject bullets = Instantiate(bullet, shotObj.transform.position, Quaternion.identity);
@@ -181,7 +181,13 @@ namespace Scripts
         }
 
         private void Update()
-        {
+        { 
+            if (player != null)
+            {
+                // DOLookAt(ターゲットの位置, 回転にかける時間)
+                transform.DOLookAt(player.transform.position, 0.5f);
+            }
+            
             if (!GetComponent<Renderer>().isVisible)
             {
                 if (isfirst)
