@@ -213,6 +213,7 @@ namespace Scripts
 
         void OnTriggerEnter(Collider collider)
         {
+            
             if (collider.gameObject.tag == "Bullet")
             {
                 Debug.Log("当たった");
