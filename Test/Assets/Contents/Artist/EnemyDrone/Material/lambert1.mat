@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: lambert1
-  m_Shader: {fileID: -6465566751694194690, guid: 8b01a9e0eff26854da1c87fc1bc1e499, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: c7bb191e6b6ba234ca454cdf27723052, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -97,6 +97,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _RotateMaskTexture:
+        m_Texture: {fileID: 2800000, guid: 74e6e72c20817a74586c0efdaef1b2de, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SSSMaskTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -150,7 +154,7 @@ Material:
     - _LightSmooth: 0.01
     - _MaskFresnelPower: 2.7
     - _Metallic: 0
-    - _MetallicStrength: 0.07
+    - _MetallicStrength: 0.3
     - _MetallicUse: 1
     - _Mode: 0
     - _NormalInfruence: 0.48
@@ -162,6 +166,12 @@ Material:
     - _ReceiveShadows: 1
     - _RimEdge1: 0.75
     - _RimEdge2: 1.22
+    - _RotatePerSecondB: 30
+    - _RotatePerSecondG: 1000
+    - _RotatePerSecondR: 1000
+    - _RotatePowerB: 0
+    - _RotatePowerG: 1
+    - _RotatePowerR: 1
     - _SSSColorOpacity: 0.51
     - _SSSLIghtStrength: 0.47
     - _SSSOpacity: 0
@@ -178,13 +188,16 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
     - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
-    - _CutoffThreshold: {r: 0.05, g: 0.01, b: 0, a: 0}
+    - _CutoffThreshold: {r: -0.05, g: 8, b: 0, a: 0}
     - _EmissionColor: {r: 1, g: 0, b: 0, a: 1}
     - _EmissionColorG: {r: 0.10863641, g: 12.996039, b: 0, a: 0}
     - _EmissionColorR: {r: 5.3403134, g: 0.07869371, b: 0.016792312, a: 0}
     - _EmissionColor_B: {r: 0, g: 0.4300097, b: 95.87451, a: 0}
     - _MainColor: {r: 0.9308176, g: 0.9308176, b: 0.9308176, a: 0}
     - _RimLightColor: {r: 6.4980197, g: 0, b: 0.0612387, a: 0}
+    - _RotateAxisB: {r: 0, g: 1, b: 0, a: 0}
+    - _RotateAxisG: {r: 0, g: 1, b: 0, a: 0}
+    - _RotateAxisR: {r: 1, g: 0, b: 0, a: 0}
     - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}
     - _ShadowColor: {r: 0.26719186, g: 0.26610887, b: 0.40880498, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

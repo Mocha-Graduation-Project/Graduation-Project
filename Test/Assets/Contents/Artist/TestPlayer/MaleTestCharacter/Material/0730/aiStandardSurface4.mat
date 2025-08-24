@@ -129,6 +129,7 @@ Material:
     - _EmissionIntensity: 0
     - _EmissionIntensityB: 0
     - _EmissionIntensityG: 0.48
+    - _EmissionIntensityR: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.2
@@ -138,7 +139,7 @@ Material:
     - _METALNESS: 0
     - _MaskFresnelPower: 2.7
     - _Metallic: 0
-    - _MetallicStrength: 0.19
+    - _MetallicStrength: 0.3
     - _MetallicUse: 1
     - _Mode: 3
     - _NormalInfruence: 0.48
@@ -169,10 +170,11 @@ Material:
     - _BASE_COLOR: {r: 0.5815, g: 0.3961, b: 0.6354, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _CutoffThreshold: {r: 0.05, g: 0.01, b: 0, a: 0}
+    - _CutoffThreshold: {r: -0.05, g: 8, b: 0, a: 0}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColorG: {r: 0.85464436, g: 14.928529, b: 0, a: 0}
+    - _EmissionColorR: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor_B: {r: 0, g: 0, b: 0, a: 0}
     - _MainColor: {r: 1, g: 1, b: 1, a: 0}
     - _RimLightColor: {r: 0, g: 1.289844, b: 6.498019, a: 0}
