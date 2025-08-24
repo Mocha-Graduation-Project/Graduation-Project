@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3137196375673077007
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -7,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TestOutLine
+  m_Name: AttackDroneOutline
   m_Shader: {fileID: -6465566751694194690, guid: 01235fdbbe5bcf546843097a5ffac5a5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -16,7 +29,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -25,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColor:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 080dc0e365f7b5242993349b854d6ef6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -53,7 +66,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: afb2b4f53af3a29499f12ce05f596a1e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LineColorTexture:
@@ -68,8 +81,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetalicMask:
+        m_Texture: {fileID: 2800000, guid: 56d278baeac58a845b39573bc974010a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMatcapTexture:
+        m_Texture: {fileID: 2800000, guid: 13ccc71bbea90774cb8003e72f68a7bc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTexture:
@@ -80,16 +101,32 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _OutLineSizeGuideTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OutlineTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _RampTexture:
-        m_Texture: {fileID: 2800000, guid: bc8d6d61682650747a64b542c6ff5b8e, type: 3}
+    - _RotateMaskTexture:
+        m_Texture: {fileID: 2800000, guid: 74e6e72c20817a74586c0efdaef1b2de, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RotateSampleTexture:
+        m_Texture: {fileID: 2800000, guid: 74e6e72c20817a74586c0efdaef1b2de, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SSSMaskTexture:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadowColor:
+        m_Texture: {fileID: 2800000, guid: 5fec85dcc85aeef479cd136e6d1f515a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -123,36 +160,48 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DirectionalLightColorOpacity: 0
+    - _DirectionalLightColorOpacity: 0.017
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionIntensity: 0
+    - _EmissionIntensityB: 0.24
+    - _EmissionIntensityG: 1.76
+    - _EmissionIntensityR: 3.01
     - _EnvironmentReflections: 1
+    - _FadeDistance: 75
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _IsNormalUse: 0
-    - _LightSmooth: 0.27
+    - _LightSmooth: 0.01
     - _LineAlpha: 1
-    - _LineSizeStrength: 1.05
-    - _MaskFresnelPower: 4.86
+    - _LineSizeStrength: 1.01
+    - _MaskFresnelPower: 2.7
     - _Metallic: 0
+    - _MetallicStrength: 0.3
+    - _MetallicUse: 1
     - _Mode: 0
-    - _NormalInfruence: 1.2
-    - _NormalStrength: 0
+    - _NormalInfruence: 0.48
+    - _NormalStrength: 1
     - _OcclusionStrength: 1
-    - _OutlineThickness: 0.002
+    - _OutlineThickness: 0.004
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RimEdge1: 0.66
-    - _RimEdge2: 1
+    - _RimEdge1: 0.75
+    - _RimEdge2: 1.22
+    - _RotatePerSecondB: 30
+    - _RotatePerSecondG: 1000
+    - _RotatePerSecondR: 1000
+    - _RotatePowerB: 0
+    - _RotatePowerG: 1000
+    - _RotatePowerR: 6.64
     - _SSSColorOpacity: 0.51
-    - _SSSLIghtStrength: 0.11
-    - _SSSOpacity: 0.74
-    - _SSSPower: 1.63
-    - _Size: 0
+    - _SSSLIghtStrength: 0.47
+    - _SSSOpacity: 0
+    - _SSSPower: 1
+    - _Size: 0.89
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -167,28 +216,21 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
     - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
-    - _CutoffThreshold: {r: 0.005, g: 0.005, b: 0, a: 0}
-    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _CutoffThreshold: {r: -0.05, g: 8, b: 0, a: 0}
+    - _EmissionColor: {r: 1, g: 0, b: 0, a: 1}
+    - _EmissionColorG: {r: 0.10863641, g: 12.996039, b: 0, a: 0}
+    - _EmissionColorR: {r: 5.3403134, g: 0.07869371, b: 0.016792312, a: 0}
+    - _EmissionColor_B: {r: 0, g: 0.4300097, b: 95.87451, a: 0}
     - _LineColor: {r: 0, g: 0, b: 0, a: 0}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MainColor: {r: 0.9308176, g: 0.9308176, b: 0.9308176, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
-    - _RimLightColor: {r: 0.36445913, g: 1.3837547, b: 25.75516, a: 0}
-    - _SSSColor: {r: 84.44851, g: 22.735071, b: 19.385965, a: 0}
-    - _ShadowColor: {r: 0.3466981, g: 0.3466981, b: 0.5, a: 0}
+    - _RimLightColor: {r: 6.4980197, g: 0, b: 0.0612387, a: 0}
+    - _RotateAxisB: {r: 0, g: 1, b: 0, a: 0}
+    - _RotateAxisG: {r: 0, g: 1, b: 0, a: 0}
+    - _RotateAxisR: {r: 1, g: 0, b: 0, a: 0}
+    - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}
+    - _ShadowColor: {r: 0.26719186, g: 0.26610887, b: 0.40880498, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &6467751580948225686
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 9

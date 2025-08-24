@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: aiStandardSurface3
-  m_Shader: {fileID: -6465566751694194690, guid: 8b01a9e0eff26854da1c87fc1bc1e499, type: 3}
+  m_Name: ArmGunOutline
+  m_Shader: {fileID: -6465566751694194690, guid: 01235fdbbe5bcf546843097a5ffac5a5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -132,6 +132,7 @@ Material:
     - _NormalInfruence: 0.48
     - _NormalStrength: 1
     - _OcclusionStrength: 1
+    - _OutlineThickness: 0.0002
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -164,6 +165,7 @@ Material:
     - _EmissionColorR: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor_B: {r: 0.057119686, g: 0, b: 2.3396223, a: 0}
     - _MainColor: {r: 1, g: 1, b: 1, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
     - _RimLightColor: {r: 0, g: 1.289844, b: 6.498019, a: 0}
     - _SPECULAR_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}
