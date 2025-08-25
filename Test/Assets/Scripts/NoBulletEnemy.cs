@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using Scripts.UI;
@@ -39,6 +40,11 @@ namespace Scripts
 
         private void Update()
         {
+            if (player != null)
+            {
+                // DOLookAt(ターゲットの位置, 回転にかける時間)
+                transform.DOLookAt(player.transform.position, 0.5f);
+            }
             if (!GetComponent<Renderer>().isVisible)
             {
                 if (isfirst)

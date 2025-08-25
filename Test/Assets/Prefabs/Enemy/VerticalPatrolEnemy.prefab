@@ -340,9 +340,9 @@ Transform:
   m_GameObject: {fileID: 7775727996460671959}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.43, y: -3.78, z: -0.008630279}
-  m_LocalScale: {x: 0.8851, y: 0.8851, z: 0.8851}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5282237974050163242}
   m_Father: {fileID: 0}
@@ -414,6 +414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolEnemyData: {fileID: 11400000, guid: 6a9c8c5ce8099b14b99cf12e12dcdacd, type: 2}
   speed: 2
+  movement: {x: 0, y: 0}
   moveable: 1
 --- !u!114 &4265780119909550230
 MonoBehaviour:
