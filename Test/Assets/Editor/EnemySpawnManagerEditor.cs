@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-using DefaultNamespace;
+using Systems;
 using System.Collections.Generic;
 
 [CustomEditor(typeof(EnemySpawnManager))]
@@ -14,6 +14,7 @@ public class EnemySpawnManagerEditor : Editor
         
         EditorGUILayout.PropertyField(serializedObject.FindProperty("warningMarkerPrefab"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("warningTime"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("gameClearDelay"));
         
         EditorGUILayout.PropertyField(serializedObject.FindProperty("enemiesToSpawn"), true);
 
