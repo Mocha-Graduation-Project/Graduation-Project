@@ -49,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetalicMask:
-        m_Texture: {fileID: 2800000, guid: 4acd853fe1c4c34459dc5fb033129343, type: 3}
+        m_Texture: {fileID: 2800000, guid: 779e47b91578fc44cb274f0b24bb98e9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicMatcapTexture:
@@ -77,7 +77,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SSSMaskTexture:
-        m_Texture: {fileID: 2800000, guid: 779e47b91578fc44cb274f0b24bb98e9, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4acd853fe1c4c34459dc5fb033129343, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowColor:
@@ -110,11 +110,11 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DirectionalLightColorOpacity: 0.017
+    - _DirectionalLightColorOpacity: 0.437
     - _DstBlend: 10
     - _DstBlendAlpha: 0
     - _EmissionIntensity: 0.36
-    - _EmissionIntensityB: 5.62
+    - _EmissionIntensityB: 12.79
     - _EmissionIntensityG: 0.48
     - _EmissionIntensityR: 0
     - _EnvironmentReflections: 1
@@ -126,7 +126,7 @@ Material:
     - _METALNESS: 0
     - _MaskFresnelPower: 3.3
     - _Metallic: 0
-    - _MetallicStrength: 0.3
+    - _MetallicStrength: 0.7
     - _MetallicUse: 1
     - _Mode: 3
     - _NormalInfruence: 0.48
@@ -136,7 +136,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RimEdge1: 0.75
+    - _RimEdge1: 1
     - _RimEdge2: 1
     - _SPECULAR_IOR: 1.5
     - _SPECULAR_ROUGHNESS: 0.2
@@ -162,9 +162,9 @@ Material:
     - _EmissionColor: {r: 15.055892, g: 103.96829, b: 0, a: 1}
     - _EmissionColorG: {r: 0.85464436, g: 14.928529, b: 0, a: 0}
     - _EmissionColorR: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor_B: {r: 0.057119686, g: 0, b: 2.3396223, a: 0}
+    - _EmissionColor_B: {r: 0.06824805, g: 0, b: 2.79544, a: 0}
     - _MainColor: {r: 1, g: 1, b: 1, a: 0}
-    - _RimLightColor: {r: 0, g: 1.289844, b: 6.498019, a: 0}
+    - _RimLightColor: {r: 6.498019, g: 6.498019, b: 6.498019, a: 0}
     - _SPECULAR_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _SSSColor: {r: 13.766362, g: 9.133785, b: 8.355054, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
