@@ -391,6 +391,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9081103985012870420}
     m_Modifications:
+    - target: {fileID: 2134754409780646815, guid: 71d01d09006e65745a3eff46392b3cc3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2337392732886737613, guid: 71d01d09006e65745a3eff46392b3cc3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3762445129545353659, guid: 71d01d09006e65745a3eff46392b3cc3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -461,7 +469,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3894048657005893399, guid: 71d01d09006e65745a3eff46392b3cc3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -297.8
+      value: -295.1
       objectReference: {fileID: 0}
     - target: {fileID: 3894048657005893399, guid: 71d01d09006e65745a3eff46392b3cc3, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -482,6 +490,14 @@ PrefabInstance:
     - target: {fileID: 4108514605603074894, guid: 71d01d09006e65745a3eff46392b3cc3, type: 3}
       propertyPath: m_Name
       value: RellectionSlider
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108514605603074894, guid: 71d01d09006e65745a3eff46392b3cc3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178743415584608347, guid: 71d01d09006e65745a3eff46392b3cc3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
