@@ -52,6 +52,7 @@ public class SelectButtonUI : MonoBehaviour
             UIAction.actions["Set"].performed += MoveSet;
         }
         startTime = Time.realtimeSinceStartup;
+        MoveSetVertical(currentButtonIndex);
     }
 
     void OnDisable()
