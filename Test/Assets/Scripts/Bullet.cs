@@ -63,13 +63,7 @@ namespace Scripts
             }
             else
             {
-                // QuickAttack の場合は Player の方向を使う
-                if (player.quickAttackDirection != Vector2.zero)
-                    savedQuickDirection = player.quickAttackDirection;
-                else
-                    savedQuickDirection = Vector2.right * player.direction; // デフォルト
-       
-                currentDirection = savedQuickDirection.normalized;
+                currentDirection = new Vector3(player.direction, 0, 0).normalized;
             }
             
             //currentDirection = characterParams.power.normalized * PowerDirection;
