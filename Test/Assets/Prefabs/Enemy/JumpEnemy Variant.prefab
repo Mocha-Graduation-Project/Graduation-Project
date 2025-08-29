@@ -222,9 +222,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 640
-  bulletLayer:
-    serializedVersion: 2
-    m_Bits: 1024
   hitBox: {fileID: 5923517881966212907}
 --- !u!114 &1378444666014959414
 MonoBehaviour:
@@ -233,15 +230,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1602709175780554184}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1eb9edd410af17f47ae8bf4d57d1e535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   patrolEnemyData: {fileID: 11400000, guid: 6d1e32adaf2692d4f9445201e1e2f66d, type: 2}
-  speed: 0
-  movement: {x: 0, y: 0}
   moveable: 0
+  startPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
 --- !u!4 &3126498746761107508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7275087655487328869, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}

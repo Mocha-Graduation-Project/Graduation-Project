@@ -283,6 +283,7 @@ Transform:
   m_Children:
   - {fileID: 1124055354}
   - {fileID: 1124196129}
+  - {fileID: 1724894607}
   - {fileID: 1679916586}
   - {fileID: 121238050}
   - {fileID: 183441891}
@@ -314,7 +315,7 @@ Transform:
   m_GameObject: {fileID: 121238049}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.6, y: 25.01, z: -35.861046}
+  m_LocalPosition: {x: 2, y: 24.66, z: -35.861046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -597,16 +598,8 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 452343696423801984, guid: a6530c668a42a98498ec557efab67d21, type: 3}
-      propertyPath: zoomFOV
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 452343696423801984, guid: a6530c668a42a98498ec557efab67d21, type: 3}
-      propertyPath: zoomDuration
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 452343696423801984, guid: a6530c668a42a98498ec557efab67d21, type: 3}
-      propertyPath: hitStopDuration
+    - target: {fileID: 2692864704121530493, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: currentButtonIndex
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3194788029779790702, guid: a6530c668a42a98498ec557efab67d21, type: 3}
@@ -663,6 +656,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[0].enemyId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[1].enemyId
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
@@ -692,7 +697,7 @@ PrefabInstance:
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[2].spawnPoint
       value: 
-      objectReference: {fileID: 1124196129}
+      objectReference: {fileID: 121238050}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].enemyPrefab
       value: 
@@ -704,7 +709,31 @@ PrefabInstance:
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[2].enemyPrefab
       value: 
-      objectReference: {fileID: 6460471003761360793, guid: 085027a2192f29148b1e3ccdbf4f6b39, type: 3}
+      objectReference: {fileID: 6460471003761360793, guid: cbb58e3e718a4ca4eaf675e225fb9eb6, type: 3}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.data[0].spawnPoint
+      value: 
+      objectReference: {fileID: 1724894607}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.data[0].conditionGameObject
+      value: 
+      objectReference: {fileID: 3159114115912618419, guid: 79db4fd24f00d964d9bc1a32b8494f92, type: 3}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.data[0].conditionSpawnDelay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.data[0].conditionEnemyIds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: 'conditionToSpawn.Array.data[0].conditionEnemyIds.Array.data[0]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: 'conditionToSpawn.Array.data[0].conditionEnemyIds.Array.data[1]'
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7414324679359569832, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: m_Name
       value: Manager
@@ -2397,6 +2426,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 7.5, y: 25.01, z: -35.861046}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 87838424}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1724894606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724894607}
+  m_Layer: 0
+  m_Name: EnemyPosition2 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1724894607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724894606}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2, y: 19.3, z: -35.861046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
