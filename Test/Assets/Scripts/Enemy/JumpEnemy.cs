@@ -6,36 +6,30 @@ public class JumpEnemy : MonoBehaviour
     [SerializeField] private float jumpCoolTime;
     [SerializeField] private float jumpTime;
     
-    [SerializeField] private LayerMask groundLayer;
-    private bool isGrounded;
-
-    [SerializeField] private GameObject hitBox;
+    Rigidbody2D rigidbody2D;
     
-    Rigidbody rigidbody;
-    
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         jumpTime = 0;
-        rigidbody = GetComponent<Rigidbody>();
-        
-        rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
-        if (hitBox != null)
-        {
-            hitBox.transform.parent = null;
-        }
-        
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        rigidbody2D.constraints = RigidbodyConstraints2D.None;
+        rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation|RigidbodyConstraints2D.FreezePositionX;
     }
-    
+
+    // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
+        Jump();
     }
-    public void Jump()
+
+    void Jump()
     {
-        if (!isGrounded) return; 
-            Debug.Log("Jump");
-            rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            //rigidbody2D.AddForce(Vector2.up * jumpPower);
-            jumpTime = 0;
+        jumpTime += Time.deltaTime;
+        if (jumpTime < jumpCoolTime) return;
+        
+        Debug.Log("Jump");
+        rigidbody2D.AddForce(Vector2.up * jumpPower);
+        jumpTime = 0;
     }
 }

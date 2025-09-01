@@ -43,10 +43,6 @@ public class LeftVerticalMove : MonoBehaviour,IState
         {
             finishRotating = true;
         }
-        else if (rotateAxis.transform.eulerAngles == new Vector3(0, 0, 0))
-        {
-            angleZ = 90;
-        }
         else //if (rotateAxis.transform.eulerAngles.z == rotateAxisRotate.z)
         {
             angleZ = 45;

@@ -338,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 6460471003761360793}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 4.65, y: -0.6002601, z: -0.008630279}
   m_LocalScale: {x: 0.8851, y: 0.8851, z: 0.8851}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -421,15 +421,13 @@ MonoBehaviour:
   canvas: {fileID: 6722164026637600296}
   shotObj: {fileID: 0}
   straightObj: {fileID: 0}
-  dontAttck: 0
   bullet: {fileID: 0}
   enemyBullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
   reflectionBullet: {fileID: 0}
-  bulletRate: 0
+  BulletRate: 5
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
   enemySpawn: {fileID: 0}
-  enemyHPSlider: {fileID: 0}
 --- !u!70 &4498588119701769717
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
