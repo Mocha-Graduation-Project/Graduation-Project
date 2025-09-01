@@ -4,13 +4,11 @@ using DefaultNamespace;
 using Scripts.UI;
 using TMPro;
 using UnityEngine;
-using DG.Tweening;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
-#if UNITY_EDITOR
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
-#endif
+using DG.Tweening;
+using UnityEngine.Serialization;
+
 namespace Scripts
 {
 
@@ -63,10 +61,8 @@ namespace Scripts
         [SerializeField] private AudioClip DamageSound;
 
         [SerializeField] private EnemySpawnManager enemySpawn;
-
-        [SerializeField] [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
         
-        private Collider loopAreaCollider;
+        private Collider2D loopAreaCollider;
 
         private float minX, maxX, minY, maxY;
 
@@ -79,7 +75,7 @@ namespace Scripts
             GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
             if (loopAreaObj != null)
             {
-                loopAreaCollider = loopAreaObj.GetComponent<Collider>();
+                loopAreaCollider = loopAreaObj.GetComponent<Collider2D>();
             }
             else
             {
@@ -123,15 +119,6 @@ namespace Scripts
                     bullet = reflectionBullet;
                     break;
             }
-
-            switch (enemyType)
-            {
-                case EnemyType.boss:
-                    enemyHPSlider = GameObject.FindWithTag("EnemyHPBar").GetComponent<Slider>();
-                    enemyHPSlider.maxValue = HP;
-                    enemyHPSlider.value = HP;
-                    break;
-            }
         }
 
         private void Attack()
@@ -139,14 +126,14 @@ namespace Scripts
             if (dontAttck == true) { return; }
             
             beforeAttackText.After();
-            // // プレイヤーの位置に応じて左右を向く
-            // Vector3 enemyPos = transform.position;
-            // Vector3 playerPos = player.transform.position;
-            //
-            // // プレイヤーが右にいれば右を向く、左にいれば左を向く（y軸回転）
-            // float targetYRotation = (playerPos.x > enemyPos.x) ? 0f : 180f;
-            //
-            // transform.DORotate(new Vector3(0f, targetYRotation, 0f), 0.3f, RotateMode.Fast);
+            // プレイヤーの位置に応じて左右を向く
+            Vector3 enemyPos = transform.position;
+            Vector3 playerPos = player.transform.position;
+
+            // プレイヤーが右にいれば右を向く、左にいれば左を向く（y軸回転）
+            float targetYRotation = (playerPos.x > enemyPos.x) ? 0f : 180f;
+            
+            transform.DORotate(new Vector3(0f, targetYRotation, 0f), 0.3f, RotateMode.Fast);
 
 
             GameObject bullets = Instantiate(bullet, shotObj.transform.position, Quaternion.identity);
@@ -181,13 +168,7 @@ namespace Scripts
         }
 
         private void Update()
-        { 
-            if (player != null)
-            {
-                // DOLookAt(ターゲットの位置, 回転にかける時間)
-                transform.DOLookAt(player.transform.position, 0.5f);
-            }
-            
+        {
             if (!GetComponent<Renderer>().isVisible)
             {
                 if (isfirst)
@@ -195,19 +176,13 @@ namespace Scripts
                 else
                 {
                     Vector3 pos = transform.position;
-                    if (pos.x > maxX)
-                    {
-                        pos.x = maxX - enemySize;
-                    }
-                    else if (pos.x < minX)
-                    {
-                        pos.x = minX + enemySize;
-                    }
+                    if (pos.x > maxX) pos.x = maxX - enemySize;
+                    else if (pos.x < minX) pos.x = minX + enemySize;
 
                     if (pos.y > maxY)
                     {
                         pos.y = maxY - enemySize;
-                        GetComponent<Rigidbody>().linearVelocity = new Vector2(0, 0);
+                        GetComponent<Rigidbody2D>().linearVelocity = new Vector2(0, 0);
                     }
                     else if (pos.y < minY) pos.y = minY + enemySize;
 
@@ -217,71 +192,30 @@ namespace Scripts
             }
         }
 
-        void OnTriggerEnter(Collider collider)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            
-            if (collider.gameObject.tag == "Bullet")
+            if (collision.gameObject.tag == "Attack")
             {
                 Debug.Log("当たった");
-                Bullet bullet = collider.gameObject.GetComponent<Bullet>();
-                HP -= bullet.Damage;
-                
-                if (enemyHPSlider != null)
-                {
-                    enemyHPSlider.value = HP;
-                }
+                HP--;
                 // DamageText.enabled = true;
-                // DamageText.text = bullet.Damage.ToString();
-                damageText.ShowDamage(bullet.Damage);
+                // DamageText.text = "1";
+                damageText.ShowDamage(1);
                 audioSource.PlayOneShot(DamageSound);
             }
 
-            if (HP <= 0)
-            {
-                switch (enemyType)
-                {
-                    case EnemyType.normal:
-                        enemySpawn.RemoveEnemy(this.gameObject);
-                        break;
-                    case EnemyType.shield:
-                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
-                        break;
-                    case EnemyType.boss:
-                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
-                        break;
-                }
-            }
-        }
-        
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            //if (collision.gameObject.tag == "Attack")
-            //{
-            //    Debug.Log("当たった");
-            //    HP--;
-            //    DamageText.enabled = true;
-            //    DamageText.text = "1";
-            //    damageText.ShowDamage(1);
-            //    audioSource.PlayOneShot(DamageSound);
-            //}
-
-            if (collision.gameObject.tag == "Bullet")
+            else if (collision.gameObject.tag == "Bullet")
             {
                 Debug.Log("当たった");
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
                 HP -= bullet.Damage;
-                
-                if (enemyHPSlider != null)
-                {
-                    enemyHPSlider.value = HP;
-                }
                 // DamageText.enabled = true;
                 // DamageText.text = bullet.Damage.ToString();
                 damageText.ShowDamage(bullet.Damage);
                 audioSource.PlayOneShot(DamageSound);
             }
 
-            if (HP <= 0)
+            if (HP < 0)
             {
                 switch (enemyType)
                 {

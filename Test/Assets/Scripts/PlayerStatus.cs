@@ -12,10 +12,10 @@ namespace Scripts
         [SerializeField] private CharacterParams characterParams;
         [SerializeField] private CharacterData characterData;
         [SerializeField] private int playerHp;
-        
-        private UILife uiLife;
 
-        [FormerlySerializedAs("sceneManager")]
+        [SerializeField] private UILife uiLife;
+
+        [FormerlySerializedAs("sceneManager")] [SerializeField]
         private SceneButtonManager sceneButtonManager;
 
         [JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
@@ -27,7 +27,7 @@ namespace Scripts
         [JapaneseLabel("被弾時無敵時間")]
         private float invincibleDuration = 2.0f;
 
-        private readonly float checkDistance = 0.08f; // Raycastの長さ
+        private readonly float checkDistance = 0.05f; // Raycastの長さ
         private string enemyBulletTag = "EnemyBullet";
 
         private bool invincible;
@@ -46,7 +46,6 @@ namespace Scripts
         private void Awake()
         {
             SetScriptable();
-            uiLife = GameObject.FindObjectOfType<UILife>();
         }
 
         private void Start()
@@ -57,7 +56,7 @@ namespace Scripts
                 Destroy(gameObject);
             
             StartSetUp();
-            
+            uiLife = uiLife.GetComponent<UILife>();
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
             //sceneButtonManager = GameObject.Find("SceneManager").GetComponent<SceneButtonManager>();
         }
@@ -76,7 +75,7 @@ namespace Scripts
         private void CheckGround()
         {
             isGrounded = false;
-            isGrounded = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
+            isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
             if(!isGrounded) return;
                 
             animator.SetBool("isGround", isGrounded);
