@@ -1,0 +1,54 @@
+{
+    "name": "UI",
+    "maps": [
+        {
+            "name": "UI",
+            "id": "579795d0-11e9-4fd9-bd31-288b1c9ad9d5",
+            "actions": [
+                {
+                    "name": "Set",
+                    "type": "Value",
+                    "id": "0eb28a9b-285a-4069-8378-f9b0d3e03b57",
+                    "expectedControlType": "Vector2",
+                    "processors": "StickDeadzone",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "On",
+                    "type": "Button",
+                    "id": "cc3ff25a-70bd-4172-a77b-18f93864b609",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f62beac8-a628-400e-9cda-cdc810bb4909",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "",
+                    "action": "Set",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5ca19043-f792-4c33-8ca3-ee84f8aebd7c",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "On",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

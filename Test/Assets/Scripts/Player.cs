@@ -13,15 +13,16 @@ namespace Scripts
         //コントローラー
         public static Player Instance;
         [SerializeField] private CharacterParams characterParams;
+        [SerializeField] private GameObject playerUI;
         private PlayerInput MoveAction;
         private AudioSource audioSource;
         [NonSerialized] public Vector2 InputMove = Vector2.zero;
-        private Rigidbody2D rb;
+        private Rigidbody rb;
         private float startY;
         [SerializeField] MapManager mapManager;
         [SerializeField] SceneButtonManager sceneButtonManager;
-        public Slider staminaSlider;
-        
+        [NonSerialized]public Slider staminaSlider;
+        [NonSerialized] public Vector2 quickAttackDirection = Vector2.zero;
         //プレイヤーのステータス
         [JapaneseLabel("移動スピード")]private float MoveSpeed;
         [JapaneseLabel("ジャンプ力")]private float jumpPower;
@@ -38,9 +39,9 @@ namespace Scripts
         [JapaneseLabel("")]private bool isfirst = true;
         [JapaneseLabel("地面についているか")]private bool isGround;
         [JapaneseLabel("ジャンプ中か")]private bool isJump;
-        [JapaneseLabel("ジャンプ数")]private int jumpCount;
+        [SerializeField][JapaneseLabel("ジャンプ数")]private int jumpCount;
         [JapaneseLabel("最後にジャンプした時間")]private float lastJumpTime;
-        [JapaneseLabel("攻撃中か")]private bool IsAttacking = false;
+        [JapaneseLabel("攻撃中か")]public bool IsAttacking = false;
         [JapaneseLabel("発射中か")]private bool IsShot = false;
         [JapaneseLabel("移動中か")][NonSerialized] public bool isMove = true;
         
@@ -50,13 +51,14 @@ namespace Scripts
         [JapaneseLabel("弾き判定")][SerializeField] private GameObject AttackCollision;
         [JapaneseLabel("即弾き判定")][SerializeField] private GameObject QuickAttackCollision;
         [JapaneseLabel("矢印")]public GameObject Arrow;
+        [JapaneseLabel("クイック軸")] public GameObject quickAxis;
 
         [Header("<エフェクト>")] [SerializeField][JapaneseLabel("バットの斬撃")]
         private GameObject batSlash;
         [JapaneseLabel("バットのアニメーションからエフェクトがでるまでの時間")] private float butEffectDuration = 0.1f;
         //[SerializeField] private float MaxBulletTime;
         
-        [SerializeField] private Image BulletUI;
+        private Image BulletUI;
         
         //アニメーション関連
         private Animator animator;
@@ -91,6 +93,8 @@ namespace Scripts
                 Instance = this;
             else
                 Destroy(gameObject);
+            staminaSlider = playerUI.GetComponentInChildren<Slider>();
+            BulletUI = playerUI.GetComponentInChildren<Image>();
             
             PlayerParamReset();
         }
@@ -126,14 +130,16 @@ namespace Scripts
             MoveAction.actions["Move"].canceled += OnMove;
             MoveAction.actions["Jump"].started += OnJump;
             MoveAction.actions["Shot"].started += OnShot;
-            MoveAction.actions["Attack"].performed += OnAttack;
+            //MoveAction.actions["Attack"].performed += OnAttack;
             MoveAction.actions["Attack"].canceled += OffAttack;
             MoveAction.actions["Jump"].canceled += OffJump;
             MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
             MoveAction.actions["QuickAttack"].canceled += OffAttack;
+            MoveAction.actions["Aim"].performed += OnQuickAttackAim;
+            MoveAction.actions["Aim"].canceled += OnQuickAttackAim;
 
             animator = GetComponent<Animator>();
-            rb = GetComponent<Rigidbody2D>();
+            rb = GetComponent<Rigidbody>();
             Arrow.SetActive(false);
             jumpCount = MaxJumpCount;
             audioSource = GetComponent<AudioSource>();
@@ -159,22 +165,32 @@ namespace Scripts
             {
                 currentShotStamina += overheatRecoveryPerSecond * Time.deltaTime;
             }
+            
+            Vector3 temp = transform.position;
+            temp.z = 0f;
             if (!isMove)
+            {
+                transform.position = temp;
                 return;
+            }
+            
             if (InputMove.x < 0)
             {
-                transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
+                temp+=new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
+                //transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
                 transform.localScale = new Vector3(1f, 1f, -1f);
                 direction = -1;
             }
             else if (InputMove.x > 0)
             {
-                transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
+                temp+=new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
+                //transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
                 transform.localScale = new Vector3(1f, 1f, 1f);
                 direction = 1;
             }
+            transform.position = temp;
 
-            animator.SetFloat("Jump", rb.linearVelocityY);
+            animator.SetFloat("Jump", rb.linearVelocity.magnitude);
             
             if (!IsAttacking && currentStamina < maxStamina)
             {
@@ -211,13 +227,29 @@ namespace Scripts
             {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
             }
+
+            if (quickAttackDirection != Vector2.zero)
+            {
+                // 入力方向から角度を計算
+                float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
+                // 矢印の回転を設定
+                quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle-90);
+                quickAxis.SetActive(true);
+            }
+            else
+            {
+                quickAxis.SetActive(false);
+            }
         }
 
         public void Ground()
         {
             jumpCount = MaxJumpCount;
         }
-
+        public void OnQuickAttackAim(InputAction.CallbackContext context)
+        {
+            quickAttackDirection = context.ReadValue<Vector2>();
+        }
         public void OnMove(InputAction.CallbackContext context)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
@@ -289,40 +321,32 @@ namespace Scripts
         {
             IsShot=false;
         }
-        public void OnAttack(InputAction.CallbackContext context)
-        {
-            if(IsAttacking) return;
-            if (currentStamina <= staminaDrainPerSecond)
-            {
-                OnQuickAttack(context);
-                return;
-            }
-            
-            IsAttacking = true;
-            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
-            
-            AttackCollision.gameObject.SetActive(true);
-            //animator.SetTrigger("isAttack");
-            Invoke("AttackCollisionFalse", collisionRadius);
-            //Invoke("AttackFinish", 0.3f);
-            //animator.SetTrigger("isAttack");
-        }
+        // public void OnAttack(InputAction.CallbackContext context)
+        // {
+        //     if(IsAttacking) return;
+        //     if (currentStamina <= staminaDrainPerSecond)
+        //     {
+        //         OnQuickAttack(context);
+        //         return;
+        //     }
+        //     
+        //     IsAttacking = true;
+        //     if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+        //     
+        //     AttackCollision.gameObject.SetActive(true);
+        //     Invoke("AttackCollisionFalse", collisionRadius);
+        //     
+        // }
 
         public void OnQuickAttack(InputAction.CallbackContext context)
         {
             if(IsAttacking) return;
-            //if (currentStamina <= quickStaminaDrainPerSecond) return;
-
-            IsAttacking = true;
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
 
             QuickAttackCollision.gameObject.SetActive(true);
-            //animator.SetTrigger("isAttack");
             Invoke("AttackCollisionFalse", collisionRadius);
             PlayAttackAnimation();
-            //Invoke("AttackFinish", 0.3f);
-            //animator.SetTrigger("isAttack");
         }
         private void OffAttack(InputAction.CallbackContext context)
         {
@@ -330,7 +354,6 @@ namespace Scripts
         }
         public void AttackFinish()
         {
-            IsAttacking = false;
             AttackCollision.gameObject.SetActive(false);
             QuickAttackCollision.gameObject.SetActive(false);
         }
@@ -338,9 +361,8 @@ namespace Scripts
         public void PlayAttackAnimation()
         {
             animator.SetTrigger("isAttack");
-            Invoke("PlayEffect",butEffectDuration);
         }
-
+        
         private void PlayEffect()
         {
             batSlash.SetActive(true);
@@ -363,6 +385,7 @@ namespace Scripts
         {
             AttackCollision.gameObject.SetActive(false);
             QuickAttackCollision.gameObject.SetActive(false);
+            IsAttacking = false;
         }
 
         public void PlayerReset()
@@ -371,11 +394,13 @@ namespace Scripts
             MoveAction.actions["Move"].canceled -= OnMove;
             MoveAction.actions["Jump"].started -= OnJump;
             MoveAction.actions["Shot"].started -= OnShot;
-            MoveAction.actions["Attack"].performed -= OnAttack;
+            //MoveAction.actions["Attack"].performed -= OnAttack;
             MoveAction.actions["Attack"].canceled -= OffAttack;
             MoveAction.actions["Jump"].canceled -= OffJump;
             MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
             MoveAction.actions["QuickAttack"].canceled -= OffAttack;
+            MoveAction.actions["Aim"].performed -= OnQuickAttackAim;
+            MoveAction.actions["Aim"].canceled -= OnQuickAttackAim;
         }
         private void OnEnable()
         {
@@ -384,11 +409,13 @@ namespace Scripts
             MoveAction.actions["Move"].canceled += OnMove;
             MoveAction.actions["Jump"].started += OnJump;
             MoveAction.actions["Shot"].started += OnShot;
-            MoveAction.actions["Attack"].performed += OnAttack;
+            //MoveAction.actions["Attack"].performed += OnAttack;
             MoveAction.actions["Attack"].canceled += OffAttack;
             MoveAction.actions["Jump"].canceled += OffJump;
             MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
             MoveAction.actions["QuickAttack"].canceled += OffAttack;
+            MoveAction.actions["Aim"].performed += OnQuickAttackAim;
+            MoveAction.actions["Aim"].canceled += OnQuickAttackAim;
         }
 
         private void OnDisable()
@@ -400,11 +427,13 @@ namespace Scripts
                 MoveAction.actions["Move"].canceled -= OnMove;
                 MoveAction.actions["Jump"].started -= OnJump;
                 MoveAction.actions["Shot"].started -= OnShot;
-                MoveAction.actions["Attack"].performed -= OnAttack;
+                //MoveAction.actions["Attack"].performed -= OnAttack;
                 MoveAction.actions["Attack"].canceled -= OffAttack;
                 MoveAction.actions["Jump"].canceled -= OffJump;
                 MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
                 MoveAction.actions["QuickAttack"].canceled -= OffAttack;
+                MoveAction.actions["Aim"].performed -= OnQuickAttackAim;
+                MoveAction.actions["Aim"].canceled -= OnQuickAttackAim;
             }
         }
 
