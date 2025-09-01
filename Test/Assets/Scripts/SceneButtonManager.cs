@@ -3,11 +3,12 @@ using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
 using Scripts;
-using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-
+#if UNITY_EDITOR
+using UnityEditor.Timeline;
+#endif
 public class SceneButtonManager : MonoBehaviour
 {
     public enum State

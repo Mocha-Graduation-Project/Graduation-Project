@@ -193,7 +193,8 @@ GameObject:
   - component: {fileID: 1902909798016546382}
   - component: {fileID: 7850114440198246526}
   - component: {fileID: 571014512685998233}
-  - component: {fileID: 7134396693839308352}
+  - component: {fileID: 3011621265069522158}
+  - component: {fileID: 2264905217055064930}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -211,7 +212,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 18.5, z: 0}
-  m_LocalScale: {x: 0.1, y: 36, z: 0.5}
+  m_LocalScale: {x: 0.708983, y: 36, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1171351837290704002}
@@ -269,7 +270,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7134396693839308352
+--- !u!114 &3011621265069522158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2516122783139091720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae46b7bbe6d55ea4db1596f427851d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &2264905217055064930
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -284,12 +297,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0000005, y: 1.0000005, z: 1}
+  m_Center: {x: -4.2632564e-14, y: 0.00000017881393, z: 0}
 --- !u!1 &2764925282164886474
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +314,8 @@ GameObject:
   - component: {fileID: 999462073380326190}
   - component: {fileID: 839707299004385011}
   - component: {fileID: 1421813589501375631}
-  - component: {fileID: 140370482426085094}
+  - component: {fileID: 3075416314642452890}
+  - component: {fileID: 3538385868035666823}
   m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
@@ -319,7 +333,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 18.5, z: 0}
-  m_LocalScale: {x: 0.1, y: 36, z: 0.5}
+  m_LocalScale: {x: 0.708983, y: 36, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3095302300020729338}
@@ -377,7 +391,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &140370482426085094
+--- !u!114 &3075416314642452890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2764925282164886474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae46b7bbe6d55ea4db1596f427851d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &3538385868035666823
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -392,12 +418,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0000005, y: 1.0000005, z: 1}
+  m_Center: {x: 1.4210855e-14, y: 0.00000017881393, z: 0}
 --- !u!1 &3526102378641595988
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,7 +990,7 @@ PrefabInstance:
       addedObject: {fileID: 2002568068330471627}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8651208920278cc48ac0246f4714a18c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2782544356136900321}
+      addedObject: {fileID: 8978435637284121190}
   m_SourcePrefab: {fileID: 100100000, guid: 8651208920278cc48ac0246f4714a18c, type: 3}
 --- !u!1 &2448015476750895501 stripped
 GameObject:
@@ -992,11 +1018,15 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 2f875283be2fe4e47a93b6385d26133e, type: 2}
   bulletRate1_2: 1
   bulletRate3_4: 0.5
+  laser:
+  - {fileID: 2764925282164886474}
+  - {fileID: 2516122783139091720}
+  rotatePerSec: 60
   changeHPPercent: 50
   changeHP: 0
   patten5Flag: 0
-  loopCounter: 0
-  maxLoop: 0
+  loopCounter: 4
+  maxLoop: 1
 --- !u!114 &3347531083724630867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,7 +1042,7 @@ MonoBehaviour:
   bulletType: 1
   attckType: 1
   enemyType: 2
-  HP: 60
+  HP: 80
   damageText: {fileID: 1474479737437088787}
   beforeAttackText: {fileID: 2120872017452714694}
   beforeAttackTime: 1
@@ -1028,6 +1058,7 @@ MonoBehaviour:
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
   enemySpawn: {fileID: 0}
+  enemyHPSlider: {fileID: 0}
 --- !u!82 &2002568068330471627
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1125,16 +1156,13 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!58 &2782544356136900321
-CircleCollider2D:
+--- !u!135 &8978435637284121190
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2448015476750895501}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1143,24 +1171,12 @@ CircleCollider2D:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
   m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &3076743286398194487 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8651208920278cc48ac0246f4714a18c, type: 3}

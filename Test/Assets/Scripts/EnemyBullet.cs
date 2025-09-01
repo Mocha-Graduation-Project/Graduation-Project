@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -55,6 +56,22 @@ namespace Scripts
             }
         }
 
+        private void OnTriggerEnter(Collider collider)
+        {
+            if (collider.gameObject.layer == LayerMask.NameToLayer("FloatFloor"))
+                return;
+            
+            if (collider.gameObject.tag == "Ground" || collider.gameObject.tag == "Player")
+            {
+                if (collider.TryGetComponent<PlayerStatus>(out PlayerStatus status))
+                {
+                    status.Damage(1);
+                }
+
+                Destroy(this.gameObject);
+            }
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Player")
@@ -66,7 +83,6 @@ namespace Scripts
 
                 Destroy(this.gameObject);
             }
-
         }
     }
 }

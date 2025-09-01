@@ -45,8 +45,10 @@ public class MoveBoss : EnemyAI
     [SerializeField] [JapaneseLabel("3,4の発射レート")]
     private float bulletRate3_4;
 
-    [Space(5)] 
-    [Header("パターン5")]
+    [Space(5)]
+    [Header("パターン5")] 
+    [SerializeField] [JapaneseLabel("レーザー")] private GameObject[] laser;
+    [SerializeField] [JapaneseLabel("1秒あたりに回る角度")] private float rotatePerSec;
     [SerializeField] [JapaneseLabel("パターン5発動のHPの割合(%)")][Space(5)] 
     private int changeHPPercent;
     [SerializeField] [JapaneseLabel("パターン5を行うようになるHP")][Space(5)] 
@@ -76,6 +78,9 @@ public class MoveBoss : EnemyAI
     public Enemy EnemyScript { get { return enemyScript; } }
 
     public PatrolEnemyData EnemyData { get { return enemyData; } }
+    
+    public GameObject[]  Laser { get { return laser; } }
+    public float RotatePerSec { get { return rotatePerSec; } }
     
     public Vector3 RightCenterPos{get{ return rightCenterPos; }}
     public Vector3 LeftCenterPos{get{ return leftCenterPos; }}
@@ -120,7 +125,10 @@ public class MoveBoss : EnemyAI
     public void Change()
     {
         Debug.Log("パターン変更");
-        //CheckFlag5();
+        if (CheckFlag5() == true)
+        {
+            return;
+        }
         
         switch (pattern)
         {
@@ -137,6 +145,9 @@ public class MoveBoss : EnemyAI
                 break;
             case Patterns.pattern4:
                 ChangePattern(Patterns.pattern1);
+                break;
+            case Patterns.pattern5:
+                RandomSetPattern();
                 break;
         }
         Debug.Log("パターン"+pattern);
@@ -164,6 +175,9 @@ public class MoveBoss : EnemyAI
                 enemyScript.BulletRate = bulletRate3_4;
                 stateMachine.ChangeState(new DownHorizontalMove(this));
                 break;
+            case Patterns.pattern5:
+                stateMachine.ChangeState(new LaserAttck(this));
+                break;
         }
         pattern = nextPattern;
     }
@@ -186,7 +200,7 @@ public class MoveBoss : EnemyAI
         }
     }
 
-    void CheckFlag5()
+    bool CheckFlag5()
     {
         if (patten5Flag == true)
         {
@@ -197,7 +211,9 @@ public class MoveBoss : EnemyAI
                 loopCounter++;
                 if (loopCounter == maxLoop)
                 {
-                    //パターン5へ
+                    loopCounter = 0;
+                    ChangePattern(Patterns.pattern5);
+                    return true;
                 }
             }
         }
@@ -206,7 +222,24 @@ public class MoveBoss : EnemyAI
             if (enemyScript.HP <= changeHP)
             {
                 patten5Flag = true;
-                //パターン5へ
+                ChangePattern(Patterns.pattern5);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void InvertActiveLazer()
+    {
+        foreach (GameObject obj in laser)
+        {
+            if (obj.activeInHierarchy == true)
+            {
+                obj.SetActive(false);
+            }
+            else
+            {
+                obj.SetActive(true);
             }
         }
     }
