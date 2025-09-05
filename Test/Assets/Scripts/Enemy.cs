@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
+using Systems;
 using Scripts.UI;
 using TMPro;
 using UnityEngine;
@@ -253,51 +253,51 @@ namespace Scripts
             }
         }
         
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            //if (collision.gameObject.tag == "Attack")
-            //{
-            //    Debug.Log("当たった");
-            //    HP--;
-            //    DamageText.enabled = true;
-            //    DamageText.text = "1";
-            //    damageText.ShowDamage(1);
-            //    audioSource.PlayOneShot(DamageSound);
-            //}
-
-            if (collision.gameObject.tag == "Bullet")
-            {
-                Debug.Log("当たった");
-                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-                HP -= bullet.Damage;
-                
-                if (enemyHPSlider != null)
-                {
-                    enemyHPSlider.value = HP;
-                }
-                // DamageText.enabled = true;
-                // DamageText.text = bullet.Damage.ToString();
-                damageText.ShowDamage(bullet.Damage);
-                audioSource.PlayOneShot(DamageSound);
-            }
-
-            if (HP <= 0)
-            {
-                switch (enemyType)
-                {
-                    case EnemyType.normal:
-                        enemySpawn.RemoveEnemy(this.gameObject);
-                        break;
-                    case EnemyType.shield:
-                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
-                        break;
-                    case EnemyType.boss:
-                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
-                        break;
-                }
-                //enemySpawn.RemoveEnemy(this.gameObject);
-            }
-        }
+        // private void OnTriggerEnter2D(Collider2D collision)
+        // {
+        //     //if (collision.gameObject.tag == "Attack")
+        //     //{
+        //     //    Debug.Log("当たった");
+        //     //    HP--;
+        //     //    DamageText.enabled = true;
+        //     //    DamageText.text = "1";
+        //     //    damageText.ShowDamage(1);
+        //     //    audioSource.PlayOneShot(DamageSound);
+        //     //}
+        //
+        //     if (collision.gameObject.tag == "Bullet")
+        //     {
+        //         Debug.Log("当たった");
+        //         Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+        //         HP -= bullet.Damage;
+        //         
+        //         if (enemyHPSlider != null)
+        //         {
+        //             enemyHPSlider.value = HP;
+        //         }
+        //         // DamageText.enabled = true;
+        //         // DamageText.text = bullet.Damage.ToString();
+        //         damageText.ShowDamage(bullet.Damage);
+        //         audioSource.PlayOneShot(DamageSound);
+        //     }
+        //
+        //     if (HP <= 0)
+        //     {
+        //         switch (enemyType)
+        //         {
+        //             case EnemyType.normal:
+        //                 enemySpawn.RemoveEnemy(this.gameObject);
+        //                 break;
+        //             case EnemyType.shield:
+        //                 enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
+        //                 break;
+        //             case EnemyType.boss:
+        //                 enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
+        //                 break;
+        //         }
+        //         //enemySpawn.RemoveEnemy(this.gameObject);
+        //     }
+        // }
 
         private void BeforeAttack()
         {

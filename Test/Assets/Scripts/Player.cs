@@ -248,7 +248,11 @@ namespace Scripts
         }
         public void OnQuickAttackAim(InputAction.CallbackContext context)
         {
-            quickAttackDirection = context.ReadValue<Vector2>();
+            Vector2 input = context.ReadValue<Vector2>();
+            if (input.sqrMagnitude > 0.01f)
+            {
+                quickAttackDirection = input.normalized; // 最後に入れた方向を保持
+            }
         }
         public void OnMove(InputAction.CallbackContext context)
         {

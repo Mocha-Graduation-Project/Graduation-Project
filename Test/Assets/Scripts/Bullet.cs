@@ -50,7 +50,7 @@ namespace Scripts
         [NonSerialized] public Transform arrowTransform;
         
         [SerializeField] private Renderer trailRenderer;
-
+        private Vector2 savedQuickDirection;
         private void Awake()
         {
             PlayerParamReset();
@@ -63,7 +63,7 @@ namespace Scripts
             }
             else
             {
-                currentDirection = characterParams.power.normalized * PowerDirection;
+                currentDirection = new Vector3(player.direction, 0, 0).normalized;
             }
             
             //currentDirection = characterParams.power.normalized * PowerDirection;
@@ -72,7 +72,7 @@ namespace Scripts
             UpdatePower();
 
             reflectionCount = 0;
-            moveAction = GetComponent<PlayerInput>();
+            //moveAction = GetComponent<PlayerInput>();
             // moveAction.actions["Attack"].canceled += OffAttack;
         }
 

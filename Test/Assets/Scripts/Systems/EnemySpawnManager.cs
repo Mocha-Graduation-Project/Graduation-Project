@@ -2,9 +2,10 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using Cysharp.Threading.Tasks;
 using TMPro;
 
-namespace DefaultNamespace
+namespace Systems
 {
     public class EnemySpawnManager :MonoBehaviour
     {
@@ -34,6 +35,7 @@ namespace DefaultNamespace
 
         [SerializeField,JapaneseLabel("！マークのプレハブ")]private GameObject warningMarkerPrefab;
         [SerializeField,JapaneseLabel("！マークを表示する時間（秒）")]private float warningTime = 3f;
+        [SerializeField,JapaneseLabel("敵を倒してからクリア演出までの時間")]private float gameClearDelay;
         [Header("<時間スポーン>")]
         public List<EnemySpawnData> enemiesToSpawn = new List<EnemySpawnData>();
         [Header("<条件スポーン>")]
@@ -47,6 +49,7 @@ namespace DefaultNamespace
         [SerializeField] TextMeshProUGUI remainingEnemiesText;
 
         private HashSet<string> defeatedEnemyIds = new HashSet<string>();
+
         
         private void Awake()
         {
@@ -122,13 +125,14 @@ namespace DefaultNamespace
                 yield return new WaitForSeconds(0.5f);
             }
         }
-        public void RemoveEnemy(GameObject enemy)
+        
+        public void  RemoveEnemy(GameObject enemy)
         {
             if (activeEnemies.Contains(enemy))
             {
                 string defeatedId = GetEnemyIdByObject(enemy);
                 activeEnemies.Remove(enemy);
-                Destroy(enemy);
+                //Destroy(enemy);
                 knockEnemies++;
                 remainnEnemies--;
                 remainingEnemiesText.text = remainnEnemies.ToString();
@@ -147,13 +151,25 @@ namespace DefaultNamespace
                     }
                 }
 
-                if (knockEnemies == enemies)
+                if (activeEnemies.Count == 0 && remainnEnemies == 0)
                 {
-                    sceneButtonManager.GameClear();
+                    if (LastAttackEffectManager.Instance != null)
+                    {
+                        LastAttackEffectManager.Instance.PlayLastAttackEffect(enemy.transform,enemy);
+                    }
+                    GameClearDelayed().Forget();
+                }
+                else
+                {
+                    Destroy(enemy);
                 }
             }
         }
-
+        private async UniTaskVoid GameClearDelayed()
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(gameClearDelay));
+            sceneButtonManager.GameClear();
+        }
         private string GetEnemyIdByObject(GameObject enemy)
         {
             string name = enemy.name;
