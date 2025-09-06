@@ -38,4 +38,9 @@ public class JumpEnemy : MonoBehaviour
             //rigidbody2D.AddForce(Vector2.up * jumpPower);
             jumpTime = 0;
     }
+
+    private void OnDestroy()
+    {
+        Destroy(hitBox);
+    }
 }
