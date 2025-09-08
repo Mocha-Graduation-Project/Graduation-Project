@@ -51,6 +51,8 @@ namespace Scripts
         
         [SerializeField] private Renderer trailRenderer;
         private Vector2 savedQuickDirection;
+        [JapaneseLabel("ヒットストップ時間")]private float hitStopDuration;
+        [JapaneseLabel("敵のレイヤー")]private int enemyLayer;
         private void Awake()
         {
             PlayerParamReset();
@@ -74,6 +76,7 @@ namespace Scripts
             reflectionCount = 0;
             //moveAction = GetComponent<PlayerInput>();
             // moveAction.actions["Attack"].canceled += OffAttack;
+            enemyLayer = LayerMask.NameToLayer("Enemy");
         }
 
         void Update()
@@ -164,6 +167,7 @@ namespace Scripts
             addSpeed = characterParams.addSpeed;
             damageByReflectionCount = characterParams.damageByReflectionCount;
             reflectInvincible = characterParams.reflectInvincible;
+            hitStopDuration　= characterParams.hitStopDuration;
         }
 
         void OnTriggerEnter(Collider collider)
@@ -218,13 +222,18 @@ namespace Scripts
                 QuickAttack();
 
             }
+
+            if (collider.gameObject.layer == enemyLayer)
+            {
+                StartCoroutine(HitStopDuration());
+            }
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.tag == "Ground"&& !isAttack)
             {
-                if (collision.gameObject.layer == LayerMask.NameToLayer("FloatFloor"))
-                return;
+                if (collision.gameObject.layer == LayerMask.NameToLayer("FloatFloor")) 
+                    return;
                 
                 //ResetBullet();
                 Time.timeScale = 1f;
@@ -445,5 +454,13 @@ namespace Scripts
         // {
         //     moveAction.actions["Attack"].canceled -= OffAttack;
         // }
+
+        public IEnumerator HitStopDuration()
+        {
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(hitStopDuration);
+            
+            Time.timeScale = 1f;
+        }
     }
 }
