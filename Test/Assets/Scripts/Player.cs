@@ -178,14 +178,16 @@ namespace Scripts
             {
                 temp+=new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
                 //transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
-                transform.localScale = new Vector3(1f, 1f, -1f);
+                //transform.localScale = new Vector3(1f, 1f, -1f);
+                transform.rotation = Quaternion.Euler(0, -90, 0);
                 direction = -1;
             }
             else if (InputMove.x > 0)
             {
                 temp+=new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
                 //transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
-                transform.localScale = new Vector3(1f, 1f, 1f);
+                //transform.localScale = new Vector3(1f, 1f, 1f);
+                transform.rotation = Quaternion.Euler(0, 90, 0);
                 direction = 1;
             }
             transform.position = temp;
@@ -285,7 +287,10 @@ namespace Scripts
             
             if (jumpCount > 0 && Time.time - lastJumpTime >= jumpCooldown)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); 
+                // ForceMode.Impulseで瞬間的に力を加える
+                rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+                // rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
                 jumpCount--;
                 lastJumpTime = Time.time;
                 animator.SetBool("isJump",true);

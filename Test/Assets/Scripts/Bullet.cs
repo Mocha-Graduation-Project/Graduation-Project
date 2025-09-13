@@ -222,11 +222,6 @@ namespace Scripts
                 QuickAttack();
 
             }
-
-            if (collider.gameObject.layer == enemyLayer)
-            {
-                StartCoroutine(HitStopDuration());
-            }
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -372,6 +367,7 @@ namespace Scripts
             isQuick = false; // 即座に状態をリセット
             player.PlayReflectionSound();
             pStatus.StartReflectInvincibility(reflectInvincible);
+            StartCoroutine(HitStopDuration());
 
             player.AttackFinish();
         }
@@ -455,7 +451,7 @@ namespace Scripts
         //     moveAction.actions["Attack"].canceled -= OffAttack;
         // }
 
-        public IEnumerator HitStopDuration()
+        private IEnumerator HitStopDuration()
         {
             Time.timeScale = 0f;
             yield return new WaitForSecondsRealtime(hitStopDuration);
