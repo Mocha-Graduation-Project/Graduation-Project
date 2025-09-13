@@ -59,8 +59,11 @@ namespace Scripts.Scriptable
         [JapaneseLabel("最大スピード")] public float maxBulletSpeed;
         [JapaneseLabel("弾くたびに＋〇〇速度を追加")] public float addSpeed = 0.2f;
         [JapaneseLabel("初期ダメージ値")]public int damage = 1;
+        [JapaneseLabel("ヒットストップ時間")]public float hitStopDuration;
         [Header("反射時のダメージ")]
         public int[] damageByReflectionCount;
+
+        
         
         
         //無敵時間
