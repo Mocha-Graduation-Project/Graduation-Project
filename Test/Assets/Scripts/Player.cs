@@ -69,6 +69,8 @@ namespace Scripts
         [JapaneseLabel("反射音")]private AudioClip ReflectionSound;
         [JapaneseLabel("発射音")]private AudioClip ShotSound;
         [JapaneseLabel("被ダメージ音")]private AudioClip DamageSound;
+        [JapaneseLabel("ジャンプ")] public AudioClip JumpSound;
+        [JapaneseLabel("歩き")] public AudioClip WalkSound;
 
         //反射
         [JapaneseLabel("最大反射スタミナ")] private float maxStamina = 100f;
@@ -122,6 +124,8 @@ namespace Scripts
             groundLayer = characterParams.groundLayer;
             collisionRadius = characterParams.collisionRadius;
             butEffectDuration = characterParams.butEffectDuration;
+            JumpSound = characterParams.JumpSound;
+            WalkSound = characterParams.WalkSound;
         }
         
         private void Start()
@@ -265,6 +269,11 @@ namespace Scripts
                 Debug.LogWarning("Animatorがnullです。Playerオブジェクトが既に破棄されているか、適切に初期化されていません。");
                 return;
             }
+
+            if (!animator.GetBool("isMove"))
+            {
+                audioSource.PlayOneShot(WalkSound);
+            }
             
             animator.SetBool("isMove", true);
             InputMove = context.ReadValue<Vector2>();
@@ -278,6 +287,7 @@ namespace Scripts
             else
             {
                 animator.SetBool("isMove", false); 
+                audioSource.Stop();
             }
         }
 
@@ -294,6 +304,7 @@ namespace Scripts
                 jumpCount--;
                 lastJumpTime = Time.time;
                 animator.SetBool("isJump",true);
+                audioSource.PlayOneShot(JumpSound);
             }
         }
 
