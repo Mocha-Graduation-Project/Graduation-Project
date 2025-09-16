@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Scripts;
 using Scripts.Scriptable;
+using UnityEngine.TextCore.Text;
 
 namespace Scripts
 {
@@ -13,6 +14,7 @@ namespace Scripts
         //コントローラー
         public static Player Instance;
         [SerializeField] private CharacterParams characterParams;
+        [SerializeField] private SoundData soundData;
         [SerializeField] private GameObject playerUI;
         private PlayerInput MoveAction;
         [SerializeField]private AudioSource audioSource1;
@@ -111,9 +113,9 @@ namespace Scripts
             jumpCooldown = characterParams.jumpCooldown;
             maxFallSpeed = characterParams.maxFallSpeed;
             Bullets = characterParams.bullets;
-            ReflectionSound = characterParams.ReflectionSound;
-            ShotSound = characterParams.ShotSound;
-            DamageSound = characterParams.DamageSound;
+            ReflectionSound = soundData.ReflectionSound;
+            ShotSound = soundData.ShotSound;
+            DamageSound = soundData.DamageSound;
             maxStamina = characterParams.maxStamina;
             staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
             staminaRecoveryPerSecond = characterParams.staminaRecoveryPerSecond;
@@ -125,8 +127,8 @@ namespace Scripts
             groundLayer = characterParams.groundLayer;
             collisionRadius = characterParams.collisionRadius;
             butEffectDuration = characterParams.butEffectDuration;
-            JumpSound = characterParams.JumpSound;
-            WalkSound = characterParams.WalkSound;
+            JumpSound = soundData.JumpSound;
+            WalkSound = soundData.WalkSound;
         }
         
         private void Start()
