@@ -61,7 +61,7 @@ namespace Scripts
         [SerializeField] private float bulletRate;
         private AudioSource audioSource;
         [SerializeField] private SoundData soundData;
-        private AudioClip ShotSound;
+        private AudioClip EnemyShotSound;
         private AudioClip DamageSound;
         private AudioClip EnemyDestorySound;
 
@@ -90,7 +90,7 @@ namespace Scripts
                 return;
             }
             
-            ShotSound = soundData.ShotSound;
+            EnemyShotSound = soundData.EnemyShotSound;
             DamageSound = soundData.DamageSound;
             EnemyDestorySound = soundData.EnemyDestorySound;
         }
@@ -182,7 +182,7 @@ namespace Scripts
                     }
                     break;
             }
-            audioSource.PlayOneShot(ShotSound);
+            audioSource.PlayOneShot(EnemyShotSound);
             Invoke("BeforeAttack", bulletRate - beforeAttackTime);
             Invoke("Attack", bulletRate);
         }
