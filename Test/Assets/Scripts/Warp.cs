@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Scripts.Scriptable;
 using UnityEngine;
 
 namespace Scripts
@@ -14,25 +15,23 @@ namespace Scripts
         private List<string> Tags;
 
         private bool isWarping;
+        
+        [SerializeField] private SoundData soundData;
+        private AudioSource audioSource;
+        private AudioClip WarpSound;
+
+        private void Awake()
+        {
+            audioSource = GetComponent<AudioSource>();
+            WarpSound = soundData.WarpSound;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log($"触れた: {other.tag}");
             // タグがリストに含まれていて、現在ワープ中でないなら処理する
             if (!isWarping && Tags.Contains(other.tag))
             {
-                Debug.Log($"タグ一致、ワープ開始: {other.name}");
-                StartCoroutine(WarpPoint(other));
-            }
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            Debug.Log($"触れた: {other.tag}");
-            // タグがリストに含まれていて、現在ワープ中でないなら処理する
-            if (!isWarping && Tags.Contains(other.tag))
-            {
-                Debug.Log($"タグ一致、ワープ開始: {other.name}");
+                audioSource.PlayOneShot(WarpSound);
                 StartCoroutine(WarpPoint(other));
             }
         }

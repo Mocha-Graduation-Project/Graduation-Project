@@ -5,6 +5,7 @@ using Scripts.UI;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using Scripts.Scriptable;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 #if UNITY_EDITOR
@@ -59,8 +60,10 @@ namespace Scripts
         [SerializeField] private GameObject reflectionBullet;
         [SerializeField] private float bulletRate;
         private AudioSource audioSource;
-        [SerializeField] private AudioClip ShotSound;
-        [SerializeField] private AudioClip DamageSound;
+        [SerializeField] private SoundData soundData;
+        private AudioClip ShotSound;
+        private AudioClip DamageSound;
+        private AudioClip EnemyDestorySound;
 
         [SerializeField] private EnemySpawnManager enemySpawn;
 
@@ -86,6 +89,10 @@ namespace Scripts
                 Debug.LogError("LoopAreaColliderが見つかりません。LoopAreaタグを持つGameObjectを配置してください。");
                 return;
             }
+            
+            ShotSound = soundData.ShotSound;
+            DamageSound = soundData.DamageSound;
+            EnemyDestorySound = soundData.EnemyDestorySound;
         }
 
         private void Start()

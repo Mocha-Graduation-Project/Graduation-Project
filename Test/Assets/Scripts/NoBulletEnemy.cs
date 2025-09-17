@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Systems;
 using DG.Tweening;
+using Scripts.Scriptable;
 using TMPro;
 using UnityEngine;
 using Scripts.UI;
@@ -20,8 +21,10 @@ namespace Scripts
         
         Player player => Player.Instance;
         private bool isfirst = true;
+        [SerializeField] SoundData soundData;
         private AudioSource audioSource;
-        [SerializeField] private AudioClip DamageSound;
+        private AudioClip DamageSound;
+        private AudioClip EnemyDestorySound;
 
         [SerializeField] private EnemySpawnManager enemySpawn;
 
@@ -34,6 +37,8 @@ namespace Scripts
         {
             audioSource = GetComponent<AudioSource>();
             enemySpawn = GameObject.FindObjectOfType<EnemySpawnManager>();
+            DamageSound = soundData.DamageSound;
+            EnemyDestorySound = soundData.EnemyDestorySound;
         }
 
        
@@ -112,6 +117,7 @@ namespace Scripts
 
             if (HP <= 0)
             {
+                audioSource.PlayOneShot(EnemyDestorySound);
                 enemySpawn.RemoveEnemy(this.gameObject);
                 //Destroy(this.gameObject);
             }

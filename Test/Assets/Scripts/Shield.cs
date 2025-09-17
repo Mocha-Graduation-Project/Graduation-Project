@@ -1,5 +1,6 @@
 using System;
 using Scripts;
+using Scripts.Scriptable;
 using UnityEngine;
 
 public class Shield : MonoBehaviour
@@ -13,8 +14,16 @@ public class Shield : MonoBehaviour
     }
 
     [SerializeField] private ShieldPosition shieldPosition;
+    [SerializeField] private SoundData soundData;
+    private AudioSource audioSource;
+    private AudioClip shieldSound;
     string playerBulletTag = "Bullet";
 
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        shieldSound = soundData.ShieldSound;
+    }
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.CompareTag(playerBulletTag) == true)
@@ -74,6 +83,7 @@ public class Shield : MonoBehaviour
 
             if (speed > 0)
             {
+                audioSource.PlayOneShot(shieldSound);
                 Destroy(collision.gameObject);
             }
         }
