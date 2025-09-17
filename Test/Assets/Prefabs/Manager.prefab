@@ -102,13 +102,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8140392751563434919, guid: d2a8180cd3056a44da68b8d1218999ec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 452343696423801984}
   m_SourcePrefab: {fileID: 100100000, guid: d2a8180cd3056a44da68b8d1218999ec, type: 3}
 --- !u!4 &3338240424018150659 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2506849230844522354, guid: d2a8180cd3056a44da68b8d1218999ec, type: 3}
   m_PrefabInstance: {fileID: 907987617566517873}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8962636042504700374 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8140392751563434919, guid: d2a8180cd3056a44da68b8d1218999ec, type: 3}
+  m_PrefabInstance: {fileID: 907987617566517873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &452343696423801984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962636042504700374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c168f7cd7d9947078349dc668fbcd8f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoomFOV: 45
+  zoomDuration: 0.2
+  zoomCameraOffset: {x: 0, y: 2, z: -5}
+  hitStopDuration: 1
 --- !u!1001 &5000045821788664668
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123,6 +147,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 246406773096541784, guid: 6b06abdb4225d6f4f8ef919ca26b48a1, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960670821351675689, guid: 6b06abdb4225d6f4f8ef919ca26b48a1, type: 3}
+      propertyPath: gameClearDelay
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1960670821351675689, guid: 6b06abdb4225d6f4f8ef919ca26b48a1, type: 3}
@@ -449,17 +477,102 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1887174300219013689, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: buttonType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2369929805168854838, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127375946629707780, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127375946629707780, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610779803629203935, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: currentButtonIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610779803629203935, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: 'buttons.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2007294049298835641}
+    - target: {fileID: 5610779803629203935, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: 'buttons.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8166837146968787980}
+    - target: {fileID: 5610779803629203935, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: 'buttons.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8415714320483456089}
     - target: {fileID: 7523979119361554204, guid: 6603278fafb691345905e2f5e146210f, type: 3}
       propertyPath: m_Name
       value: SceneUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176044476499493860, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.40392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176044476499493860, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176044476499493860, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8176044476499493860, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9138009035784605495, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+--- !u!114 &2007294049298835641 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8311626083169382683, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+  m_PrefabInstance: {fileID: 7531008890139892130}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7675608126440521605 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 146006639102551591, guid: 6603278fafb691345905e2f5e146210f, type: 3}
   m_PrefabInstance: {fileID: 7531008890139892130}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8166837146968787980 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1861653174122894766, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+  m_PrefabInstance: {fileID: 7531008890139892130}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8415714320483456089 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2038190239239720443, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+  m_PrefabInstance: {fileID: 7531008890139892130}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,14 +12,13 @@ namespace Scripts
         [SerializeField] private CharacterParams characterParams;
         [SerializeField] private CharacterData characterData;
         [SerializeField] private int playerHp;
+        
+        private UILife uiLife;
 
-        [SerializeField] private UILife uiLife;
-
-        [FormerlySerializedAs("sceneManager")] [SerializeField]
+        [FormerlySerializedAs("sceneManager")]
         private SceneButtonManager sceneButtonManager;
 
-        [SerializeField] [JapaneseLabel("地面レイヤー")]
-        private LayerMask groundLayer;
+        [JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
 
         [SerializeField] [JapaneseLabel("足元")] private Transform groundCheck;
 
@@ -28,7 +27,7 @@ namespace Scripts
         [JapaneseLabel("被弾時無敵時間")]
         private float invincibleDuration = 2.0f;
 
-        private readonly float checkDistance = 0.05f; // Raycastの長さ
+        private readonly float checkDistance = 0.08f; // Raycastの長さ
         private string enemyBulletTag = "EnemyBullet";
 
         private bool invincible;
@@ -40,7 +39,15 @@ namespace Scripts
 
         private Player player => Player.Instance;
         private Coroutine invincibilityCoroutine;
+        [JapaneseLabel("被弾エフェクト")] public GameObject hitEffect;
+        [JapaneseLabel("被弾時間")] public float hitTime;
         
+
+        private void Awake()
+        {
+            SetScriptable();
+            uiLife = GameObject.FindObjectOfType<UILife>();
+        }
 
         private void Start()
         {
@@ -50,7 +57,7 @@ namespace Scripts
                 Destroy(gameObject);
             
             StartSetUp();
-            uiLife = uiLife.GetComponent<UILife>();
+            
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
             //sceneButtonManager = GameObject.Find("SceneManager").GetComponent<SceneButtonManager>();
         }
@@ -63,14 +70,18 @@ namespace Scripts
         private void SetScriptable()
         {
             invincibleDuration = characterParams.invincibleDuration;
+            groundLayer = characterParams.groundLayer;
         }
 
         private void CheckGround()
         {
-            isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
-
+            isGrounded = false;
+            isGrounded = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
+            if(!isGrounded) return;
+                
             animator.SetBool("isGround", isGrounded);
-
+            player.Ground();
+                
             Debug.DrawRay(groundCheck.position, Vector2.down * checkDistance, Color.red);
         }
 
@@ -89,6 +100,12 @@ namespace Scripts
         public void Damage(int damage)
         {
             if (invincible) return; // 無敵時間中ならダメージを受けない
+            
+            if (hitEffect != null)
+            {
+                hitEffect.SetActive(true);
+                StartCoroutine(HideHitEffectCoroutine());
+            }
 
             playerHp -= damage;
             uiLife.RemoveLife();
@@ -133,6 +150,14 @@ namespace Scripts
             Debug.Log("StartSetUp");
             playerHp = characterData.InitialHp;
             for (var i = 0; i < characterData.InitialHp; i++) uiLife.AddLife();
+        }
+        private IEnumerator HideHitEffectCoroutine()
+        {
+            yield return new WaitForSeconds(hitTime); // 表示する秒数（ここは調整可）
+            if (hitEffect != null)
+            {
+                hitEffect.SetActive(false);
+            }
         }
     }
 }

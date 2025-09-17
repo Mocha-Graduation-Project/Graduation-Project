@@ -22,8 +22,8 @@ public class CameraAreaManager : MonoBehaviour
     {
         leftDownPosition = Camera.main.ViewportToWorldPoint(Vector2.zero);
         rightUpPosition = Camera.main.ViewportToWorldPoint(Vector2.one);
-        Debug.Log("画面の左下の座標は " + leftDownPosition + " です");
-        Debug.Log("画面の右上の座標は " + rightUpPosition + " です");
+        // Debug.Log("画面の左下の座標は " + leftDownPosition + " です");
+        // Debug.Log("画面の右上の座標は " + rightUpPosition + " です");
         
         leftMax = Rounding(leftDownPosition.x + enemySize);
         rightMax = Rounding(rightUpPosition.x - enemySize);

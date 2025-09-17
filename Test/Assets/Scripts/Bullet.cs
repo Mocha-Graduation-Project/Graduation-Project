@@ -15,6 +15,7 @@ namespace Scripts
         Player player => Player.Instance;
         PlayerStatus pStatus => PlayerStatus.Instance;
         [NonSerialized]public float PowerDirection;
+        [NonSerialized] public Vector2 quickAttackDirectionInput = Vector2.zero;
         private int count = 1;
         private bool isAttack = false;
         private bool isQuick = false;
@@ -31,7 +32,6 @@ namespace Scripts
         private Vector2 lastInputDirection = Vector2.right;
         
         private float staminaDrainPerSecond = 0f;
-        private float quickStaminaDrainPerSecond = 0f;
         
         private PlayerInput moveAction;
         
@@ -47,22 +47,36 @@ namespace Scripts
         [JapaneseLabel("現在の移動方向")]private Vector3 currentDirection = Vector3.right;
         
         [JapaneseLabel("反射後の無敵時間")]　private float reflectInvincible = 1;
+        [NonSerialized] public Transform arrowTransform;
+        
+        [SerializeField] private Renderer trailRenderer;
+        private Vector2 savedQuickDirection;
+        [JapaneseLabel("ヒットストップ時間")]private float hitStopDuration;
+        [JapaneseLabel("敵のレイヤー")]private int enemyLayer;
         private void Awake()
         {
             PlayerParamReset();
         }
         private void Start()
         {
-            // power *= PowerDirection;
-            // reflectionCount = 0;
+            if (this.gameObject.CompareTag("EnemyBullet"))
+            {
+                currentDirection = power * PowerDirection;
+            }
+            else
+            {
+                currentDirection = new Vector3(player.direction, 0, 0).normalized;
+            }
             
-            currentDirection = characterParams.power.normalized * PowerDirection;
+            //currentDirection = characterParams.power.normalized * PowerDirection;
             currentSpeed = characterParams.power.magnitude;
+            arrowTransform = player.Arrow.transform;
             UpdatePower();
 
             reflectionCount = 0;
-            moveAction = GetComponent<PlayerInput>();
-            moveAction.actions["Attack"].canceled += OffAttack;
+            //moveAction = GetComponent<PlayerInput>();
+            // moveAction.actions["Attack"].canceled += OffAttack;
+            enemyLayer = LayerMask.NameToLayer("Enemy");
         }
 
         void Update()
@@ -95,25 +109,25 @@ namespace Scripts
             }
             
             //スタミナ消費
-            if (isAttack)
-            {
-                player.currentStamina -= staminaDrainPerSecond * Time.deltaTime * 5;
-                if (player.currentStamina <= 0)
-                {
-                    player.currentStamina = 0;
-                    player.AttackFinish();
-                    if (attackCoolTime > attackCoolMaxTime)
-                    {
-                        Attack(); 
-                        attackCoolTime = 0;
-                    }
-
-                }
-            }
+            // if (isAttack)
+            // {
+            //     player.currentStamina -= staminaDrainPerSecond * Time.deltaTime * 5;
+            //     if (player.currentStamina <= 0)
+            //     {
+            //         player.currentStamina = 0;
+            //         player.AttackFinish();
+            //         if (attackCoolTime > attackCoolMaxTime)
+            //         {
+            //             Attack(); 
+            //             attackCoolTime = 0;
+            //         }
+            //
+            //     }
+            // }
 
             if (isQuick)
             {
-                player.currentStamina -= quickStaminaDrainPerSecond * Time.deltaTime * 5;
+                //player.currentStamina -= quickStaminaDrainPerSecond * Time.deltaTime * 5;
                 if (player.currentStamina <= 0)
                 {
                     player.currentStamina = 0;
@@ -126,7 +140,17 @@ namespace Scripts
 
                 }
             }
-            
+            if (isAttack && arrowTransform != null)
+            {
+                // 矢印の方向ベクトルを取得
+                Vector3 dir = arrowTransform.right; // 右方向が矢印の先なら .right、上方向なら .up
+
+                // currentDirectionを矢印方向に更新
+                currentDirection = dir.normalized;
+
+                // 回転も矢印の回転に合わせる（オプション）
+                transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+            }
             
             attackCoolTime+= Time.deltaTime;
             player.staminaSlider.value = player.currentStamina;
@@ -139,29 +163,43 @@ namespace Scripts
             maxBulletSpeed = characterParams.maxBulletSpeed;
             power = characterParams.power;
             staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
-            quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
+            //quickStaminaDrainPerSecond =  characterParams.quickStaminaDrainPerSecond;
             addSpeed = characterParams.addSpeed;
             damageByReflectionCount = characterParams.damageByReflectionCount;
             reflectInvincible = characterParams.reflectInvincible;
+            hitStopDuration　= characterParams.hitStopDuration;
         }
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.gameObject.tag == "Ground" || (collision.gameObject.tag == "Player" && !isAttack))
-            {
-                if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
-                {
-                    status.Damage(1);
-                }
 
-                ResetBullet();
+        void OnTriggerEnter(Collider collider)
+        {
+            if (collider.gameObject.tag == "Ground"&& !isAttack)
+            {
+                if (collider.gameObject.layer == LayerMask.NameToLayer("FloatFloor"))
+                    return;
+
+                //ResetBullet();
                 Time.timeScale = 1f;
                 player.isMove = true;
                 isAttack = false;
                 destroyed = true;
                 Destroy(this.gameObject);
             }
+            if (collider.gameObject.tag == "Player" && !isAttack)
+            {
+                if(!CompareTag("EnemyBullet")) return;
+                if (collider.TryGetComponent<PlayerStatus>(out PlayerStatus status))
+                {
+                    status.Damage(1);
+                }
 
-            if (collision.gameObject.tag == "Attack" && !destroyed)
+                //ResetBullet();
+                Time.timeScale = 1f;
+                player.isMove = true;
+                isAttack = false;
+                destroyed = true;
+                Destroy(this.gameObject);
+            }
+            if (collider.gameObject.tag == "Attack" && !destroyed)
             {
                 pStatus.StartReflectInvincibility(1000);
                 player.isMove = false;
@@ -174,7 +212,7 @@ namespace Scripts
 
             }
 
-            if (collision.gameObject.tag == "QuickAttack" && !destroyed)
+            if (collider.gameObject.tag == "QuickAttack" && !destroyed)
             {
                 pStatus.StartReflectInvincibility(1000);
                 player.isMove = false;
@@ -185,56 +223,116 @@ namespace Scripts
 
             }
         }
-
-        private void Attack()
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (this.gameObject.CompareTag("EnemyBullet"))
-                this.gameObject.tag = "Bullet";
-            
-            reflectionCount++;
-            if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
+            if (collision.gameObject.tag == "Ground"&& !isAttack)
             {
-                int index = Mathf.Min(reflectionCount - 1, damageByReflectionCount.Length - 1);
-                Damage = damageByReflectionCount[index];
+                if (collision.gameObject.layer == LayerMask.NameToLayer("FloatFloor")) 
+                    return;
+                
+                //ResetBullet();
+                Time.timeScale = 1f;
+                player.isMove = true;
+                isAttack = false;
+                destroyed = true;
+                Destroy(this.gameObject);
             }
-            //Damage = Mathf.Min(Damage +addDamage, maxDamage);
-            
-            
-            float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
-            if (reflectionCount >= maxReflectionCount)
-                powerColor = 1.0f;
-            meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-            
-            player.currentStamina -= 2.5f;
-            player.Arrow.SetActive(false);
-            player.isMove = true;
-            isPaused = false;
-            
-            PowerDirection *= 1.25f;
-            if (PowerDirection < 0)
-                PowerDirection *= -1;
-            
-            float angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
-            // UnityEngine.Vector3 direction = new UnityEngine.Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0);
-            // power = direction * PowerDirection;
-            currentDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0).normalized;
+            if (collision.gameObject.tag == "Player" && !isAttack)
+            {
+                if(!CompareTag("EnemyBullet")) return;
+                if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
+                {
+                    status.Damage(1);
+                }
 
-            // スピード増加
-            currentSpeed += addSpeed;
-            currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
-            UpdatePower();
-            
-            Time.timeScale = 1f;
-            Invoke("AttackFalse", 0.2f);
-            player.PlayReflectionSound();
-            pStatus.StartReflectInvincibility(reflectInvincible);
-            
+                //ResetBullet();
+                Time.timeScale = 1f;
+                player.isMove = true;
+                isAttack = false;
+                destroyed = true;
+                Destroy(this.gameObject);
+            }
+            if (collision.gameObject.tag == "Attack" && !destroyed)
+            {
+                pStatus.StartReflectInvincibility(1000);
+                player.isMove = false;
+                isPaused = true;
+                player.Arrow.SetActive(true);
+                isAttack = true;
+                Time.timeScale = 0.2f;
+                power = UnityEngine.Vector3.zero;
+                //Invoke("Attack", 0.3f);
+            }
+
+            if (collision.gameObject.tag == "QuickAttack" && !destroyed)
+            {
+                pStatus.StartReflectInvincibility(1000);
+                player.isMove = false;
+                isQuick = true;
+                SavePower = -power;
+                //Power = UnityEngine.Vector3.zero;
+                QuickAttack();
+            }
         }
+        
+        // private void Attack()
+        // {
+        //     if (this.gameObject.CompareTag("EnemyBullet"))
+        //     {
+        //         this.gameObject.tag = "Bullet";
+        //         ReflectionEnemyBullet reflectionEnemyBullet = GetComponent<ReflectionEnemyBullet>();
+        //         reflectionEnemyBullet.ChangeMaterial();
+        //     }
+        //
+        //     reflectionCount++;
+        //     if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
+        //     {
+        //         int index = Mathf.Min(reflectionCount - 1, damageByReflectionCount.Length - 1);
+        //         Damage = damageByReflectionCount[index];
+        //     }
+        //
+        //     float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
+        //     if (reflectionCount >= maxReflectionCount)
+        //         powerColor = 1.0f;
+        //     meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
+        //     trailRenderer.material.SetFloat("_PowerLevel", powerColor);
+        //
+        //     player.currentStamina -= 2.5f;
+        //     player.Arrow.SetActive(false);
+        //     player.isMove = true;
+        //     isPaused = false; // スローモーション解除
+        //
+        //     PowerDirection *= 1.25f;
+        //     if (PowerDirection < 0)
+        //         PowerDirection *= -1;
+        //     
+        //     float angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
+        //     currentDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0).normalized;
+        //
+        //     // スピード増加
+        //     currentSpeed += addSpeed;
+        //     currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
+        //     UpdatePower(); // 最終的な速度と方向でpowerを更新
+        //
+        //     Time.timeScale = 1f;
+        //     player.IsAttacking = false;
+        //     isAttack = false;
+        //
+        //     Invoke("AttackFalse", 0.2f);
+        //
+        //     player.PlayReflectionSound();
+        //     pStatus.StartReflectInvincibility(reflectInvincible);
+        //
+        // }
 
         private void QuickAttack()
         {
             if (this.gameObject.CompareTag("EnemyBullet"))
+            {
                 this.gameObject.tag = "Bullet";
+                ReflectionEnemyBullet reflectionEnemyBullet = GetComponent<ReflectionEnemyBullet>();
+                reflectionEnemyBullet.ChangeMaterial();
+            }
             
             // Damage = Mathf.Min(Damage + addDamage, maxDamage);
             reflectionCount++;
@@ -247,45 +345,43 @@ namespace Scripts
             
             float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
             meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
+            trailRenderer.material.SetFloat("_PowerLevel", powerColor);
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
             
-
-            // プレイヤーの方向ベクトル
-            Vector3 toPlayer = (player.transform.position - transform.position).normalized;
-
-            // 弾の進行方向との内積をとって、正面かどうか判定
-            float dot = Vector3.Dot(currentDirection.normalized, toPlayer);
-
-            // dot が 0.5以上なら正面にいると見なす（角度で言うと約60度以内）
-            if (dot > 0.5f)
+            Vector2 inputMove = player.quickAttackDirection;
+            if (inputMove.sqrMagnitude > 0.01f) // 入力がある場合
             {
-                currentDirection = -currentDirection; // 逆方向に反転
+                currentDirection = new Vector3(inputMove.x, inputMove.y, 0).normalized;
             }
-            
+            else
+            {
+                currentDirection = new Vector3(player.direction, 0, 0).normalized; 
+            }
+
             currentSpeed += addSpeed;
             currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
             UpdatePower();
             
             player.isMove = true;
-            Invoke("AttackFalse", 0.2f);
+            isQuick = false; // 即座に状態をリセット
             player.PlayReflectionSound();
             pStatus.StartReflectInvincibility(reflectInvincible);
+            StartCoroutine(HitStopDuration());
+
+            player.AttackFinish();
         }
 
-        private void OffAttack(InputAction.CallbackContext context)
-        {
-            //CancelInvoke("Attack");
-            if (isAttack)
-            {
-                Attack();
-            }
-
-            // if (isQuick)
-            // {
-            //     QuickAttack();
-            // }
-        }
+        // private void OffAttack(InputAction.CallbackContext context)
+        // {
+        //     //CancelInvoke("Attack");
+        //     if (isAttack)
+        //     {
+        //         Attack();
+        //         player.PlayAttackAnimation();
+        //     }
+        //
+        // }
          public Vector3 GetPower()
          {
              return power;
@@ -294,10 +390,6 @@ namespace Scripts
         {
             power = currentDirection.normalized * currentSpeed;
         }
-        // public void SetPower(Vector3 newPower)
-        // {
-        //     power = newPower;
-        // }
         public void SetDirection(Vector3 newDirection)
         {
             currentDirection = newDirection.normalized;
@@ -310,14 +402,39 @@ namespace Scripts
         
         public void SetPowerEnemy(Vector3 Pos)
         {
-            float correctionAimPos = 0.5f;
+            float correctionAimPos = 1.5f;
             float Angle = Mathf.Atan2(player.gameObject.transform.position.y - Pos.y + correctionAimPos,
                 player.gameObject.transform.position.x - Pos.x);
-            //Debug.Log(Angle);
+            //Debug.Log("角度:"+Angle);
             Vector3 direction = new Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
-            power = direction * 5f;
+            power = direction;
             PowerDirection = 1f;
-            Debug.Log("Pos:"+Pos+"/Power:"+power);;
+            //Debug.Log("Pos:"+Pos+"/Power:"+power);;
+        }
+        
+        public void SetStraightPowerEnemy(UnityEngine.Vector3 angle)
+        {
+            UnityEngine.Vector3 direction=Vector3.zero;
+
+            if (angle.z >= 0 && angle.z <= 45)
+            {
+                direction = Vector3.left;
+            }
+            else if (angle.z > 45 && angle.z <= 135)
+            {
+                direction = Vector3.down;
+            }
+            else if (angle.z > 135 && angle.z <= 180)
+            {
+                direction = Vector3.right;
+            }
+            else
+            {
+                Debug.Log("範囲外");
+            }
+
+            power = direction;
+            PowerDirection = 1f;
         }
 
         public void OnReflect()
@@ -329,9 +446,17 @@ namespace Scripts
             isAttack = false;
             isQuick = false;
         }
-        public void ResetBullet()
+        // public void ResetBullet()
+        // {
+        //     moveAction.actions["Attack"].canceled -= OffAttack;
+        // }
+
+        private IEnumerator HitStopDuration()
         {
-            moveAction.actions["Attack"].canceled -= OffAttack;
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(hitStopDuration);
+            
+            Time.timeScale = 1f;
         }
     }
 }

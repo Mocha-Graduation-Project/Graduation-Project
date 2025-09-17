@@ -34,6 +34,7 @@ namespace Scripts.UI
             startPosition = transform.localPosition;
             originalColor = damageText.color;
             startSize = damageText.fontSize;
+            Cursor.visible = false;
         }
 
         public void ShowDamage(int damage)

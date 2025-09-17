@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
+using Systems;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using Scripts.UI;
+#if UNITY_EDITOR
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
-using Scripts.UI;
-
+#endif
 namespace Scripts
 {
 
@@ -37,6 +40,11 @@ namespace Scripts
 
         private void Update()
         {
+            if (player != null)
+            {
+                // DOLookAt(ターゲットの位置, 回転にかける時間)
+                transform.DOLookAt(player.transform.position, 0.5f);
+            }
             if (!GetComponent<Renderer>().isVisible)
             {
                 if (isfirst)
@@ -45,25 +53,29 @@ namespace Scripts
                 {
                     Vector3 pos = transform.position;
                     if (pos.x < 0)
+                    {
                         transform.position = new Vector3(8.5f, pos.y, pos.z);
+                    }
                     else
+                    {
                         transform.position = new Vector3(-8.5f, pos.y, pos.z);
+                    }
                 }
 
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter(Collider collision)
         {
-            if (collision.gameObject.tag == "Attack")
-            {
-                Debug.Log("当たった");
-                HP--;
-                damageText.ShowDamage(1);
-                audioSource.PlayOneShot(DamageSound);
-            }
+            //if (collision.gameObject.tag == "Attack")
+            //{
+            //    Debug.Log("当たった");
+            //    HP--;
+            //    damageText.ShowDamage(1);
+            //    audioSource.PlayOneShot(DamageSound);
+            //}
 
-            else if (collision.gameObject.tag == "Bullet")
+            if (collision.gameObject.tag == "Bullet")
             {
                 Debug.Log("当たった");
                 Bullet bullet = collision.gameObject.GetComponent<Bullet>();
@@ -72,7 +84,33 @@ namespace Scripts
                 audioSource.PlayOneShot(DamageSound);
             }
 
-            if (HP < 0)
+            if (HP <= 0)
+            {
+                enemySpawn.RemoveEnemy(this.gameObject);
+                //Destroy(this.gameObject);
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            //if (collision.gameObject.tag == "Attack")
+            //{
+            //    Debug.Log("当たった");
+            //    HP--;
+            //    damageText.ShowDamage(1);
+            //    audioSource.PlayOneShot(DamageSound);
+            //}
+
+            if (collision.gameObject.tag == "Bullet")
+            {
+                Debug.Log("当たった");
+                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+                HP -= bullet.Damage;
+                damageText.ShowDamage(bullet.Damage);
+                audioSource.PlayOneShot(DamageSound);
+            }
+
+            if (HP <= 0)
             {
                 enemySpawn.RemoveEnemy(this.gameObject);
                 //Destroy(this.gameObject);

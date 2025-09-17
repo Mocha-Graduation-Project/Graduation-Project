@@ -32,8 +32,11 @@ namespace Scripts.UI
         {
             blinkTween?.Kill();
             blinkTween = null;
-            text.text = " ";
-            text.alpha = 1f;
+            if (text != null)
+            {
+                text.text = " ";
+                text.alpha = 1f;
+            }
         }
     }
 }

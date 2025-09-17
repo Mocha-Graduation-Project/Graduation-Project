@@ -17,6 +17,9 @@ public class RightVerticalMove : MonoBehaviour,IState
     private Vector3 x;
     private bool finishMoving;
     private bool finishRotating;
+    private float angleZ;
+    Vector3 rotateAxisRotate;
+    private bool isCoolTime;
     
     public RightVerticalMove(EnemyAI enemyAI)
     {
@@ -28,19 +31,48 @@ public class RightVerticalMove : MonoBehaviour,IState
         Debug.Log("1_Enter");
         moveCounter = 0;
         moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
-        rotateAxis = moveBoss.RotateAxis;
         boss = moveBoss.Boss;
+        moveBoss.EnemyScript.StopAttck();
+        isCoolTime = true;
         Initialization();
         finishMoving = false;
         finishRotating = false;
         startPos = boss.transform.position;
+        rotateAxis = moveBoss.RotateAxis;
+        rotateAxisRotate = new Vector3(0, 0, 0);
+        if (rotateAxis.transform.eulerAngles == rotateAxisRotate)
+        {
+            finishRotating = true;
+        }
+        else if (rotateAxis.transform.eulerAngles == new Vector3(0, 0, 180))
+        {
+            angleZ = -90;
+        }
+        else //if (rotateAxis.transform.eulerAngles.z == rotateAxisRotate.z)
+        {
+            angleZ = -45;
+        }
     }
 
     public void Execute()
     {
         //Debug.Log("1_Execute");
+        if (isCoolTime == true)
+        {
+            float diff = Time.time - startTime;
+            if (diff < moveBoss.CoolTime)
+            {
+                //Debug.Log("クールタイム中");
+                return;
+            }
+            else
+            {
+                Initialization();
+                isCoolTime = false;
+            }
+        }
         MoveRightCenter();
-        Rotate(new Vector3(0, 0, 0));
+        Rotate(rotateAxisRotate);
         if (finishMoving == true && finishRotating == true)
         {
             moveBoss.Change();
@@ -66,6 +98,7 @@ public class RightVerticalMove : MonoBehaviour,IState
             //Debug.Log("Change");
             Initialization();
             startPos = boss.transform.position;
+            if (moveCounter == 0) { moveBoss.EnemyScript.ReStartAttck();}
             moveCounter++;
             return;
         }
@@ -76,13 +109,12 @@ public class RightVerticalMove : MonoBehaviour,IState
     void Rotate(Vector3 angles)
     {
         //Debug.Log("angle:"+rotateAxis.transform.rotation.eulerAngles);
-        if (finishRotating == true || rotateAxis.transform.eulerAngles == angles)
+        if (finishRotating == true)
         {
-            finishRotating = true;
             return;
         }
         t += Time.deltaTime;
-        rotateAxis.transform.Rotate(0, 0, 45 * Time.deltaTime);
+        rotateAxis.transform.Rotate(0, 0, angleZ * Time.deltaTime);
         if (t >= 2.0f)
         {
             rotateAxis.transform.eulerAngles = angles;
@@ -101,13 +133,13 @@ public class RightVerticalMove : MonoBehaviour,IState
                 Move(moveBoss.RightCenterPos, moveBoss.MoveTime);
                 break;
             case 1:
-                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.MoveTime);
+                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.EnemyData.MoveHorizontalTime);
                 break;
             case 2:
-                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.DownCenterPos.y, 0), moveBoss.MoveTime * 2);
+                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.DownCenterPos.y, 0), moveBoss.EnemyData.MoveHorizontalTime * 2);
                 break;
             case 3:
-                Move(moveBoss.RightCenterPos, moveBoss.MoveTime);
+                Move(moveBoss.RightCenterPos, moveBoss.EnemyData.MoveHorizontalTime);
                 break;
             case 4:
                 Debug.Log("終了");
