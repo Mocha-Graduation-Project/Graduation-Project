@@ -188,33 +188,33 @@ namespace Scripts
                 transform.DOLookAt(player.transform.position, 0.5f);
             }
             
-            if (!GetComponent<Renderer>().isVisible)
-            {
-                if (isfirst)
-                    isfirst = false;
-                else
-                {
-                    Vector3 pos = transform.position;
-                    if (pos.x > maxX)
-                    {
-                        pos.x = maxX - enemySize;
-                    }
-                    else if (pos.x < minX)
-                    {
-                        pos.x = minX + enemySize;
-                    }
-
-                    if (pos.y > maxY)
-                    {
-                        pos.y = maxY - enemySize;
-                        GetComponent<Rigidbody>().linearVelocity = new Vector2(0, 0);
-                    }
-                    else if (pos.y < minY) pos.y = minY + enemySize;
-
-                    transform.position = pos;
-                }
-
-            }
+            // if (!GetComponent<Renderer>().isVisible)
+            // {
+            //     if (isfirst)
+            //         isfirst = false;
+            //     else
+            //     {
+            //         Vector3 pos = transform.position;
+            //         if (pos.x > maxX)
+            //         {
+            //             pos.x = maxX - enemySize;
+            //         }
+            //         else if (pos.x < minX)
+            //         {
+            //             pos.x = minX + enemySize;
+            //         }
+            //
+            //         if (pos.y > maxY)
+            //         {
+            //             pos.y = maxY - enemySize;
+            //             GetComponent<Rigidbody>().linearVelocity = new Vector2(0, 0);
+            //         }
+            //         else if (pos.y < minY) pos.y = minY + enemySize;
+            //
+            //         transform.position = pos;
+            //     }
+            //
+            // }
         }
 
         void OnTriggerEnter(Collider collider)
