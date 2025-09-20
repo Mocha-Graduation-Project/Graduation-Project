@@ -133,10 +133,11 @@ namespace Scripts
             //MoveAction.actions["Attack"].performed += OnAttack;
             MoveAction.actions["Attack"].canceled += OffAttack;
             MoveAction.actions["Jump"].canceled += OffJump;
-            MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
-            MoveAction.actions["QuickAttack"].canceled += OffAttack;
+            // MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
+            // MoveAction.actions["QuickAttack"].canceled += OffAttack;
             MoveAction.actions["Aim"].performed += OnQuickAttackAim;
             MoveAction.actions["Aim"].canceled += OnQuickAttackAim;
+            
 
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
@@ -230,18 +231,18 @@ namespace Scripts
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
             }
 
-            if (quickAttackDirection != Vector2.zero)
-            {
-                // 入力方向から角度を計算
-                float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
-                // 矢印の回転を設定
-                quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle-90);
-                quickAxis.SetActive(true);
-            }
-            else
-            {
-                quickAxis.SetActive(false);
-            }
+            // if (quickAttackDirection != Vector2.zero)
+            // {
+            //     // 入力方向から角度を計算
+            //     float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
+            //     // 矢印の回転を設定
+            //     quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle-90);
+            //     quickAxis.SetActive(true);
+            // }
+            // else
+            // {
+            //     quickAxis.SetActive(false);
+            // }
         }
 
         public void Ground()
@@ -251,10 +252,37 @@ namespace Scripts
         public void OnQuickAttackAim(InputAction.CallbackContext context)
         {
             Vector2 input = context.ReadValue<Vector2>();
-            if (input.sqrMagnitude > 0.01f)
+            
+            if (input.sqrMagnitude > 0.25f)
             {
-                quickAttackDirection = input.normalized; // 最後に入れた方向を保持
+                if (!IsAttacking)
+                {
+
+                    quickAttackDirection = input.normalized;
+                    
+                    OnQuickAttackTriggered();
+                }
+
+                float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
+                quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle - 90);
+                quickAxis.SetActive(true);
             }
+            else
+            {
+                quickAxis.SetActive(false);
+            }
+        }
+        private void OnQuickAttackTriggered()
+        {
+            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+
+            IsAttacking = true; 
+
+            QuickAttackCollision.gameObject.SetActive(true);
+
+            PlayAttackAnimation();
+
+            Invoke("AttackCollisionFalse", collisionRadius);
         }
         public void OnMove(InputAction.CallbackContext context)
         {
