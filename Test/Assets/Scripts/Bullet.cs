@@ -53,6 +53,12 @@ namespace Scripts
         private Vector2 savedQuickDirection;
         [JapaneseLabel("ヒットストップ時間")]private float hitStopDuration;
         [JapaneseLabel("敵のレイヤー")]private int enemyLayer;
+        
+        [JapaneseLabel("反射処理中かどうか")][NonSerialized] private bool isReflecting = false;
+        [JapaneseLabel("反射クールタイムのタイマー")][NonSerialized] private float reflectCooldownTimer = 0f;
+
+        [JapaneseLabel("反射クールタイムの秒数")] private float reflectCooldown = 0.5f;
+
         private void Awake()
         {
             PlayerParamReset();
@@ -91,6 +97,15 @@ namespace Scripts
                 transform.position += currentDirection * currentSpeed * Time.deltaTime;
             }
             
+            if (reflectCooldownTimer > 0)
+            {
+                reflectCooldownTimer -= Time.deltaTime;
+            }
+            else
+            {
+                // クールタイムが終了したら、次の反射を許可
+                isReflecting = false;
+            }
 
 
             // 回転
@@ -168,6 +183,7 @@ namespace Scripts
             damageByReflectionCount = characterParams.damageByReflectionCount;
             reflectInvincible = characterParams.reflectInvincible;
             hitStopDuration　= characterParams.hitStopDuration;
+            reflectCooldown = characterParams.reflectCooldown;
         }
 
         void OnTriggerEnter(Collider collider)
@@ -214,13 +230,18 @@ namespace Scripts
 
             if (collider.gameObject.tag == "QuickAttack" && !destroyed)
             {
-                pStatus.StartReflectInvincibility(1000);
-                player.isMove = false;
-                isQuick = true;
-                SavePower = -power;
-                //Power = UnityEngine.Vector3.zero;
-                QuickAttack();
+                // クールタイム中ではない、かつ反射処理中でなければ実行
+                if (reflectCooldownTimer <= 0 && !isReflecting)
+                {
+                    isReflecting = true;
+                    reflectCooldownTimer = reflectCooldown;
 
+                    pStatus.StartReflectInvincibility(1000);
+                    player.isMove = false;
+                    isQuick = true;
+                    SavePower = -power;
+                    QuickAttack();
+                }
             }
         }
         private void OnTriggerEnter2D(Collider2D collision)
@@ -446,6 +467,7 @@ namespace Scripts
             isAttack = false;
             isQuick = false;
         }
+        
         // public void ResetBullet()
         // {
         //     moveAction.actions["Attack"].canceled -= OffAttack;

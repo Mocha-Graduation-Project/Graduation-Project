@@ -76,6 +76,8 @@ namespace Scripts
         [NonSerialized,JapaneseLabel("現反射スタミナ")] public float currentStamina;
         [NonSerialized,JapaneseLabel("反射スタミナ消費量")]public float staminaDrainPerSecond = 20f;
         //[JapaneseLabel("quick反射消費量")] private float quickStaminaDrainPerSecond = 20f;
+        private Vector2 lastAimInput = Vector2.zero;
+        [JapaneseLabel("スティックで弾きが発動するデットゾーン")]private float deadZone;
         
         //射撃
         [JapaneseLabel(("最大射撃スタミナ"))]private float maxShotStamina = 1f;
@@ -122,6 +124,7 @@ namespace Scripts
             groundLayer = characterParams.groundLayer;
             collisionRadius = characterParams.collisionRadius;
             butEffectDuration = characterParams.butEffectDuration;
+            deadZone = characterParams.deadZone;
         }
         
         private void Start()
@@ -253,16 +256,15 @@ namespace Scripts
         {
             Vector2 input = context.ReadValue<Vector2>();
             
-            if (input.sqrMagnitude > 0.25f)
+            if (input.sqrMagnitude > deadZone)
             {
-                if (!IsAttacking)
+                if (!IsAttacking && lastAimInput.sqrMagnitude <= deadZone)
                 {
-
                     quickAttackDirection = input.normalized;
-                    
+
                     OnQuickAttackTriggered();
                 }
-
+                
                 float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
                 quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle - 90);
                 quickAxis.SetActive(true);
@@ -271,6 +273,7 @@ namespace Scripts
             {
                 quickAxis.SetActive(false);
             }
+            lastAimInput = input;
         }
         private void OnQuickAttackTriggered()
         {
@@ -435,8 +438,8 @@ namespace Scripts
             //MoveAction.actions["Attack"].performed -= OnAttack;
             MoveAction.actions["Attack"].canceled -= OffAttack;
             MoveAction.actions["Jump"].canceled -= OffJump;
-            MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
-            MoveAction.actions["QuickAttack"].canceled -= OffAttack;
+            //MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
+            //MoveAction.actions["QuickAttack"].canceled -= OffAttack;
             MoveAction.actions["Aim"].performed -= OnQuickAttackAim;
             MoveAction.actions["Aim"].canceled -= OnQuickAttackAim;
         }
@@ -450,8 +453,8 @@ namespace Scripts
             //MoveAction.actions["Attack"].performed += OnAttack;
             MoveAction.actions["Attack"].canceled += OffAttack;
             MoveAction.actions["Jump"].canceled += OffJump;
-            MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
-            MoveAction.actions["QuickAttack"].canceled += OffAttack;
+            //MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
+            //MoveAction.actions["QuickAttack"].canceled += OffAttack;
             MoveAction.actions["Aim"].performed += OnQuickAttackAim;
             MoveAction.actions["Aim"].canceled += OnQuickAttackAim;
         }
@@ -468,8 +471,8 @@ namespace Scripts
                 //MoveAction.actions["Attack"].performed -= OnAttack;
                 MoveAction.actions["Attack"].canceled -= OffAttack;
                 MoveAction.actions["Jump"].canceled -= OffJump;
-                MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
-                MoveAction.actions["QuickAttack"].canceled -= OffAttack;
+                //MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
+                //MoveAction.actions["QuickAttack"].canceled -= OffAttack;
                 MoveAction.actions["Aim"].performed -= OnQuickAttackAim;
                 MoveAction.actions["Aim"].canceled -= OnQuickAttackAim;
             }
