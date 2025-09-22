@@ -35,6 +35,7 @@ MonoBehaviour:
   maxStamina: 100
   staminaRecoveryPerSecond: 10
   staminaDrainPerSecond: 20
+  deadZone: 0.5
   shotStaminaRecoveryPerSecond: 0.2
   overheatRecoveryPerSecond: 0.3
   shotStaminaDrainPerSecond: 0.8
@@ -45,6 +46,7 @@ MonoBehaviour:
   damage: 1
   hitStopDuration: 0.15
   damageByReflectionCount: 02000000040000000800000010000000
+  reflectCooldown: 0.5
   invincibleDuration: 2
   reflectInvincible: 0.5
   butEffectDuration: 0.2

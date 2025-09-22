@@ -51,6 +51,8 @@ namespace Scripts.Scriptable
         [JapaneseLabel("反射スタミナ回復量")] public float staminaRecoveryPerSecond = 10f;
         [JapaneseLabel("反射スタミナ消費量")] public float staminaDrainPerSecond = 20f;
         //[JapaneseLabel("quick反射消費量")] public float quickStaminaDrainPerSecond = 20f;
+        [JapaneseLabel("スティックで弾きが発動するデットゾーン")]　public float deadZone = 0.25f;
+        
         //射撃
         [Space(5)]
         [Header("<射撃>")]
@@ -68,6 +70,7 @@ namespace Scripts.Scriptable
         [JapaneseLabel("ヒットストップ時間")]public float hitStopDuration;
         [Header("反射時のダメージ")]
         public int[] damageByReflectionCount;
+        [JapaneseLabel("反射クールタイム時間")] public float reflectCooldown = 0.5f;
 
         
         
