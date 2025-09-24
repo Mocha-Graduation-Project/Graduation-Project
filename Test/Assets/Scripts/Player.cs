@@ -47,7 +47,8 @@ namespace Scripts
         [JapaneseLabel("攻撃中か")]public bool IsAttacking = false;
         [JapaneseLabel("発射中か")]private bool IsShot = false;
         [JapaneseLabel("移動中か")][NonSerialized] public bool isMove = true;
-        
+
+        private float quickAngle;
         //オブジェクト
         private GameObject Bullets;
         [JapaneseLabel("弾発射位置")][SerializeField] private GameObject ShotPosition;
@@ -291,12 +292,13 @@ namespace Scripts
             {
                 if (!IsAttacking && lastAimInput.sqrMagnitude <= deadZone)
                 {
-                    quickAttackDirection = input.normalized;
-
-                    OnQuickAttackTriggered();
+                    quickAttackDirection = input.normalized; 
+                    quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
+                    Debug.Log(quickAngle);
+                    OnQuickAttackTriggered(quickAngle);
                 }
                 
-                float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
+                quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
                 quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle - 90);
                 quickAxis.SetActive(true);
             }
@@ -306,15 +308,52 @@ namespace Scripts
             }
             lastAimInput = input;
         }
-        private void OnQuickAttackTriggered()
+        private void OnQuickAttackTriggered(float angle)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
-
-            IsAttacking = true; 
+            int attackDirection;
+            if (angle >= 45 && angle < 135)
+            {
+                // 上方向
+                attackDirection = 0;
+            }
+            else if (angle >= -45 && angle < 45)
+            {
+                // 右方向
+                if (direction == 1)
+                {
+                    attackDirection = 1;
+                }
+                else
+                {
+                    attackDirection = 3;
+                }
+                
+            }
+            else if (angle >= -135 && angle < -45)
+            {
+                // 下方向
+                attackDirection = 2;
+            }
+            else
+            { 
+                // 左方向
+                if (direction == 1)
+                {
+                    attackDirection = 1;
+                }
+                else
+                {
+                    attackDirection = 3;
+                }
+            }
+            
+            
+            IsAttacking = true;
 
             QuickAttackCollision.gameObject.SetActive(true);
 
-            PlayAttackAnimation();
+            PlayAttackAnimation(attackDirection);
 
             Invoke("AttackCollisionFalse", collisionRadius);
         }
@@ -418,7 +457,7 @@ namespace Scripts
 
             QuickAttackCollision.gameObject.SetActive(true);
             Invoke("AttackCollisionFalse", collisionRadius);
-            PlayAttackAnimation();
+            //PlayAttackAnimation();
         }
         private void OffAttack(InputAction.CallbackContext context)
         {
@@ -430,8 +469,9 @@ namespace Scripts
             QuickAttackCollision.gameObject.SetActive(false);
         }
 
-        public void PlayAttackAnimation()
+        public void PlayAttackAnimation(int attackDirection)
         {
+            animator.SetInteger("AttackDirection",1);
             animator.SetTrigger("isAttack");
         }
         
