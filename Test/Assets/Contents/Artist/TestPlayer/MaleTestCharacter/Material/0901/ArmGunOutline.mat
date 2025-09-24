@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-1942414593054869299
-MonoBehaviour:
-  m_ObjectHideFlags: 11
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 9
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -20,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Head
-  m_Shader: {fileID: -6465566751694194690, guid: 8b01a9e0eff26854da1c87fc1bc1e499, type: 3}
+  m_Name: ArmGunOutline
+  m_Shader: {fileID: -6465566751694194690, guid: 01235fdbbe5bcf546843097a5ffac5a5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -42,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: 2bcec0feab825c74099b0f9165b69754, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3a9733115f90351449ad3b212565f186, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EMISSION_COLOR_MAP:
@@ -50,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionTexture:
-        m_Texture: {fileID: 2800000, guid: d1b314d9f600413468ac562b594e29bd, type: 3}
+        m_Texture: {fileID: 2800000, guid: eadf91f7f0b1d4741940594334b37381, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _METALNESS_MAP:
@@ -62,7 +49,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetalicMask:
-        m_Texture: {fileID: 2800000, guid: 45cb4f7104e1be34bbe741b191f04545, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6ac90d543b1d59f498d814608c741d27, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicMatcapTexture:
@@ -90,11 +77,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SSSMaskTexture:
-        m_Texture: {fileID: 2800000, guid: b10deae7fe34141429fbf80e26c3c478, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowColor:
-        m_Texture: {fileID: 2800000, guid: 11e77bdb791308448a2860fcef60afa6, type: 3}
+        m_Texture: {fileID: 2800000, guid: 58faf64d361f54e41beb405221cb12c5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -123,11 +110,11 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DirectionalLightColorOpacity: 0.011
+    - _DirectionalLightColorOpacity: 0.17
     - _DstBlend: 10
     - _DstBlendAlpha: 0
     - _EmissionIntensity: 0
-    - _EmissionIntensityB: 0
+    - _EmissionIntensityB: 5.62
     - _EmissionIntensityG: 0.48
     - _EmissionIntensityR: 0
     - _EnvironmentReflections: 1
@@ -145,6 +132,7 @@ Material:
     - _NormalInfruence: 0.48
     - _NormalStrength: 1
     - _OcclusionStrength: 1
+    - _OutlineThickness: 0.0002
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -155,7 +143,7 @@ Material:
     - _SPECULAR_ROUGHNESS: 0.2
     - _SSSColorOpacity: 0.51
     - _SSSLIghtStrength: 0.47
-    - _SSSOpacity: 0.02
+    - _SSSOpacity: 0
     - _SSSPower: 1
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
@@ -167,7 +155,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
-    - _BASE_COLOR: {r: 0.5815, g: 0.3961, b: 0.6354, a: 1}
+    - _BASE_COLOR: {r: 0.2892, g: 0.4513, b: 0.2628, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CutoffThreshold: {r: -0.05, g: 8, b: 0, a: 0}
@@ -175,12 +163,26 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColorG: {r: 0.85464436, g: 14.928529, b: 0, a: 0}
     - _EmissionColorR: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor_B: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColor_B: {r: 0.057119686, g: 0, b: 2.3396223, a: 0}
     - _MainColor: {r: 1, g: 1, b: 1, a: 0}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
     - _RimLightColor: {r: 0, g: 1.289844, b: 6.498019, a: 0}
     - _SPECULAR_COLOR: {r: 1, g: 1, b: 1, a: 1}
-    - _SSSColor: {r: 13.766362, g: 9.133785, b: 8.355054, a: 0}
+    - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!114 &9093157007705465605
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9
