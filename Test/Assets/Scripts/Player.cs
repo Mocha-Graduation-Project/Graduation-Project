@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Scripts;
 using Scripts.Scriptable;
+using UnityEngine.TextCore.Text;
 
 namespace Scripts
 {
@@ -13,9 +14,11 @@ namespace Scripts
         //コントローラー
         public static Player Instance;
         [SerializeField] private CharacterParams characterParams;
+        [SerializeField] private SoundData soundData;
         [SerializeField] private GameObject playerUI;
         private PlayerInput MoveAction;
-        private AudioSource audioSource;
+        [SerializeField]private AudioSource audioSource1;
+        [SerializeField]private AudioSource audioSource2;
         [NonSerialized] public Vector2 InputMove = Vector2.zero;
         private Rigidbody rb;
         private float startY;
@@ -69,6 +72,8 @@ namespace Scripts
         [JapaneseLabel("反射音")]private AudioClip ReflectionSound;
         [JapaneseLabel("発射音")]private AudioClip ShotSound;
         [JapaneseLabel("被ダメージ音")]private AudioClip DamageSound;
+        [JapaneseLabel("ジャンプ")] public AudioClip JumpSound;
+        [JapaneseLabel("歩き")] public AudioClip WalkSound;
 
         //反射
         [JapaneseLabel("最大反射スタミナ")] private float maxStamina = 100f;
@@ -110,9 +115,9 @@ namespace Scripts
             jumpCooldown = characterParams.jumpCooldown;
             maxFallSpeed = characterParams.maxFallSpeed;
             Bullets = characterParams.bullets;
-            ReflectionSound = characterParams.ReflectionSound;
-            ShotSound = characterParams.ShotSound;
-            DamageSound = characterParams.DamageSound;
+            ReflectionSound = soundData.ReflectionSound;
+            ShotSound = soundData.ShotSound;
+            DamageSound = soundData.DamageSound;
             maxStamina = characterParams.maxStamina;
             staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
             staminaRecoveryPerSecond = characterParams.staminaRecoveryPerSecond;
@@ -124,6 +129,8 @@ namespace Scripts
             groundLayer = characterParams.groundLayer;
             collisionRadius = characterParams.collisionRadius;
             butEffectDuration = characterParams.butEffectDuration;
+            JumpSound = soundData.JumpSound;
+            WalkSound = soundData.WalkSound;
             deadZone = characterParams.deadZone;
         }
         
@@ -146,7 +153,6 @@ namespace Scripts
             rb = GetComponent<Rigidbody>();
             Arrow.SetActive(false);
             jumpCount = MaxJumpCount;
-            audioSource = GetComponent<AudioSource>();
             
             mapManager = GameObject.FindObjectOfType<MapManager>();
             currentStamina = maxStamina;
@@ -176,6 +182,25 @@ namespace Scripts
             {
                 transform.position = temp;
                 return;
+            }
+            
+            //歩き音
+            if (isGround && animator.GetBool("isMove"))
+            {
+                if (!audioSource2.isPlaying)
+                {
+                    audioSource2.loop = true;
+                    audioSource2.clip = WalkSound;
+                    audioSource2.Play();
+                }
+            }
+            else
+            {
+                // それ以外の場合は停止する
+                if (audioSource2.isPlaying)
+                {
+                    audioSource2.Stop();
+                }
             }
             
             if (InputMove.x < 0)
@@ -248,9 +273,15 @@ namespace Scripts
             // }
         }
 
-        public void Ground()
+        public void Ground(bool isGrounded)
         {
-                    jumpCount = MaxJumpCount;
+            
+            isGround = isGrounded;
+        }
+
+        public void JumpCount(bool isGrounded)
+        {
+            jumpCount = MaxJumpCount;
         }
         public void OnQuickAttackAim(InputAction.CallbackContext context)
         {
@@ -296,7 +327,6 @@ namespace Scripts
                 Debug.LogWarning("Animatorがnullです。Playerオブジェクトが既に破棄されているか、適切に初期化されていません。");
                 return;
             }
-            
             animator.SetBool("isMove", true);
             InputMove = context.ReadValue<Vector2>();
 
@@ -309,6 +339,7 @@ namespace Scripts
             else
             {
                 animator.SetBool("isMove", false); 
+                audioSource2.Stop();
             }
         }
 
@@ -325,6 +356,7 @@ namespace Scripts
                 jumpCount--;
                 lastJumpTime = Time.time;
                 animator.SetBool("isJump",true);
+                audioSource1.PlayOneShot(JumpSound);
             }
         }
 
@@ -350,7 +382,7 @@ namespace Scripts
 
         public void Shot()
         {
-            audioSource.PlayOneShot(ShotSound);
+            audioSource1.PlayOneShot(ShotSound);
             var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
             var bullet = bullets.GetComponent<Bullet>();
             bullet.PowerDirection = direction;
@@ -415,12 +447,12 @@ namespace Scripts
         }
         public void PlayReflectionSound()
         {
-            audioSource.PlayOneShot(ReflectionSound);
+            audioSource1.PlayOneShot(ReflectionSound);
         }
 
         public void PlayDamageSound()
         {
-            audioSource.PlayOneShot(DamageSound);
+            audioSource1.PlayOneShot(DamageSound);
         }
         private void AttackCollisionFalse()
         {

@@ -9,20 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a339b6950813460d9032c624431df4eb, type: 3}
-  m_Name: CharacterParams
+  m_Script: {fileID: 11500000, guid: a0e2b32951c04ed58d7422256e05a28d, type: 3}
+  m_Name: SoundData
   m_EditorClassIdentifier: 
-  moveAction: {fileID: 163183520200374533, guid: 9be1418a083839441beaea19696c784a, type: 3}
-  moveSpeed: 5.5
-  jumpPower: 6
-  MaxJumpCount: 1
-  jumpCooldown: 0.2
-  maxFallSpeed: 10
-  collisionRadius: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 640
-  bullets: {fileID: 1057501140420241128, guid: 4e268d136a397974d86fa93e6efd45de, type: 3}
   ReflectionSound: {fileID: 8300000, guid: 29c151cd64dfd874298c8c23e76539ca, type: 3}
   ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
   DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
@@ -32,21 +21,3 @@ MonoBehaviour:
   EnemyShotSound: {fileID: 8300000, guid: 8fe2af97997c36140a5bd29dc4076799, type: 3}
   ShieldSound: {fileID: 8300000, guid: 2b3451a477c769c4aa623640dcb3953a, type: 3}
   WarpSound: {fileID: 8300000, guid: 952b5fabc21f4814d81289c0fd4dd199, type: 3}
-  maxStamina: 100
-  staminaRecoveryPerSecond: 10
-  staminaDrainPerSecond: 20
-  deadZone: 0.5
-  shotStaminaRecoveryPerSecond: 0.2
-  overheatRecoveryPerSecond: 0.3
-  shotStaminaDrainPerSecond: 0.8
-  shotCoolTime: 0.2
-  power: {x: 6, y: 0, z: 0}
-  maxBulletSpeed: 11
-  addSpeed: 1.4
-  damage: 1
-  hitStopDuration: 0.15
-  damageByReflectionCount: 02000000040000000800000010000000
-  reflectCooldown: 0.5
-  invincibleDuration: 2
-  reflectInvincible: 0.5
-  butEffectDuration: 0.2

@@ -77,10 +77,12 @@ namespace Scripts
         {
             isGrounded = false;
             isGrounded = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
-            if(!isGrounded) return;
                 
             animator.SetBool("isGround", isGrounded);
-            player.Ground();
+            player.Ground(isGrounded);
+            
+            if(!isGrounded) return;
+            player.JumpCount(isGrounded);
                 
             Debug.DrawRay(groundCheck.position, Vector2.down * checkDistance, Color.red);
         }
