@@ -290,15 +290,14 @@ namespace Scripts
             
             if (input.sqrMagnitude > deadZone)
             {
+                quickAttackDirection = input.normalized; 
+                quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
+
                 if (!IsAttacking && lastAimInput.sqrMagnitude <= deadZone)
                 {
-                    quickAttackDirection = input.normalized; 
-                    quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
                     Debug.Log(quickAngle);
                     OnQuickAttackTriggered(quickAngle);
                 }
-                
-                quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
                 quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle - 90);
                 quickAxis.SetActive(true);
             }
@@ -317,41 +316,29 @@ namespace Scripts
                 // 上方向
                 attackDirection = 0;
             }
-            else if (angle >= -45 && angle < 45)
-            {
-                // 右方向
-                if (direction == 1)
-                {
-                    attackDirection = 1;
-                }
-                else
-                {
-                    attackDirection = 3;
-                }
-                
-            }
             else if (angle >= -135 && angle < -45)
             {
                 // 下方向
                 attackDirection = 2;
             }
+            else if (angle >= -45 && angle < 45)
+            {
+                // 右方向
+                attackDirection = (direction == 1) ? 1 : 3;
+                
+            }
             else
             { 
                 // 左方向
-                if (direction == 1)
-                {
-                    attackDirection = 1;
-                }
-                else
-                {
-                    attackDirection = 3;
-                }
+                attackDirection = (direction == -1) ? 1 : 3;
             }
             
             
             IsAttacking = true;
 
             QuickAttackCollision.gameObject.SetActive(true);
+            
+            Debug.Log(attackDirection);
 
             PlayAttackAnimation(attackDirection);
 
@@ -471,7 +458,7 @@ namespace Scripts
 
         public void PlayAttackAnimation(int attackDirection)
         {
-            animator.SetInteger("AttackDirection",1);
+            animator.SetInteger("AttackDirection",attackDirection);
             animator.SetTrigger("isAttack");
         }
         
