@@ -1,4 +1,7 @@
+using System;
+using Scripts;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DepthBoss : EnemyAI
 {
@@ -16,6 +19,8 @@ public class DepthBoss : EnemyAI
     [SerializeField] [JapaneseLabel("現在の行動パターン")]Patterns pattern;
     
     [SerializeField] [JapaneseLabel("動かすオブジェクト")] private GameObject boss;
+
+    [SerializeField] [JapaneseLabel("攻撃中か")] private bool isAttck;
     
     [JapaneseLabel("初期(中央)位置")] private Vector3 centerPos;
 
@@ -28,18 +33,30 @@ public class DepthBoss : EnemyAI
     [Header("パターン1,2")] 
     [SerializeField] [JapaneseLabel("パターン1,2に使うデータ")]
     private PatrolEnemyData enemyData;
+
+    [Space(5)]
+    [Header("パターン3")] 
+    [SerializeField] [JapaneseLabel("左右タックルを繰り返す回数")] private int maxLRTackle;
+
+    [SerializeField] [JapaneseLabel("左右タックルのループ回数")] private int LRTackleCounter;
+    [JapaneseLabel("タックルの回数")] private int tackleCounter;
     
     public GameObject Boss{get{ return boss; }}
+    public bool IsAttck{get{ return isAttck; }}
     public Vector3 CenterPos{get{ return centerPos; }}
-    public float CenterZPos{get{ return flontZPos; }}
+    public float FlontZPos{get{ return flontZPos; }}
     public float CoolTime{get{ return coolTime; }}
     public PatrolEnemyData EnemyData { get { return enemyData; } }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        centerPos = this.transform.position;
         stateMachine = new StateMachine();
         RandomSetPattern();
+        LRTackleCounter = 0;
+        tackleCounter = 0;
+        isAttck = false;
     }
 
     // Update is called once per frame
@@ -50,6 +67,8 @@ public class DepthBoss : EnemyAI
 
     public void Change()
     {
+        //ここに左右タックルを一定回数繰り返したらパターン3へ移行する処理を追加する
+        
         switch (pattern)
         {
             case Patterns.none:
@@ -100,6 +119,18 @@ public class DepthBoss : EnemyAI
             default:
                 Debug.Log("error:" + random);
                 break;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            PlayerStatus playerStatus = collision.gameObject.GetComponentInChildren<PlayerStatus>();
+            if (playerStatus != null)
+            {
+                playerStatus.Damage(1);
+            }
         }
     }
 }

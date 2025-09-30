@@ -109,6 +109,8 @@ MonoBehaviour:
   flontZPos: 0
   coolTime: 1
   enemyData: {fileID: 11400000, guid: d1f840c5b24b06844bc76223c72224bc, type: 2}
+  maxLRTackle: 0
+  LRTackleCounter: 0
 --- !u!114 &7691980087333562187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,8 +139,7 @@ MonoBehaviour:
   enemyBullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
   reflectionBullet: {fileID: 1734557430232284754, guid: 50aaa5bb5e5a5f44fa3f2ac7b7cb1f5d, type: 3}
   bulletRate: 0
-  ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
-  DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
+  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
   enemySpawn: {fileID: 0}
   enemyHPSlider: {fileID: 0}
 --- !u!135 &6314603403497138251
@@ -187,7 +188,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!82 &1050755721936601194
 AudioSource:
