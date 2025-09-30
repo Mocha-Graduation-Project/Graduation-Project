@@ -1,28 +1,25 @@
+using Scripts.Scriptable;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
     [SerializeField] private MapData mapData;
     [SerializeField] private bool checkSkip;
+    [SerializeField] private SoundData soundData;
     
+    private AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
+    }
     public enum Side
     {
         left = 0,
         right = 1,
         up = 2,
         down = 3,
-    }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public bool CanLoop(Vector3 pos, Side side)

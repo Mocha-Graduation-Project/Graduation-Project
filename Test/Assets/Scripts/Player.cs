@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Scripts;
 using Scripts.Scriptable;
+using UnityEngine.TextCore.Text;
 
 namespace Scripts
 {
@@ -13,9 +14,11 @@ namespace Scripts
         //コントローラー
         public static Player Instance;
         [SerializeField] private CharacterParams characterParams;
+        [SerializeField] private SoundData soundData;
         [SerializeField] private GameObject playerUI;
         private PlayerInput MoveAction;
-        private AudioSource audioSource;
+        [SerializeField]private AudioSource audioSource1;
+        [SerializeField]private AudioSource audioSource2;
         [NonSerialized] public Vector2 InputMove = Vector2.zero;
         private Rigidbody rb;
         private float startY;
@@ -69,6 +72,8 @@ namespace Scripts
         [JapaneseLabel("反射音")]private AudioClip ReflectionSound;
         [JapaneseLabel("発射音")]private AudioClip ShotSound;
         [JapaneseLabel("被ダメージ音")]private AudioClip DamageSound;
+        [JapaneseLabel("ジャンプ")] public AudioClip JumpSound;
+        [JapaneseLabel("歩き")] public AudioClip WalkSound;
 
         //反射
         [JapaneseLabel("最大反射スタミナ")] private float maxStamina = 100f;
@@ -76,6 +81,8 @@ namespace Scripts
         [NonSerialized,JapaneseLabel("現反射スタミナ")] public float currentStamina;
         [NonSerialized,JapaneseLabel("反射スタミナ消費量")]public float staminaDrainPerSecond = 20f;
         //[JapaneseLabel("quick反射消費量")] private float quickStaminaDrainPerSecond = 20f;
+        private Vector2 lastAimInput = Vector2.zero;
+        [JapaneseLabel("スティックで弾きが発動するデットゾーン")]private float deadZone;
         
         //射撃
         [JapaneseLabel(("最大射撃スタミナ"))]private float maxShotStamina = 1f;
@@ -108,9 +115,9 @@ namespace Scripts
             jumpCooldown = characterParams.jumpCooldown;
             maxFallSpeed = characterParams.maxFallSpeed;
             Bullets = characterParams.bullets;
-            ReflectionSound = characterParams.ReflectionSound;
-            ShotSound = characterParams.ShotSound;
-            DamageSound = characterParams.DamageSound;
+            ReflectionSound = soundData.ReflectionSound;
+            ShotSound = soundData.ShotSound;
+            DamageSound = soundData.DamageSound;
             maxStamina = characterParams.maxStamina;
             staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
             staminaRecoveryPerSecond = characterParams.staminaRecoveryPerSecond;
@@ -122,6 +129,9 @@ namespace Scripts
             groundLayer = characterParams.groundLayer;
             collisionRadius = characterParams.collisionRadius;
             butEffectDuration = characterParams.butEffectDuration;
+            JumpSound = soundData.JumpSound;
+            WalkSound = soundData.WalkSound;
+            deadZone = characterParams.deadZone;
         }
         
         private void Start()
@@ -133,16 +143,16 @@ namespace Scripts
             //MoveAction.actions["Attack"].performed += OnAttack;
             MoveAction.actions["Attack"].canceled += OffAttack;
             MoveAction.actions["Jump"].canceled += OffJump;
-            MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
-            MoveAction.actions["QuickAttack"].canceled += OffAttack;
+            // MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
+            // MoveAction.actions["QuickAttack"].canceled += OffAttack;
             MoveAction.actions["Aim"].performed += OnQuickAttackAim;
             MoveAction.actions["Aim"].canceled += OnQuickAttackAim;
+            
 
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
             Arrow.SetActive(false);
             jumpCount = MaxJumpCount;
-            audioSource = GetComponent<AudioSource>();
             
             mapManager = GameObject.FindObjectOfType<MapManager>();
             currentStamina = maxStamina;
@@ -172,6 +182,25 @@ namespace Scripts
             {
                 transform.position = temp;
                 return;
+            }
+            
+            //歩き音
+            if (isGround && animator.GetBool("isMove"))
+            {
+                if (!audioSource2.isPlaying)
+                {
+                    audioSource2.loop = true;
+                    audioSource2.clip = WalkSound;
+                    audioSource2.Play();
+                }
+            }
+            else
+            {
+                // それ以外の場合は停止する
+                if (audioSource2.isPlaying)
+                {
+                    audioSource2.Stop();
+                }
             }
             
             if (InputMove.x < 0)
@@ -230,31 +259,64 @@ namespace Scripts
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, -maxFallSpeed);
             }
 
-            if (quickAttackDirection != Vector2.zero)
+            // if (quickAttackDirection != Vector2.zero)
+            // {
+            //     // 入力方向から角度を計算
+            //     float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
+            //     // 矢印の回転を設定
+            //     quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle-90);
+            //     quickAxis.SetActive(true);
+            // }
+            // else
+            // {
+            //     quickAxis.SetActive(false);
+            // }
+        }
+
+        public void Ground(bool isGrounded)
+        {
+            
+            isGround = isGrounded;
+        }
+
+        public void JumpCount(bool isGrounded)
+        {
+            jumpCount = MaxJumpCount;
+        }
+        public void OnQuickAttackAim(InputAction.CallbackContext context)
+        {
+            Vector2 input = context.ReadValue<Vector2>();
+            
+            if (input.sqrMagnitude > deadZone)
             {
-                // 入力方向から角度を計算
+                if (!IsAttacking && lastAimInput.sqrMagnitude <= deadZone)
+                {
+                    quickAttackDirection = input.normalized;
+
+                    OnQuickAttackTriggered();
+                }
+                
                 float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
-                // 矢印の回転を設定
-                quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle-90);
+                quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle - 90);
                 quickAxis.SetActive(true);
             }
             else
             {
                 quickAxis.SetActive(false);
             }
+            lastAimInput = input;
         }
+        private void OnQuickAttackTriggered()
+        {
+            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
 
-        public void Ground()
-        {
-                    jumpCount = MaxJumpCount;
-        }
-        public void OnQuickAttackAim(InputAction.CallbackContext context)
-        {
-            Vector2 input = context.ReadValue<Vector2>();
-            if (input.sqrMagnitude > 0.01f)
-            {
-                quickAttackDirection = input.normalized; // 最後に入れた方向を保持
-            }
+            IsAttacking = true; 
+
+            QuickAttackCollision.gameObject.SetActive(true);
+
+            PlayAttackAnimation();
+
+            Invoke("AttackCollisionFalse", collisionRadius);
         }
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -265,7 +327,6 @@ namespace Scripts
                 Debug.LogWarning("Animatorがnullです。Playerオブジェクトが既に破棄されているか、適切に初期化されていません。");
                 return;
             }
-            
             animator.SetBool("isMove", true);
             InputMove = context.ReadValue<Vector2>();
 
@@ -278,6 +339,7 @@ namespace Scripts
             else
             {
                 animator.SetBool("isMove", false); 
+                audioSource2.Stop();
             }
         }
 
@@ -294,6 +356,7 @@ namespace Scripts
                 jumpCount--;
                 lastJumpTime = Time.time;
                 animator.SetBool("isJump",true);
+                audioSource1.PlayOneShot(JumpSound);
             }
         }
 
@@ -319,7 +382,7 @@ namespace Scripts
 
         public void Shot()
         {
-            audioSource.PlayOneShot(ShotSound);
+            audioSource1.PlayOneShot(ShotSound);
             var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
             var bullet = bullets.GetComponent<Bullet>();
             bullet.PowerDirection = direction;
@@ -384,12 +447,12 @@ namespace Scripts
         }
         public void PlayReflectionSound()
         {
-            audioSource.PlayOneShot(ReflectionSound);
+            audioSource1.PlayOneShot(ReflectionSound);
         }
 
         public void PlayDamageSound()
         {
-            audioSource.PlayOneShot(DamageSound);
+            audioSource1.PlayOneShot(DamageSound);
         }
         private void AttackCollisionFalse()
         {
@@ -407,8 +470,8 @@ namespace Scripts
             //MoveAction.actions["Attack"].performed -= OnAttack;
             MoveAction.actions["Attack"].canceled -= OffAttack;
             MoveAction.actions["Jump"].canceled -= OffJump;
-            MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
-            MoveAction.actions["QuickAttack"].canceled -= OffAttack;
+            //MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
+            //MoveAction.actions["QuickAttack"].canceled -= OffAttack;
             MoveAction.actions["Aim"].performed -= OnQuickAttackAim;
             MoveAction.actions["Aim"].canceled -= OnQuickAttackAim;
         }
@@ -422,8 +485,8 @@ namespace Scripts
             //MoveAction.actions["Attack"].performed += OnAttack;
             MoveAction.actions["Attack"].canceled += OffAttack;
             MoveAction.actions["Jump"].canceled += OffJump;
-            MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
-            MoveAction.actions["QuickAttack"].canceled += OffAttack;
+            //MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
+            //MoveAction.actions["QuickAttack"].canceled += OffAttack;
             MoveAction.actions["Aim"].performed += OnQuickAttackAim;
             MoveAction.actions["Aim"].canceled += OnQuickAttackAim;
         }
@@ -440,8 +503,8 @@ namespace Scripts
                 //MoveAction.actions["Attack"].performed -= OnAttack;
                 MoveAction.actions["Attack"].canceled -= OffAttack;
                 MoveAction.actions["Jump"].canceled -= OffJump;
-                MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
-                MoveAction.actions["QuickAttack"].canceled -= OffAttack;
+                //MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
+                //MoveAction.actions["QuickAttack"].canceled -= OffAttack;
                 MoveAction.actions["Aim"].performed -= OnQuickAttackAim;
                 MoveAction.actions["Aim"].canceled -= OnQuickAttackAim;
             }

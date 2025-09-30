@@ -31,12 +31,18 @@ namespace Scripts.Scriptable
         [Header("<オブジェクト>")]
         [JapaneseLabel("弾のオブジェクト")]public GameObject bullets;
         
-        //サウンド関連
-        [Space(5)]
-        [Header("<サウンド関連>")]
-        [JapaneseLabel("反射音")] public AudioClip ReflectionSound;
-        [JapaneseLabel("射撃音")] public AudioClip ShotSound;
-        [JapaneseLabel("被ダメ時音")] public AudioClip DamageSound;
+        // //サウンド関連
+        // [Space(5)]
+        // [Header("<サウンド関連>")]
+        // [JapaneseLabel("反射音")] public AudioClip ReflectionSound;
+        // [JapaneseLabel("射撃音")] public AudioClip ShotSound;
+        // [JapaneseLabel("被ダメ時音")] public AudioClip DamageSound;
+        // [JapaneseLabel("ジャンプ")] public AudioClip JumpSound;
+        // [JapaneseLabel("歩き")] public AudioClip WalkSound;
+        // [JapaneseLabel("撃破")] public AudioClip EnemyDestorySound;
+        // [JapaneseLabel("敵射撃")] public AudioClip EnemyShotSound;
+        // [JapaneseLabel("盾")] public AudioClip ShieldSound;
+        // [JapaneseLabel("ワープ")] public AudioClip WarpSound;
         
         //反射
         [Space(5)]
@@ -45,6 +51,8 @@ namespace Scripts.Scriptable
         [JapaneseLabel("反射スタミナ回復量")] public float staminaRecoveryPerSecond = 10f;
         [JapaneseLabel("反射スタミナ消費量")] public float staminaDrainPerSecond = 20f;
         //[JapaneseLabel("quick反射消費量")] public float quickStaminaDrainPerSecond = 20f;
+        [JapaneseLabel("スティックで弾きが発動するデットゾーン")]　public float deadZone = 0.25f;
+        
         //射撃
         [Space(5)]
         [Header("<射撃>")]
@@ -62,6 +70,7 @@ namespace Scripts.Scriptable
         [JapaneseLabel("ヒットストップ時間")]public float hitStopDuration;
         [Header("反射時のダメージ")]
         public int[] damageByReflectionCount;
+        [JapaneseLabel("反射クールタイム時間")] public float reflectCooldown = 0.5f;
 
         
         

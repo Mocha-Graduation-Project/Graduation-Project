@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using Cysharp.Threading.Tasks;
+using Scripts.Scriptable;
 using TMPro;
 
 namespace Systems
@@ -50,9 +51,13 @@ namespace Systems
 
         private HashSet<string> defeatedEnemyIds = new HashSet<string>();
 
+        [SerializeField] private SoundData soundData;
+        private AudioSource audioSource;
+        private AudioClip EnemyDestorySound;
         
         private void Awake()
         {
+            audioSource = GetComponent<AudioSource>();
             sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
 
             // enemyIdの自動設定
@@ -80,6 +85,7 @@ namespace Systems
             remainnEnemies = enemiesToSpawn.Count + conditionToSpawn.Count;
             remainingEnemiesText = GameObject.Find("RemainEnemies").GetComponent<TextMeshProUGUI>();
             remainingEnemiesText.text = remainnEnemies.ToString();
+            EnemyDestorySound = soundData.EnemyDestorySound;
 
             Debug.Log($"このマップの敵総数: {enemies}");
 
@@ -130,6 +136,7 @@ namespace Systems
         {
             if (activeEnemies.Contains(enemy))
             {
+                audioSource.PlayOneShot(EnemyDestorySound);
                 string defeatedId = GetEnemyIdByObject(enemy);
                 activeEnemies.Remove(enemy);
                 //Destroy(enemy);

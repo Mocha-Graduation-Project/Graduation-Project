@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Systems;
 using DG.Tweening;
+using Scripts.Scriptable;
 using TMPro;
 using UnityEngine;
 using Scripts.UI;
@@ -20,8 +21,10 @@ namespace Scripts
         
         Player player => Player.Instance;
         private bool isfirst = true;
+        [SerializeField] SoundData soundData;
         private AudioSource audioSource;
-        [SerializeField] private AudioClip DamageSound;
+        private AudioClip DamageSound;
+        private AudioClip EnemyDestorySound;
 
         [SerializeField] private EnemySpawnManager enemySpawn;
 
@@ -34,6 +37,8 @@ namespace Scripts
         {
             audioSource = GetComponent<AudioSource>();
             enemySpawn = GameObject.FindObjectOfType<EnemySpawnManager>();
+            DamageSound = soundData.DamageSound;
+            EnemyDestorySound = soundData.EnemyDestorySound;
         }
 
        
@@ -66,32 +71,6 @@ namespace Scripts
         }
 
         private void OnTriggerEnter(Collider collision)
-        {
-            //if (collision.gameObject.tag == "Attack")
-            //{
-            //    Debug.Log("当たった");
-            //    HP--;
-            //    damageText.ShowDamage(1);
-            //    audioSource.PlayOneShot(DamageSound);
-            //}
-
-            if (collision.gameObject.tag == "Bullet")
-            {
-                Debug.Log("当たった");
-                Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-                HP -= bullet.Damage;
-                damageText.ShowDamage(bullet.Damage);
-                audioSource.PlayOneShot(DamageSound);
-            }
-
-            if (HP <= 0)
-            {
-                enemySpawn.RemoveEnemy(this.gameObject);
-                //Destroy(this.gameObject);
-            }
-        }
-
-        private void OnTriggerEnter2D(Collider2D collision)
         {
             //if (collision.gameObject.tag == "Attack")
             //{
