@@ -1,16 +1,16 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-//using System.Numerics;
-using UnityEngine.InputSystem;
-using UnityEngine;
 using Scripts;
 using Scripts.Scriptable;
+using UnityEngine;
+using UnityEngine.InputSystem;
+//using System.Numerics;
 
-namespace Scripts
+namespace Player
 {
     public class Bullet : MonoBehaviour
-    { 
+    {
+        private static readonly int PowerLevel = Shader.PropertyToID("_PowerLevel");
         private UnityEngine.Vector3 power;
         Player player => Player.Instance;
         PlayerStatus pStatus => PlayerStatus.Instance;
@@ -94,7 +94,7 @@ namespace Scripts
                 currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
                        
                 // 移動
-                transform.position += currentDirection * currentSpeed * Time.deltaTime;
+                transform.position += currentDirection * (currentSpeed * Time.deltaTime);
             }
             
             if (reflectCooldownTimer > 0)
@@ -186,9 +186,9 @@ namespace Scripts
             reflectCooldown = characterParams.reflectCooldown;
         }
 
-        void OnTriggerEnter(Collider collider)
+        private void OnTriggerEnter(Collider collider)
         {
-            if (collider.gameObject.tag == "Ground"&& !isAttack)
+            if (collider.gameObject.CompareTag("Ground")&& !isAttack)
             {
                 if (collider.gameObject.layer == LayerMask.NameToLayer("FloatFloor"))
                     return;
@@ -200,7 +200,7 @@ namespace Scripts
                 destroyed = true;
                 Destroy(this.gameObject);
             }
-            if (collider.gameObject.tag == "Player" && !isAttack)
+            if (collider.gameObject.CompareTag("Player") && !isAttack)
             {
                 if(!CompareTag("EnemyBullet")) return;
                 if (collider.TryGetComponent<PlayerStatus>(out PlayerStatus status))
@@ -215,7 +215,7 @@ namespace Scripts
                 destroyed = true;
                 Destroy(this.gameObject);
             }
-            if (collider.gameObject.tag == "Attack" && !destroyed)
+            if (collider.gameObject.CompareTag("Attack") && !destroyed)
             {
                 pStatus.StartReflectInvincibility(1000);
                 player.isMove = false;
@@ -228,7 +228,7 @@ namespace Scripts
 
             }
 
-            if (collider.gameObject.tag == "QuickAttack" && !destroyed)
+            if (collider.gameObject.CompareTag("QuickAttack") && !destroyed)
             {
                 // クールタイム中ではない、かつ反射処理中でなければ実行
                 if (reflectCooldownTimer <= 0 && !isReflecting)
@@ -242,57 +242,6 @@ namespace Scripts
                     SavePower = -power;
                     QuickAttack();
                 }
-            }
-        }
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.gameObject.tag == "Ground"&& !isAttack)
-            {
-                if (collision.gameObject.layer == LayerMask.NameToLayer("FloatFloor")) 
-                    return;
-                
-                //ResetBullet();
-                Time.timeScale = 1f;
-                player.isMove = true;
-                isAttack = false;
-                destroyed = true;
-                Destroy(this.gameObject);
-            }
-            if (collision.gameObject.tag == "Player" && !isAttack)
-            {
-                if(!CompareTag("EnemyBullet")) return;
-                if (collision.TryGetComponent<PlayerStatus>(out PlayerStatus status))
-                {
-                    status.Damage(1);
-                }
-
-                //ResetBullet();
-                Time.timeScale = 1f;
-                player.isMove = true;
-                isAttack = false;
-                destroyed = true;
-                Destroy(this.gameObject);
-            }
-            if (collision.gameObject.tag == "Attack" && !destroyed)
-            {
-                pStatus.StartReflectInvincibility(1000);
-                player.isMove = false;
-                isPaused = true;
-                player.Arrow.SetActive(true);
-                isAttack = true;
-                Time.timeScale = 0.2f;
-                power = UnityEngine.Vector3.zero;
-                //Invoke("Attack", 0.3f);
-            }
-
-            if (collision.gameObject.tag == "QuickAttack" && !destroyed)
-            {
-                pStatus.StartReflectInvincibility(1000);
-                player.isMove = false;
-                isQuick = true;
-                SavePower = -power;
-                //Power = UnityEngine.Vector3.zero;
-                QuickAttack();
             }
         }
         
@@ -365,8 +314,8 @@ namespace Scripts
             }
             
             float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
-            meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-            trailRenderer.material.SetFloat("_PowerLevel", powerColor);
+            meshRendererChild.material.SetFloat(PowerLevel, powerColor);
+            trailRenderer.material.SetFloat(PowerLevel, powerColor);
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
             
@@ -421,37 +370,36 @@ namespace Scripts
             currentSpeed = newSpeed;
         }
         
-        public void SetPowerEnemy(Vector3 Pos)
+        public void SetPowerEnemy(Vector3 pos)
         {
-            float correctionAimPos = 1.5f;
-            float Angle = Mathf.Atan2(player.gameObject.transform.position.y - Pos.y + correctionAimPos,
-                player.gameObject.transform.position.x - Pos.x);
+            const float CorrectionAimPos = 1.5f;
+            float angle = Mathf.Atan2(player.gameObject.transform.position.y - pos.y + CorrectionAimPos,
+                player.gameObject.transform.position.x - pos.x);
             //Debug.Log("角度:"+Angle);
-            Vector3 direction = new Vector3(Mathf.Cos(Angle), Mathf.Sin(Angle), 0).normalized;
+            Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0).normalized;
             power = direction;
             PowerDirection = 1f;
             //Debug.Log("Pos:"+Pos+"/Power:"+power);;
         }
         
-        public void SetStraightPowerEnemy(UnityEngine.Vector3 angle)
+        public void SetStraightPowerEnemy(Vector3 angle)
         {
-            UnityEngine.Vector3 direction=Vector3.zero;
+            Vector3 direction=Vector3.zero;
 
-            if (angle.z >= 0 && angle.z <= 45)
+            switch (angle.z)
             {
-                direction = Vector3.left;
-            }
-            else if (angle.z > 45 && angle.z <= 135)
-            {
-                direction = Vector3.down;
-            }
-            else if (angle.z > 135 && angle.z <= 180)
-            {
-                direction = Vector3.right;
-            }
-            else
-            {
-                Debug.Log("範囲外");
+                case >= 0 and <= 45:
+                    direction = Vector3.left;
+                    break;
+                case > 45 and <= 135:
+                    direction = Vector3.down;
+                    break;
+                case > 135 and <= 180:
+                    direction = Vector3.right;
+                    break;
+                default:
+                    Debug.Log("範囲外");
+                    break;
             }
 
             power = direction;

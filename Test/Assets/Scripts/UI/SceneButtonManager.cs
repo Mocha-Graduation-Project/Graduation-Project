@@ -20,7 +20,7 @@ public class SceneButtonManager : MonoBehaviour
     
     public State currentState = State.Gameplay;
     [SerializeField] private GameObject player;
-    [SerializeField]private Player playerScript;
+    [SerializeField]private Player.Player playerScript;
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject pauseObj;
     [SerializeField] private GameObject clearObj;
@@ -35,15 +35,14 @@ public class SceneButtonManager : MonoBehaviour
         player=GameObject.Find("Player");
         if (player != null)
         {
-            playerScript = player.GetComponent<Player>();
+            playerScript = player.GetComponent<Player.Player>();
             playerInput = player.GetComponent<PlayerInput>();
         }
-        if (playerInput != null)
-        {
-            playerInput.actions["Retry"].performed += OnRetry;
-            playerInput.actions["Finish"].performed += OnFinished;
-            playerInput.actions["Pause"].performed += OnPause;
-        }
+
+        if (playerInput == null) return;
+        playerInput.actions["Retry"].performed += OnRetry;
+        playerInput.actions["Finish"].performed += OnFinished;
+        playerInput.actions["Pause"].performed += OnPause;
     }
 
     void ChangeState(State nextState)
@@ -87,6 +86,7 @@ public class SceneButtonManager : MonoBehaviour
         SceneManager.LoadScene("Title");
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void SceneChangeMainMenu()
     {
         InputReset();

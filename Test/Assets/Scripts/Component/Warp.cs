@@ -1,10 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Scripts.Scriptable;
 using UnityEngine;
 
-namespace Scripts
+namespace Component
 {
     public class Warp : MonoBehaviour
     {
@@ -29,13 +28,12 @@ namespace Scripts
         private void OnTriggerEnter(Collider other)
         {
             // タグがリストに含まれていて、現在ワープ中でないなら処理する
-            if (!isWarping && Tags.Contains(other.tag))
-            {
-                audioSource.PlayOneShot(WarpSound);
-                StartCoroutine(WarpPoint(other));
-            }
+            if (isWarping || !Tags.Contains(other.tag)) return;
+            audioSource.PlayOneShot(WarpSound);
+            StartCoroutine(WarpPoint(other));
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         private IEnumerator WarpPoint(Collider target)
         {
             isWarping = true;

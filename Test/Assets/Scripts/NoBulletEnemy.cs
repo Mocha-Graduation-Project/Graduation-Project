@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Systems;
 using DG.Tweening;
+using Player;
 using Scripts.Scriptable;
 using TMPro;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace Scripts
     {
         public int HP;
         
-        Player player => Player.Instance;
+        Player.Player player => Player.Player.Instance;
         private bool isfirst = true;
         [SerializeField] SoundData soundData;
         private AudioSource audioSource;

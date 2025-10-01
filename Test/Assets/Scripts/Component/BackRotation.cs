@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
-using System.Collections;
 
-namespace Scripts
+namespace Component
 {
     public class BackRotation : MonoBehaviour
     {

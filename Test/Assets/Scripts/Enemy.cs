@@ -5,6 +5,7 @@ using Scripts.UI;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using Player;
 using Scripts.Scriptable;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -51,7 +52,7 @@ namespace Scripts
         [SerializeField] [JapaneseLabel("弾を出す場所")] private GameObject shotObj;
         [SerializeField] [JapaneseLabel("ストレートの参照オブジェ")] private GameObject straightObj;
         
-        Player player => Player.Instance;
+        Player.Player player => Player.Player.Instance;
         private bool isfirst = true;
 
         [SerializeField] private bool dontAttck;
