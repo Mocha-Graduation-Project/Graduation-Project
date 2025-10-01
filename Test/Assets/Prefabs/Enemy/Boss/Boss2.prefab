@@ -106,11 +106,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pattern: 0
   boss: {fileID: 4769372897256545517}
+  isAttck: 0
   flontZPos: 0
   coolTime: 1
   enemyData: {fileID: 11400000, guid: d1f840c5b24b06844bc76223c72224bc, type: 2}
-  maxLRTackle: 0
+  maxLRTackle: 1
   LRTackleCounter: 0
+  tackleCounter: 0
+  fallAttckWaitTime: 1
 --- !u!114 &7691980087333562187
 MonoBehaviour:
   m_ObjectHideFlags: 0

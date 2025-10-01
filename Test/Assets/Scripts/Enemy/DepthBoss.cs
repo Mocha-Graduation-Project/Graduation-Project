@@ -36,17 +36,23 @@ public class DepthBoss : EnemyAI
 
     [Space(5)]
     [Header("パターン3")] 
-    [SerializeField] [JapaneseLabel("左右タックルを繰り返す回数")] private int maxLRTackle;
+    [SerializeField] [JapaneseLabel("左右タックルの最大ループ数")] private int maxLRTackle;
 
     [SerializeField] [JapaneseLabel("左右タックルのループ回数")] private int LRTackleCounter;
-    [JapaneseLabel("タックルの回数")] private int tackleCounter;
+
+    [SerializeField] [JapaneseLabel("タックルの回数")] private int tackleCounter;
+
+    [SerializeField] [JapaneseLabel("落下後の待機時間")] private float fallAttckWaitTime;
+    
+    GameObject player;
     
     public GameObject Boss{get{ return boss; }}
-    public bool IsAttck{get{ return isAttck; }}
     public Vector3 CenterPos{get{ return centerPos; }}
     public float FlontZPos{get{ return flontZPos; }}
     public float CoolTime{get{ return coolTime; }}
     public PatrolEnemyData EnemyData { get { return enemyData; } }
+    public float FallAttckWaitTime { get { return fallAttckWaitTime; } }
+    public GameObject Player{ get{ return player; }}
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -56,7 +62,8 @@ public class DepthBoss : EnemyAI
         RandomSetPattern();
         LRTackleCounter = 0;
         tackleCounter = 0;
-        isAttck = false;
+        isAttck = true;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -67,7 +74,22 @@ public class DepthBoss : EnemyAI
 
     public void Change()
     {
-        //ここに左右タックルを一定回数繰り返したらパターン3へ移行する処理を追加する
+        //左右タックルを一定回数繰り返したらパターン3へ移行する
+        if (pattern != Patterns.fallingAttack && pattern != Patterns.none)
+        {
+            tackleCounter++;
+            if (tackleCounter != 0 && tackleCounter % 2 == 0)
+            {
+                LRTackleCounter++;
+                if (LRTackleCounter == maxLRTackle)
+                {
+                    ChangePattern(Patterns.fallingAttack);
+                    LRTackleCounter = 0;
+                    tackleCounter = 0;
+                    return;
+                }
+            }
+        }
         
         switch (pattern)
         {
@@ -124,7 +146,7 @@ public class DepthBoss : EnemyAI
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (isAttck == true && collision.gameObject.tag == "Player")
         {
             PlayerStatus playerStatus = collision.gameObject.GetComponentInChildren<PlayerStatus>();
             if (playerStatus != null)
@@ -132,5 +154,15 @@ public class DepthBoss : EnemyAI
                 playerStatus.Damage(1);
             }
         }
+    }
+
+    public void AttckTrue()
+    {
+        isAttck = true;
+    }
+
+    public void AttckFalse()
+    {
+        isAttck = false;
     }
 }
