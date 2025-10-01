@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2080916473914994794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6393923631417805149}
+  m_Layer: 0
+  m_Name: GunMuzzule
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6393923631417805149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2080916473914994794}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.014, y: -0.171, z: 1.019}
+  m_LocalScale: {x: 1.1298158, y: 1.1298158, z: 1.1298158}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8482100708619351973}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2729335196196445264
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +344,7 @@ Transform:
   m_Children:
   - {fileID: 1766482239014303085}
   - {fileID: 322977839163566241}
+  - {fileID: 6393923631417805149}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &57928517220858802
@@ -405,7 +437,7 @@ MonoBehaviour:
   beforeAttackTime: 1
   blinkDuration: 0.2
   canvas: {fileID: 2729335196196445264}
-  shotObj: {fileID: 0}
+  shotObj: {fileID: 2080916473914994794}
   straightObj: {fileID: 0}
   dontAttck: 0
   bullet: {fileID: 0}
@@ -532,7 +564,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.03, z: 0.02}
 --- !u!54 &2973080667273884406
 Rigidbody:
   m_ObjectHideFlags: 0
