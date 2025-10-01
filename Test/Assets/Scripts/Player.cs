@@ -1,11 +1,8 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-using Scripts;
 using Scripts.Scriptable;
-using UnityEngine.TextCore.Text;
 
 namespace Scripts
 {
@@ -13,6 +10,12 @@ namespace Scripts
     {
         //コントローラー
         public static Player Instance;
+        private static readonly int IsMove = Animator.StringToHash("isMove");
+        private static readonly int Jump = Animator.StringToHash("Jump");
+        private static readonly int IsJump = Animator.StringToHash("isJump");
+        private static readonly int IsShot1 = Animator.StringToHash("isShot");
+        private static readonly int AttackDirection = Animator.StringToHash("AttackDirection");
+        private static readonly int IsAttack = Animator.StringToHash("isAttack");
         [SerializeField] private CharacterParams characterParams;
         [SerializeField] private SoundData soundData;
         [SerializeField] private GameObject playerUI;
@@ -32,7 +35,6 @@ namespace Scripts
         [JapaneseLabel("最大ジャンプ数")]private int MaxJumpCount;
         [JapaneseLabel("2回目のジャンプまでのクールタイム")]
         private float jumpCooldown = 0.2f;
-        [FormerlySerializedAs("limitSpeed")]
         [JapaneseLabel("最大落下速度")]private float maxFallSpeed = 5f;
         [JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
         [JapaneseLabel("判定消えるまでの時間")]　private float collisionRadius;
@@ -47,7 +49,8 @@ namespace Scripts
         [JapaneseLabel("攻撃中か")]public bool IsAttacking = false;
         [JapaneseLabel("発射中か")]private bool IsShot = false;
         [JapaneseLabel("移動中か")][NonSerialized] public bool isMove = true;
-        
+
+        private float quickAngle;
         //オブジェクト
         private GameObject Bullets;
         [JapaneseLabel("弾発射位置")][SerializeField] private GameObject ShotPosition;
@@ -69,11 +72,11 @@ namespace Scripts
         AnimatorStateInfo animatorStateInfo;
         
         //サウンド関連
-        [JapaneseLabel("反射音")]private AudioClip ReflectionSound;
-        [JapaneseLabel("発射音")]private AudioClip ShotSound;
-        [JapaneseLabel("被ダメージ音")]private AudioClip DamageSound;
-        [JapaneseLabel("ジャンプ")] public AudioClip JumpSound;
-        [JapaneseLabel("歩き")] public AudioClip WalkSound;
+        [JapaneseLabel("反射音")]private AudioClip reflectionSound;
+        [JapaneseLabel("発射音")]private AudioClip shotSound;
+        [JapaneseLabel("被ダメージ音")]private AudioClip damageSound;
+        [JapaneseLabel("ジャンプ")] public AudioClip jumpSound;
+        [JapaneseLabel("歩き")] public AudioClip walkSound;
 
         //反射
         [JapaneseLabel("最大反射スタミナ")] private float maxStamina = 100f;
@@ -91,7 +94,7 @@ namespace Scripts
         [JapaneseLabel("現射撃スタミナ")]private float currentShotStamina;
         [JapaneseLabel("射撃スタミナ消費量")]private float shotStaminaDrainPerSecond = 0.25f;
         [JapaneseLabel("射撃クールタイム")]private float shotCoolTime = 0.2f;
-        [JapaneseLabel("オーバーヒートしているか")]bool Overheat = false;
+        [JapaneseLabel("オーバーヒートしているか")] private bool Overheat = false;
         
         
         private void Awake()
@@ -115,9 +118,9 @@ namespace Scripts
             jumpCooldown = characterParams.jumpCooldown;
             maxFallSpeed = characterParams.maxFallSpeed;
             Bullets = characterParams.bullets;
-            ReflectionSound = soundData.ReflectionSound;
-            ShotSound = soundData.ShotSound;
-            DamageSound = soundData.DamageSound;
+            reflectionSound = soundData.ReflectionSound;
+            shotSound = soundData.ShotSound;
+            damageSound = soundData.DamageSound;
             maxStamina = characterParams.maxStamina;
             staminaDrainPerSecond = characterParams.staminaDrainPerSecond;
             staminaRecoveryPerSecond = characterParams.staminaRecoveryPerSecond;
@@ -129,11 +132,12 @@ namespace Scripts
             groundLayer = characterParams.groundLayer;
             collisionRadius = characterParams.collisionRadius;
             butEffectDuration = characterParams.butEffectDuration;
-            JumpSound = soundData.JumpSound;
-            WalkSound = soundData.WalkSound;
+            jumpSound = soundData.JumpSound;
+            walkSound = soundData.WalkSound;
             deadZone = characterParams.deadZone;
         }
         
+        [Obsolete("Obsolete")]
         private void Start()
         {
             MoveAction.actions["Move"].performed += OnMove;
@@ -185,12 +189,12 @@ namespace Scripts
             }
             
             //歩き音
-            if (isGround && animator.GetBool("isMove"))
+            if (isGround && animator.GetBool(IsMove))
             {
                 if (!audioSource2.isPlaying)
                 {
                     audioSource2.loop = true;
-                    audioSource2.clip = WalkSound;
+                    audioSource2.clip = walkSound;
                     audioSource2.Play();
                 }
             }
@@ -221,7 +225,7 @@ namespace Scripts
             }
             transform.position = temp;
 
-            animator.SetFloat("Jump", rb.linearVelocity.magnitude);
+            animator.SetFloat(Jump, rb.linearVelocity.magnitude);
             
             if (!IsAttacking && currentStamina < maxStamina)
             {
@@ -239,14 +243,7 @@ namespace Scripts
                 Overheat = false;
             }
             
-            if (Overheat)
-            {
-                BulletUI.color = Color.red;
-            }
-            else
-            {
-                BulletUI.color = Color.white;
-            }
+            BulletUI.color = Overheat ? Color.red : Color.white;
             
             animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
             if (animatorStateInfo.IsName("isShot") && animatorStateInfo.normalizedTime >= 1.0f)
@@ -283,20 +280,21 @@ namespace Scripts
         {
             jumpCount = MaxJumpCount;
         }
-        public void OnQuickAttackAim(InputAction.CallbackContext context)
+
+        private void OnQuickAttackAim(InputAction.CallbackContext context)
         {
             Vector2 input = context.ReadValue<Vector2>();
             
             if (input.sqrMagnitude > deadZone)
             {
+                quickAttackDirection = input.normalized; 
+                quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
+
                 if (!IsAttacking && lastAimInput.sqrMagnitude <= deadZone)
                 {
-                    quickAttackDirection = input.normalized;
-
-                    OnQuickAttackTriggered();
+                    Debug.Log(quickAngle);
+                    OnQuickAttackTriggered(quickAngle);
                 }
-                
-                float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
                 quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle - 90);
                 quickAxis.SetActive(true);
             }
@@ -306,17 +304,42 @@ namespace Scripts
             }
             lastAimInput = input;
         }
-        private void OnQuickAttackTriggered()
+        private void OnQuickAttackTriggered(float angle)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
-
-            IsAttacking = true; 
+            int attackDirection;
+            if (angle is >= 45 and < 135)
+            {
+                // 上方向
+                attackDirection = 0;
+            }
+            else if (angle is >= -135 and < -45)
+            {
+                // 下方向
+                attackDirection = 2;
+            }
+            else if (angle is >= -45 and < 45)
+            {
+                // 右方向
+                attackDirection = (direction == 1) ? 1 : 3;
+                
+            }
+            else
+            { 
+                // 左方向
+                attackDirection = (direction == -1) ? 1 : 3;
+            }
+            
+            
+            IsAttacking = true;
 
             QuickAttackCollision.gameObject.SetActive(true);
+            
+            Debug.Log(attackDirection);
 
-            PlayAttackAnimation();
+            PlayAttackAnimation(attackDirection);
 
-            Invoke("AttackCollisionFalse", collisionRadius);
+            Invoke(nameof(AttackCollisionFalse), collisionRadius);
         }
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -327,18 +350,18 @@ namespace Scripts
                 Debug.LogWarning("Animatorがnullです。Playerオブジェクトが既に破棄されているか、適切に初期化されていません。");
                 return;
             }
-            animator.SetBool("isMove", true);
+            animator.SetBool(IsMove, true);
             InputMove = context.ReadValue<Vector2>();
 
             if (InputMove != Vector2.zero)
             {
-                animator.SetBool("isMove", true);
-                var Angle = Mathf.Atan2(InputMove.y, InputMove.x) * Mathf.Rad2Deg;
-                Arrow.transform.rotation = Quaternion.Euler(0f, 0f, Angle);
+                animator.SetBool(IsMove, true);
+                var angle = Mathf.Atan2(InputMove.y, InputMove.x) * Mathf.Rad2Deg;
+                Arrow.transform.rotation = Quaternion.Euler(0f, 0f, angle);
             }
             else
             {
-                animator.SetBool("isMove", false); 
+                animator.SetBool(IsMove, false); 
                 audioSource2.Stop();
             }
         }
@@ -355,8 +378,8 @@ namespace Scripts
                 // rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
                 jumpCount--;
                 lastJumpTime = Time.time;
-                animator.SetBool("isJump",true);
-                audioSource1.PlayOneShot(JumpSound);
+                animator.SetBool(IsJump,true);
+                audioSource1.PlayOneShot(jumpSound);
             }
         }
 
@@ -365,7 +388,7 @@ namespace Scripts
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             
             isJump = false;
-            animator.SetBool("isJump", false);
+            animator.SetBool(IsJump, false);
         }
 
         public void OnShot(InputAction.CallbackContext context)
@@ -375,18 +398,18 @@ namespace Scripts
             {
                 IsShot = true;
                 currentShotStamina -= shotStaminaDrainPerSecond;
-                animator.SetTrigger("isShot");
-                Invoke("Shot",0.45f);
+                animator.SetTrigger(IsShot1);
+                Invoke(nameof(Shot),0.45f);
             }
         }
 
         public void Shot()
         {
-            audioSource1.PlayOneShot(ShotSound);
+            audioSource1.PlayOneShot(shotSound);
             var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
             var bullet = bullets.GetComponent<Bullet>();
             bullet.PowerDirection = direction;
-            Invoke("ShotFinish",shotCoolTime);
+            Invoke(nameof(ShotFinish),shotCoolTime);
         }
 
         private void ShotFinish()
@@ -417,8 +440,8 @@ namespace Scripts
             
 
             QuickAttackCollision.gameObject.SetActive(true);
-            Invoke("AttackCollisionFalse", collisionRadius);
-            PlayAttackAnimation();
+            Invoke(nameof(AttackCollisionFalse), collisionRadius);
+            //PlayAttackAnimation();
         }
         private void OffAttack(InputAction.CallbackContext context)
         {
@@ -430,15 +453,16 @@ namespace Scripts
             QuickAttackCollision.gameObject.SetActive(false);
         }
 
-        public void PlayAttackAnimation()
+        private void PlayAttackAnimation(int attackDirection)
         {
-            animator.SetTrigger("isAttack");
+            animator.SetInteger(AttackDirection,attackDirection);
+            animator.SetTrigger(IsAttack);
         }
         
         private void PlayEffect()
         {
             batSlash.SetActive(true);
-            Invoke("EffectCancel", 0.2f);
+            Invoke(nameof(EffectCancel), 0.2f);
         }
 
         private void EffectCancel()
@@ -447,12 +471,12 @@ namespace Scripts
         }
         public void PlayReflectionSound()
         {
-            audioSource1.PlayOneShot(ReflectionSound);
+            audioSource1.PlayOneShot(reflectionSound);
         }
 
         public void PlayDamageSound()
         {
-            audioSource1.PlayOneShot(DamageSound);
+            audioSource1.PlayOneShot(damageSound);
         }
         private void AttackCollisionFalse()
         {
@@ -494,20 +518,18 @@ namespace Scripts
         private void OnDisable()
         {
             // OnDisable で購読を解除
-            if (MoveAction != null)
-            {
-                MoveAction.actions["Move"].performed -= OnMove;
-                MoveAction.actions["Move"].canceled -= OnMove;
-                MoveAction.actions["Jump"].started -= OnJump;
-                MoveAction.actions["Shot"].started -= OnShot;
-                //MoveAction.actions["Attack"].performed -= OnAttack;
-                MoveAction.actions["Attack"].canceled -= OffAttack;
-                MoveAction.actions["Jump"].canceled -= OffJump;
-                //MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
-                //MoveAction.actions["QuickAttack"].canceled -= OffAttack;
-                MoveAction.actions["Aim"].performed -= OnQuickAttackAim;
-                MoveAction.actions["Aim"].canceled -= OnQuickAttackAim;
-            }
+            if (MoveAction == null) return;
+            MoveAction.actions["Move"].performed -= OnMove;
+            MoveAction.actions["Move"].canceled -= OnMove;
+            MoveAction.actions["Jump"].started -= OnJump;
+            MoveAction.actions["Shot"].started -= OnShot;
+            //MoveAction.actions["Attack"].performed -= OnAttack;
+            MoveAction.actions["Attack"].canceled -= OffAttack;
+            MoveAction.actions["Jump"].canceled -= OffJump;
+            //MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
+            //MoveAction.actions["QuickAttack"].canceled -= OffAttack;
+            MoveAction.actions["Aim"].performed -= OnQuickAttackAim;
+            MoveAction.actions["Aim"].canceled -= OnQuickAttackAim;
         }
 
     }
