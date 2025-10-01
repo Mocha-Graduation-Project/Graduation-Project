@@ -60,7 +60,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MetalicMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMatcapTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -131,6 +139,8 @@ Material:
     - _LightSmooth: 0.27
     - _MaskFresnelPower: 4.86
     - _Metallic: 0
+    - _MetallicStrength: 0.07
+    - _MetallicUse: 1
     - _Mode: 0
     - _NormalInfruence: 1.2
     - _NormalStrength: 0
@@ -161,8 +171,8 @@ Material:
     - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
     - _CutoffThreshold: {r: 0.005, g: 0.005, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 1, g: 0.9151298, b: 0, a: 0}
-    - _RimLightColor: {r: 0.36445913, g: 1.3837547, b: 25.75516, a: 0}
+    - _MainColor: {r: 0.29281795, g: 1, b: 0, a: 0}
+    - _RimLightColor: {r: 25.755156, g: 0.4045305, b: 0.64315003, a: 0}
     - _SSSColor: {r: 84.44851, g: 22.735071, b: 19.385965, a: 0}
     - _ShadowColor: {r: 0.7897574, g: 0.5892042, b: 0.18626341, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
