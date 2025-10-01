@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
+using Component;
 using Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
