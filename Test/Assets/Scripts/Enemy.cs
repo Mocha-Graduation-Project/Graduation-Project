@@ -326,5 +326,10 @@ namespace Scripts
             Invoke("BeforeAttack", bulletRate - beforeAttackTime);
             Invoke("Attack", bulletRate);
         }
+
+        public void DestroyEnemy()
+        {
+            
+        }
     }
 }

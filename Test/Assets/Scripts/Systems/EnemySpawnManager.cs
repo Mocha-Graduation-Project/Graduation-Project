@@ -134,42 +134,37 @@ namespace Systems
         
         public void  RemoveEnemy(GameObject enemy)
         {
-            if (activeEnemies.Contains(enemy))
+            if (!activeEnemies.Contains(enemy)) return;
+            audioSource.PlayOneShot(EnemyDestorySound);
+            string defeatedId = GetEnemyIdByObject(enemy);
+            activeEnemies.Remove(enemy);
+            knockEnemies++;
+            remainnEnemies--;
+            remainingEnemiesText.text = remainnEnemies.ToString();
+
+            // 撃破ID記録
+            defeatedEnemyIds.Add(defeatedId);
+
+            // 条件チェックしてスポーン
+            foreach (var condition in conditionToSpawn)
             {
-                audioSource.PlayOneShot(EnemyDestorySound);
-                string defeatedId = GetEnemyIdByObject(enemy);
-                activeEnemies.Remove(enemy);
-                //Destroy(enemy);
-                knockEnemies++;
-                remainnEnemies--;
-                remainingEnemiesText.text = remainnEnemies.ToString();
+                if (condition.hasSpawned ||
+                    !condition.conditionEnemyIds.TrueForAll(id => defeatedEnemyIds.Contains(id))) continue;
+                condition.hasSpawned = true;
+                StartCoroutine(ConditionSpawnEnemy(condition));
+            }
 
-                // 撃破ID記録
-                defeatedEnemyIds.Add(defeatedId);
-
-                // 条件チェックしてスポーン
-                foreach (var condition in conditionToSpawn)
+            if (activeEnemies.Count == 0 && remainnEnemies == 0)
+            {
+                if (LastAttackEffectManager.Instance != null)
                 {
-                    if (!condition.hasSpawned &&
-                        condition.conditionEnemyIds.TrueForAll(id => defeatedEnemyIds.Contains(id)))
-                    {
-                        condition.hasSpawned = true;
-                        StartCoroutine(ConditionSpawnEnemy(condition));
-                    }
+                    LastAttackEffectManager.Instance.PlayLastAttackEffect(enemy.transform,enemy);
                 }
-
-                if (activeEnemies.Count == 0 && remainnEnemies == 0)
-                {
-                    if (LastAttackEffectManager.Instance != null)
-                    {
-                        LastAttackEffectManager.Instance.PlayLastAttackEffect(enemy.transform,enemy);
-                    }
-                    GameClearDelayed().Forget();
-                }
-                else
-                {
-                    Destroy(enemy);
-                }
+                GameClearDelayed().Forget();
+            }
+            else
+            {
+                Destroy(enemy);
             }
         }
         private async UniTaskVoid GameClearDelayed()
