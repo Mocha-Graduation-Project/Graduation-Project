@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Scripts.Scriptable;
+using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -120,7 +121,7 @@ namespace Player
             if (playerHp <= 0 && sceneButtonManager != null)
             {
                 player.PlayerReset();
-                sceneButtonManager.Retry();
+                sceneButtonManager.GameOver();
             }
             else
                 StartCoroutine(InvincibilityCoroutine()); // 無敵時間開始

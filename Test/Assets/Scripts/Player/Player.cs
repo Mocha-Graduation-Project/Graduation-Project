@@ -1,6 +1,7 @@
 using System;
 using Component;
 using Scripts.Scriptable;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
