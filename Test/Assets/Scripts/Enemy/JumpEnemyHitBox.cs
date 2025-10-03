@@ -1,3 +1,4 @@
+using Enemy.Basic;
 using UnityEngine;
 
 public class JumpEnemyHitBox : MonoBehaviour

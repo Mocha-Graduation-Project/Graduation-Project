@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Scripts
+namespace Component
 {
     public class Loop : MonoBehaviour
     {
