@@ -117,7 +117,7 @@ namespace Scripts
             if (playerHp <= 0 && sceneButtonManager != null)
             {
                 player.PlayerReset();
-                sceneButtonManager.Retry();
+                sceneButtonManager.GameOver();
             }
             else
                 StartCoroutine(InvincibilityCoroutine()); // 無敵時間開始

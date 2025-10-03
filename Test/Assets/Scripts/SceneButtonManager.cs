@@ -16,6 +16,7 @@ public class SceneButtonManager : MonoBehaviour
         Gameplay,
         Pause,
         Clear,
+        GameOver 
     }
     
     public State currentState = State.Gameplay;
@@ -24,6 +25,7 @@ public class SceneButtonManager : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private GameObject pauseObj;
     [SerializeField] private GameObject clearObj;
+    [SerializeField]  private GameObject gameOverObj;
     
     public State CurrentState { get { return currentState; } }
     
@@ -78,6 +80,15 @@ public class SceneButtonManager : MonoBehaviour
         if (clearObj != null) {clearObj.SetActive(true);}
         Debug.Log("Game Clear:" + currentState);
     }
+
+    public void GameOver()
+    {
+        ChangeState(State.GameOver);
+        Time.timeScale = 0;
+        DisableAll();
+
+        if (gameOverObj != null){gameOverObj.SetActive(true);}
+    }
     
     public void SceneChangeTitle()
     {
@@ -131,6 +142,22 @@ public class SceneButtonManager : MonoBehaviour
     {
         if (!context.performed == true|| currentState!=State.Gameplay) return;
         FinishGame();
+    }
+    private void DisableAll()
+    {
+        // シーン内の全てのEnemyControllerスクリプトを取得
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.gameObject.SetActive(false);
+        }
+        Bullet[] bullets = FindObjectsOfType<Bullet>();
+        foreach (Bullet bullet in bullets)
+        {
+            bullet.gameObject.SetActive(false);
+        }
+        playerScript.gameObject.SetActive(false);
     }
 
     public void InputReset()

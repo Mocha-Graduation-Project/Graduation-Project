@@ -158,10 +158,10 @@ namespace Scripts
             Arrow.SetActive(false);
             jumpCount = MaxJumpCount;
             
-            mapManager = GameObject.FindObjectOfType<MapManager>();
+            mapManager = FindObjectOfType<MapManager>();
             currentStamina = maxStamina;
             staminaSlider.maxValue = currentStamina;
-            sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
+            sceneButtonManager = FindObjectOfType<SceneButtonManager>();
             currentShotStamina = maxShotStamina;
         }
         
