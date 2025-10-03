@@ -2,6 +2,7 @@ using System.Collections;
 using System.Threading;
 using System.Threading.Tasks;
 using Component;
+using UI;
 using UnityEngine;
 
 public class OBSController : MonoBehaviour

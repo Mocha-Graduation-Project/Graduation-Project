@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Scripts.Scriptable;
+using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
 
