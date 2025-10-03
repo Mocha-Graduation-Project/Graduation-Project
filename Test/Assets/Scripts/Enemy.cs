@@ -5,6 +5,7 @@ using Scripts.UI;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using Player;
 using Scripts.Scriptable;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -51,7 +52,7 @@ namespace Scripts
         [SerializeField] [JapaneseLabel("弾を出す場所")] private GameObject shotObj;
         [SerializeField] [JapaneseLabel("ストレートの参照オブジェ")] private GameObject straightObj;
         
-        Player player => Player.Instance;
+        Player.Player player => Player.Player.Instance;
         private bool isfirst = true;
 
         [SerializeField] private bool dontAttck;
@@ -195,33 +196,33 @@ namespace Scripts
                 transform.DOLookAt(player.transform.position, 0.5f);
             }
             
-            if (!GetComponent<Renderer>().isVisible)
-            {
-                if (isfirst)
-                    isfirst = false;
-                else
-                {
-                    Vector3 pos = transform.position;
-                    if (pos.x > maxX)
-                    {
-                        pos.x = maxX - enemySize;
-                    }
-                    else if (pos.x < minX)
-                    {
-                        pos.x = minX + enemySize;
-                    }
-
-                    if (pos.y > maxY)
-                    {
-                        pos.y = maxY - enemySize;
-                        GetComponent<Rigidbody>().linearVelocity = new Vector2(0, 0);
-                    }
-                    else if (pos.y < minY) pos.y = minY + enemySize;
-
-                    transform.position = pos;
-                }
-
-            }
+            // if (!GetComponent<Renderer>().isVisible)
+            // {
+            //     if (isfirst)
+            //         isfirst = false;
+            //     else
+            //     {
+            //         Vector3 pos = transform.position;
+            //         if (pos.x > maxX)
+            //         {
+            //             pos.x = maxX - enemySize;
+            //         }
+            //         else if (pos.x < minX)
+            //         {
+            //             pos.x = minX + enemySize;
+            //         }
+            //
+            //         if (pos.y > maxY)
+            //         {
+            //             pos.y = maxY - enemySize;
+            //             GetComponent<Rigidbody>().linearVelocity = new Vector2(0, 0);
+            //         }
+            //         else if (pos.y < minY) pos.y = minY + enemySize;
+            //
+            //         transform.position = pos;
+            //     }
+            //
+            // }
         }
 
         void OnTriggerEnter(Collider collider)

@@ -1,10 +1,11 @@
 using System;
+using Component;
+using Scripts.Scriptable;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Scripts.Scriptable;
 
-namespace Scripts
+namespace Player
 {
     public class Player : MonoBehaviour
     {
@@ -169,16 +170,17 @@ namespace Scripts
         {
            // BulletUI.fillAmount = (MaxBulletTime - BulletTime) / MaxBulletTime;
            BulletUI.fillAmount = currentShotStamina;
-            // if (BulletTime > 0)
-            //     BulletTime -= Time.deltaTime;
-            if (!Overheat && currentShotStamina < maxShotStamina)
-            {
-                currentShotStamina += shotStaminaRecoveryPerSecond * Time.deltaTime;
-            }
-            else if (Overheat && currentShotStamina < maxShotStamina) 
-            {
-                currentShotStamina += overheatRecoveryPerSecond * Time.deltaTime;
-            }
+           switch (Overheat)
+           {
+               // if (BulletTime > 0)
+               //     BulletTime -= Time.deltaTime;
+               case false when currentShotStamina < maxShotStamina:
+                   currentShotStamina += shotStaminaRecoveryPerSecond * Time.deltaTime;
+                   break;
+               case true when currentShotStamina < maxShotStamina:
+                   currentShotStamina += overheatRecoveryPerSecond * Time.deltaTime;
+                   break;
+           }
             
             Vector3 temp = transform.position;
             temp.z = 0f;
@@ -207,21 +209,22 @@ namespace Scripts
                 }
             }
             
-            if (InputMove.x < 0)
+            switch (InputMove.x)
             {
-                temp+=new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
-                //transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
-                //transform.localScale = new Vector3(1f, 1f, -1f);
-                transform.rotation = Quaternion.Euler(0, -90, 0);
-                direction = -1;
-            }
-            else if (InputMove.x > 0)
-            {
-                temp+=new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
-                //transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
-                //transform.localScale = new Vector3(1f, 1f, 1f);
-                transform.rotation = Quaternion.Euler(0, 90, 0);
-                direction = 1;
+                case < 0:
+                    temp+=new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
+                    //transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
+                    //transform.localScale = new Vector3(1f, 1f, -1f);
+                    transform.rotation = Quaternion.Euler(0, -90, 0);
+                    direction = -1;
+                    break;
+                case > 0:
+                    temp+=new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
+                    //transform.position += new Vector3(MoveSpeed * InputMove.x, 0, 0) * Time.deltaTime;
+                    //transform.localScale = new Vector3(1f, 1f, 1f);
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
+                    direction = 1;
+                    break;
             }
             transform.position = temp;
 
@@ -307,30 +310,14 @@ namespace Scripts
         private void OnQuickAttackTriggered(float angle)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
-            int attackDirection;
-            if (angle is >= 45 and < 135)
+            int attackDirection = angle switch
             {
-                // 上方向
-                attackDirection = 0;
-            }
-            else if (angle is >= -135 and < -45)
-            {
-                // 下方向
-                attackDirection = 2;
-            }
-            else if (angle is >= -45 and < 45)
-            {
-                // 右方向
-                attackDirection = (direction == 1) ? 1 : 3;
-                
-            }
-            else
-            { 
-                // 左方向
-                attackDirection = (direction == -1) ? 1 : 3;
-            }
-            
-            
+                >= 45 and < 135 => 0,
+                >= -135 and < -45 => 2,
+                >= -45 and < 45 => (direction == 1) ? 1 : 3,
+                _ => (direction == -1) ? 1 : 3
+            };
+
             IsAttacking = true;
 
             QuickAttackCollision.gameObject.SetActive(true);

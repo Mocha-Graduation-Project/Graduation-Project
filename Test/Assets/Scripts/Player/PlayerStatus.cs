@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
+using Scripts.Scriptable;
 using UnityEngine;
 using UnityEngine.Serialization;
-using Scripts.Scriptable;
 
-namespace Scripts
+namespace Player
 {
 
     public class PlayerStatus : MonoBehaviour
@@ -37,18 +38,20 @@ namespace Scripts
 
         public int PlayerHp => playerHp;
 
-        private Player player => Player.Instance;
+        private global::Player.Player player => global::Player.Player.Instance;
         private Coroutine invincibilityCoroutine;
         [JapaneseLabel("被弾エフェクト")] public GameObject hitEffect;
         [JapaneseLabel("被弾時間")] public float hitTime;
         
 
+        [Obsolete("Obsolete")]
         private void Awake()
         {
             SetScriptable();
-            uiLife = GameObject.FindObjectOfType<UILife>();
+            uiLife = FindObjectOfType<UILife>();
         }
 
+        [Obsolete("Obsolete")]
         private void Start()
         {
             if (Instance == null)
@@ -58,7 +61,7 @@ namespace Scripts
             
             StartSetUp();
             
-            sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
+            sceneButtonManager = FindObjectOfType<SceneButtonManager>();
             //sceneButtonManager = GameObject.Find("SceneManager").GetComponent<SceneButtonManager>();
         }
 

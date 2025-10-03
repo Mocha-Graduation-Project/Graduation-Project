@@ -1,7 +1,8 @@
-using System;
+using Player;
+using Scripts;
 using UnityEngine;
-using System.Collections;
-namespace Scripts
+
+namespace Component
 {
     public class WeakAttackReflector : MonoBehaviour
     {

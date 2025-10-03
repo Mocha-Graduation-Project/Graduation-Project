@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Player;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -9,7 +10,7 @@ namespace Scripts
 {
     public class EnemyBullet : MonoBehaviour
     {
-        Player player => Player.Instance;
+        Player.Player player => Player.Player.Instance;
         private UnityEngine.Vector3 PowerDirection;
         [SerializeField] private float Power;
         private float correctionAimPos = 1.5f;

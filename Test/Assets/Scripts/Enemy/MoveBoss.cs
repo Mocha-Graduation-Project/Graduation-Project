@@ -22,7 +22,7 @@ public class MoveBoss : EnemyAI
 
     [SerializeField] [JapaneseLabel("動かすオブジェクト")] private GameObject boss;
     
-    [SerializeField] private Enemy enemyScript;
+    [SerializeField] private Scripts.Enemy enemyScript;
 
     [JapaneseLabel("初期")] private Vector3 basePos;
     
@@ -75,7 +75,7 @@ public class MoveBoss : EnemyAI
     public float MoveTime{get{ return moveTime; }}
     public float CoolTime{get{ return coolTime; }}
     
-    public Enemy EnemyScript { get { return enemyScript; } }
+    public Scripts.Enemy EnemyScript { get { return enemyScript; } }
 
     public PatrolEnemyData EnemyData { get { return enemyData; } }
     
