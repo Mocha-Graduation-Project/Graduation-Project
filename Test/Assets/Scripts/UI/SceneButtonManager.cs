@@ -164,7 +164,6 @@ namespace UI
             Time.timeScale = 1;
             if (playerInput == null) return;
             Debug.Log("Reset Input:");
-            playerScript.PlayerReset();
             playerInput.actions["Retry"].performed -= OnRetry;
             playerInput.actions["Finish"].performed -= OnFinished;
             playerInput.actions["Pause"].performed -= OnPause;

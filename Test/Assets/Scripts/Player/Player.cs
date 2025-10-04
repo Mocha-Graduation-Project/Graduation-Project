@@ -31,6 +31,7 @@ namespace Player
         [SerializeField] SceneButtonManager sceneButtonManager;
         [NonSerialized]public Slider staminaSlider;
         [NonSerialized] public Vector2 quickAttackDirection = Vector2.zero;
+        
         //プレイヤーのステータス
         [JapaneseLabel("移動スピード")]private float MoveSpeed;
         [JapaneseLabel("ジャンプ力")]private float jumpPower;
@@ -142,19 +143,6 @@ namespace Player
         [Obsolete("Obsolete")]
         private void Start()
         {
-            MoveAction.actions["Move"].performed += OnMove;
-            MoveAction.actions["Move"].canceled += OnMove;
-            MoveAction.actions["Jump"].started += OnJump;
-            MoveAction.actions["Shot"].started += OnShot;
-            //MoveAction.actions["Attack"].performed += OnAttack;
-            MoveAction.actions["Attack"].canceled += OffAttack;
-            MoveAction.actions["Jump"].canceled += OffJump;
-            // MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
-            // MoveAction.actions["QuickAttack"].canceled += OffAttack;
-            MoveAction.actions["Aim"].performed += OnQuickAttackAim;
-            MoveAction.actions["Aim"].canceled += OnQuickAttackAim;
-            
-
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody>();
             Arrow.SetActive(false);
@@ -276,7 +264,6 @@ namespace Player
 
         public void Ground(bool isGrounded)
         {
-            
             isGround = isGrounded;
         }
 
@@ -357,28 +344,27 @@ namespace Player
         public void OnJump(InputAction.CallbackContext context)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
-            
+    
             if (jumpCount > 0 && Time.time - lastJumpTime >= jumpCooldown)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0); 
-                // ForceMode.Impulseで瞬間的に力を加える
-                rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-                // rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower); 
+
                 jumpCount--;
                 lastJumpTime = Time.time;
-                animator.SetBool(IsJump,true);
+                animator.SetTrigger(Jump);
                 audioSource1.PlayOneShot(jumpSound);
             }
         }
-
         public void OffJump(InputAction.CallbackContext context)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
-            
-            isJump = false;
-            animator.SetBool(IsJump, false);
+    
+            // 上昇中（垂直速度が正）のときのみ
+            if (rb.linearVelocity.y > 0)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+            }
         }
-
         public void OnShot(InputAction.CallbackContext context)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
@@ -472,21 +458,7 @@ namespace Player
             QuickAttackCollision.gameObject.SetActive(false);
             IsAttacking = false;
         }
-
-        public void PlayerReset()
-        {
-            MoveAction.actions["Move"].performed -= OnMove;
-            MoveAction.actions["Move"].canceled -= OnMove;
-            MoveAction.actions["Jump"].started -= OnJump;
-            MoveAction.actions["Shot"].started -= OnShot;
-            //MoveAction.actions["Attack"].performed -= OnAttack;
-            MoveAction.actions["Attack"].canceled -= OffAttack;
-            MoveAction.actions["Jump"].canceled -= OffJump;
-            //MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
-            //MoveAction.actions["QuickAttack"].canceled -= OffAttack;
-            MoveAction.actions["Aim"].performed -= OnQuickAttackAim;
-            MoveAction.actions["Aim"].canceled -= OnQuickAttackAim;
-        }
+        
         private void OnEnable()
         {
             // OnEnable で購読を開始

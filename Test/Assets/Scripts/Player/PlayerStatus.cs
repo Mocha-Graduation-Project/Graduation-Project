@@ -120,7 +120,6 @@ namespace Player
 
             if (playerHp <= 0 && sceneButtonManager != null)
             {
-                player.PlayerReset();
                 sceneButtonManager.GameOver();
             }
             else
