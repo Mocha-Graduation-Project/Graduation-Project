@@ -15,23 +15,15 @@ MonoBehaviour:
   moveAction: {fileID: 163183520200374533, guid: 9be1418a083839441beaea19696c784a, type: 3}
   moveSpeed: 5.5
   jumpPower: 6
-  MaxJumpCount: 1
+  MaxJumpCount: 2
+  jumpCanceled: 0
   jumpCooldown: 0.2
-  maxFallSpeed: 10
+  maxFallSpeed: 12
   collisionRadius: 0.2
   groundLayer:
     serializedVersion: 2
     m_Bits: 640
   bullets: {fileID: 1057501140420241128, guid: 4e268d136a397974d86fa93e6efd45de, type: 3}
-  ReflectionSound: {fileID: 8300000, guid: 29c151cd64dfd874298c8c23e76539ca, type: 3}
-  ShotSound: {fileID: 8300000, guid: c61f9dc4363342c47ad930f260084f8d, type: 3}
-  DamageSound: {fileID: 8300000, guid: cdc31c7c9b1fcb842a6f9e4e3d2fa9e3, type: 3}
-  JumpSound: {fileID: 8300000, guid: e4c7a3583796890429058ca0878e75db, type: 3}
-  WalkSound: {fileID: 8300000, guid: bc2b8e6e4eca09a498207b3c3f309bc2, type: 3}
-  EnemyDestorySound: {fileID: 8300000, guid: 70264a0b5e6e49049a9cee9c885873a5, type: 3}
-  EnemyShotSound: {fileID: 8300000, guid: 8fe2af97997c36140a5bd29dc4076799, type: 3}
-  ShieldSound: {fileID: 8300000, guid: 2b3451a477c769c4aa623640dcb3953a, type: 3}
-  WarpSound: {fileID: 8300000, guid: 952b5fabc21f4814d81289c0fd4dd199, type: 3}
   maxStamina: 100
   staminaRecoveryPerSecond: 10
   staminaDrainPerSecond: 20

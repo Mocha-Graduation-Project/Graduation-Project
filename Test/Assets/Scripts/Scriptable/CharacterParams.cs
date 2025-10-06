@@ -18,6 +18,7 @@ namespace Scripts.Scriptable
         [JapaneseLabel("移動速度")]public float moveSpeed = 5f;
         [JapaneseLabel("ジャンプ力")]public float jumpPower = 8f;
         [JapaneseLabel("最大ジャンプ回数")] public int MaxJumpCount;
+        [JapaneseLabel("ジャンプキャンセルするかどうか")] public bool jumpCanceled = false;
         [JapaneseLabel("2回目のジャンプまでのクールタイム")]
         public float jumpCooldown = 0.2f;
         [FormerlySerializedAs("limitSpeed")] [JapaneseLabel("最大降下速度")]
