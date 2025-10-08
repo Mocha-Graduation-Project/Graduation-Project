@@ -94,6 +94,10 @@ public class RightTackle : MonoBehaviour, IState
             //Debug.Log("Change");
             Initialization();
             moveCounter++;
+            if (moveCounter == 1)
+            {
+                depthBoss.AttckWarningUI.SetWarning(AttckWarningUI.AttckType.rightTackle, depthBoss.EnemyData.WaitTime);
+            }
             return;
         }
         float rate = diff / time;

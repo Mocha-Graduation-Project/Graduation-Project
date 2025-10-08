@@ -106,6 +106,8 @@ public class FallingAttack : MonoBehaviour, IState
                     float pos = depthBoss.Player.transform.position.x;
                     upFlontPos = new Vector3(pos, upFlontPos.y, upFlontPos.z);
                     downFlontPos = new Vector3(pos, downFlontPos.y, downFlontPos.z);
+                    depthBoss.FallingAttckPos = downFlontPos;
+                    depthBoss.AttckWarningUI.SetWarning(AttckWarningUI.AttckType.fallingAttck, depthBoss.EnemyData.WaitTime);
                     break;
                 case 3: 
                     //攻撃中を解除
