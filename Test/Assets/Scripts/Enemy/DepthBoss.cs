@@ -30,6 +30,8 @@ public class DepthBoss : EnemyAI
     [Space(15)]
     [SerializeField] [JapaneseLabel("パターン移行のクールタイム")] float coolTime;
     
+    [SerializeField] [JapaneseLabel("攻撃表示のUI")]　AttckWarningUI attckWarningUI;
+    
     [Space(5)]
     [Header("パターン1,2")] 
     [SerializeField] [JapaneseLabel("パターン1,2に使うデータ")]
@@ -45,6 +47,8 @@ public class DepthBoss : EnemyAI
 
     [SerializeField] [JapaneseLabel("落下後の待機時間")] private float fallAttckWaitTime;
     
+    [JapaneseLabel("落下する座標")] private Vector3 fallingAttckPos;
+    
     GameObject player;
     
     public GameObject Boss{get{ return boss; }}
@@ -54,6 +58,8 @@ public class DepthBoss : EnemyAI
     public PatrolEnemyData EnemyData { get { return enemyData; } }
     public float FallAttckWaitTime { get { return fallAttckWaitTime; } }
     public GameObject Player{ get{ return player; }}
+    public AttckWarningUI AttckWarningUI{ get{ return attckWarningUI; } }
+    public Vector3 FallingAttckPos{ get{ return fallingAttckPos; } set { fallingAttckPos = value; } }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -65,6 +71,8 @@ public class DepthBoss : EnemyAI
         tackleCounter = 0;
         isAttck = true;
         player = GameObject.FindGameObjectWithTag("Player");
+        attckWarningUI = GameObject.FindGameObjectWithTag("WarningUI").GetComponent<AttckWarningUI>();
+        attckWarningUI.SetFallingAttckEnemy(this.gameObject);
     }
 
     // Update is called once per frame
