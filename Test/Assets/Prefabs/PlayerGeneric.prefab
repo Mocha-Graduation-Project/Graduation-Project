@@ -941,9 +941,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 779504477bf20654c9f5ae356b569ff1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3081669947231037589}
     - targetCorrespondingSourceObject: {fileID: 4664580793056891169, guid: 779504477bf20654c9f5ae356b569ff1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 798833256988701209}
@@ -954,44 +951,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1699248711891574242}
   m_SourcePrefab: {fileID: 100100000, guid: 779504477bf20654c9f5ae356b569ff1, type: 3}
---- !u!1 &1402744531373724837 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 779504477bf20654c9f5ae356b569ff1, type: 3}
-  m_PrefabInstance: {fileID: 2285266104285276660}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3081669947231037589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1402744531373724837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af276926b0db1c248a93ab3c1134a6c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  automaticUpdates: 1
-  isPaused: 0
-  simulationFrameRate: 60
-  dynamicRatio: 0.5
-  gravity: {x: 0, y: -10, z: 0}
-  bounce: 0
-  friction: 1
-  enableAngleLimits: 1
-  enableCollision: 1
-  enableLengthLimits: 1
-  collideWithGround: 1
-  groundHeight: 0
-  springBones:
-  - {fileID: 798833256988701209}
-  - {fileID: 7747721025303689281}
-  - {fileID: 1699248711891574242}
-  boneColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  colliderColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  collisionColor: {r: 1, g: 0, b: 0, a: 1}
-  groundCollisionColor: {r: 0, g: 1, b: 0, a: 1}
-  angleLimitDrawScale: 0.05
 --- !u!4 &1746371998723296799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 779504477bf20654c9f5ae356b569ff1, type: 3}
