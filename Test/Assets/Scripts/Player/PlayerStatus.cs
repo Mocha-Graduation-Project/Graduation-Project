@@ -11,6 +11,7 @@ namespace Player
     public class PlayerStatus : MonoBehaviour
     {
         public static PlayerStatus Instance;
+        private static readonly int IsGround = Animator.StringToHash("isGround");
         [SerializeField] private CharacterParams characterParams;
         [SerializeField] private CharacterData characterData;
         [SerializeField] private int playerHp;
@@ -82,11 +83,10 @@ namespace Player
             isGrounded = false;
             isGrounded = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
                 
-            animator.SetBool("isGround", isGrounded);
+            animator.SetBool(IsGround, isGrounded);
             player.Ground(isGrounded);
             
             if(!isGrounded) return;
-            player.JumpCount(isGrounded);
                 
             Debug.DrawRay(groundCheck.position, Vector2.down * checkDistance, Color.red);
         }
@@ -120,7 +120,6 @@ namespace Player
 
             if (playerHp <= 0 && sceneButtonManager != null)
             {
-                player.PlayerReset();
                 sceneButtonManager.GameOver();
             }
             else

@@ -1659,6 +1659,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 303866036858272053}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4124449528317264777}
   m_SourcePrefab: {fileID: 100100000, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
 --- !u!4 &3782708181428690570 stripped
 Transform:
@@ -1756,7 +1759,6 @@ MonoBehaviour:
   audioSource2: {fileID: 303866036858272053}
   mapManager: {fileID: 0}
   sceneButtonManager: {fileID: 0}
-  jumpCount: 0
   IsAttacking: 0
   ShotPosition: {fileID: 4827083004097579758}
   AttackCollision: {fileID: 485489305804183711}
@@ -1764,8 +1766,6 @@ MonoBehaviour:
   Arrow: {fileID: 3959296674686234946}
   quickAxis: {fileID: 1357996293472408271}
   batSlash: {fileID: 431104157719478913}
-  JumpSound: {fileID: 0}
-  WalkSound: {fileID: 0}
 --- !u!114 &163183520200374533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2121,6 +2121,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4124449528317264777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4554601162387817520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab0af5e880ce4096806bf8293502055c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterParams: {fileID: 11400000, guid: ba6e45e6d168adb41bcb14b428391fe5, type: 2}
+  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
+  walkAudioSource: {fileID: 303866036858272053}
 --- !u!1001 &4257200145138863502
 PrefabInstance:
   m_ObjectHideFlags: 0
