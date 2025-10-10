@@ -205,7 +205,7 @@ namespace Player
 
                 if (!IsAttacking && lastAimInput.sqrMagnitude <= deadZone)
                 {
-                    Debug.Log(quickAngle);
+                    //Debug.Log(quickAngle);
                     OnQuickAttackTriggered(quickAngle);
                 }
                 quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle - 90);
@@ -233,7 +233,7 @@ namespace Player
 
             QuickAttackCollision.gameObject.SetActive(true);
             
-            Debug.Log(attackDirection);
+            //Debug.Log(attackDirection);
 
             PlayAttackAnimation(attackDirection);
 
