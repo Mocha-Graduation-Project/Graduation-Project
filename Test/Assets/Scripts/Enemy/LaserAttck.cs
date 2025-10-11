@@ -18,7 +18,8 @@ public class LaserAttck : MonoBehaviour,IState
     private float angleZ90;
     Vector3 rotateAxisRotate;
     private bool isCoolTime;
-    [JapaneseLabel("90度回転するのにかかる時間")]private float rotate90Time;
+    private bool is360Rotate;//360度回転か180回転か
+    private float rotateTime;
     
     public LaserAttck(EnemyAI enemyAI)
     {
@@ -28,6 +29,8 @@ public class LaserAttck : MonoBehaviour,IState
     public void Enter()
     {
         Debug.Log("5_Enter");
+        is360Rotate = true;
+        
         moveCounter = 0;
         moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
         boss = moveBoss.Boss;
@@ -40,8 +43,7 @@ public class LaserAttck : MonoBehaviour,IState
         startPos = boss.transform.position;
         rotateAxis = moveBoss.RotateAxis;
         rotateAxisRotate = new Vector3(0, 0, 0);
-        rotate90Time = 90 / moveBoss.RotatePerSec;
-        angleZ90 = moveBoss.RotatePerSec;
+        angleZ90 = 90f;
         //ランダムで回転方向を決める
         int random = Random.Range(0, 2);
         Debug.Log("random:" + random);
@@ -58,19 +60,37 @@ public class LaserAttck : MonoBehaviour,IState
                 break;
         }
         Debug.Log("回転方向:" + angleZ90);
-        Debug.Log("90度回転するのにかかる時間:" + rotate90Time);
+        
         if (rotateAxis.transform.eulerAngles == rotateAxisRotate)
         {
             finishRotating = true;
         }
         else if (rotateAxis.transform.eulerAngles == new Vector3(0, 0, 180))
         {
-            rotateAxis.transform.eulerAngles = rotateAxisRotate;
+            rotateAxisRotate = new Vector3(0, 0, 180);
             finishRotating = true;
+            angleZ = 90;
         }
         else
         {
             angleZ = 45;
+        }
+        
+        if (is360Rotate == true)
+        {
+            rotateTime = 4;
+        }
+        else
+        {
+            rotateTime = 2;
+            if (rotateAxis.transform.eulerAngles == new Vector3(0, 0, 0))
+            {
+                rotateAxisRotate = new Vector3(0, 0, 180);
+            }
+            else if (rotateAxis.transform.eulerAngles == new Vector3(0, 0, 180))
+            {
+                rotateAxisRotate = new Vector3(0, 0, 0);
+            }
         }
     }
 
@@ -88,7 +108,7 @@ public class LaserAttck : MonoBehaviour,IState
                 //360度回転させる
                 if (WaitCoolTime() == false)
                 {
-                    Rotate(rotateAxisRotate, rotate90Time * 4, angleZ90);
+                    Rotate(rotateAxisRotate, moveBoss.Rotate90PerSec * rotateTime, angleZ90);
                     FinishCheck();
                 }
                 break;
@@ -150,7 +170,18 @@ public class LaserAttck : MonoBehaviour,IState
         {
             moveCounter++;
             finishRotating = false;
-            moveBoss.InvertActiveLazer();
+            switch (moveCounter)
+            {
+                case 0:
+                    break;
+                case 1:
+                    moveBoss.LazerOn();
+                    break;
+                case 2:
+                    moveBoss.LazerOff();
+                    break;
+            }
+            //moveBoss.InvertActiveLazer();
             Initialization();
         }
     }

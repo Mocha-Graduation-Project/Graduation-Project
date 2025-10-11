@@ -887,6 +887,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3814289518385002433, guid: c9d74327808333b45bf7e8ea2cdee994, type: 3}
+      propertyPath: revivaltime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814289518385002433, guid: c9d74327808333b45bf7e8ea2cdee994, type: 3}
+      propertyPath: shieldMaxHP
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1021,7 +1029,7 @@ MonoBehaviour:
   laser:
   - {fileID: 2764925282164886474}
   - {fileID: 2516122783139091720}
-  rotatePerSec: 60
+  rotate90PerSec: 1
   changeHPPercent: 50
   changeHP: 0
   patten5Flag: 0
@@ -1252,6 +1260,14 @@ PrefabInstance:
     - target: {fileID: 3814289518385002433, guid: c9d74327808333b45bf7e8ea2cdee994, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814289518385002433, guid: c9d74327808333b45bf7e8ea2cdee994, type: 3}
+      propertyPath: revivaltime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814289518385002433, guid: c9d74327808333b45bf7e8ea2cdee994, type: 3}
+      propertyPath: shieldMaxHP
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

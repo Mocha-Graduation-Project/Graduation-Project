@@ -1,5 +1,6 @@
 using Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MoveBoss : EnemyAI
 {
@@ -48,7 +49,7 @@ public class MoveBoss : EnemyAI
     [Space(5)]
     [Header("パターン5")] 
     [SerializeField] [JapaneseLabel("レーザー")] private GameObject[] laser;
-    [SerializeField] [JapaneseLabel("1秒あたりに回る角度")] private float rotatePerSec;
+    [SerializeField] [JapaneseLabel("90度回転するのにかかる秒数")] private float rotate90PerSec;
     [SerializeField] [JapaneseLabel("パターン5発動のHPの割合(%)")][Space(5)] 
     private int changeHPPercent;
     [SerializeField] [JapaneseLabel("パターン5を行うようになるHP")][Space(5)] 
@@ -80,7 +81,7 @@ public class MoveBoss : EnemyAI
     public PatrolEnemyData EnemyData { get { return enemyData; } }
     
     public GameObject[]  Laser { get { return laser; } }
-    public float RotatePerSec { get { return rotatePerSec; } }
+    public float Rotate90PerSec { get { return rotate90PerSec; } }
     
     public Vector3 RightCenterPos{get{ return rightCenterPos; }}
     public Vector3 LeftCenterPos{get{ return leftCenterPos; }}
@@ -150,7 +151,7 @@ public class MoveBoss : EnemyAI
                 RandomSetPattern();
                 break;
         }
-        Debug.Log("パターン"+pattern);
+        //Debug.Log("パターン"+pattern);
     }
 
     void ChangePattern(Patterns nextPattern)
@@ -241,6 +242,25 @@ public class MoveBoss : EnemyAI
             {
                 obj.SetActive(true);
             }
+        }
+    }
+
+    public void LazerOn()
+    {
+        foreach (GameObject obj in laser)
+        {
+            if (obj.transform.parent.gameObject.activeInHierarchy == true)
+            {
+                obj.SetActive(true);
+            }
+        }
+    }
+
+    public void LazerOff()
+    {
+        foreach (GameObject obj in laser)
+        {
+            obj.SetActive(false);
         }
     }
 }
