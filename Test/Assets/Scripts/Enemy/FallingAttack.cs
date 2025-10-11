@@ -62,6 +62,7 @@ public class FallingAttack : MonoBehaviour, IState
                 break;
             case 2: //プレイヤーの居る座標に向かって落下攻撃
                 Move(upFlontPos, downFlontPos, depthBoss.EnemyData.MoveVerticalTime);
+                depthBoss.AttackBegin();
                 break;
             case 3: //待機
                 Move(downFlontPos, downFlontPos, depthBoss.FallAttckWaitTime);
@@ -71,6 +72,7 @@ public class FallingAttack : MonoBehaviour, IState
                 break;
             case 5: //画面外で後ろ(元居たz座標)まで移動
                 Move(upFlontPos, upMaxPos, depthBoss.EnemyData.WaitTime);
+                depthBoss.AttackFinish();
                 break;
             case 6: //画面外から中央へ戻る
                 Move(upMaxPos, startPos, depthBoss.EnemyData.MoveVerticalTime);

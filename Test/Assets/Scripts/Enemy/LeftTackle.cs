@@ -63,9 +63,11 @@ public class LeftTackle : MonoBehaviour, IState
                 break;
             case 2: //プレイヤーに向かってタックル(画面外から画面外へ)
                 Move(leftFlontPos, rightFlontPos, depthBoss.EnemyData.MoveHorizontalTime * 2);
+                depthBoss.AttackBegin();
                 break;
             case 3: //画面外で後ろ(元居たz座標)まで移動
                 Move(rightFlontPos, rightMaxPos, depthBoss.EnemyData.WaitTime);
+                depthBoss.AttackFinish();
                 break;
             case 4: //画面端から中央へ移動
                 Move(rightMaxPos, startPos, depthBoss.EnemyData.MoveHorizontalTime);

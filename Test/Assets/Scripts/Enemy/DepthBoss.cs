@@ -20,6 +20,9 @@ public class DepthBoss : EnemyAI
     [SerializeField] [JapaneseLabel("現在の行動パターン")]Patterns pattern;
     
     [SerializeField] [JapaneseLabel("動かすオブジェクト")] private GameObject boss;
+    private MeshRenderer bossRenderer;
+    [SerializeField] [JapaneseLabel("本体")]　private GameObject bossMain;
+   
 
     [SerializeField] [JapaneseLabel("攻撃中か")] private bool isAttck;
     
@@ -50,7 +53,8 @@ public class DepthBoss : EnemyAI
     [JapaneseLabel("落下する座標")] private Vector3 fallingAttckPos;
     
     GameObject player;
-    
+    private Animator animator;
+
     public GameObject Boss{get{ return boss; }}
     public Vector3 CenterPos{get{ return centerPos; }}
     public float FlontZPos{get{ return flontZPos; }}
@@ -66,6 +70,7 @@ public class DepthBoss : EnemyAI
     {
         centerPos = this.transform.position;
         stateMachine = new StateMachine();
+        animator = bossMain.GetComponent<Animator>();
         RandomSetPattern();
         LRTackleCounter = 0;
         tackleCounter = 0;
@@ -73,6 +78,7 @@ public class DepthBoss : EnemyAI
         player = GameObject.FindGameObjectWithTag("Player");
         attckWarningUI = GameObject.FindGameObjectWithTag("WarningUI").GetComponent<AttckWarningUI>();
         attckWarningUI.SetFallingAttckEnemy(this.gameObject);
+        bossRenderer = boss.GetComponent<MeshRenderer>();
     }
 
     // Update is called once per frame
@@ -125,12 +131,15 @@ public class DepthBoss : EnemyAI
                 break;
             case Patterns.rightTackle:
                 stateMachine.ChangeState(new RightTackle(this));
+                animator.SetTrigger("LeftTackle");
                 break;
             case Patterns.leftTackle:
                 stateMachine.ChangeState(new LeftTackle(this));
+                animator.SetTrigger("RightTackle");
                 break;
             case Patterns.fallingAttack:
                 stateMachine.ChangeState(new FallingAttack(this));
+                animator.SetTrigger("FallingAttack");
                 break;
         }
     }
@@ -173,5 +182,15 @@ public class DepthBoss : EnemyAI
     public void AttckFalse()
     {
         isAttck = false;
+    }
+
+    public void AttackBegin()
+    {
+        bossRenderer.enabled = true;
+    }
+
+    public void AttackFinish()
+    {
+        bossRenderer.enabled = false;
     }
 }
