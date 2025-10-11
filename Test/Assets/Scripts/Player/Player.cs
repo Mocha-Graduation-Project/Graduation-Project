@@ -32,9 +32,9 @@ namespace Player
         
         //プレイヤーの状態
         [NonSerialized] public int direction = 1;
-        [JapaneseLabel("攻撃中か")]public bool IsAttacking = false;
-        [JapaneseLabel("発射中か")]private bool IsShot = false;
-        [JapaneseLabel("移動中か")][NonSerialized] public bool isMove = true;
+        [NonSerialized][JapaneseLabel("攻撃中か")]public bool IsAttacking = false;
+        [NonSerialized][JapaneseLabel("発射中か")]private bool IsShot = false;
+        [NonSerialized][JapaneseLabel("移動中か")] public bool isMove = true;
 
         private float quickAngle;
         //オブジェクト
@@ -45,8 +45,12 @@ namespace Player
         [JapaneseLabel("矢印")]public GameObject Arrow;
         [JapaneseLabel("クイック軸")] public GameObject quickAxis;
 
-        [Header("<エフェクト>")] [SerializeField][JapaneseLabel("バットの斬撃")]
-        private GameObject batSlash;
+        [Header("<エフェクトリスト>")]
+        [SerializeField]
+        private GameObject[] effectPrefabs; 
+        [Header("<エフェクト生存時間リスト>")]
+        [SerializeField]
+        private float[] effectDurations;
         [JapaneseLabel("バットのアニメーションからエフェクトがでるまでの時間")] private float butEffectDuration = 0.1f;
         
         private Image BulletUI;
@@ -322,15 +326,38 @@ namespace Player
             animator.SetTrigger(IsAttack);
         }
         
-        private void PlayEffect()
+        public void PlayEffect(int effectIndex)
         {
-            batSlash.SetActive(true);
-            Invoke(nameof(EffectCancel), 0.2f);
-        }
+            // インデックスの有効性チェック
+            if (effectPrefabs == null || effectIndex < 0 || effectIndex >= effectPrefabs.Length)
+            {
+                Debug.LogWarning($"PlayEffect: Invalid effect index {effectIndex} or effect list is null/empty.");
+                return;
+            }
+            
+            // 生存時間リストのインデックスチェック
+            if (effectDurations == null || effectIndex >= effectDurations.Length)
+            {
+                Debug.LogWarning($"PlayEffect: Effect duration is not set for index {effectIndex}. Using default duration ({butEffectDuration}).");
+            }
+            
+            GameObject effectToPlay = effectPrefabs[effectIndex];
+            if (effectToPlay != null)
+            {
+                // 生存時間を取得（リストに設定がない場合はbutEffectDurationをデフォルト値として使用）
+                float duration = (effectDurations != null && effectIndex < effectDurations.Length) 
+                    ? effectDurations[effectIndex] 
+                    : butEffectDuration; 
 
-        private void EffectCancel()
+                // コルーチンでエフェクトを再生
+                StartCoroutine(ShowEffectForDuration(effectToPlay, duration));
+            }
+        }
+        private System.Collections.IEnumerator ShowEffectForDuration(GameObject effectObject, float duration)
         {
-            batSlash.SetActive(false);
+            effectObject.SetActive(true);
+            yield return new WaitForSeconds(duration);
+            effectObject.SetActive(false);
         }
         public void PlayReflectionSound()
         {
