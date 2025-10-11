@@ -8,6 +8,163 @@ using UnityEngine.Animations;
 using UnityEngine.Playables;
 using Object = UnityEngine.Object;
 
+// プレビューオブジェクトにアタッチしてイベントを受け取るためのヘルパーコンポーネント
+public class AnimationEventToolHelper : MonoBehaviour
+{
+    public const string NoneParamFlag = "[AET_NONE_PARAM]"; 
+
+    private AnimationEvent[] events;
+    private AnimationClip clip;
+    private float lastTime = -1f;
+
+    private Dictionary<string, (ParticleSystem ps, float startTime)> activeVfx = new Dictionary<string, (ParticleSystem ps, float startTime)>();
+    
+    // ツールからの初期化時に呼ばれる
+    public void Setup(AnimationClip targetClip)
+    {
+        clip = targetClip;
+        events = AnimationUtility.GetAnimationEvents(clip);
+        lastTime = -1f;
+        
+        StopAllVfx();
+    }
+    
+    // 外部から呼ばれるイベント処理関数
+    public void PlayVfx(string vfxName, float eventTime)
+    {
+        if (vfxName == NoneParamFlag) return;
+
+        if (activeVfx.ContainsKey(vfxName))
+        {
+            activeVfx[vfxName].ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            activeVfx.Remove(vfxName);
+        }
+
+        Transform vfxChild = transform.Find(vfxName);
+        if (vfxChild != null)
+        {
+            var particleSystem = vfxChild.GetComponent<ParticleSystem>();
+            if (particleSystem != null)
+            {
+                // Looping設定の警告
+                if (particleSystem.main.loop)
+                {
+                    Debug.LogWarning($"<color=red>[AET Helper]</color> VFX '{vfxName}' is looping. It will not stop automatically based on Duration. Please disable looping.");
+                }
+                
+                // VFXを再生し、アクティブリストにイベント発生時刻を記録
+                particleSystem.Play(true);
+                activeVfx.Add(vfxName, (particleSystem, eventTime));
+            }
+            else
+            {
+                Debug.LogWarning($"<color=red>ParticleSystem component not found</color> on child object: {vfxChild.name}.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"<color=red>VFX GameObject not found</color> with name: '{vfxName}' as a child of the Preview Object.");
+        }
+    }
+    
+    // スライダー操作時にツールから呼ばれる (VFXの再生・停止ロジックを制御)
+    public void UpdateVfxState(float currentTime)
+    {
+        if (clip == null || events == null || lastTime < 0)
+        {
+            lastTime = currentTime;
+            return;
+        }
+
+        // 時間が大きくジャンプした（逆再生、またはスライダーの急な移動）場合は、全VFXを停止
+        if (Mathf.Abs(currentTime - lastTime) > 0.5f || currentTime < lastTime)
+        {
+            StopAllVfx();
+            activeVfx.Clear(); // activeVfxもクリア
+            lastTime = currentTime;
+            return;
+        }
+
+        var toRemove = new List<string>();
+        foreach (var pair in activeVfx)
+        {
+            var vfxName = pair.Key;
+            var ps = pair.Value.ps;
+            var startTime = pair.Value.startTime;
+            
+            // Loopingでない場合のみ、Durationに基づき終了判定を行う
+            if (!ps.main.loop)
+            {
+                float duration = ps.main.duration;
+                // 再生開始時刻からDurationを超えているかチェック
+                if (currentTime >= startTime + duration)
+                {
+                    // 終了したParticleSystemを明示的に停止
+                    ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                    toRemove.Add(vfxName);
+                }
+            }
+            else
+            {
+                // Loopingの場合でも、isStoppedがtrueになったら除去
+                if (ps.isStopped) 
+                {
+                     toRemove.Add(vfxName);
+                }
+            }
+        }
+
+        foreach (var key in toRemove)
+        {
+            activeVfx.Remove(key);
+        }
+
+        foreach (var animEvent in events)
+        {
+            float eventTime = animEvent.time;
+            
+            // イベントが今回の時間ステップで発生したかどうかをチェック
+            // (lastTime, currentTime] の範囲でチェック
+            if (eventTime > lastTime && eventTime <= currentTime)
+            {
+                if (animEvent.functionName == "PlayVfx")
+                {
+                    // イベント発生時刻を渡す
+                    PlayVfx(animEvent.stringParameter, eventTime);
+                }
+            }
+        }
+
+        lastTime = currentTime;
+    }
+
+    // すべてのParticleSystemを停止し、リストをクリアする
+    public void StopAllVfx()
+    {
+        // アクティブリストにあるVFXを停止
+        foreach (var pair in activeVfx)
+        {
+            pair.Value.ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+        activeVfx.Clear(); // 実行中のVFXリストもクリア
+
+        // 念のため、子階層の全てのParticleSystemも停止
+        foreach (var ps in GetComponentsInChildren<ParticleSystem>())
+        {
+            if (ps.isPlaying)
+            {
+                ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            }
+        }
+    }
+    
+    public void Cleanup()
+    {
+        StopAllVfx();
+    }
+}
+
+
 public class AnimationEventTool : EditorWindow
 {
     // 引数の種類を表すEnum
@@ -27,10 +184,8 @@ public class AnimationEventTool : EditorWindow
     private float currentTime;
     private string eventName = "";
     
-    // 選択された引数の種類
     private ParamType selectedParamType = ParamType.None;
     
-    // 各引数の値
     private float floatParam;
     private int intParam;
     private Object objectParam;
@@ -39,6 +194,7 @@ public class AnimationEventTool : EditorWindow
     private PlayableGraph playableGraph;
     private AnimationPlayableOutput playableOutput;
     private GameObject previewObject;
+    private AnimationEventToolHelper helper;
     private Vector2 scrollPosition;
     private AnimationClip selectedClip;
 
@@ -53,9 +209,10 @@ public class AnimationEventTool : EditorWindow
         if (selectedClip == null) return;
 
 
-        var newTime = EditorGUILayout.Slider("イベントを起こす時間", currentTime, 0, selectedClip.length);
+        var newTime = EditorGUILayout.Slider("プレビュー時間", currentTime, 0, selectedClip.length);
 
-        if (newTime != currentTime)
+        // スライダーが動いたときにVFXの再生状態を更新
+        if (Mathf.Abs(newTime - currentTime) > 0.001f)
         {
             currentTime = newTime;
             UpdatePreviewTime();
@@ -69,27 +226,23 @@ public class AnimationEventTool : EditorWindow
 
         GUILayout.Label("引数設定 (一つのみ選択可能)", EditorStyles.boldLabel);
 
-        // 引数の種類を選択するポップアップ
         selectedParamType = (ParamType)EditorGUILayout.EnumPopup("引数の種類", selectedParamType);
 
-        // 選択された種類に応じて対応する引数フィールドを表示
         switch (selectedParamType)
         {
             case ParamType.Int:
-                // Intが選択された場合は、0も入力できるようにします
                 intParam = EditorGUILayout.IntField("Int 引数", intParam);
                 break;
             case ParamType.Float:
                 floatParam = EditorGUILayout.FloatField("Float 引数", floatParam);
                 break;
             case ParamType.String:
-                stringParam = EditorGUILayout.TextField("String 引数", stringParam);
+                stringParam = EditorGUILayout.TextField("String 引数 (VFX名に推奨)", stringParam);
                 break;
             case ParamType.Object:
                 objectParam = EditorGUILayout.ObjectField("Object 引数", objectParam, typeof(Object), true);
                 break;
             case ParamType.None:
-                // 引数なし
                 break;
         }
 
@@ -113,12 +266,15 @@ public class AnimationEventTool : EditorWindow
         GUILayout.Label("プレビュー", EditorStyles.boldLabel);
 
         previewObject =
-            (GameObject)EditorGUILayout.ObjectField("Preview Object", previewObject, typeof(GameObject), true);
+            (GameObject)EditorGUILayout.ObjectField("Preview Object (Animator必須)", previewObject, typeof(GameObject), true);
 
 
         if (selectedClip != null && previewObject != null)
-            if (GUILayout.Button("Play Preview"))
-                PlayPreview();
+        {
+            // ボタンを「Setup Preview」に統一
+            if (GUILayout.Button("Setup Preview (アニメーションとVFX連動開始)"))
+                SetupPreview();
+        }
     }
 
 
@@ -145,7 +301,6 @@ public class AnimationEventTool : EditorWindow
             functionName = functionName
         };
 
-        // 選択された引数の種類に応じてAnimationEventにパラメータを設定
         switch (paramType)
         {
             case ParamType.Int:
@@ -161,7 +316,6 @@ public class AnimationEventTool : EditorWindow
                 animEvent.objectReferenceParameter = objectParam;
                 break;
             case ParamType.None:
-                // Noneが選択された場合、Stringパラメータにフラグを設定して区別できるようにする
                 animEvent.stringParameter = NoneParamFlag;
                 break;
         }
@@ -177,6 +331,12 @@ public class AnimationEventTool : EditorWindow
         EditorUtility.SetDirty(clip);
 
         AssetDatabase.SaveAssets();
+        
+        // イベント追加後、ヘルパーを再セットアップ
+        if (helper != null)
+        {
+            helper.Setup(clip);
+        }
     }
 
 
@@ -189,6 +349,12 @@ public class AnimationEventTool : EditorWindow
         EditorUtility.SetDirty(clip);
 
         AssetDatabase.SaveAssets();
+        
+        // イベントクリア後、ヘルパーを再セットアップ
+        if (helper != null)
+        {
+            helper.Setup(clip);
+        }
     }
 
 
@@ -198,36 +364,40 @@ public class AnimationEventTool : EditorWindow
 
         var events = AnimationUtility.GetAnimationEvents(selectedClip);
 
-        // スクロール可能なエリアを作成
         scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
         for (var i = 0; i < events.Length; i++)
         {
-            GUILayout.BeginHorizontal(GUI.skin.box); // 各イベントをボックスで囲む
+            GUILayout.BeginHorizontal(GUI.skin.box);
 
             var currentEvent = events[i];
 
-            // 関数名と時間を表示
             EditorGUILayout.LabelField($"関数名: {currentEvent.functionName}", GUILayout.Width(150));
             
-            // 時間を編集可能なスライダーで表示
             var newTime = EditorGUILayout.Slider(currentEvent.time, 0, selectedClip.length);
 
-            if (Mathf.Abs(newTime - currentEvent.time) > 0.001f) // 変更があったかチェック
+            if (Mathf.Abs(newTime - currentEvent.time) > 0.001f)
             {
-                // 変更を記録し、イベントの時間を更新
                 Undo.RecordObject(selectedClip, "Change Animation Event Time");
 
                 currentEvent.time = newTime;
 
-                events[i] = currentEvent; // 更新したイベントを配列に再代入
-
                 AnimationUtility.SetAnimationEvents(selectedClip, events);
 
                 EditorUtility.SetDirty(selectedClip);
+                
+                if (clipPlayable.IsValid())
+                {
+                    UpdatePreviewTime();
+                }
+                
+                // イベント変更後、ヘルパーを再セットアップ
+                if (helper != null)
+                {
+                    helper.Setup(selectedClip);
+                }
             }
 
-            // パラメータ情報を表示（一つのみ表示）
             string paramInfo = GetParamInfo(currentEvent);
             EditorGUILayout.LabelField(paramInfo, GUILayout.ExpandWidth(true));
 
@@ -243,54 +413,33 @@ public class AnimationEventTool : EditorWindow
         EditorGUILayout.EndScrollView();
     }
     
-    // イベントから引数情報を取得するヘルパーメソッド
     private string GetParamInfo(AnimationEvent animEvent)
     {
-        // 1. None (引数なし) の隠しフラグを最優先でチェック
         if (animEvent.stringParameter == NoneParamFlag)
         {
             return "Params: None";
         }
         
-        // 2. Object引数が設定されているかチェック
         if (animEvent.objectReferenceParameter != null)
         {
             return $"Object: {animEvent.objectReferenceParameter.name}";
         }
         
-        // 3. String引数が設定されているかチェック（Noneフラグとは異なる文字列）
         if (!string.IsNullOrEmpty(animEvent.stringParameter))
         {
             return $"String: \"{animEvent.stringParameter}\"";
         }
         
-        // 4. IntまたはFloatのチェック
-        // Object, Stringが設定されていない場合、intParameterとfloatParameterのどちらが使われたか判断する
-
-        // floatParameterが0以外、かつintParameterが0のときにFloatと見なす（Floatが使われた可能性が高い）
         if (Mathf.Abs(animEvent.floatParameter) > 0.0001f && animEvent.intParameter == 0)
         {
              return $"Float: {animEvent.floatParameter:F3}";
         }
         
-        // intParameterが0以外の場合、またはfloatParameterも0.0fの場合（Int: 0の可能性がある）
-        // Int: 0 または Int: [非0] の表示を優先します。
-        // intParameterはデフォルトで0であり、floatParameterも0.0fのとき、Noneフラグがなければ
-        // 実際には意図的にInt: 0が選ばれたか、引数が何も設定されなかった（旧イベント）のいずれかですが、
-        // Noneフラグを導入したため、ここでは Int を選択した場合のみ intParameter が利用されていると見なします。
-        if (animEvent.intParameter != 0 || Mathf.Abs(animEvent.floatParameter) < 0.0001f) // Int: 0 の場合を含む
+        if (animEvent.intParameter != 0 || Mathf.Abs(animEvent.floatParameter) < 0.0001f)
         {
-            // Int: 0 のイベントが正しく表示されるようにします
             return $"Int: {animEvent.intParameter}";
         }
         
-        // 5. それでも特定できない場合はFloat（例えばFloat: 0.0f）
-        if (Mathf.Abs(animEvent.floatParameter) > 0.0001f)
-        {
-            return $"Float: {animEvent.floatParameter:F3}";
-        }
-        
-        // 理論上はここには来ないはずですが、念のため
         return "Params: None (Fallback)";
     }
 
@@ -311,15 +460,28 @@ public class AnimationEventTool : EditorWindow
         EditorUtility.SetDirty(clip);
 
         AssetDatabase.SaveAssets();
+        
+        // イベント削除後、ヘルパーを再セットアップ
+        if (helper != null)
+        {
+            helper.Setup(clip);
+        }
     }
 
 
-    private void PlayPreview()
+    private void SetupPreview()
     {
         if (previewObject == null || selectedClip == null) return;
 
 
         if (playableGraph.IsValid()) playableGraph.Destroy();
+
+        // 既存のヘルパーがあればクリーンアップ
+        helper = previewObject.GetComponent<AnimationEventToolHelper>();
+        if (helper != null)
+        {
+            helper.Cleanup();
+        }
 
 
         var animator = previewObject.GetComponent<Animator>();
@@ -330,10 +492,19 @@ public class AnimationEventTool : EditorWindow
             return;
         }
 
+        // Helper Componentの追加と初期化
+        helper = previewObject.GetComponent<AnimationEventToolHelper>();
+        if (helper == null)
+        {
+            helper = previewObject.AddComponent<AnimationEventToolHelper>();
+        }
+        // Helperにクリップ情報を渡し、VFXを停止
+        helper.Setup(selectedClip);
+
 
         playableGraph = PlayableGraph.Create("AnimationPreview");
 
-        playableGraph.SetTimeUpdateMode(DirectorUpdateMode.GameTime);
+        playableGraph.SetTimeUpdateMode(DirectorUpdateMode.Manual);
 
 
         playableOutput = AnimationPlayableOutput.Create(playableGraph, "AnimationOutput", animator);
@@ -343,19 +514,26 @@ public class AnimationEventTool : EditorWindow
         playableOutput.SetSourcePlayable(clipPlayable);
 
 
-        playableGraph.Play();
-
+        // 初期時間に設定
         clipPlayable.SetTime(currentTime);
 
-        playableGraph.Evaluate(); // 停止状態で時間を更新するために必要
+        playableGraph.Evaluate(); 
+        
+        // 初期状態のVFXを更新
+        helper.UpdateVfxState(currentTime);
     }
     
-    // ウィンドウが閉じられたときにPlayableGraphを破棄
+
     private void OnDestroy()
     {
         if (playableGraph.IsValid())
         {
             playableGraph.Destroy();
+        }
+        
+        if (helper != null)
+        {
+            helper.Cleanup();
         }
     }
 
@@ -364,8 +542,15 @@ public class AnimationEventTool : EditorWindow
     {
         if (clipPlayable.IsValid())
         {
+            // PlayableGraphの評価（アニメーションのポーズ更新）
             clipPlayable.SetTime(currentTime);
             playableGraph.Evaluate();
+            
+            // Helperに時間の変化を通知し、VFXの状態を更新
+            if (helper != null)
+            {
+                helper.UpdateVfxState(currentTime);
+            }
         }
     }
 }
