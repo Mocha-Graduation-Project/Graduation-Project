@@ -700,11 +700,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: conditionToSpawn.Array.size
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[0].enemyId
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[3].enemyId
@@ -789,13 +793,29 @@ PrefabInstance:
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: conditionToSpawn.Array.data[0].spawnPoint
       value: 
+      objectReference: {fileID: 1124055354}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.data[1].spawnPoint
+      value: 
       objectReference: {fileID: 1124196129}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.data[0].conditionId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: conditionToSpawn.Array.data[0].conditionGameObject
       value: 
-      objectReference: {fileID: 6111660197841087254, guid: 029e1b17e09302c4eb42d136383ec124, type: 3}
+      objectReference: {fileID: 7051768376811337806, guid: e065fdea945b6b343aec1b4f60339d0a, type: 3}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: conditionToSpawn.Array.data[0].conditionSpawnDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.data[1].conditionGameObject
+      value: 
+      objectReference: {fileID: 6111660197841087254, guid: 029e1b17e09302c4eb42d136383ec124, type: 3}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.data[1].conditionSpawnDelay
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
@@ -803,8 +823,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.data[1].conditionEnemyIds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: 'conditionToSpawn.Array.data[0].conditionEnemyIds.Array.data[0]'
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: 'conditionToSpawn.Array.data[1].conditionEnemyIds.Array.data[0]'
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7414324679359569832, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: m_Name
@@ -812,7 +840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8166837146968787980, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: 06VerticalLoopFirstStage
+      value: 07FirstFloatFloorStage
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
