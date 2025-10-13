@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5801c8158edd44959df21e75efa94137, type: 3}
+  m_Name: QuickReplacerUnityTagColorManager
+  m_EditorClassIdentifier: 
+  tagColors:
+  - tagName: Untagged
+    color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0.5}
+  - tagName: Respawn
+    color: {r: 0.9, g: 0.4, b: 0.4, a: 0.3}
+  - tagName: Finish
+    color: {r: 0.4, g: 0.9, b: 0.4, a: 0.3}
+  - tagName: EditorOnly
+    color: {r: 0.4, g: 0.4, b: 0.9, a: 0.3}
+  - tagName: MainCamera
+    color: {r: 0.9, g: 0.9, b: 0.4, a: 0.3}
+  - tagName: Player
+    color: {r: 0.4, g: 0.9, b: 0.9, a: 0.3}
+  - tagName: GameController
+    color: {r: 0.9, g: 0.4, b: 0.4, a: 0.3}
+  - tagName: Attack
+    color: {r: 0.4, g: 0.9, b: 0.4, a: 0.3}
+  - tagName: Ground
+    color: {r: 0.4, g: 0.4, b: 0.9, a: 0.3}
+  - tagName: Bullet
+    color: {r: 0.9, g: 0.9, b: 0.4, a: 0.3}
+  - tagName: EnemyBullet
+    color: {r: 0.4, g: 0.9, b: 0.9, a: 0.3}
+  - tagName: QuickAttack
+    color: {r: 0.9, g: 0.4, b: 0.4, a: 0.3}
+  - tagName: LoopArea
+    color: {r: 0.4, g: 0.9, b: 0.4, a: 0.3}
+  - tagName: EnemyHPBar
+    color: {r: 0.4, g: 0.4, b: 0.9, a: 0.3}
+  - tagName: WarningUI
+    color: {r: 0.9, g: 0.9, b: 0.4, a: 0.3}

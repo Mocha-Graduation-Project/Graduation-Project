@@ -1,7 +1,8 @@
+# region
 using UnityEngine;
 using Scripts.Scriptable;
 using UnityEngine.InputSystem;
-
+# endregion
 namespace Player
 {
     [RequireComponent(typeof(Rigidbody))]

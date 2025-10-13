@@ -863,11 +863,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15fe09248130f8743b088c9ac98c5765, type: 3}
---- !u!1 &431104157719478913 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 701815805114223056, guid: 15fe09248130f8743b088c9ac98c5765, type: 3}
-  m_PrefabInstance: {fileID: 884622195438308177}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4936002540762737445 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5244154911701098612, guid: 15fe09248130f8743b088c9ac98c5765, type: 3}
@@ -1410,6 +1405,10 @@ PrefabInstance:
     - target: {fileID: 130211865915858745, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.08843843
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
+      propertyPath: m_Icon
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 36d1d75eba48ad74c9d9cb085d1acdaa, type: 3}
       propertyPath: m_Name
@@ -1962,16 +1961,13 @@ MonoBehaviour:
   audioSource2: {fileID: 6070319301895548553}
   mapManager: {fileID: 0}
   sceneButtonManager: {fileID: 0}
-  jumpCount: 0
-  IsAttacking: 0
   ShotPosition: {fileID: 4827083004097579758}
   AttackCollision: {fileID: 485489305804183711}
   QuickAttackCollision: {fileID: 4345442053038248739}
   Arrow: {fileID: 3959296674686234946}
   quickAxis: {fileID: 1357996293472408271}
-  batSlash: {fileID: 431104157719478913}
-  jumpSound: {fileID: 0}
-  walkSound: {fileID: 0}
+  effectPrefabs: []
+  effectDurations: []
 --- !u!114 &163183520200374533
 MonoBehaviour:
   m_ObjectHideFlags: 0
