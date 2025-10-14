@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PowerBall
-  m_Shader: {fileID: -6465566751694194690, guid: 084122c69484f054ca718ab2e8deac34, type: 3}
+  m_Name: PowerBall Heart
+  m_Shader: {fileID: -6465566751694194690, guid: 934647899c1093848891ad429d3b6a73, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -57,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTexture:
-        m_Texture: {fileID: 2800000, guid: ea80978f5f4dc1e4cb75953db43a9fa5, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -95,7 +95,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
-    - _Alpha: 0.33
+    - _Alpha: 0.59
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
@@ -139,7 +139,7 @@ Material:
     - _DissolveColor: {r: 0, g: 155.74858, b: 92.85797, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HDRPower: {r: 172.51648, g: 241.6751, b: 235.26842, a: 0}
-    - _HDRPowerColor: {r: 41.73182, g: 41.73182, b: 41.73182, a: 0}
+    - _HDRPowerColor: {r: 4.9245777, g: 4.88649, b: 4.32062, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
