@@ -85,6 +85,9 @@ namespace Player
         [JapaneseLabel("射撃クールタイム")]private float shotCoolTime = 0.2f;
         [JapaneseLabel("オーバーヒートしているか")] private bool Overheat = false;
         
+        private readonly System.Collections.Generic.Dictionary<float, WaitForSeconds> waitCache = new System.Collections.Generic.Dictionary<float, WaitForSeconds>();
+
+        
         
         private void Awake()
         {
@@ -241,7 +244,7 @@ namespace Player
 
             PlayAttackAnimation(attackDirection);
 
-            Invoke(nameof(AttackCollisionFalse), collisionRadius);
+            StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
         }
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -282,7 +285,7 @@ namespace Player
                 IsShot = true;
                 currentShotStamina -= shotStaminaDrainPerSecond;
                 animator.SetTrigger(IsShot1);
-                Invoke(nameof(Shot),0.45f);
+                StartCoroutine(ShootWithCoolDown(0.45f, shotCoolTime));
             }
         }
 
@@ -322,6 +325,7 @@ namespace Player
 
         private void PlayAttackAnimation(int attackDirection)
         {
+            animator.ResetTrigger(IsAttack);
             animator.SetInteger(AttackDirection,attackDirection);
             animator.SetTrigger(IsAttack);
         }
@@ -353,10 +357,19 @@ namespace Player
                 StartCoroutine(ShowEffectForDuration(effectToPlay, duration));
             }
         }
+        private WaitForSeconds GetWait(float seconds)
+        {
+            if (!waitCache.TryGetValue(seconds, out var waitObject))
+            {
+                waitObject = new WaitForSeconds(seconds);
+                waitCache.Add(seconds, waitObject);
+            }
+            return waitObject;
+        }
         private System.Collections.IEnumerator ShowEffectForDuration(GameObject effectObject, float duration)
         {
             effectObject.SetActive(true);
-            yield return new WaitForSeconds(duration);
+            yield return GetWait(duration);
             effectObject.SetActive(false);
         }
         public void PlayReflectionSound()
@@ -374,6 +387,31 @@ namespace Player
             QuickAttackCollision.gameObject.SetActive(false);
             IsAttacking = false;
         }
+        private System.Collections.IEnumerator DeactivateAttackCollisionAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            AttackCollision.gameObject.SetActive(false);
+            QuickAttackCollision.gameObject.SetActive(false);
+            IsAttacking = false;
+        }
+        
+        private System.Collections.IEnumerator ShootWithCoolDown(float preShotDelay, float coolDown)
+        {
+            // 0.45秒待機（アニメーションに合わせる）
+            yield return new WaitForSeconds(preShotDelay);
+    
+            // Shot() の処理
+            audioSource1.PlayOneShot(shotSound);
+            var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
+            var bullet = bullets.GetComponent<Bullet>();
+            bullet.PowerDirection = direction;
+    
+            // shotCoolTime 待機
+            yield return new WaitForSeconds(coolDown);
+    
+            // ShotFinish() の処理
+            IsShot = false;
+        }
         
         private void OnEnable()
         {
@@ -382,11 +420,8 @@ namespace Player
             MoveAction.actions["Move"].canceled += OnMove;
             MoveAction.actions["Jump"].started += OnJump;
             MoveAction.actions["Shot"].started += OnShot;
-            //MoveAction.actions["Attack"].performed += OnAttack;
             MoveAction.actions["Attack"].canceled += OffAttack;
             MoveAction.actions["Jump"].canceled += OffJump;
-            //MoveAction.actions["QuickAttack"].performed += OnQuickAttack;
-            //MoveAction.actions["QuickAttack"].canceled += OffAttack;
             MoveAction.actions["Aim"].performed += OnQuickAttackAim;
             MoveAction.actions["Aim"].canceled += OnQuickAttackAim;
         }
@@ -399,11 +434,8 @@ namespace Player
             MoveAction.actions["Move"].canceled -= OnMove;
             MoveAction.actions["Jump"].started -= OnJump;
             MoveAction.actions["Shot"].started -= OnShot;
-            //MoveAction.actions["Attack"].performed -= OnAttack;
             MoveAction.actions["Attack"].canceled -= OffAttack;
             MoveAction.actions["Jump"].canceled -= OffJump;
-            //MoveAction.actions["QuickAttack"].performed -= OnQuickAttack;
-            //MoveAction.actions["QuickAttack"].canceled -= OffAttack;
             MoveAction.actions["Aim"].performed -= OnQuickAttackAim;
             MoveAction.actions["Aim"].canceled -= OnQuickAttackAim;
         }
