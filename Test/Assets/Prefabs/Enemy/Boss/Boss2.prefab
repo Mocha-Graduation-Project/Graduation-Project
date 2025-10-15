@@ -104,12 +104,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6292ed41b070a40a665ce7ceee3cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: 814a6c3d13e837748afc0956b3555fe2, type: 2}
+  moveObj: {fileID: 4769372897256545517}
+  shotObj: {fileID: 0}
+  straightObj: {fileID: 0}
+  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
   pattern: 0
   boss: {fileID: 4769372897256545517}
   isAttck: 0
   flontZPos: 0
   coolTime: 1
-  enemyData: {fileID: 11400000, guid: d1f840c5b24b06844bc76223c72224bc, type: 2}
+  attckWarningUI: {fileID: 0}
+  patrolEnemyData: {fileID: 11400000, guid: d1f840c5b24b06844bc76223c72224bc, type: 2}
   maxLRTackle: 1
   LRTackleCounter: 0
   tackleCounter: 0

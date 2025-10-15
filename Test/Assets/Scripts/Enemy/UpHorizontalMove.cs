@@ -128,7 +128,7 @@ public class UpHorizontalMove : MonoBehaviour,IState
                 Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.MoveTime);
                 break;
             case 1:
-                Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.EnemyData.MoveVerticalTime * 2);
+                Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.PatrolEnemyData.MoveVerticalTime * 2);
                 break;
             case 2:
                 Debug.Log("終了");

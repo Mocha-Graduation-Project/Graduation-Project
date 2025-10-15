@@ -132,13 +132,13 @@ public class LeftVerticalMove : MonoBehaviour,IState
                 Move(moveBoss.LeftCenterPos, moveBoss.MoveTime);
                 break;
             case 1:
-                Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.EnemyData.MoveHorizontalTime);
+                Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.PatrolEnemyData.MoveHorizontalTime);
                 break;
             case 2:
-                Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.DownCenterPos.y, 0), moveBoss.EnemyData.MoveHorizontalTime * 2);
+                Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.DownCenterPos.y, 0), moveBoss.PatrolEnemyData.MoveHorizontalTime * 2);
                 break;
             case 3:
-                Move(moveBoss.LeftCenterPos, moveBoss.EnemyData.MoveHorizontalTime);
+                Move(moveBoss.LeftCenterPos, moveBoss.PatrolEnemyData.MoveHorizontalTime);
                 break;
             case 4:
                 Debug.Log("終了");

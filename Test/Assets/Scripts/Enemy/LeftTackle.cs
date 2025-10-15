@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LeftTackle : MonoBehaviour, IState
 {
-    private readonly EnemyAI enemyAI;
+    private EnemyAI enemyAI;
     public LeftTackle(EnemyAI enemyAI)
     {
         this.enemyAI = enemyAI;
@@ -29,9 +29,9 @@ public class LeftTackle : MonoBehaviour, IState
         isCoolTime = true;
         Initialization();
         startPos = depthBoss.CenterPos;
-        rightMaxPos = new Vector3(startPos.x + depthBoss.EnemyData.RightRange, startPos.y, startPos.z);
+        rightMaxPos = new Vector3(startPos.x + depthBoss.PatrolEnemyData.RightRange, startPos.y, startPos.z);
         rightFlontPos = new Vector3(rightMaxPos.x, rightMaxPos.y, depthBoss.FlontZPos);
-        leftMaxPos = new Vector3(startPos.x - depthBoss.EnemyData.LeftRange, startPos.y, startPos.z);
+        leftMaxPos = new Vector3(startPos.x - depthBoss.PatrolEnemyData.LeftRange, startPos.y, startPos.z);
         leftFlontPos = new Vector3(leftMaxPos.x, leftMaxPos.y, depthBoss.FlontZPos);
     }
 
@@ -56,19 +56,39 @@ public class LeftTackle : MonoBehaviour, IState
         switch (moveCounter)
         {
             case 0: //中央から画面端に消える
-                Move(startPos, leftMaxPos, depthBoss.EnemyData.MoveHorizontalTime);
+                if (enemyAI.EnemyMove(boss, startPos, leftMaxPos,
+                        depthBoss.PatrolEnemyData.MoveHorizontalTime, startTime) == true)
+                {
+                    NextMove();
+                }
                 break;
             case 1: //画面外で前(プレイヤーの居るz座標)まで移動
-                Move(leftMaxPos, leftFlontPos, depthBoss.EnemyData.WaitTime);
+                if (enemyAI.EnemyMove(boss, leftMaxPos, leftFlontPos,
+                        depthBoss.PatrolEnemyData.WaitTime, startTime) == true)
+                {
+                    NextMove();
+                }
                 break;
             case 2: //プレイヤーに向かってタックル(画面外から画面外へ)
-                Move(leftFlontPos, rightFlontPos, depthBoss.EnemyData.MoveHorizontalTime * 2);
+                if (enemyAI.EnemyMove(boss, leftFlontPos, rightFlontPos,
+                        depthBoss.PatrolEnemyData.MoveHorizontalTime * 2, startTime) == true)
+                {
+                    NextMove();
+                }
                 break;
             case 3: //画面外で後ろ(元居たz座標)まで移動
-                Move(rightFlontPos, rightMaxPos, depthBoss.EnemyData.WaitTime);
+                if (enemyAI.EnemyMove(boss, rightFlontPos, rightMaxPos,
+                        depthBoss.PatrolEnemyData.WaitTime, startTime) == true)
+                {
+                    NextMove();
+                }
                 break;
             case 4: //画面端から中央へ移動
-                Move(rightMaxPos, startPos, depthBoss.EnemyData.MoveHorizontalTime);
+                if (enemyAI.EnemyMove(boss, rightMaxPos, startPos,
+                        depthBoss.PatrolEnemyData.MoveHorizontalTime, startTime) == true)
+                {
+                    NextMove();
+                }
                 break;
             case 5: //次のパターンへ
                 depthBoss.Change();
@@ -86,21 +106,13 @@ public class LeftTackle : MonoBehaviour, IState
         startTime = Time.time;
     }
     
-    void Move(Vector3 start,Vector3 end,float time)
+    void NextMove()
     {
-        float diff = Time.time - startTime;
-        if (diff > time)
+        Initialization();
+        moveCounter++;
+        if (moveCounter == 1)
         {
-            //Debug.Log("Change");
-            Initialization();
-            moveCounter++;
-            if (moveCounter == 1)
-            {
-                depthBoss.AttckWarningUI.SetWarning(AttckWarningUI.AttckType.leftTackle, depthBoss.EnemyData.WaitTime);
-            }
-            return;
+            depthBoss.AttckWarningUI.SetWarning(AttckWarningUI.AttckType.rightTackle, depthBoss.PatrolEnemyData.WaitTime);
         }
-        float rate = diff / time;
-        boss.transform.position = Vector3.Lerp(start, end, rate);
     }
 }

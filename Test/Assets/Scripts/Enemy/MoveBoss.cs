@@ -1,6 +1,12 @@
+using NUnit.Framework.Internal;
 using Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEditor;
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(EnemyAI))]
+#endif
 
 public class MoveBoss : EnemyAI
 {
@@ -34,11 +40,11 @@ public class MoveBoss : EnemyAI
     
     [Space(15)]
     [SerializeField] [JapaneseLabel("パターン移行のクールタイム")] float coolTime;
-
+    
     [Space(5)]
     [Header("パターン1,2,3,4")] 
     [SerializeField] [JapaneseLabel("パターン1～4に使うデータ")]
-    private PatrolEnemyData enemyData;
+    private PatrolEnemyData patrolEnemyData;
 
     [SerializeField] [JapaneseLabel("1,2の発射レート")]
     private float bulletRate1_2;
@@ -78,7 +84,7 @@ public class MoveBoss : EnemyAI
     
     public Scripts.Enemy EnemyScript { get { return enemyScript; } }
 
-    public PatrolEnemyData EnemyData { get { return enemyData; } }
+    public PatrolEnemyData PatrolEnemyData { get { return patrolEnemyData; } }
     
     public GameObject[]  Laser { get { return laser; } }
     public float Rotate90PerSec { get { return rotate90PerSec; } }
@@ -91,18 +97,20 @@ public class MoveBoss : EnemyAI
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        basePos = transform.position;
-        centerPos.x = (enemyData.RightRange - enemyData.LeftRange) / 2;
-        centerPos.y = (enemyData.UpRange - enemyData.DownRange) / 2;
         
-        rightCenterPos.x = centerPos.x + enemyData.RightRange;
+        
+        basePos = transform.position;
+        centerPos.x = (patrolEnemyData.RightRange - patrolEnemyData.LeftRange) / 2;
+        centerPos.y = (patrolEnemyData.UpRange - patrolEnemyData.DownRange) / 2;
+        
+        rightCenterPos.x = centerPos.x + patrolEnemyData.RightRange;
         rightCenterPos.y = centerPos.y;
-        leftCenterPos.x = centerPos.x - enemyData.LeftRange;
+        leftCenterPos.x = centerPos.x - patrolEnemyData.LeftRange;
         leftCenterPos.y = centerPos.y;
         upCenterPos.x = centerPos.x;
-        upCenterPos.y = centerPos.y + enemyData.UpRange;
+        upCenterPos.y = centerPos.y + patrolEnemyData.UpRange;
         downCenterPos.x = centerPos.x;
-        downCenterPos.y = centerPos.y - enemyData.DownRange;
+        downCenterPos.y = centerPos.y - patrolEnemyData.DownRange;
 
         actioncounter = 0;
         loopCounter = 0;

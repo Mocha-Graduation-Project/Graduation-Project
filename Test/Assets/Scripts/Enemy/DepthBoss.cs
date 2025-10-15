@@ -3,6 +3,12 @@ using Player;
 using Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEditor;
+using UnityEngine.Serialization;
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(EnemyAI))]
+#endif
 
 public class DepthBoss : EnemyAI
 {
@@ -35,7 +41,7 @@ public class DepthBoss : EnemyAI
     [Space(5)]
     [Header("パターン1,2")] 
     [SerializeField] [JapaneseLabel("パターン1,2に使うデータ")]
-    private PatrolEnemyData enemyData;
+    private PatrolEnemyData patrolEnemyData;
 
     [Space(5)]
     [Header("パターン3")] 
@@ -55,7 +61,7 @@ public class DepthBoss : EnemyAI
     public Vector3 CenterPos{get{ return centerPos; }}
     public float FlontZPos{get{ return flontZPos; }}
     public float CoolTime{get{ return coolTime; }}
-    public PatrolEnemyData EnemyData { get { return enemyData; } }
+    public PatrolEnemyData PatrolEnemyData { get { return patrolEnemyData; } }
     public float FallAttckWaitTime { get { return fallAttckWaitTime; } }
     public GameObject Player{ get{ return player; }}
     public AttckWarningUI AttckWarningUI{ get{ return attckWarningUI; } }
@@ -64,6 +70,8 @@ public class DepthBoss : EnemyAI
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        Debug.Log("テスト:" + enemyData.enemyType);
+        TestShow();
         centerPos = this.transform.position;
         stateMachine = new StateMachine();
         RandomSetPattern();
