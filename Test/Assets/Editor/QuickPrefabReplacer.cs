@@ -150,7 +150,7 @@ public class QuickPrefabReplacer : EditorWindow
         GUILayout.Label("1. Target Prefab", EditorStyles.miniLabel);
 
         targetPrefab = (GameObject)EditorGUILayout.ObjectField(
-            "Replace Target",
+            "新しく置き変えたいPrefab",//Replace Target
             targetPrefab,
             typeof(GameObject),
             false
@@ -183,7 +183,7 @@ public class QuickPrefabReplacer : EditorWindow
 
         // フィルタリングと複数選択モードトグル
         EditorGUILayout.BeginHorizontal();
-        filterOnlyRootInstances = GUILayout.Toggle(filterOnlyRootInstances, "Filter: Prefab Root Instances Only");
+        filterOnlyRootInstances = GUILayout.Toggle(filterOnlyRootInstances, "フィルター：Prefabのみ表示");//Filter: Prefab Root Instances Only
 
         // Unityタグフィルタリングのドロップダウン
         List<string> filterOptions = new List<string> { "All" };
@@ -199,7 +199,7 @@ public class QuickPrefabReplacer : EditorWindow
         }
         
         // タグの色設定をPingするボタン
-        if (GUILayout.Button("Tag Colors", EditorStyles.miniButton, GUILayout.Width(100)))
+        if (GUILayout.Button("色の設定", EditorStyles.miniButton, GUILayout.Width(100)))//Tag Colors
         {
             // UnityTagColorManagerアセットをインスペクタで開く
             EditorGUIUtility.PingObject(colorManager);
@@ -209,7 +209,7 @@ public class QuickPrefabReplacer : EditorWindow
         EditorGUILayout.EndHorizontal();
 
         // 複数選択モード
-        multiSelectMode = GUILayout.Toggle(multiSelectMode, "Multi-Select Mode", EditorStyles.toolbarButton);
+        multiSelectMode = GUILayout.Toggle(multiSelectMode, "複数選択モード", EditorStyles.toolbarButton);//Multi-Select Mode
         EditorGUILayout.Space(5);
 
         // オブジェクト一覧
@@ -361,20 +361,20 @@ public class QuickPrefabReplacer : EditorWindow
         int count = selectedObjects.Count;
 
         // Unityタグ設定エリア
-        GUILayout.Label("Unity Tag Assignment", EditorStyles.miniLabel);
-        EditorGUILayout.BeginHorizontal();
-        
-        // 割り当てるタグのドロップダウン
-        string[] availableTags = InternalEditorUtility.tags;
-        if (availableTags.Length > 0)
-        {
-            int currentIndex = System.Array.IndexOf(availableTags, tagToAssign);
-            int newIndex = EditorGUILayout.Popup(currentIndex >= 0 ? currentIndex : 0, availableTags);
-            tagToAssign = availableTags[newIndex];
-        }
+        // GUILayout.Label("Unity Tag Assignment", EditorStyles.miniLabel);//
+        // EditorGUILayout.BeginHorizontal();
+        //
+        // // 割り当てるタグのドロップダウン
+        // string[] availableTags = InternalEditorUtility.tags;
+        // if (availableTags.Length > 0)
+        // {
+        //     int currentIndex = System.Array.IndexOf(availableTags, tagToAssign);
+        //     int newIndex = EditorGUILayout.Popup(currentIndex >= 0 ? currentIndex : 0, availableTags);
+        //     tagToAssign = availableTags[newIndex];
+        // }
 
         GUI.enabled = count > 0;
-        if (GUILayout.Button($"Set Tag to {count} Obj(s)", EditorStyles.miniButton, GUILayout.Width(120)))
+        if (GUILayout.Button($"{count}個のオブジェクトを置き替えます", EditorStyles.miniButton, GUILayout.Width(300)))//Set Tag to {count} Obj(s)　　120
         {
             SetUnityTagToSelectedObjects(tagToAssign);
         }
