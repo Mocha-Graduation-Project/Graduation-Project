@@ -60,7 +60,6 @@ namespace Player
         private static readonly int IsShot1 = Animator.StringToHash("isShot");
         private static readonly int AttackDirection = Animator.StringToHash("AttackDirection");
         private static readonly int IsAttack = Animator.StringToHash("isAttack");
-         
         AnimatorStateInfo animatorStateInfo;
         
         //サウンド関連
@@ -86,8 +85,6 @@ namespace Player
         [JapaneseLabel("オーバーヒートしているか")] private bool Overheat = false;
         
         private readonly System.Collections.Generic.Dictionary<float, WaitForSeconds> waitCache = new System.Collections.Generic.Dictionary<float, WaitForSeconds>();
-
-        
         
         private void Awake()
         {
@@ -227,7 +224,6 @@ namespace Player
         private void OnQuickAttackTriggered(float angle)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
-            // direction は PlayerMovement から取得するのが理想だが、ここでは一旦そのまま
             int attackDirection = angle switch
             {
                 >= 45 and < 135 => 0,
@@ -236,6 +232,7 @@ namespace Player
                 _ => (direction == -1) ? 1 : 3
             };
 
+            
             IsAttacking = true;
 
             QuickAttackCollision.gameObject.SetActive(true);
@@ -288,16 +285,6 @@ namespace Player
                 StartCoroutine(ShootWithCoolDown(0.45f, shotCoolTime));
             }
         }
-
-        public void Shot()
-        {
-            audioSource1.PlayOneShot(shotSound);
-            var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
-            var bullet = bullets.GetComponent<Bullet>();
-            bullet.PowerDirection = direction;
-            Invoke(nameof(ShotFinish),shotCoolTime);
-        }
-
         private void ShotFinish()
         {
             IsShot=false;
@@ -325,7 +312,8 @@ namespace Player
 
         private void PlayAttackAnimation(int attackDirection)
         {
-            animator.ResetTrigger(IsAttack);
+            //animator.ResetTrigger(IsAttack);
+            animator.Play("Idle");
             animator.SetInteger(AttackDirection,attackDirection);
             animator.SetTrigger(IsAttack);
         }
