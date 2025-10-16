@@ -14,13 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   enemyType: 2
-  moveType: 1
-  enemyAttackType: 2
-  isMove: 1
-  isRotate: 1
-  isJump: 0
   coolTime: 1
   soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
+  moveType: 1
   leftRenge: 4.2
   rightRenge: 4.2
   moveHorizontalTime: 2
@@ -28,11 +24,14 @@ MonoBehaviour:
   downRenge: 3
   moveVerticalTime: 1.5
   moveWaitTime: 1
+  enemyAttackType: 2
   bulletObj: {fileID: 1734557430232284754, guid: 50aaa5bb5e5a5f44fa3f2ac7b7cb1f5d, type: 3}
   bulletRate: 1
   beforeAttackTime: 1
   blinkDuration: 0.3
-  rotateTime: 0
+  isRotate: 1
+  rotateTime: 2
+  isJump: 0
   jumpPower: 0
   jumpCoolTime: 0
   groundLayer:

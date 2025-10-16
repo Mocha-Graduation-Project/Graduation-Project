@@ -24,12 +24,8 @@ public class DepthBoss : EnemyAI
 
     [Header("共通")]
     [SerializeField] [JapaneseLabel("現在の行動パターン")]Patterns pattern;
-    
-    [SerializeField] [JapaneseLabel("動かすオブジェクト")] private GameObject boss;
 
     [SerializeField] [JapaneseLabel("攻撃中か")] private bool isAttck;
-    
-    [JapaneseLabel("初期(中央)位置")] private Vector3 centerPos;
 
     [SerializeField] [JapaneseLabel("手前側のz座標")] private float flontZPos;
     
@@ -55,36 +51,35 @@ public class DepthBoss : EnemyAI
     
     [JapaneseLabel("落下する座標")] private Vector3 fallingAttckPos;
     
-    GameObject player;
-    
-    public GameObject Boss{get{ return boss; }}
-    public Vector3 CenterPos{get{ return centerPos; }}
+    //GameObject player;
+
     public float FlontZPos{get{ return flontZPos; }}
-    public float CoolTime{get{ return coolTime; }}
-    public PatrolEnemyData PatrolEnemyData { get { return patrolEnemyData; } }
     public float FallAttckWaitTime { get { return fallAttckWaitTime; } }
-    public GameObject Player{ get{ return player; }}
     public AttckWarningUI AttckWarningUI{ get{ return attckWarningUI; } }
     public Vector3 FallingAttckPos{ get{ return fallingAttckPos; } set { fallingAttckPos = value; } }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public override void SetUp()
     {
-        Debug.Log("テスト:" + enemyData.enemyType);
-        TestShow();
-        centerPos = this.transform.position;
         stateMachine = new StateMachine();
         RandomSetPattern();
         LRTackleCounter = 0;
         tackleCounter = 0;
         isAttck = true;
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
         attckWarningUI = GameObject.FindGameObjectWithTag("WarningUI").GetComponent<AttckWarningUI>();
         attckWarningUI.SetFallingAttckEnemy(this.gameObject);
     }
 
     // Update is called once per frame
-    void Update()
+    override protected void Update()
+    {
+        base.Update();
+        //stateMachine.Update();
+    }
+
+    public override void CustomMove()
     {
         stateMachine.Update();
     }

@@ -992,9 +992,6 @@ PrefabInstance:
       addedObject: {fileID: 2360492234248914060}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8651208920278cc48ac0246f4714a18c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3347531083724630867}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8651208920278cc48ac0246f4714a18c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 2002568068330471627}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8651208920278cc48ac0246f4714a18c, type: 3}
       insertIndex: -1
@@ -1018,18 +1015,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: e26e8abec708f104f97a0356959ec749, type: 2}
+  hp: 100
   moveObj: {fileID: 2313769065159366323}
+  playerLookObj: {fileID: 2448015476750895501}
+  rotateAxis: {fileID: 7834526241826933591}
   shotObj: {fileID: 4545780901280632173}
   straightObj: {fileID: 7834526241826933591}
   damageText: {fileID: 1474479737437088787}
   beforeAttackText: {fileID: 2120872017452714694}
   enemySpawnManager: {fileID: 0}
   pattern: 0
-  rotateAxis: {fileID: 7834526241826933591}
-  boss: {fileID: 2313769065159366323}
-  enemyScript: {fileID: 3347531083724630867}
-  moveTime: 1.5
-  coolTime: 1
   patrolEnemyData: {fileID: 11400000, guid: 2f875283be2fe4e47a93b6385d26133e, type: 2}
   bulletRate1_2: 1
   bulletRate3_4: 0.5
@@ -1038,41 +1033,8 @@ MonoBehaviour:
   - {fileID: 2516122783139091720}
   rotate90PerSec: 1.5
   changeHPPercent: 50
-  changeHP: 0
-  patten5Flag: 0
   loopCounter: 2
   maxLoop: 1
---- !u!114 &3347531083724630867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2448015476750895501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d9b1bc5a5878dd4280ee6d3c95d2a1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletType: 1
-  attckType: 1
-  enemyType: 2
-  HP: 100
-  damageText: {fileID: 1474479737437088787}
-  beforeAttackText: {fileID: 2120872017452714694}
-  beforeAttackTime: 1
-  blinkDuration: 0.3
-  canvas: {fileID: 8515457239726388513}
-  shotObj: {fileID: 4545780901280632173}
-  straightObj: {fileID: 0}
-  dontAttck: 0
-  bullet: {fileID: 0}
-  enemyBullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
-  reflectionBullet: {fileID: 1734557430232284754, guid: 50aaa5bb5e5a5f44fa3f2ac7b7cb1f5d, type: 3}
-  bulletRate: 0
-  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
-  enemySpawn: {fileID: 0}
-  enemyHPSlider: {fileID: 0}
 --- !u!82 &2002568068330471627
 AudioSource:
   m_ObjectHideFlags: 0

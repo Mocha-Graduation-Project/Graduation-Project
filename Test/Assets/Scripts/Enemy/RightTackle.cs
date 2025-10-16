@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RightTackle : MonoBehaviour, IState
 {
-    private EnemyAI enemyAI;//readonly EnemyAI enemyAI;
+    private EnemyAI enemyAI;
     public RightTackle(EnemyAI enemyAI)
     {
         this.enemyAI = enemyAI;
@@ -10,9 +10,10 @@ public class RightTackle : MonoBehaviour, IState
 
     int moveCounter;
     DepthBoss depthBoss;
-    GameObject boss;
+    GameObject moveEnemy;
     private float t;
     private float startTime;
+    
     private Vector3 startPos;
     private Vector3 rightMaxPos;
     private Vector3 leftMaxPos;
@@ -24,14 +25,15 @@ public class RightTackle : MonoBehaviour, IState
     {
         Debug.Log("2_1_Enter");
         moveCounter = 0;
-        depthBoss = GameObject.Find("DepthBoss").GetComponent<DepthBoss>();
-        boss = depthBoss.Boss;
+        depthBoss=GameObject.Find("DepthBoss").GetComponent<DepthBoss>();
+        moveEnemy = enemyAI.moveObj;
         isCoolTime = true;
         Initialization();
-        startPos = depthBoss.CenterPos;
-        rightMaxPos = new Vector3(startPos.x + depthBoss.PatrolEnemyData.RightRange, startPos.y, startPos.z);
+
+        startPos = enemyAI.centerPos;
+        rightMaxPos = new Vector3(startPos.x + enemyAI.enemyData.rightRenge, startPos.y, startPos.z);
         rightFlontPos = new Vector3(rightMaxPos.x, rightMaxPos.y, depthBoss.FlontZPos);
-        leftMaxPos = new Vector3(startPos.x - depthBoss.PatrolEnemyData.LeftRange, startPos.y, startPos.z);
+        leftMaxPos = new Vector3(startPos.x - enemyAI.enemyData.leftRenge, startPos.y, startPos.z);
         leftFlontPos = new Vector3(leftMaxPos.x, leftMaxPos.y, depthBoss.FlontZPos);
     }
 
@@ -41,7 +43,7 @@ public class RightTackle : MonoBehaviour, IState
         if (isCoolTime == true)
         {
             float diff = Time.time - startTime;
-            if (diff < depthBoss.CoolTime)
+            if (diff < enemyAI.enemyData.coolTime)
             {
                 //Debug.Log("クールタイム中");
                 return;
@@ -56,36 +58,36 @@ public class RightTackle : MonoBehaviour, IState
         switch (moveCounter)
         {
             case 0: //中央から画面端に消える
-                if (enemyAI.EnemyMove(boss, startPos, rightMaxPos,
-                        depthBoss.PatrolEnemyData.MoveHorizontalTime, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, startPos, rightMaxPos,
+                        enemyAI.enemyData.moveHorizontalTime, startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 1: //画面外で前(プレイヤーの居るz座標)まで移動
-                if (enemyAI.EnemyMove(boss, rightMaxPos, rightFlontPos,
-                        depthBoss.PatrolEnemyData.WaitTime, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, rightMaxPos, rightFlontPos,
+                        enemyAI.enemyData.moveWaitTime, startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 2: //プレイヤーに向かってタックル(画面外から画面外へ)
-                if (enemyAI.EnemyMove(boss, rightFlontPos, leftFlontPos,
-                        depthBoss.PatrolEnemyData.MoveHorizontalTime * 2, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, rightFlontPos, leftFlontPos,
+                        enemyAI.enemyData.moveHorizontalTime * 2, startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 3: //画面外で後ろ(元居たz座標)まで移動
-                if (enemyAI.EnemyMove(boss, leftFlontPos, leftMaxPos,
-                        depthBoss.PatrolEnemyData.WaitTime, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, leftFlontPos, leftMaxPos,
+                        enemyAI.enemyData.moveWaitTime, startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 4: //画面端から中央へ移動
-                if (enemyAI.EnemyMove(boss, leftMaxPos, startPos,
-                        depthBoss.PatrolEnemyData.MoveHorizontalTime, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, leftMaxPos, startPos,
+                        enemyAI.enemyData.moveHorizontalTime, startTime) == true)
                 {
                     NextMove();
                 }
@@ -112,7 +114,7 @@ public class RightTackle : MonoBehaviour, IState
         moveCounter++;
         if (moveCounter == 1)
         {
-            depthBoss.AttckWarningUI.SetWarning(AttckWarningUI.AttckType.rightTackle, depthBoss.PatrolEnemyData.WaitTime);
+            depthBoss.AttckWarningUI.SetWarning(AttckWarningUI.AttckType.rightTackle, enemyAI.enemyData.moveWaitTime);
         }
     }
 }

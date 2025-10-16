@@ -3,41 +3,55 @@ using UnityEngine;
 public class LeftVerticalMove : MonoBehaviour,IState
 {
     //左の縦移動
-    private readonly EnemyAI enemyAI;
+    private EnemyAI enemyAI;
+    public LeftVerticalMove(EnemyAI enemyAI)
+    {
+        this.enemyAI = enemyAI;
+    }
     
     int moveCounter;
-    MoveBoss moveBoss;
     GameObject rotateAxis;
-    GameObject boss;
+    GameObject moveEnemy;
     private float t;
     private float startTime;
-    private Vector3 startPos;
     private float rotateSpeed = 0.1f;
-    private Vector3 x;
     private bool finishMoving;
     private bool finishRotating;
     private float angleZ;
     Vector3 rotateAxisRotate;
     private bool isCoolTime;
     
-    public LeftVerticalMove(EnemyAI enemyAI)
-    {
-        this.enemyAI = enemyAI;
-    }
+    //移動に関する座標
+    private Vector3 centerPos;
+    private Vector3 startPos;
+    private Vector3 leftCenterPos;
+    private Vector3 leftUpPos;
+    private Vector3 leftDownPos;
+    private float leftPosX;
+    private float upPosY;
+    private float downPosY;
 
     public void Enter()
     {
         Debug.Log("2_Enter");
         moveCounter = 0;
-        moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
-        boss = moveBoss.Boss;
-        moveBoss.EnemyScript.StopAttck();
+        moveEnemy = enemyAI.moveObj;
+        enemyAI.StopAttack();
         isCoolTime = true;
         Initialization();
         finishMoving = false;
         finishRotating = false;
-        startPos = boss.transform.position;
-        rotateAxis = moveBoss.RotateAxis;
+
+        centerPos = enemyAI.centerPos;
+        startPos = moveEnemy.transform.position;
+        leftPosX = centerPos.x - enemyAI.enemyData.leftRenge;
+        upPosY = centerPos.y + enemyAI.enemyData.upRenge;
+        downPosY = centerPos.y - enemyAI.enemyData.downRenge;
+        leftUpPos = new Vector3(leftPosX, upPosY, centerPos.z);
+        leftDownPos = new Vector3(leftPosX, downPosY, centerPos.z);
+        leftCenterPos= new Vector3(leftPosX, centerPos.y, centerPos.z);
+        
+        rotateAxis = enemyAI.rotateAxis;
         rotateAxisRotate = new Vector3(0, 0, 180);
         if (rotateAxis.transform.eulerAngles == rotateAxisRotate)
         {
@@ -59,7 +73,7 @@ public class LeftVerticalMove : MonoBehaviour,IState
         if (isCoolTime == true)
         {
             float diff = Time.time - startTime;
-            if (diff < moveBoss.CoolTime)
+            if (diff < enemyAI.enemyData.coolTime)
             {
                 //Debug.Log("クールタイム中");
                 return;
@@ -71,10 +85,14 @@ public class LeftVerticalMove : MonoBehaviour,IState
             }
         }
         MoveLeftCenter();
-        Rotate(rotateAxisRotate);
+        if (finishRotating != true)
+        {
+            finishRotating =
+                enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ, enemyAI.enemyData.rotateTime, ref t);
+        }
         if (finishMoving == true && finishRotating == true)
         {
-            moveBoss.Change();
+            enemyAI.Change();
         }
     }
 
@@ -86,23 +104,18 @@ public class LeftVerticalMove : MonoBehaviour,IState
     void Initialization()
     {
         startTime = Time.time;
-        //startPos = boss.transform.position;
+        //centerPos = moveEnemy.transform.position;
     }
-
-    void Move(Vector3 endPos,float time)
+    
+    void NextMove()
     {
-        float diff = Time.time - startTime;
-        if (diff > time)
+        moveCounter++;
+        Initialization();
+        centerPos = moveEnemy.transform.position;
+        if (moveCounter == 1)
         {
-            //Debug.Log("Change");
-            Initialization();
-            startPos = boss.transform.position;
-            if (moveCounter == 0) { moveBoss.EnemyScript.ReStartAttck();}
-            moveCounter++;
-            return;
+            enemyAI.StartAttack();
         }
-        float rate = diff / time;
-        boss.transform.position = Vector3.Lerp(startPos, endPos, rate);
     }
 
     void Rotate(Vector3 angles)
@@ -129,16 +142,32 @@ public class LeftVerticalMove : MonoBehaviour,IState
         switch (moveCounter)
         {
             case 0:
-                Move(moveBoss.LeftCenterPos, moveBoss.MoveTime);
+                if (enemyAI.EnemyMove(moveEnemy, startPos, leftCenterPos, enemyAI.enemyData.moveVerticalTime,
+                        startTime) == true)
+                {
+                    NextMove();
+                }
                 break;
             case 1:
-                Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.PatrolEnemyData.MoveHorizontalTime);
+                if (enemyAI.EnemyMove(moveEnemy, leftCenterPos, leftUpPos, enemyAI.enemyData.moveHorizontalTime,
+                        startTime) == true)
+                {
+                    NextMove();
+                }
                 break;
             case 2:
-                Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.DownCenterPos.y, 0), moveBoss.PatrolEnemyData.MoveHorizontalTime * 2);
+                if (enemyAI.EnemyMove(moveEnemy, leftUpPos, leftDownPos, enemyAI.enemyData.moveHorizontalTime * 2,
+                        startTime) == true)
+                {
+                    NextMove();
+                }
                 break;
             case 3:
-                Move(moveBoss.LeftCenterPos, moveBoss.PatrolEnemyData.MoveHorizontalTime);
+                if (enemyAI.EnemyMove(moveEnemy, leftDownPos, leftCenterPos, enemyAI.enemyData.moveHorizontalTime,
+                        startTime) == true)
+                {
+                    NextMove();
+                }
                 break;
             case 4:
                 Debug.Log("終了");

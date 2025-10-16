@@ -4,103 +4,113 @@ public class UpHorizontalMove : MonoBehaviour,IState
 {
     //上の横移動
     private readonly EnemyAI enemyAI;
+    public UpHorizontalMove(EnemyAI enemyAI)
+    {
+        this.enemyAI = enemyAI;
+    }
     
     int moveCounter;
-    MoveBoss moveBoss;
     GameObject rotateAxis;
-    GameObject boss;
+    GameObject moveEnemy;
     private float t;
     private float startTime;
-    private Vector3 startPos;
     private float rotateSpeed = 0.1f;
-    private Vector3 x;
     private bool finishMoving;
     private bool finishRotating;
     private float angleZ;
     Vector3 rotateAxisRotate;
     private bool isCoolTime;
     
-    public UpHorizontalMove(EnemyAI enemyAI)
-    {
-        this.enemyAI = enemyAI;
-    }
-
+    //移動に関する座標
+    private Vector3 centerPos;
+    private Vector3 startPos;
+    private Vector3 upRightPos;
+    private Vector3 upLeftPos;
+    private float upPosY;
+    private float rightPosX;
+    private float leftPosX;
+    
     public void Enter()
     {
-        Debug.Log("3_Enter");
-        moveCounter = 0;
-        moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
-        boss = moveBoss.Boss;
-        moveBoss.EnemyScript.StopAttck();
-        isCoolTime = true;
-        Initialization();
-        finishMoving = false;
-        finishRotating = false;
-        startPos = boss.transform.position;
-        rotateAxis = moveBoss.RotateAxis;
-        rotateAxisRotate = new Vector3(0, 0, 90);
-        if (rotateAxis.transform.eulerAngles == rotateAxisRotate)
-        {
-            finishRotating = true;
-        }
-        else //if (rotateAxis.transform.eulerAngles.z == rotateAxisRotate.z)
-        {
-            angleZ = 45;
-        }
-    }
+         Debug.Log("3_Enter");
+         moveCounter = 0;
+         moveEnemy = enemyAI.moveObj;
+         enemyAI.StopAttack();
+         isCoolTime = true;
+         Initialization();
+         finishMoving = false;
+         finishRotating = false;
 
+         centerPos = enemyAI.centerPos;
+         startPos = moveEnemy.transform.position;
+         upPosY = centerPos.y + enemyAI.enemyData.upRenge;
+         rightPosX = centerPos.x + enemyAI.enemyData.rightRenge;
+         leftPosX = centerPos.x - enemyAI.enemyData.leftRenge;
+         upRightPos = new Vector3(rightPosX, upPosY, centerPos.z);
+         upLeftPos = new Vector3(leftPosX, upPosY, centerPos.z);
+         
+         rotateAxis = enemyAI.rotateAxis;
+         rotateAxisRotate = new Vector3(0, 0, 90);
+         if (rotateAxis.transform.eulerAngles == rotateAxisRotate)
+         {
+             finishRotating = true;
+         }
+         else //if (rotateAxis.transform.eulerAngles.z == rotateAxisRotate.z)
+         {
+             angleZ = 45;
+         }
+    }
+    
     public void Execute()
     {
-        //Debug.Log("3_Execute");
-        if (isCoolTime == true)
-        {
-            float diff = Time.time - startTime;
-            if (diff < moveBoss.CoolTime)
-            {
-                //Debug.Log("クールタイム中");
-                return;
-            }
-            else
-            {
-                Initialization();
-                isCoolTime = false;
-            }
-        }
-        MoveUpCenter();
-        Rotate(rotateAxisRotate);
-        if (finishMoving == true && finishRotating == true)
-        {
-            moveBoss.Change();
-        }
+         //Debug.Log("3_Execute");
+         if (isCoolTime == true)
+         {
+             float diff = Time.time - startTime;
+             if (diff < enemyAI.enemyData.coolTime)
+             {
+                 //Debug.Log("クールタイム中");
+                 return;
+             }
+             else
+             {
+                 Initialization();
+                 isCoolTime = false;
+             }
+         }
+         MoveUpCenter();
+         if (finishRotating != true)
+         {
+             finishRotating = enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ, enemyAI.enemyData.rotateTime,
+                 ref t);
+         }
+         if (finishMoving == true && finishRotating == true)
+         {
+             enemyAI.Change();
+         }
     }
-
+    
     public void Exit()
     {
         Debug.Log("3_Exit");
     }
-
+    
     void Initialization()
     {
         startTime = Time.time;
-        //startPos = boss.transform.position;
     }
-
-    void Move(Vector3 endPos,float time)
+    
+    void NextMove()
     {
-        float diff = Time.time - startTime;
-        if (diff > time)
+        moveCounter++;
+        Initialization();
+        centerPos = moveEnemy.transform.position;
+        if (moveCounter == 1)
         {
-            //Debug.Log("Change");
-            Initialization();
-            startPos = boss.transform.position;
-            if (moveCounter == 0) { moveBoss.EnemyScript.ReStartAttck();}
-            moveCounter++;
-            return;
+            enemyAI.StartAttack();
         }
-        float rate = diff / time;
-        boss.transform.position = Vector3.Lerp(startPos, endPos, rate);
     }
-
+    
     void Rotate(Vector3 angles)
     {
         //Debug.Log("angle:"+rotateAxis.transform.rotation.eulerAngles);
@@ -125,10 +135,18 @@ public class UpHorizontalMove : MonoBehaviour,IState
         switch (moveCounter)
         {
             case 0:
-                Move(x = new Vector3(moveBoss.RightCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.MoveTime);
+                if (enemyAI.EnemyMove(moveEnemy, startPos, upRightPos, enemyAI.enemyData.moveHorizontalTime,
+                        startTime))
+                {
+                    NextMove();
+                }
                 break;
             case 1:
-                Move(x = new Vector3(moveBoss.LeftCenterPos.x, moveBoss.UpCenterPos.y, 0), moveBoss.PatrolEnemyData.MoveVerticalTime * 2);
+                if (enemyAI.EnemyMove(moveEnemy, upRightPos, upLeftPos, enemyAI.enemyData.moveVerticalTime * 2,
+                        startTime) == true)
+                {
+                    NextMove();
+                }
                 break;
             case 2:
                 Debug.Log("終了");

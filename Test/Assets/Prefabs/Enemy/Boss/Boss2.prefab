@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 55765535480836599}
   - component: {fileID: 7169736024249790390}
   - component: {fileID: 8345171681461768890}
-  - component: {fileID: 7691980087333562187}
   - component: {fileID: 6314603403497138251}
   - component: {fileID: 5475394474852887304}
   - component: {fileID: 1050755721936601194}
@@ -105,12 +104,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyData: {fileID: 11400000, guid: 814a6c3d13e837748afc0956b3555fe2, type: 2}
+  hp: 100
   moveObj: {fileID: 4769372897256545517}
+  playerLookObj: {fileID: 371008759041216445}
+  rotateAxis: {fileID: 0}
   shotObj: {fileID: 0}
   straightObj: {fileID: 0}
-  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
+  damageText: {fileID: 891666044946925882}
+  beforeAttackText: {fileID: 7464822332188153145}
+  enemySpawnManager: {fileID: 0}
   pattern: 0
-  boss: {fileID: 4769372897256545517}
   isAttck: 0
   flontZPos: 0
   coolTime: 1
@@ -120,37 +123,6 @@ MonoBehaviour:
   LRTackleCounter: 0
   tackleCounter: 0
   fallAttckWaitTime: 1
---- !u!114 &7691980087333562187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 371008759041216445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d9b1bc5a5878dd4280ee6d3c95d2a1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletType: 1
-  attckType: 0
-  enemyType: 2
-  HP: 100
-  damageText: {fileID: 891666044946925882}
-  beforeAttackText: {fileID: 7464822332188153145}
-  beforeAttackTime: 1
-  blinkDuration: 0.2
-  canvas: {fileID: 2377044378020310072}
-  shotObj: {fileID: 0}
-  straightObj: {fileID: 0}
-  dontAttck: 1
-  bullet: {fileID: 0}
-  enemyBullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
-  reflectionBullet: {fileID: 1734557430232284754, guid: 50aaa5bb5e5a5f44fa3f2ac7b7cb1f5d, type: 3}
-  bulletRate: 0
-  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
-  enemySpawn: {fileID: 0}
-  enemyHPSlider: {fileID: 0}
 --- !u!135 &6314603403497138251
 SphereCollider:
   m_ObjectHideFlags: 0

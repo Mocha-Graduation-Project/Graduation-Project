@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FallingAttack : MonoBehaviour, IState
 {
-    private readonly EnemyAI enemyAI;
+    private EnemyAI enemyAI;
     public FallingAttack(EnemyAI enemyAI)
     {
         this.enemyAI = enemyAI;
@@ -10,9 +10,10 @@ public class FallingAttack : MonoBehaviour, IState
     
     int moveCounter;
     DepthBoss depthBoss;
-    GameObject boss;
+    GameObject moveEnemy;
     private float t;
     private float startTime;
+    
     private Vector3 startPos;
     private Vector3 upMaxPos;
     private Vector3 upFlontPos;
@@ -24,13 +25,14 @@ public class FallingAttack : MonoBehaviour, IState
         Debug.Log("2_3_Enter");
         moveCounter = 0;
         depthBoss = GameObject.Find("DepthBoss").GetComponent<DepthBoss>();
-        boss = depthBoss.Boss;
+        moveEnemy = enemyAI.moveObj;
         isCoolTime = true;
         Initialization();
-        startPos = boss.transform.position;
-        upMaxPos = new Vector3(startPos.x, startPos.y + depthBoss.PatrolEnemyData.UpRange, startPos.z);
+
+        startPos = enemyAI.centerPos;
+        upMaxPos = new Vector3(startPos.x, startPos.y + enemyAI.enemyData.upRenge, startPos.z);
         upFlontPos = new Vector3(upMaxPos.x, upMaxPos.y, depthBoss.FlontZPos);
-        downFlontPos = new Vector3(upMaxPos.x, startPos.y + depthBoss.PatrolEnemyData.DownRange, depthBoss.FlontZPos);
+        downFlontPos = new Vector3(upMaxPos.x, startPos.y - enemyAI.enemyData.downRenge, depthBoss.FlontZPos);
     }
 
     public void Execute()
@@ -39,7 +41,7 @@ public class FallingAttack : MonoBehaviour, IState
         if (isCoolTime == true)
         {
             float diff = Time.time - startTime;
-            if (diff < depthBoss.CoolTime)
+            if (diff < enemyAI.enemyData.coolTime)
             {
                 //Debug.Log("クールタイム中");
                 return;
@@ -54,49 +56,49 @@ public class FallingAttack : MonoBehaviour, IState
         switch (moveCounter)
         {
             case 0: //中央から画面外へ
-                if (enemyAI.EnemyMove(boss, startPos, upMaxPos,
-                        depthBoss.PatrolEnemyData.MoveVerticalTime, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, startPos, upMaxPos,
+                        enemyAI.enemyData.moveVerticalTime, startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 1: //画面外で前(プレイヤーの居るz座標)まで移動
-                if (enemyAI.EnemyMove(boss, upMaxPos, upFlontPos,
-                        depthBoss.PatrolEnemyData.WaitTime, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, upMaxPos, upFlontPos,
+                        enemyAI.enemyData.moveWaitTime, startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 2: //プレイヤーの居る座標に向かって落下攻撃
-                if (enemyAI.EnemyMove(boss, upFlontPos, downFlontPos,
-                        depthBoss.PatrolEnemyData.MoveVerticalTime, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, upFlontPos, downFlontPos,
+                        enemyAI.enemyData.moveVerticalTime, startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 3: //待機
-                if (enemyAI.EnemyMove(boss, downFlontPos, downFlontPos,
+                if (enemyAI.EnemyMove(moveEnemy, downFlontPos, downFlontPos,
                         depthBoss.FallAttckWaitTime, startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 4: //画面外へ上昇
-                if (enemyAI.EnemyMove(boss, downFlontPos, upFlontPos,
-                        depthBoss.PatrolEnemyData.MoveVerticalTime, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, downFlontPos, upFlontPos,
+                        enemyAI.enemyData.moveVerticalTime, startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 5: //画面外で後ろ(元居たz座標)まで移動
-                if (enemyAI.EnemyMove(boss, upFlontPos, upMaxPos,
-                        depthBoss.PatrolEnemyData.WaitTime, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, upFlontPos, upMaxPos,
+                        enemyAI.enemyData.moveWaitTime, startTime) == true)
                 {
                     NextMove();
                 }                break;
             case 6: //画面外から中央へ戻る
-                if (enemyAI.EnemyMove(boss, upMaxPos, startPos,
-                        depthBoss.PatrolEnemyData.MoveVerticalTime, startTime) == true)
+                if (enemyAI.EnemyMove(moveEnemy, upMaxPos, startPos,
+                        enemyAI.enemyData.moveVerticalTime, startTime) == true)
                 {
                     NextMove();
                 }
@@ -125,11 +127,12 @@ public class FallingAttack : MonoBehaviour, IState
         {
             case 1:
                 //プレイヤーのx座標をupFlontPos、downFlontPosに入れる
-                float pos = depthBoss.Player.transform.position.x;
+                //float pos = depthBoss.Player.transform.position.x;
+                float pos = enemyAI.player.transform.position.x;
                 upFlontPos = new Vector3(pos, upFlontPos.y, upFlontPos.z);
                 downFlontPos = new Vector3(pos, downFlontPos.y, downFlontPos.z);
                 depthBoss.FallingAttckPos = downFlontPos;
-                depthBoss.AttckWarningUI.SetWarning(AttckWarningUI.AttckType.fallingAttck, depthBoss.PatrolEnemyData.WaitTime);
+                depthBoss.AttckWarningUI.SetWarning(AttckWarningUI.AttckType.fallingAttck, enemyAI.enemyData.moveWaitTime);
                 break;
             case 3: 
                 //攻撃中を解除
