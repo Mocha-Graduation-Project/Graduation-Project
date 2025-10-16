@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class LaserAttck : MonoBehaviour,IState
 {
-    private readonly EnemyAI enemyAI;
+    private EnemyAI enemyAI;
+    public LaserAttck(EnemyAI enemyAI)
+    {
+        this.enemyAI = enemyAI;
+    }
     
     int moveCounter;
     MoveBoss moveBoss;
     GameObject rotateAxis;
-    GameObject boss;
+    GameObject moveEnemy;
     private float t;
     private float startTime;
-    private Vector3 startPos;
     private float rotateSpeed = 0.1f;
     private bool finishMoving;
     private bool finishRotating;
@@ -21,27 +24,28 @@ public class LaserAttck : MonoBehaviour,IState
     private bool is360Rotate;//360度回転か180回転か
     private float rotateTime;
     
-    public LaserAttck(EnemyAI enemyAI)
-    {
-        this.enemyAI = enemyAI;
-    }
+    //移動に関する座標
+    private Vector3 startPos;
+    private Vector3 centerPos;
 
     public void Enter()
     {
         Debug.Log("5_Enter");
         is360Rotate = true;
-        
-        moveCounter = 0;
         moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
-        boss = moveBoss.Boss;
-        moveBoss.EnemyScript.StopAttck();
+        moveCounter = 0;
+        moveEnemy = enemyAI.moveObj;
+        enemyAI.StopAttack();
         t = 0f;
         Initialization();
         finishMoving = false;
         finishRotating = false;
         isCoolTime = true;
-        startPos = boss.transform.position;
-        rotateAxis = moveBoss.RotateAxis;
+
+        centerPos = enemyAI.centerPos;
+        startPos = moveEnemy.transform.position;
+        
+        rotateAxis = enemyAI.rotateAxis;
         rotateAxisRotate = new Vector3(0, 0, 0);
         angleZ90 = 90f;
         //ランダムで回転方向を決める
@@ -100,22 +104,33 @@ public class LaserAttck : MonoBehaviour,IState
         switch (moveCounter)
         {
             case 0:
-                Move(moveBoss.CenterPos,moveBoss.MoveTime);
-                Rotate(rotateAxisRotate, 2, angleZ);
+                //Move(moveBoss.CenterPos,moveBoss.MoveTime);
+                if (enemyAI.EnemyMove(moveEnemy, startPos, centerPos, enemyAI.enemyData.moveVerticalTime, startTime) ==
+                    true)
+                {
+                    NextMove();
+                }
+
+                if (finishRotating != true)
+                {
+                    finishRotating = enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ,
+                        enemyAI.enemyData.rotateTime, ref t);
+                }
                 FinishCheck();
                 break;
             case 1:
                 //360度回転させる
-                if (WaitCoolTime() == false)
+                if (enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ90,
+                        moveBoss.Rotate90PerSec * rotateTime, ref t) == true)
                 {
-                    Rotate(rotateAxisRotate, moveBoss.Rotate90PerSec * rotateTime, angleZ90);
-                    FinishCheck();
+                    finishRotating = true;
                 }
+                FinishCheck();
                 break;
             case 2:
                 if (WaitCoolTime() == false)
                 {
-                    moveBoss.Change();
+                    enemyAI.Change();
                 }
                 break;
         }
@@ -131,21 +146,10 @@ public class LaserAttck : MonoBehaviour,IState
         startTime = Time.time;
         isCoolTime = true;
     }
-    
-    void Move(Vector3 endPos,float time)
+
+    void NextMove()
     {
-        if (finishMoving == true) { return; }
-        
-        float diff = Time.time - startTime;
-        if (diff > time)
-        {
-            //Debug.Log("Change");
-            finishMoving = true;
-            startPos = boss.transform.position;
-            return;
-        }
-        float rate = diff / time;
-        boss.transform.position = Vector3.Lerp(startPos, endPos, rate);
+        finishMoving = true;
     }
 
     void Rotate(Vector3 angles, float time,float z)
@@ -181,7 +185,6 @@ public class LaserAttck : MonoBehaviour,IState
                     moveBoss.LazerOff();
                     break;
             }
-            //moveBoss.InvertActiveLazer();
             Initialization();
         }
     }
@@ -191,7 +194,7 @@ public class LaserAttck : MonoBehaviour,IState
         if (isCoolTime == true)
         {
             float diff = Time.time - startTime;
-            if (diff < moveBoss.CoolTime)
+            if (diff < enemyAI.enemyData.coolTime)
             {
                 //Debug.Log("クールタイム中");
                 return isCoolTime;

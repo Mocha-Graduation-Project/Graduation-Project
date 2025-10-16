@@ -71,6 +71,10 @@ namespace Player
             {
                 direction = currentMoveInput.x > 0 ? 1 : -1;
                 transform.rotation = Quaternion.Euler(0, direction == 1 ? 90 : -90, 0);
+                if (Player.Instance != null)
+                {
+                    Player.Instance.direction = direction;
+                }
             }
         }
 
