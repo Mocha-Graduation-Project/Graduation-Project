@@ -1,7 +1,8 @@
+#region 
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
-
+#endregion
 public class MatchSizeEditor : Editor
 {
     [MenuItem("GameObject/Match/サイズを合わせる")]
