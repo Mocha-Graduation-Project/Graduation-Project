@@ -40,7 +40,7 @@ public class QuickPrefabReplacer : EditorWindow
 
         EditorApplication.hierarchyChanged += RefreshSceneObjects;
         EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-        RefreshSceneObjects(); // 初回ロード時にRefreshSceneObjectsを呼び出す
+        RefreshSceneObjects();
         Selection.selectionChanged += Repaint;
         
         // OnEnable時にも色をロード
@@ -79,7 +79,7 @@ public class QuickPrefabReplacer : EditorWindow
         {
             // UnityTagColorManagerから色情報を取得し、同期
             unityTagColors = colorManager.SyncAndGetTagColors();
-            ClearTextureCache(); // 色が更新された可能性があるのでキャッシュをクリア
+            ClearTextureCache();
         }
     }
     
@@ -252,7 +252,7 @@ public class QuickPrefabReplacer : EditorWindow
         bool isSelected = selectedObjects.Contains(go);
         string currentUnityTag = go.tag; 
         Color tagBgColor;
-        // 永続化された色情報から色を取得 (見つからなければグレー)
+        // 永続化された色情報から色を取得
         if (!unityTagColors.TryGetValue(currentUnityTag, out tagBgColor))
         {
             tagBgColor = Color.gray * 0.5f;
@@ -359,20 +359,7 @@ public class QuickPrefabReplacer : EditorWindow
         GUILayout.Label("3. Actions", EditorStyles.boldLabel);
 
         int count = selectedObjects.Count;
-
-        // Unityタグ設定エリア
-        // GUILayout.Label("Unity Tag Assignment", EditorStyles.miniLabel);//
-        // EditorGUILayout.BeginHorizontal();
-        //
-        // // 割り当てるタグのドロップダウン
-        // string[] availableTags = InternalEditorUtility.tags;
-        // if (availableTags.Length > 0)
-        // {
-        //     int currentIndex = System.Array.IndexOf(availableTags, tagToAssign);
-        //     int newIndex = EditorGUILayout.Popup(currentIndex >= 0 ? currentIndex : 0, availableTags);
-        //     tagToAssign = availableTags[newIndex];
-        // }
-
+        
         GUI.enabled = count > 0;
         if (GUILayout.Button($"{count}個のオブジェクトを置き替えます", EditorStyles.miniButton, GUILayout.Width(300)))//Set Tag to {count} Obj(s)　　120
         {
