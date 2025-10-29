@@ -102,7 +102,7 @@ public class EnemyAI : MonoBehaviour
         if (player != null)
         {
             // DOLookAt(ターゲットの位置, 回転にかける時間)
-            transform.DOLookAt(player.transform.position, 0.5f);
+            playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
         }
 
         switch (enemyData.moveType)

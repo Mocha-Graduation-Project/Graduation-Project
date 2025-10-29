@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7f6c916288e9244db3f9b99f1bec802, type: 3}
-  m_Name: Nomal Enemy Base Data
+  m_Name: Shield Enemy Data
   m_EditorClassIdentifier: 
   maxHP: 8
-  enemyType: 0
+  enemyType: 1
   coolTime: 0
   soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
   moveType: 0
@@ -24,11 +24,11 @@ MonoBehaviour:
   downRenge: 0
   moveVerticalTime: 0
   moveWaitTime: 0
-  enemyAttackType: 1
-  bulletObj: {fileID: 1734557430232284754, guid: 50aaa5bb5e5a5f44fa3f2ac7b7cb1f5d, type: 3}
-  bulletRate: 4
-  beforeAttackTime: 1
-  blinkDuration: 0.2
+  enemyAttackType: 0
+  bulletObj: {fileID: 0}
+  bulletRate: 0
+  beforeAttackTime: 0
+  blinkDuration: 0
   isRotate: 0
   rotateTime: 0
   isJump: 0
