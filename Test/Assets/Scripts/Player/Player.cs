@@ -60,6 +60,7 @@ namespace Player
         private static readonly int IsShot1 = Animator.StringToHash("isShot");
         private static readonly int AttackDirection = Animator.StringToHash("AttackDirection");
         private static readonly int IsAttack = Animator.StringToHash("isAttack");
+        private static readonly int Idle = Animator.StringToHash("Idle");
         AnimatorStateInfo animatorStateInfo;
         
         //サウンド関連
@@ -231,16 +232,15 @@ namespace Player
                 >= -45 and < 45 => (direction == 1) ? 1 : 3,
                 _ => (direction == -1) ? 1 : 3
             };
-
             
+            PlayAttackAnimation(attackDirection);
+        }
+
+        public void Attacking()
+        {
             IsAttacking = true;
 
             QuickAttackCollision.gameObject.SetActive(true);
-            
-            //Debug.Log(attackDirection);
-
-            PlayAttackAnimation(attackDirection);
-
             StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
         }
         public void OnMove(InputAction.CallbackContext context)
@@ -313,7 +313,7 @@ namespace Player
         private void PlayAttackAnimation(int attackDirection)
         {
             //animator.ResetTrigger(IsAttack);
-            animator.Play("Idle");
+            animator.SetTrigger(Idle);
             animator.SetInteger(AttackDirection,attackDirection);
             animator.SetTrigger(IsAttack);
         }
