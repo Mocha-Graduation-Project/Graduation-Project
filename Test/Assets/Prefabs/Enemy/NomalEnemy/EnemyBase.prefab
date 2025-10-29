@@ -42,8 +42,7 @@ GameObject:
   - component: {fileID: 8482100708619351973}
   - component: {fileID: 57928517220858802}
   - component: {fileID: 3849837980404282217}
-  - component: {fileID: 8837454781917888347}
-  - component: {fileID: 2198856647034441201}
+  - component: {fileID: 8786088040759193403}
   - component: {fileID: 3545946642706088027}
   - component: {fileID: 3404068022455286983}
   - component: {fileID: 2973080667273884406}
@@ -125,23 +124,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8837454781917888347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7051768376811337806}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb9edd410af17f47ae8bf4d57d1e535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolEnemyData: {fileID: 0}
-  moveable: 0
-  startPos: {x: 0, y: 0, z: 0}
-  endPos: {x: 0, y: 0, z: 0}
---- !u!114 &2198856647034441201
+--- !u!114 &8786088040759193403
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,28 +133,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 7051768376811337806}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d9b1bc5a5878dd4280ee6d3c95d2a1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ac687a9a7473f340a920be6454e8a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletType: 1
-  attckType: 0
-  enemyType: 0
-  HP: 8
-  damageText: {fileID: 5697332491781688235}
-  beforeAttackText: {fileID: 4461301873480405366}
-  beforeAttackTime: 1
-  blinkDuration: 0.2
-  canvas: {fileID: 816748735868739565}
+  enemyData: {fileID: 11400000, guid: 6c081196c69626f4b9a7a11c45150c04, type: 2}
+  hp: 0
+  moveObj: {fileID: 7051768376811337806}
+  playerLookObj: {fileID: 7051768376811337806}
+  rotateAxis: {fileID: 0}
   shotObj: {fileID: 2080916473914994794}
   straightObj: {fileID: 0}
-  dontAttck: 0
-  bullet: {fileID: 0}
-  enemyBullet: {fileID: 1057501140420241128, guid: 836e0d637f444dd449b950db9143b306, type: 3}
-  reflectionBullet: {fileID: 1734557430232284754, guid: 50aaa5bb5e5a5f44fa3f2ac7b7cb1f5d, type: 3}
-  bulletRate: 4
-  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
-  enemySpawn: {fileID: 0}
-  enemyHPSlider: {fileID: 0}
+  damageText: {fileID: 5697332491781688235}
+  beforeAttackText: {fileID: 4461301873480405366}
+  enemySpawnManager: {fileID: 0}
 --- !u!82 &3545946642706088027
 AudioSource:
   m_ObjectHideFlags: 0
@@ -576,11 +550,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7fcd78e5412a5344b54dcfaa5e81068, type: 3}
---- !u!1 &816748735868739565 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9101596426299015913, guid: a7fcd78e5412a5344b54dcfaa5e81068, type: 3}
-  m_PrefabInstance: {fileID: 8438321970880191748}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &917950704099254455 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8766193257632234931, guid: a7fcd78e5412a5344b54dcfaa5e81068, type: 3}

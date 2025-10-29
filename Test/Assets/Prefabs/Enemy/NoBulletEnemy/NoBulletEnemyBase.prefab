@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 534992487545691957}
   - component: {fileID: 8852065220887402456}
   - component: {fileID: 7637357828912083462}
+  - component: {fileID: 3004321200888940903}
   - component: {fileID: 2480911872038490166}
-  - component: {fileID: 2235173282895841425}
-  - component: {fileID: 25595193186973438}
   - component: {fileID: 52929569461870056}
   - component: {fileID: 7970178384495096360}
   m_Layer: 8
@@ -93,6 +92,28 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3004321200888940903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4931697069532253782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ac687a9a7473f340a920be6454e8a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: bd556043dd15be54a8631087178b4120, type: 2}
+  hp: 0
+  moveObj: {fileID: 4931697069532253782}
+  playerLookObj: {fileID: 4931697069532253782}
+  rotateAxis: {fileID: 0}
+  shotObj: {fileID: 0}
+  straightObj: {fileID: 0}
+  damageText: {fileID: 5741596112329710897}
+  beforeAttackText: {fileID: 0}
+  enemySpawnManager: {fileID: 0}
 --- !u!82 &2480911872038490166
 AudioSource:
   m_ObjectHideFlags: 0
@@ -190,38 +211,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2235173282895841425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4931697069532253782}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eb9edd410af17f47ae8bf4d57d1e535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolEnemyData: {fileID: 0}
-  moveable: 0
-  startPos: {x: 0, y: 0, z: 0}
-  endPos: {x: 0, y: 0, z: 0}
---- !u!114 &25595193186973438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4931697069532253782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a837ea750f48ec40a66838218e627b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HP: 8
-  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
-  enemySpawn: {fileID: 0}
-  damageText: {fileID: 5741596112329710897}
 --- !u!135 &52929569461870056
 SphereCollider:
   m_ObjectHideFlags: 0
