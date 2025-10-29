@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class DownHorizontalMove : MonoBehaviour,IState
+public class UpHorizontalMove : MonoBehaviour,IState
 {
     //上の横移動
-    private EnemyAI enemyAI;
-    public DownHorizontalMove(EnemyAI enemyAI)
+    private readonly EnemyAI enemyAI;
+    public UpHorizontalMove(EnemyAI enemyAI)
     {
         this.enemyAI = enemyAI;
     }
@@ -24,15 +24,15 @@ public class DownHorizontalMove : MonoBehaviour,IState
     //移動に関する座標
     private Vector3 centerPos;
     private Vector3 startPos;
-    private Vector3 upLeftPos;
     private Vector3 upRightPos;
+    private Vector3 upLeftPos;
     private float upPosY;
-    private float leftPosX;
     private float rightPosX;
+    private float leftPosX;
     
     public void Enter()
     {
-         Debug.Log("4_Enter");
+         Debug.Log("3_Enter");
          moveCounter = 0;
          moveEnemy = enemyAI.moveObj;
          enemyAI.StopAttack();
@@ -40,14 +40,14 @@ public class DownHorizontalMove : MonoBehaviour,IState
          Initialization();
          finishMoving = false;
          finishRotating = false;
-         
+
          centerPos = enemyAI.centerPos;
          startPos = moveEnemy.transform.position;
          upPosY = centerPos.y + enemyAI.enemyData.upRenge;
-         leftPosX = centerPos.x - enemyAI.enemyData.leftRenge;
          rightPosX = centerPos.x + enemyAI.enemyData.rightRenge;
-         upLeftPos = new Vector3(leftPosX, upPosY, centerPos.z);
+         leftPosX = centerPos.x - enemyAI.enemyData.leftRenge;
          upRightPos = new Vector3(rightPosX, upPosY, centerPos.z);
+         upLeftPos = new Vector3(leftPosX, upPosY, centerPos.z);
          
          rotateAxis = enemyAI.rotateAxis;
          rotateAxisRotate = new Vector3(0, 0, 90);
@@ -57,13 +57,13 @@ public class DownHorizontalMove : MonoBehaviour,IState
          }
          else //if (rotateAxis.transform.eulerAngles.z == rotateAxisRotate.z)
          {
-             angleZ = -45;
+             angleZ = 45;
          }
     }
     
     public void Execute()
     {
-         //Debug.Log("4_Execute");
+         //Debug.Log("3_Execute");
          if (isCoolTime == true)
          {
              float diff = Time.time - startTime;
@@ -92,67 +92,51 @@ public class DownHorizontalMove : MonoBehaviour,IState
     
     public void Exit()
     {
-        Debug.Log("4_Exit");
+        Debug.Log("3_Exit");
     }
     
-     void Initialization()
-     {
-         startTime = Time.time;
-     }
+    void Initialization()
+    {
+        startTime = Time.time;
+    }
     
-     void NextMove()
-     {
-         moveCounter++;
-         Initialization();
-         centerPos = moveEnemy.transform.position;
-         if (moveCounter == 1)
-         {
-             enemyAI.StartAttack();
-         }
-     }
+    void NextMove()
+    {
+        moveCounter++;
+        Initialization();
+        centerPos = moveEnemy.transform.position;
+        if (moveCounter == 1)
+        {
+            enemyAI.StartAttack();
+        }
+    }
     
-     void Rotate(Vector3 angles)
-     {
-         //Debug.Log("angle:"+rotateAxis.transform.rotation.eulerAngles);
-         if (finishRotating == true)
-         {
-             return;
-         }
-         t += Time.deltaTime;
-         rotateAxis.transform.Rotate(0, 0, angleZ * Time.deltaTime);
-         if (t >= 2.0f)
-         {
-             rotateAxis.transform.eulerAngles = angles;
-             finishRotating = true;
-         }
-     }
-    
-     void MoveUpCenter()
-     {
-         //Debug.Log("MoveDownCenter");
-         if (finishMoving == true) {return;}
-         
-         switch (moveCounter)
-         {
-             case 0:
-                 if (enemyAI.EnemyMove(moveEnemy, startPos, upLeftPos, enemyAI.enemyData.moveHorizontalTime,
-                         startTime))
-                 {
-                     NextMove();
-                 }
-                 break;
-             case 1:
-                 if (enemyAI.EnemyMove(moveEnemy, upLeftPos, upRightPos, enemyAI.enemyData.moveVerticalTime * 2,
-                         startTime) == true)
-                 {
-                     NextMove();
-                 }
-                 break;
-             case 2:
-                 Debug.Log("終了");
-                 Initialization();
-                 finishMoving = true;
-                 break;
-         }
-     }
+    void MoveUpCenter()
+    {
+        //Debug.Log("MoveUpCenter");
+        if (finishMoving == true) {return;}
+        
+        switch (moveCounter)
+        {
+            case 0:
+                if (enemyAI.EnemyMove(moveEnemy, startPos, upRightPos, enemyAI.enemyData.moveHorizontalTime,
+                        startTime))
+                {
+                    NextMove();
+                }
+                break;
+            case 1:
+                if (enemyAI.EnemyMove(moveEnemy, upRightPos, upLeftPos, enemyAI.enemyData.moveVerticalTime * 2,
+                        startTime) == true)
+                {
+                    NextMove();
+                }
+                break;
+            case 2:
+                Debug.Log("終了");
+                Initialization();
+                finishMoving = true;
+                break;
+        }
+    }
 }

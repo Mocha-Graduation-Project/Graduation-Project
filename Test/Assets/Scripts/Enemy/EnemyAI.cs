@@ -30,6 +30,20 @@ public class EnemyAI : MonoBehaviour
     
     private Collider loopAreaCollider;
     
+    //移動に関する変数(overrideしないで動く用)
+    private bool isCoolTime;
+    private float t;
+    private int moveCounter;
+    private Vector3 startPos;
+    private Vector3 rightCenterPos;
+    private Vector3 leftCenterPos;
+    private Vector3 upCenterPos;
+    private Vector3 downCenterPos;
+    private float rightPosX;
+    private float leftPosX;
+    private float upPosY;
+    private float downPosY;
+    
     public void Awake()
     {
         GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
@@ -51,6 +65,7 @@ public class EnemyAI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        hp = enemyData.maxHP;
         centerPos = this.transform.position;
         audioSource = GetComponent<AudioSource>();
         enemySpawnManager = GameObject.FindObjectOfType<EnemySpawnManager>();
@@ -98,8 +113,10 @@ public class EnemyAI : MonoBehaviour
                 CustomMove();
                 break;
             case EnemyData.MoveType.vertical:
+                VerticalMove();
                 break;
             case EnemyData.MoveType.horizontal:
+                HorizontalMove();
                 break;
         }
     }
@@ -216,7 +233,119 @@ public class EnemyAI : MonoBehaviour
         Invoke("EnemyAttack", enemyData.bulletRate);
     }
 
-    public virtual void SetUp() {}
+    public void VerticalMove()
+    {
+        if (isCoolTime == true)
+        {
+            float diff = Time.time - t;
+            if (diff < enemyData.moveWaitTime)
+            {
+                //Debug.Log("クールタイム中");
+                return;
+            }
+            else
+            {
+                ResetStartTime();
+                isCoolTime = false;
+            }
+        }
+        
+        switch (moveCounter)
+        {
+            case 0:
+                if (EnemyMove(moveObj, startPos, upCenterPos, enemyData.moveVerticalTime, t) == true)
+                {
+                    NextMove();
+                }
+                break;
+            case 1:
+                if (EnemyMove(moveObj, upCenterPos, downCenterPos, enemyData.moveVerticalTime * 2, t) == true)
+                {
+                    NextMove();
+                }
+                break;
+            case 2:
+                if (EnemyMove(moveObj, downCenterPos, upCenterPos, enemyData.moveVerticalTime * 2, t) == true)
+                {
+                    NextMove();
+                }
+                break;
+        }
+    }
+
+    public void HorizontalMove()
+    {
+        if (isCoolTime == true)
+        {
+            float diff = Time.time - t;
+            if (diff < enemyData.moveWaitTime)
+            {
+                //Debug.Log("クールタイム中");
+                return;
+            }
+            else
+            {
+                ResetStartTime();
+                isCoolTime = false;
+            }
+        }
+        
+        switch (moveCounter)
+        {
+            case 0:
+                if (EnemyMove(moveObj, startPos, rightCenterPos, enemyData.moveHorizontalTime, t) == true)
+                {
+                    NextMove();
+                }
+                break;
+            case 1:
+                if (EnemyMove(moveObj, rightCenterPos, leftCenterPos, enemyData.moveHorizontalTime * 2, t) == true)
+                {
+                    NextMove();
+                }
+                break;
+            case 2:
+                if (EnemyMove(moveObj, leftCenterPos, rightCenterPos, enemyData.moveHorizontalTime * 2, t) == true)
+                {
+                    NextMove();
+                }
+                break;
+        }
+    }
+
+    void ResetStartTime()
+    {
+        t = Time.time;
+    }
+
+    void NextMove()
+    {
+        isCoolTime = true;
+        moveCounter++;
+        ResetStartTime();
+        if (moveCounter > 2)
+        {
+            moveCounter = 1;
+        }
+    }
+    
+    public virtual void SetUp()
+    {
+        //overrideしない場合の移動に使う変数を代入
+        startPos = transform.position;
+        rightPosX = centerPos.x + enemyData.rightRenge;
+        leftPosX = centerPos.x - enemyData.leftRenge;
+        upPosY = centerPos.y + enemyData.upRenge;
+        downPosY = centerPos.y - enemyData.downRenge;
+        rightCenterPos = new Vector3(rightPosX, centerPos.y, centerPos.z);
+        leftCenterPos = new Vector3(leftPosX, centerPos.y, centerPos.z);
+        upCenterPos = new Vector3(centerPos.x, upPosY, centerPos.z);
+        downCenterPos = new Vector3(centerPos.x, downPosY, centerPos.z);
+
+        isCoolTime = false;
+        moveCounter = 0;
+        ResetStartTime();
+    }
     public virtual void Change() {}
     public virtual void CustomMove() {}
 }
