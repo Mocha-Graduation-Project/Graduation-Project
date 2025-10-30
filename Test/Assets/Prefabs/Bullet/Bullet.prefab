@@ -637,7 +637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 910630534326102559, guid: 2039a380230c21049bf10405657312c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.218
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 910630534326102559, guid: 2039a380230c21049bf10405657312c5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -680,21 +680,33 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6366074670779982080, guid: 2039a380230c21049bf10405657312c5, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[12].m_Value
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366074670779982080, guid: 2039a380230c21049bf10405657312c5, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[13].m_Value
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 6366074670779982080, guid: 2039a380230c21049bf10405657312c5, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[4].m_Value.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366074670779982080, guid: 2039a380230c21049bf10405657312c5, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[3].m_Value.x
-      value: 255.99998
+      value: 341.78006
       objectReference: {fileID: 0}
     - target: {fileID: 6366074670779982080, guid: 2039a380230c21049bf10405657312c5, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[3].m_Value.y
-      value: 174.43867
+      value: 341.78006
       objectReference: {fileID: 0}
     - target: {fileID: 6366074670779982080, guid: 2039a380230c21049bf10405657312c5, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[3].m_Value.z
-      value: 0
+      value: 341.78006
       objectReference: {fileID: 0}
+    - target: {fileID: 6366074670779982080, guid: 2039a380230c21049bf10405657312c5, type: 3}
+      propertyPath: m_PropertySheet.m_NamedObject.m_Array.Array.data[1].m_Value
+      value: 
+      objectReference: {fileID: 2800000, guid: 85ba1b2b21c4c1d409a50fff7e6f8320, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
