@@ -101,6 +101,7 @@ public class EnemyAI : MonoBehaviour
         //プレイヤーの方を向く処理
         if (player != null)
         {
+            //Debug.Log("EnemyAIUpdate");
             // DOLookAt(ターゲットの位置, 回転にかける時間)
             playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
         }
@@ -118,6 +119,16 @@ public class EnemyAI : MonoBehaviour
             case EnemyData.MoveType.horizontal:
                 HorizontalMove();
                 break;
+        }
+    }
+
+    public void OnAnimatorIK()
+    {
+        Debug.Log("EnemyAIOnAnimatorIK");
+        if (player != null)
+        {
+            // DOLookAt(ターゲットの位置, 回転にかける時間)
+            playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
         }
     }
 

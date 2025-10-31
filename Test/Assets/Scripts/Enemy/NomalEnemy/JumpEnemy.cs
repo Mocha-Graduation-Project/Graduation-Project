@@ -4,6 +4,11 @@ namespace Enemy.Basic
 {
     public class JumpEnemy : EnemyAI
     {
+        [SerializeField] Animator animator;
+        private static readonly int Idle = Animator.StringToHash("Idle");
+        private static readonly int JumpUp = Animator.StringToHash("JumpUp");
+        private static readonly int JumpDown = Animator.StringToHash("JumpDown");
+        
         [SerializeField] private float jumpTime;
         
         private bool isGrounded;
@@ -14,6 +19,7 @@ namespace Enemy.Basic
 
         public override void SetUp()
         {
+            animator = GetComponentInChildren<Animator>();
             jumpTime = 0;
             rigidbody = GetComponent<Rigidbody>();
         
