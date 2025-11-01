@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using DG.Tweening;
-using System.Collections;
 
 public class PlayerLook : MonoBehaviour
 {
