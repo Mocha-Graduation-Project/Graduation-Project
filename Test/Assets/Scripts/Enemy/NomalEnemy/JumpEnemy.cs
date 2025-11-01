@@ -2,21 +2,24 @@ using UnityEngine;
 
 namespace Enemy.Basic
 {
-    public class JumpEnemy : MonoBehaviour
+    public class JumpEnemy : EnemyAI
     {
-        [SerializeField] private float jumpPower;
-        [SerializeField] private float jumpCoolTime;
+        [SerializeField] Animator animator;
+        private static readonly int Idle = Animator.StringToHash("Idle");
+        private static readonly int JumpUp = Animator.StringToHash("JumpUp");
+        private static readonly int JumpDown = Animator.StringToHash("JumpDown");
+        
         [SerializeField] private float jumpTime;
-    
-        [SerializeField] private LayerMask groundLayer;
+        
         private bool isGrounded;
 
         [SerializeField] private GameObject hitBox;
     
         Rigidbody rigidbody;
-    
-        void Start()
+
+        public override void SetUp()
         {
+            animator = GetComponentInChildren<Animator>();
             jumpTime = 0;
             rigidbody = GetComponent<Rigidbody>();
         
@@ -25,19 +28,19 @@ namespace Enemy.Basic
             {
                 hitBox.transform.parent = null;
             }
+        }
         
-        }
-    
-        void Update()
+        override protected void Update()
         {
-            isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
+            base.Update();
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, enemyData.groundLayer);
         }
+
         public void Jump()
         {
             if (!isGrounded) return; 
             Debug.Log("Jump");
-            rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            //rigidbody2D.AddForce(Vector2.up * jumpPower);
+            rigidbody.AddForce(Vector3.up * enemyData.jumpPower, ForceMode.Impulse);
             jumpTime = 0;
         }
 
