@@ -7,6 +7,7 @@ using Scripts.Scriptable;
 using Scripts.UI;
 using TMPro;
 using UI;
+using UnityEngine.VFX;
 
 namespace Systems
 {
@@ -56,6 +57,9 @@ namespace Systems
         [SerializeField] private SoundData soundData;
         private AudioSource audioSource;
         private AudioClip EnemyDestorySound;
+
+        [JapaneseLabel("死亡演出にかける時間")][SerializeField] private float deathDuration = 1.5f;
+        [JapaneseLabel("浮いてる敵の死亡演出の回転数(360*X)")][SerializeField]private float knockDuration = 3f;
         
         private void Awake()
         {
@@ -134,7 +138,7 @@ namespace Systems
             }
         }
         
-        public void  RemoveEnemy(GameObject enemy)
+        public void  RemoveEnemy(GameObject enemy,GameObject deathEffectPrefab)
         {
             if (!activeEnemies.Contains(enemy)) return;
             audioSource.PlayOneShot(EnemyDestorySound);
@@ -161,14 +165,90 @@ namespace Systems
                 if (LastAttackEffectManager.Instance != null)
                 {
                     LastAttackEffectManager.Instance.PlayLastAttackEffect(enemy.transform,enemy);
+                    
+                    if (enemy.GetComponent<NomalEnemy>())
+                    {
+                        var normalEnemy = enemy.GetComponent<NomalEnemy>();
+                        normalEnemy.enabled = false; 
+                        deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
+                        if (enemy.CompareTag("FryEnemy"))
+                        {
+                            StartCoroutine(FryEnemyDeathAnimation(enemy));
+                        }
+                        else
+                        {
+                            StartCoroutine(NormalEnemyDeathAnimation(enemy));
+                        }
+                    }
+
+                    if (enemy.GetComponentInChildren<DepthBoss>())
+                    {
+                        deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
+                        Destroy(enemy);
+                    }
+
+                    if (enemy.GetComponentInChildren<MoveBoss>())
+                    {
+                        deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
+                        Destroy(enemy);
+                    }
                 }
                 GameClearDelayed().Forget();
             }
             else
             {
-                Destroy(enemy);
+                if (enemy.GetComponent<NomalEnemy>())
+                {
+                    var normalEnemy = enemy.GetComponent<NomalEnemy>();
+                    normalEnemy.enabled = false; 
+                    deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
+                    if (enemy.CompareTag("FryEnemy"))
+                    {
+                        StartCoroutine(FryEnemyDeathAnimation(enemy));
+                    }
+                    else
+                    {
+                        StartCoroutine(NormalEnemyDeathAnimation(enemy));
+                    }
+                }
             }
         }
+        
+        private IEnumerator FryEnemyDeathAnimation(GameObject enemy)
+        {
+            float duration = 1.5f; // 演出にかける時間
+            float startTime = Time.time;
+            Vector3 startPosition = enemy.transform.position;
+            float rotationSpeed = 360f * 3f; // 3秒で3回転
+
+            while (Time.time < startTime + duration)
+            {
+                float elapsed = Time.time - startTime;
+                float progress = elapsed / duration;
+
+                enemy.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime, Space.Self); 
+
+                float dropAmount = 5f;
+                enemy.transform.position = startPosition + new Vector3(
+                    0, 
+                    Mathf.Lerp(0, -dropAmount, progress * progress),
+                    0
+                );
+
+                yield return null; // 1フレーム待つ
+            }
+
+            Destroy(enemy); 
+        }
+        
+        private IEnumerator NormalEnemyDeathAnimation(GameObject enemy)
+        {
+            float duration = 1.5f; // 演出にかける時間
+            float startTime = Time.time;
+            yield return new WaitForSeconds(duration);
+            Destroy(enemy); 
+        }
+        
         private async UniTaskVoid GameClearDelayed()
         {
             await UniTask.Delay(TimeSpan.FromSeconds(gameClearDelay));

@@ -17,6 +17,9 @@ public class EnemySpawnManagerEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("warningTime"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("gameClearDelay"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("soundData"), true);
+        EditorGUILayout.Space();
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("deathDuration"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("knockDuration"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("enemiesToSpawn"), true);
 
         EditorGUILayout.Space();

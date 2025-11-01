@@ -21,6 +21,7 @@ public class EnemyAI : MonoBehaviour
     public DamageUI damageText;
     [JapaneseLabel("警告UI")] public BeforeAttack beforeAttackText;
     public EnemySpawnManager enemySpawnManager;
+    [JapaneseLabel("死亡エフェクト")][SerializeField]private GameObject deathEffectPrefab;
     [JapaneseLabel("プレイヤー")] public Player.Player player => Player.Player.Instance;
     [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
     private AudioSource audioSource;
@@ -178,13 +179,13 @@ public class EnemyAI : MonoBehaviour
             switch (enemyData.enemyType)
             {
                 case EnemyData.EnemyType.normal:
-                    enemySpawnManager.RemoveEnemy(this.gameObject);
+                    enemySpawnManager.RemoveEnemy(this.gameObject,deathEffectPrefab);
                     break;
                 case EnemyData.EnemyType.shield:
-                    enemySpawnManager.RemoveEnemy(this.gameObject.transform.parent.gameObject);
+                    enemySpawnManager.RemoveEnemy(this.gameObject.transform.parent.gameObject,deathEffectPrefab);
                     break;
                 case EnemyData.EnemyType.boss:
-                    enemySpawnManager.RemoveEnemy(this.gameObject.transform.parent.gameObject);
+                    enemySpawnManager.RemoveEnemy(this.gameObject.transform.parent.gameObject,deathEffectPrefab);
                     break;
             }
         }

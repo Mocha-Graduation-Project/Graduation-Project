@@ -67,6 +67,8 @@ namespace Scripts
         private AudioClip EnemyDestorySound;
 
         [SerializeField] private EnemySpawnManager enemySpawn;
+        
+        [JapaneseLabel("死亡エフェクト")][SerializeField]private GameObject deathEffectPrefab;
 
         [SerializeField] [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
         
@@ -249,13 +251,13 @@ namespace Scripts
                 switch (enemyType)
                 {
                     case EnemyType.normal:
-                        enemySpawn.RemoveEnemy(this.gameObject);
+                        enemySpawn.RemoveEnemy(this.gameObject,deathEffectPrefab);
                         break;
                     case EnemyType.shield:
-                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
+                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject,deathEffectPrefab);
                         break;
                     case EnemyType.boss:
-                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject);
+                        enemySpawn.RemoveEnemy(this.gameObject.transform.parent.gameObject,deathEffectPrefab);
                         break;
                 }
             }

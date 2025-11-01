@@ -31,13 +31,15 @@ namespace Enemy.Basic
         void Update()
         {
             isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
+            if (isGrounded) 
+            {
+                jumpTime += Time.deltaTime; 
+            }
         }
         public void Jump()
         {
-            if (!isGrounded) return; 
-            Debug.Log("Jump");
+            if (!isGrounded || jumpTime < jumpCoolTime) return;
             rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            //rigidbody2D.AddForce(Vector2.up * jumpPower);
             jumpTime = 0;
         }
 

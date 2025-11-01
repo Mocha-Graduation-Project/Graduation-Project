@@ -29,6 +29,7 @@ namespace Scripts
 
         [SerializeField] private EnemySpawnManager enemySpawn;
 
+        [JapaneseLabel("死亡エフェクト")][SerializeField]private GameObject deathEffectPrefab;
         [SerializeField] private DamageUI damageText;
         // [SerializeField][JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
         // [SerializeField][JapaneseLabel("攻撃の〇秒前")] private float beforeAttackTime;
@@ -92,7 +93,7 @@ namespace Scripts
 
             if (HP <= 0)
             {
-                enemySpawn.RemoveEnemy(this.gameObject);
+                enemySpawn.RemoveEnemy(this.gameObject,deathEffectPrefab);
                 //Destroy(this.gameObject);
             }
         }
