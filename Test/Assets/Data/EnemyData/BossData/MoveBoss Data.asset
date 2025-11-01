@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f6c916288e9244db3f9b99f1bec802, type: 3}
+  m_Name: MoveBoss Data
+  m_EditorClassIdentifier: 
+  maxHP: 100
+  enemyType: 2
+  coolTime: 1
+  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
+  moveType: 1
+  leftRenge: 4.2
+  rightRenge: 4.2
+  moveHorizontalTime: 2
+  upRenge: 3
+  downRenge: 3
+  moveVerticalTime: 1.5
+  moveWaitTime: 1
+  enemyAttackType: 2
+  bulletObj: {fileID: 1734557430232284754, guid: 50aaa5bb5e5a5f44fa3f2ac7b7cb1f5d, type: 3}
+  bulletRate: 1
+  beforeAttackTime: 1
+  blinkDuration: 0.3
+  isRotate: 1
+  rotateTime: 2
+  isJump: 0
+  jumpPower: 0
+  jumpCoolTime: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
