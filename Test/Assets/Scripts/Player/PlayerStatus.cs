@@ -4,6 +4,7 @@ using Scripts.Scriptable;
 using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.VFX;
 
 namespace Player
 {
@@ -43,6 +44,7 @@ namespace Player
         private global::Player.Player player => global::Player.Player.Instance;
         private Coroutine invincibilityCoroutine;
         [JapaneseLabel("被弾エフェクト")] public GameObject hitEffect;
+        VisualEffect effect;
         [JapaneseLabel("被弾時間")] public float hitTime;
         
 
@@ -51,6 +53,7 @@ namespace Player
         {
             SetScriptable();
             uiLife = FindObjectOfType<UILife>();
+            effect = hitEffect.GetComponent<VisualEffect>();
         }
 
         [Obsolete("Obsolete")]
@@ -109,8 +112,7 @@ namespace Player
             
             if (hitEffect != null)
             {
-                hitEffect.SetActive(true);
-                StartCoroutine(HideHitEffectCoroutine());
+                effect.SendEvent("OnPlay");
             }
 
             playerHp -= damage;

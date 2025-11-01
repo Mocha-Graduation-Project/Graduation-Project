@@ -211,6 +211,10 @@ namespace Systems
                         StartCoroutine(NormalEnemyDeathAnimation(enemy));
                     }
                 }
+                else
+                {
+                    StartCoroutine(NormalEnemyDeathAnimation(enemy));
+                }
             }
         }
         
