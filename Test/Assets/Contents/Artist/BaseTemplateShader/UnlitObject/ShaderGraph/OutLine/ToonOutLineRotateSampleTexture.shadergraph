@@ -424,6 +424,20 @@
             },
             "m_InputSlot": {
                 "m_Node": {
+                    "m_Id": "7006a892486041439be643f9a7f884cc"
+                },
+                "m_SlotId": 618895688
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "cb8b9456eee448cf8a0f8b35503ec234"
+                },
+                "m_SlotId": 3
+            },
+            "m_InputSlot": {
+                "m_Node": {
                     "m_Id": "f4d2d20e7b6247feb0a234b57177b750"
                 },
                 "m_SlotId": 2
@@ -2102,31 +2116,34 @@
             "m_Id": "f02fc23bb14c4b07846aeff4879cebbc"
         },
         {
-            "m_Id": "5c3347e5d4264b75b5d3ba3fa184ca0d"
+            "m_Id": "b17121c2bc8d42e195b5f307325536a4"
         },
         {
-            "m_Id": "859c099b995d46c48167648e82516c77"
+            "m_Id": "5c3347e5d4264b75b5d3ba3fa184ca0d"
         },
         {
             "m_Id": "8549fc996a1d45d9a23a3fde2d75f944"
         },
         {
-            "m_Id": "f31698f6da284834948a25b74d99e214"
+            "m_Id": "859c099b995d46c48167648e82516c77"
         },
         {
-            "m_Id": "00de91aa5ea844bf90a9d626a4c8d7ce"
+            "m_Id": "f31698f6da284834948a25b74d99e214"
         },
         {
             "m_Id": "12ca2893ea654ea4aabf609689e2a10f"
         },
         {
+            "m_Id": "00de91aa5ea844bf90a9d626a4c8d7ce"
+        },
+        {
             "m_Id": "a06e9d9ec57042d6909412f96c2ed626"
         },
         {
-            "m_Id": "be4f4e5b28cd491d934b8a96b95979bf"
+            "m_Id": "cdc01941dd1f4b47902f3c1d32b0872f"
         },
         {
-            "m_Id": "cdc01941dd1f4b47902f3c1d32b0872f"
+            "m_Id": "be4f4e5b28cd491d934b8a96b95979bf"
         },
         {
             "m_Id": "01feb48fef7642598ae5bf17d3fb8923"
@@ -2154,7 +2171,8 @@
         "19a24e0d-2eea-41bb-9703-d20183bffb6c",
         "cf0ff432-9a7e-4320-a8c2-12113dd89970",
         "0d6a2e40-cf1a-4271-8fdf-91ff376071f8",
-        "68128469-554c-409b-af5c-14aff508cb84"
+        "68128469-554c-409b-af5c-14aff508cb84",
+        "95cfedd0-630b-41ab-935a-9269004d1599"
     ],
     "m_PropertyIds": [
         1546458176,
@@ -2166,7 +2184,8 @@
         892394739,
         -307989287,
         1224433378,
-        56001919
+        56001919,
+        618895688
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -2854,6 +2873,27 @@
         "x": 0.0,
         "y": 0.0,
         "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "b17121c2bc8d42e195b5f307325536a4",
+    "m_Id": 618895688,
+    "m_DisplayName": "UV",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_UV",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 1.0,
+        "y": 1.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
     },
     "m_Labels": []
 }
