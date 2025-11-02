@@ -58,7 +58,7 @@ namespace Systems
             
             Time.timeScale = 1f;
             
-            Destroy(lastEnemy);
+            //Destroy(lastEnemy);
 
             StartCoroutine(ResetCameraPosition());
         }

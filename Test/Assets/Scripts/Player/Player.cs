@@ -5,6 +5,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 namespace Player
 {
@@ -342,6 +343,7 @@ namespace Player
                     : butEffectDuration; 
 
                 // コルーチンでエフェクトを再生
+                //effectToPlay.GetComponent<VisualEffect>().SendEvent("OnPlay");
                 StartCoroutine(ShowEffectForDuration(effectToPlay, duration));
             }
         }

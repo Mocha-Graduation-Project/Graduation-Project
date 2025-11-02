@@ -839,6 +839,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6917619767244070751, guid: 15fe09248130f8743b088c9ac98c5765, type: 3}
+      propertyPath: m_InitialEventName
+      value: OnPlay
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917619767244070751, guid: 15fe09248130f8743b088c9ac98c5765, type: 3}
+      propertyPath: m_InitialEventNameOverriden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6917619767244070751, guid: 15fe09248130f8743b088c9ac98c5765, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2436,7 +2444,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1649596290044215424, guid: 2e0834a8723ea1a4d96d3e031b2bed05, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4175367207885921796, guid: 2e0834a8723ea1a4d96d3e031b2bed05, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2478,13 +2486,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6176352047335605221, guid: 2e0834a8723ea1a4d96d3e031b2bed05, type: 3}
+      propertyPath: m_InitialEventName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6176352047335605221, guid: 2e0834a8723ea1a4d96d3e031b2bed05, type: 3}
+      propertyPath: m_InitialEventNameOverriden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8080324812523652688, guid: 2e0834a8723ea1a4d96d3e031b2bed05, type: 3}
       propertyPath: m_Name
       value: BasicImpacts
       objectReference: {fileID: 0}
     - target: {fileID: 8080324812523652688, guid: 2e0834a8723ea1a4d96d3e031b2bed05, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
