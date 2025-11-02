@@ -1,93 +1,74 @@
 using System;
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Scripts.Scriptable;
-using Scripts.UI;
 using TMPro;
 using UI;
+using UnityEngine;
 using UnityEngine.VFX;
 
 namespace Systems
 {
-    public class EnemySpawnManager :MonoBehaviour
+    public class EnemySpawnManager : MonoBehaviour
     {
-        
-        [System.Serializable]
-        public class EnemySpawnData
-        {
-            [JapaneseLabel("敵ID")] public string enemyId;
-            [JapaneseLabel("出現させる敵のプレハブ")] public GameObject enemyPrefab;
-            [JapaneseLabel("出現するまでの時間（秒）")] public float spawnDelay;
-            [JapaneseLabel("出現位置")] public Transform spawnPoint;
-        }
-        
-        [System.Serializable]
-        public class ConditionEnemySpawn
-        {
-            [JapaneseLabel("敵ID")] public string conditionId;
-            [JapaneseLabel("特定の敵を倒したら出現する敵")] public GameObject conditionGameObject;
+        [SerializeField] [JapaneseLabel("！マークのプレハブ")]
+        private GameObject warningMarkerPrefab;
 
-            [JapaneseLabel("条件（敵ID）")]
-            public List<string> conditionEnemyIds = new List<string>();
+        [SerializeField] [JapaneseLabel("！マークを表示する時間（秒）")]
+        private float warningTime = 3f;
 
-            [JapaneseLabel("倒した後出現までの時間")] public float conditionSpawnDelay;
-            [JapaneseLabel("出現位置")] public Transform spawnPoint;
-            [HideInInspector] public bool hasSpawned = false;
-        }
+        [SerializeField] [JapaneseLabel("敵を倒してからクリア演出までの時間")]
+        private float gameClearDelay;
 
-        [SerializeField,JapaneseLabel("！マークのプレハブ")]private GameObject warningMarkerPrefab;
-        [SerializeField,JapaneseLabel("！マークを表示する時間（秒）")]private float warningTime = 3f;
-        [SerializeField,JapaneseLabel("敵を倒してからクリア演出までの時間")]private float gameClearDelay;
-        [Header("<時間スポーン>")]
-        public List<EnemySpawnData> enemiesToSpawn = new List<EnemySpawnData>();
-        [Header("<条件スポーン>")]
-        public List<ConditionEnemySpawn> conditionToSpawn = new List<ConditionEnemySpawn>();
-        [SerializeField]private List<GameObject> activeEnemies = new List<GameObject>();
+        [Header("<時間スポーン>")] public List<EnemySpawnData> enemiesToSpawn = new();
 
-        [SerializeField] SceneButtonManager sceneButtonManager;
-        private int enemies;
-        private int knockEnemies;
-        private int remainnEnemies;
-        [SerializeField] TextMeshProUGUI remainingEnemiesText;
+        [Header("<条件スポーン>")] public List<ConditionEnemySpawn> conditionToSpawn = new();
 
-        private HashSet<string> defeatedEnemyIds = new HashSet<string>();
+        [SerializeField] private List<GameObject> activeEnemies = new();
+
+        [SerializeField] private SceneButtonManager sceneButtonManager;
+        [SerializeField] private TextMeshProUGUI remainingEnemiesText;
 
         [SerializeField] private SoundData soundData;
-        private AudioSource audioSource;
-        private AudioClip EnemyDestorySound;
 
-        [JapaneseLabel("死亡演出にかける時間")][SerializeField] private float deathDuration = 1.5f;
-        [JapaneseLabel("浮いてる敵の死亡演出の回転数(360*X)")][SerializeField]private float knockDuration = 3f;
-        
+        [JapaneseLabel("死亡演出にかける時間")] [SerializeField]
+        private float deathDuration = 1.5f;
+
+        [JapaneseLabel("浮いてる敵の死亡演出の回転数(360*X)")] [SerializeField]
+        private float knockDuration = 3f;
+
+        [SerializeField] [JapaneseLabel("地面レイヤー")]
+        public LayerMask groundLayer;
+
+        private readonly HashSet<string> defeatedEnemyIds = new();
+
+        private AudioSource audioSource;
+        private int enemies;
+        private AudioClip EnemyDestorySound;
+        private int knockEnemies;
+        private int remainnEnemies;
+
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
-            sceneButtonManager = GameObject.FindObjectOfType<SceneButtonManager>();
+            sceneButtonManager = FindObjectOfType<SceneButtonManager>();
 
             // enemyIdの自動設定
-            for (int i = 0; i < enemiesToSpawn.Count; i++)
-            {
+            for (var i = 0; i < enemiesToSpawn.Count; i++)
                 if (string.IsNullOrEmpty(enemiesToSpawn[i].enemyId))
-                {
                     enemiesToSpawn[i].enemyId = "Enemy_" + i;
-                }
-            }
-            for (int i = 0; i < conditionToSpawn.Count; i++)
-            {
+
+            for (var i = 0; i < conditionToSpawn.Count; i++)
                 if (string.IsNullOrEmpty(conditionToSpawn[i].conditionId))
-                {
                     conditionToSpawn[i].conditionId = "CondEnemy_" + i;
-                }
-            }
 
 
             // 出現する敵の総数（時間スポーン + 条件スポーン）
             enemies = enemiesToSpawn.Count + conditionToSpawn.Count;
 
             knockEnemies = 0;
-            
+
             remainnEnemies = enemiesToSpawn.Count + conditionToSpawn.Count;
             remainingEnemiesText = GameObject.Find("RemainEnemies").GetComponent<TextMeshProUGUI>();
             remainingEnemiesText.text = remainnEnemies.ToString();
@@ -95,40 +76,42 @@ namespace Systems
 
             Debug.Log($"このマップの敵総数: {enemies}");
 
-            foreach (var enemy in enemiesToSpawn)
-            {
-                StartCoroutine(SpawnEnemy(enemy));
-            }
+            foreach (var enemy in enemiesToSpawn) StartCoroutine(SpawnEnemy(enemy));
         }
 
-        
-        IEnumerator SpawnEnemy(EnemySpawnData enemyData)
+
+        private IEnumerator SpawnEnemy(EnemySpawnData enemyData)
         {
-            float adjustedWarningTime = Mathf.Min(warningTime, enemyData.spawnDelay);
+            var adjustedWarningTime = Mathf.Min(warningTime, enemyData.spawnDelay);
             yield return new WaitForSeconds(enemyData.spawnDelay - adjustedWarningTime);
-            GameObject warningMarker = Instantiate(warningMarkerPrefab, enemyData.spawnPoint.position, warningMarkerPrefab.transform.rotation);
+            var warningMarker = Instantiate(warningMarkerPrefab, enemyData.spawnPoint.position,
+                warningMarkerPrefab.transform.rotation);
             StartCoroutine(BlinkWarningMarker(warningMarker));
             yield return new WaitForSeconds(adjustedWarningTime);
             Destroy(warningMarker);
-            GameObject spawnedEnemy = Instantiate(enemyData.enemyPrefab, enemyData.spawnPoint.position, Quaternion.identity);
+            var spawnedEnemy = Instantiate(enemyData.enemyPrefab, enemyData.spawnPoint.position, Quaternion.identity);
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.name = $"Enemy_{enemyData.enemyId}";
         }
-        IEnumerator ConditionSpawnEnemy(ConditionEnemySpawn enemyData)
+
+        private IEnumerator ConditionSpawnEnemy(ConditionEnemySpawn enemyData)
         {
-            float adjustedWarningTime = Mathf.Min(warningTime, enemyData.conditionSpawnDelay);
+            var adjustedWarningTime = Mathf.Min(warningTime, enemyData.conditionSpawnDelay);
             yield return new WaitForSeconds(enemyData.conditionSpawnDelay - adjustedWarningTime);
-            GameObject warningMarker = Instantiate(warningMarkerPrefab, enemyData.spawnPoint.position, warningMarkerPrefab.transform.rotation);
+            var warningMarker = Instantiate(warningMarkerPrefab, enemyData.spawnPoint.position,
+                warningMarkerPrefab.transform.rotation);
             StartCoroutine(BlinkWarningMarker(warningMarker));
             yield return new WaitForSeconds(adjustedWarningTime);
             Destroy(warningMarker);
-            GameObject spawnedEnemy = Instantiate(enemyData.conditionGameObject, enemyData.spawnPoint.position, Quaternion.identity);
+            var spawnedEnemy = Instantiate(enemyData.conditionGameObject, enemyData.spawnPoint.position,
+                Quaternion.identity);
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.name = $"ConditionEnemy_{enemyData.conditionId}";
         }
-        IEnumerator BlinkWarningMarker(GameObject marker)
+
+        private IEnumerator BlinkWarningMarker(GameObject marker)
         {
-            Renderer markerRenderer = marker.GetComponent<Renderer>();
+            var markerRenderer = marker.GetComponent<Renderer>();
             if (markerRenderer == null) yield break;
 
             while (marker != null)
@@ -137,12 +120,12 @@ namespace Systems
                 yield return new WaitForSeconds(0.5f);
             }
         }
-        
-        public void  RemoveEnemy(GameObject enemy,GameObject deathEffectPrefab)
+
+        public void RemoveEnemy(GameObject enemy, GameObject deathEffectPrefab)
         {
             if (!activeEnemies.Contains(enemy)) return;
             audioSource.PlayOneShot(EnemyDestorySound);
-            string defeatedId = GetEnemyIdByObject(enemy);
+            var defeatedId = GetEnemyIdByObject(enemy);
             activeEnemies.Remove(enemy);
             knockEnemies++;
             remainnEnemies--;
@@ -164,21 +147,17 @@ namespace Systems
             {
                 if (LastAttackEffectManager.Instance != null)
                 {
-                    LastAttackEffectManager.Instance.PlayLastAttackEffect(enemy.transform,enemy);
-                    
+                    LastAttackEffectManager.Instance.PlayLastAttackEffect(enemy.transform, enemy);
+
                     if (enemy.GetComponent<NomalEnemy>())
                     {
                         var normalEnemy = enemy.GetComponent<NomalEnemy>();
-                        normalEnemy.enabled = false; 
+                        normalEnemy.enabled = false;
                         deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
                         if (enemy.CompareTag("FryEnemy"))
-                        {
                             StartCoroutine(FryEnemyDeathAnimation(enemy));
-                        }
                         else
-                        {
                             StartCoroutine(NormalEnemyDeathAnimation(enemy));
-                        }
                     }
 
                     if (enemy.GetComponentInChildren<DepthBoss>())
@@ -193,6 +172,7 @@ namespace Systems
                         Destroy(enemy);
                     }
                 }
+
                 GameClearDelayed().Forget();
             }
             else
@@ -200,16 +180,12 @@ namespace Systems
                 if (enemy.GetComponent<NomalEnemy>())
                 {
                     var normalEnemy = enemy.GetComponent<NomalEnemy>();
-                    normalEnemy.enabled = false; 
+                    normalEnemy.enabled = false;
                     deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
                     if (enemy.CompareTag("FryEnemy"))
-                    {
                         StartCoroutine(FryEnemyDeathAnimation(enemy));
-                    }
                     else
-                    {
                         StartCoroutine(NormalEnemyDeathAnimation(enemy));
-                    }
                 }
                 else
                 {
@@ -217,50 +193,89 @@ namespace Systems
                 }
             }
         }
-        
+
         private IEnumerator FryEnemyDeathAnimation(GameObject enemy)
         {
-            float duration = 1.5f; // 演出にかける時間
-            float startTime = Time.time;
-            Vector3 startPosition = enemy.transform.position;
-            float rotationSpeed = 360f * 3f; // 3秒で3回転
+            var duration = 1.5f; // 演出にかける時間
+            var startTime = Time.time;
+            var startPosition = enemy.transform.position;
+
+            var currentRotationSpeed = 360f * 3f; // 3秒で3回転
+
+            var targetY = startPosition.y - 100f;
+            var rayDistance = 200f;
+            const float OFFSET_TO_BOTTOM = 0.5f;
+
+            RaycastHit hit;
+            if (Physics.Raycast(startPosition, Vector3.down, out hit, rayDistance, groundLayer))
+                targetY = hit.point.y + OFFSET_TO_BOTTOM;
+            var enemyCollider = enemy.GetComponent<Collider>();
+            if (enemyCollider != null) enemyCollider.enabled = false;
+            var isGrounded = false;
 
             while (Time.time < startTime + duration)
             {
-                float elapsed = Time.time - startTime;
-                float progress = elapsed / duration;
+                var elapsed = Time.time - startTime;
+                var progress = elapsed / duration;
 
-                enemy.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime, Space.Self); 
+                // 回転
+                enemy.transform.Rotate(0, 0, currentRotationSpeed * Time.deltaTime, Space.Self);
 
-                float dropAmount = 5f;
-                enemy.transform.position = startPosition + new Vector3(
-                    0, 
+                // 落下位置
+                var dropAmount = 5f;
+                var newPosition = startPosition + new Vector3(
+                    0,
                     Mathf.Lerp(0, -dropAmount, progress * progress),
                     0
                 );
 
-                yield return null; // 1フレーム待つ
+                // 地面到達チェックと制限
+                if (newPosition.y <= targetY)
+                {
+                    newPosition.y = targetY; // 地面より下にいかないように固定
+
+                    if (!isGrounded)
+                    {
+                        currentRotationSpeed = 0f;
+                        isGrounded = true;
+                    }
+                }
+
+                enemy.transform.position = newPosition;
+
+                // 演出時間の調整
+                if (isGrounded && Time.time > startTime + 0.5f) break;
+
+                yield return null;
             }
 
-            Destroy(enemy); 
+            // 演出終了後、最終的な位置を地面に固定
+            enemy.transform.position = new Vector3(
+                enemy.transform.position.x,
+                targetY,
+                enemy.transform.position.z
+            );
+
+            Destroy(enemy);
         }
-        
+
         private IEnumerator NormalEnemyDeathAnimation(GameObject enemy)
         {
-            float duration = 1.5f; // 演出にかける時間
-            float startTime = Time.time;
+            var duration = 1.5f; // 演出にかける時間
+            var startTime = Time.time;
             yield return new WaitForSeconds(duration);
-            Destroy(enemy); 
+            Destroy(enemy);
         }
-        
+
         private async UniTaskVoid GameClearDelayed()
         {
             await UniTask.Delay(TimeSpan.FromSeconds(gameClearDelay));
             sceneButtonManager.GameClear();
         }
+
         private string GetEnemyIdByObject(GameObject enemy)
         {
-            string name = enemy.name;
+            var name = enemy.name;
 
             if (name.StartsWith("Enemy_"))
                 return name.Replace("Enemy_", "").Trim();
@@ -268,19 +283,36 @@ namespace Systems
                 return name.Replace("ConditionEnemy_", "").Trim();
 
             foreach (var data in enemiesToSpawn)
-            {
                 if (data.enemyPrefab.name == enemy.name.Replace("(Clone)", "").Trim())
                     return data.enemyId;
-            }
 
             foreach (var condition in conditionToSpawn)
-            {
                 if (condition.conditionGameObject.name == enemy.name.Replace("(Clone)", "").Trim())
                     return condition.conditionId;
-            }
 
             return "";
         }
 
+        [Serializable]
+        public class EnemySpawnData
+        {
+            [JapaneseLabel("敵ID")] public string enemyId;
+            [JapaneseLabel("出現させる敵のプレハブ")] public GameObject enemyPrefab;
+            [JapaneseLabel("出現するまでの時間（秒）")] public float spawnDelay;
+            [JapaneseLabel("出現位置")] public Transform spawnPoint;
+        }
+
+        [Serializable]
+        public class ConditionEnemySpawn
+        {
+            [JapaneseLabel("敵ID")] public string conditionId;
+            [JapaneseLabel("特定の敵を倒したら出現する敵")] public GameObject conditionGameObject;
+
+            [JapaneseLabel("条件（敵ID）")] public List<string> conditionEnemyIds = new();
+
+            [JapaneseLabel("倒した後出現までの時間")] public float conditionSpawnDelay;
+            [JapaneseLabel("出現位置")] public Transform spawnPoint;
+            [HideInInspector] public bool hasSpawned;
+        }
     }
 }
