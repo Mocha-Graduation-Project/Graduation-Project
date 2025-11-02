@@ -1,0 +1,522 @@
+fileFormatVersion: 2
+guid: 2ef1a16dcec5e384ea312bc3f8aaa291
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: BeeFloat_Character_Hips
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_Spine4
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_Character_LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: BeeFloat_LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: BeeQueen(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Mesh
+      parentName: BeeQueen(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Human
+      parentName: BeeFloat_Mesh
+      position: {x: 0.000000038146972, y: -0.06878464, z: -0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface21
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface22
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface23
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.95471066, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface25
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface26
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface27
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface28
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface31
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface32
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface33
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface34
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface35
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 0.76636684}
+    - name: polySurface36
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface37
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface30
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface19
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.068784595, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface43
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface42
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface38
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: polySurface41
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone
+      parentName: BeeQueen(Clone)
+      position: {x: -0.00000014517634, y: 0.001494751, z: -0.01412167}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Root
+      parentName: Bone
+      position: {x: 0.00000014517634, y: -0.0022203063, z: 0.01412167}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Hips
+      parentName: BeeFloat_Character_Root
+      position: {x: -0, y: 0.8832213, z: -0.0317308}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_RightUpLeg
+      parentName: BeeFloat_Character_Hips
+      position: {x: 0.0866846, y: -0.044762764, z: -0.009319297}
+      rotation: {x: 0, y: 0, z: -0.71820253, w: 0.6958341}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_RightLeg
+      parentName: BeeFloat_Character_RightUpLeg
+      position: {x: 0.37591833, y: -0.0071220645, z: -0.0145229995}
+      rotation: {x: 0.9993888, y: 0.034957524, z: -5.890482e-17, w: 6.333021e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_RightFoot
+      parentName: BeeFloat_Character_RightLeg
+      position: {x: 0.41209307, y: 0.010239459, z: 0.003779}
+      rotation: {x: 0.48697314, y: 0.512696, z: -0.49367642, w: 0.50624466}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_RightToe
+      parentName: BeeFloat_Character_RightFoot
+      position: {x: 0.12966338, y: 0.025807181, z: -2.1582734e-15}
+      rotation: {x: 0.004651717, y: -0.7070915, z: 0.004651717, w: 0.7070915}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_LeftUpLeg
+      parentName: BeeFloat_Character_Hips
+      position: {x: -0.0866846, y: -0.044762716, z: -0.009319297}
+      rotation: {x: 0.6958341, y: 0.71820253, z: 8.658477e-17, w: -1.3696694e-18}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_LeftLeg
+      parentName: BeeFloat_Character_LeftUpLeg
+      position: {x: -0.37591842, y: 0.00712207, z: 0.0145229995}
+      rotation: {x: 0.9993888, y: 0.034957524, z: 4.5111936e-10, w: 0.000000012896897}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_LeftFoot
+      parentName: BeeFloat_Character_LeftLeg
+      position: {x: -0.41209304, y: -0.010239458, z: -0.0037790495}
+      rotation: {x: 0.48697314, y: 0.512696, z: -0.4936764, w: 0.5062446}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_LeftToe
+      parentName: BeeFloat_Character_LeftFoot
+      position: {x: -0.12966338, y: -0.025807483, z: 1.8296475e-15}
+      rotation: {x: 0.004651717, y: -0.7070915, z: 0.004651717, w: 0.7070915}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Spine
+      parentName: BeeFloat_Character_Hips
+      position: {x: -7.5963675e-17, y: 0.03966602, z: 0.0011431962}
+      rotation: {x: 0.48336497, y: -0.51609915, z: -0.48336497, w: 0.51609915}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Spine1
+      parentName: BeeFloat_Character_Spine
+      position: {x: -0.0814208, y: 0.0005207316, z: 4.1273206e-17}
+      rotation: {x: -6.4329063e-18, y: -2.1949707e-16, z: -0.0033620948, w: 0.99999434}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Spine2
+      parentName: BeeFloat_Character_Spine1
+      position: {x: -0.039512318, y: 0.0027583246, z: 4.223724e-17}
+      rotation: {x: 0, y: -0, z: -0.027994784, w: 0.9996081}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Spine3
+      parentName: BeeFloat_Character_Spine2
+      position: {x: -0.034257952, y: 0.00022742129, z: 8.9255485e-18}
+      rotation: {x: 0.999984, y: -0.005652842, z: 2.76536e-17, w: 6.138964e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Spine4
+      parentName: BeeFloat_Character_Spine3
+      position: {x: -0.06238125, y: -0.0017243854, z: 1.9739712e-17}
+      rotation: {x: 2.7746467e-17, y: 1.0740526e-17, z: 0.01858779, w: 0.9998272}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Spine5
+      parentName: BeeFloat_Character_Spine4
+      position: {x: -0.1270149, y: 0.0015950971, z: 1.9290307e-16}
+      rotation: {x: 0.4884392, y: -0.5112995, z: 0.4884392, w: 0.5112995}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Neck
+      parentName: BeeFloat_Character_Spine5
+      position: {x: -1.2513117e-15, y: 0.09910418, z: -0.0035748403}
+      rotation: {x: 0.4796693, y: -0.5195357, z: -0.4796693, w: 0.5195357}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Head
+      parentName: BeeFloat_Character_Neck
+      position: {x: -0.09504027, y: 0.0023773958, z: 1.5924471e-16}
+      rotation: {x: 0.9989034, y: -0.046819087, z: 3.0434868e-16, w: -6.4933973e-15}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_Head_Top
+      parentName: BeeFloat_Character_Head
+      position: {x: -0.11496647, y: -0.00019206459, z: 2.4013114e-17}
+      rotation: {x: 0.507392, y: -0.49249706, z: 0.48538744, w: 0.51419747}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_LeftShoulder
+      parentName: BeeFloat_Character_Spine5
+      position: {x: -0.0714127, y: 0.049034793, z: 0.0020856792}
+      rotation: {x: -3.2880515e-15, y: -9.630727e-18, z: 0.0064311703, w: 0.9999793}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_LeftArm
+      parentName: BeeFloat_Character_LeftShoulder
+      position: {x: -0.049104255, y: -0.0052788537, z: -0.0044989777}
+      rotation: {x: 0.0001554826, y: 0.010003504, z: -0.015538869, w: 0.99982923}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_LeftForeArm
+      parentName: BeeFloat_Character_LeftArm
+      position: {x: -0.30350655, y: -0.0058042007, z: -0.018200243}
+      rotation: {x: 0.000000010536611, y: -1.5998439e-10, z: -0.004401678, w: 0.99999034}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_LeftHand
+      parentName: BeeFloat_LeftForeArm
+      position: {x: -0.34359387, y: -0.006006276, z: -0.0046859747}
+      rotation: {x: 0.28220743, y: 0.39205244, z: -0.11604902, w: 0.8678632}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_RightShoulder
+      parentName: BeeFloat_Character_Spine5
+      position: {x: 0.07141267, y: 0.049030017, z: 0.0020856585}
+      rotation: {x: 0.9999793, y: -0.0064311703, z: -1.869434e-17, w: 9.609229e-15}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_RightArm
+      parentName: BeeFloat_Character_RightShoulder
+      position: {x: 0.04910394, y: 0.005277281, z: 0.0044989777}
+      rotation: {x: 0.00015546971, y: 0.010003505, z: -0.015538869, w: 0.99982923}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_RightForeArm
+      parentName: BeeFloat_Character_RightArm
+      position: {x: 0.30350703, y: 0.005796029, z: 0.018200222}
+      rotation: {x: 1.9721332e-31, y: -8.68078e-34, z: -0.004401678, w: 0.99999034}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_RightHand
+      parentName: BeeFloat_Character_RightForeArm
+      position: {x: 0.3435935, y: 0.006008544, z: 0.0046859947}
+      rotation: {x: 0.28220746, y: 0.39205244, z: -0.116049014, w: 0.8678632}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 431e7cbd5f703a740993b1b619b61144, type: 3}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 2
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
