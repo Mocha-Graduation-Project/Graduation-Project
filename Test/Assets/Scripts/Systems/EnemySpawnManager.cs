@@ -155,25 +155,29 @@ namespace Systems
                         normalEnemy.enabled = false;
                         deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
                         if (enemy.CompareTag("FryEnemy"))
-                            StartCoroutine(FryEnemyDeathAnimation(enemy));
+                        {
+                            StartCoroutine(FryEnemyDeathAnimation(enemy,true));
+                        }
                         else
-                            StartCoroutine(NormalEnemyDeathAnimation(enemy));
+                        {
+                            StartCoroutine(NormalEnemyDeathAnimation(enemy,true));
+                        }
                     }
 
                     if (enemy.GetComponentInChildren<DepthBoss>())
                     {
+                        var bossEnemy = enemy.GetComponentInChildren<DepthBoss>();
+                        bossEnemy.enabled = false;
                         deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
-                        Destroy(enemy);
+                        StartCoroutine(DepthBoss(enemy,true));
                     }
 
                     if (enemy.GetComponentInChildren<MoveBoss>())
                     {
                         deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
-                        Destroy(enemy);
+                        StartCoroutine(MoveBoss(enemy,true));
                     }
                 }
-
-                GameClearDelayed().Forget();
             }
             else
             {
@@ -183,18 +187,18 @@ namespace Systems
                     normalEnemy.enabled = false;
                     deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
                     if (enemy.CompareTag("FryEnemy"))
-                        StartCoroutine(FryEnemyDeathAnimation(enemy));
+                        StartCoroutine(FryEnemyDeathAnimation(enemy,false));
                     else
-                        StartCoroutine(NormalEnemyDeathAnimation(enemy));
+                        StartCoroutine(NormalEnemyDeathAnimation(enemy,false));
                 }
                 else
                 {
-                    StartCoroutine(NormalEnemyDeathAnimation(enemy));
+                    StartCoroutine(NormalEnemyDeathAnimation(enemy,false));
                 }
             }
         }
 
-        private IEnumerator FryEnemyDeathAnimation(GameObject enemy)
+        private IEnumerator FryEnemyDeathAnimation(GameObject enemy,bool clear)
         {
             var duration = 1.5f; // 演出にかける時間
             var startTime = Time.time;
@@ -257,16 +261,51 @@ namespace Systems
             );
 
             Destroy(enemy);
+            if (clear)
+            { 
+                GameClearDelayed().Forget();
+            }
         }
 
-        private IEnumerator NormalEnemyDeathAnimation(GameObject enemy)
+        private IEnumerator NormalEnemyDeathAnimation(GameObject enemy,bool clear)
         {
             var duration = 1.5f; // 演出にかける時間
             var startTime = Time.time;
             yield return new WaitForSeconds(duration);
             Destroy(enemy);
+            if (clear)
+            { 
+                GameClearDelayed().Forget();
+            }
         }
 
+        private IEnumerator MoveBoss(GameObject boss,bool clear)
+        {
+            //Script無効化
+            var bossEnemy = boss.GetComponentInChildren<MoveBoss>();
+            bossEnemy.Defeat();
+            bossEnemy.enabled = false;
+            
+            var duration = 3.0f; // 演出にかける時間
+            var startTime = Time.time;
+            yield return new WaitForSeconds(duration);
+            Destroy(boss);
+            if (clear)
+            { 
+                GameClearDelayed().Forget();
+            }
+        }
+        private IEnumerator DepthBoss(GameObject boss,bool clear)
+        {
+            var duration = 3.0f; // 演出にかける時間
+            var startTime = Time.time;
+            yield return new WaitForSeconds(duration);
+            Destroy(boss);
+            if (clear)
+            { 
+                GameClearDelayed().Forget();
+            }
+        }
         private async UniTaskVoid GameClearDelayed()
         {
             await UniTask.Delay(TimeSpan.FromSeconds(gameClearDelay));

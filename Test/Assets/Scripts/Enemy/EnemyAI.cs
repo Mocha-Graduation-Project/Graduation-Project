@@ -104,7 +104,10 @@ public class EnemyAI : MonoBehaviour
         {
             //Debug.Log("EnemyAIUpdate");
             // DOLookAt(ターゲットの位置, 回転にかける時間)
-            playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
+            if (enemyData.enemyType != EnemyData.EnemyType.boss) 
+            {
+                playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
+            }
         }
 
         switch (enemyData.moveType)
@@ -158,6 +161,7 @@ public class EnemyAI : MonoBehaviour
     {
         time += Time.deltaTime;
         rotateAxis.transform.Rotate(0, 0, rotatePerSpeed * Time.deltaTime);
+        //moveObj.transform.RotateAround(rotateAxis.transform.position, Vector3.forward, rotatePerSpeed * Time.deltaTime);
         if (time >= rotateTime)
         {
             rotateAxis.transform.eulerAngles = angles;
@@ -207,7 +211,10 @@ public class EnemyAI : MonoBehaviour
     {
         //Debug.Log("Attack");
         beforeAttackText.After();
-
+        // if (enemyData.enemyType == EnemyData.EnemyType.boss)
+        // {
+        //     animator.SetTrigger("Attack");
+        // }
         GameObject bullets = Instantiate(enemyData.bulletObj, shotObj.transform.position, Quaternion.identity);
 
         Bullet reflectionBullet = bullets.GetComponent<Bullet>();
