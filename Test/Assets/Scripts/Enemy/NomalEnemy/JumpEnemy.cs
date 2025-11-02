@@ -10,6 +10,7 @@ namespace Enemy.Basic
         private static readonly int JumpDown = Animator.StringToHash("JumpDown");
         
         [SerializeField] private float jumpTime;
+        [SerializeField] private float jumpCoolTime　= 0.1f;
         
         private bool isGrounded;
 
@@ -34,12 +35,15 @@ namespace Enemy.Basic
         {
             base.Update();
             isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, enemyData.groundLayer);
+            if (isGrounded) 
+            {
+                jumpTime += Time.deltaTime; 
+            }
         }
 
         public void Jump()
         {
-            if (!isGrounded) return; 
-            Debug.Log("Jump");
+            if (!isGrounded || jumpTime < jumpCoolTime) return;
             rigidbody.AddForce(Vector3.up * enemyData.jumpPower, ForceMode.Impulse);
             jumpTime = 0;
         }
