@@ -44,6 +44,7 @@ public class MoveBoss : EnemyAI
     private int changeHPPercent;
     [JapaneseLabel("パターン5を行うようになるHP")][Space(5)] 
     private float changeHP;
+    private float zeroHp = 0;
     private bool patten5Flag;
     [JapaneseLabel("パターン1～4を行った回数")]
     private int actioncounter;
@@ -57,6 +58,8 @@ public class MoveBoss : EnemyAI
     
     public GameObject[]  Laser { get { return laser; } }
     public float Rotate90PerSec { get { return rotate90PerSec; } }
+    
+    [SerializeField] private Animator animator;
 
     public override void SetUp()
     {
@@ -113,7 +116,7 @@ public class MoveBoss : EnemyAI
         //Debug.Log("パターン"+pattern);
     }
 
-    void ChangePattern(Patterns nextPattern)
+    private void ChangePattern(Patterns nextPattern)
     {
         switch (nextPattern)
         {
@@ -123,11 +126,13 @@ public class MoveBoss : EnemyAI
                 enemyData.bulletRate = bulletRate1_2;
                 Debug.Log(enemyData.bulletRate);
                 stateMachine.ChangeState(new RightVerticalMove(this));
+                animator.SetTrigger("MoveRight");
                 break;
             case Patterns.pattern2:
                 enemyData.bulletRate = bulletRate1_2;
                 Debug.Log(enemyData.bulletRate);
                 stateMachine.ChangeState(new LeftVerticalMove(this));
+                animator.SetTrigger("MoveLeft");
                 break;
             case Patterns.pattern3:
                 enemyData.bulletRate = bulletRate3_4;
@@ -136,15 +141,17 @@ public class MoveBoss : EnemyAI
             case Patterns.pattern4:
                 enemyData.bulletRate = bulletRate3_4;
                 stateMachine.ChangeState(new DownHorizontalMove(this));
+                
                 break;
             case Patterns.pattern5:
                 stateMachine.ChangeState(new LaserAttck(this));
+                animator.SetBool("LaserAttck", true);
                 break;
         }
         pattern = nextPattern;
     }
 
-    void RandomSetPattern()
+    private void RandomSetPattern()
     {
         int random = Random.Range(0, 2);
         Debug.Log("random:" + random);
@@ -162,7 +169,7 @@ public class MoveBoss : EnemyAI
         }
     }
 
-    bool CheckFlag5()
+    private bool CheckFlag5()
     {
         if (patten5Flag == true)
         {
@@ -223,5 +230,28 @@ public class MoveBoss : EnemyAI
         {
             obj.SetActive(false);
         }
+    }
+    //上昇後の攻撃animation
+    public void SpinAttack()
+    {
+        animator.SetBool("Spin", true);
+    }
+
+    public void Attack()
+    {
+        animator.SetTrigger("Attack");
+    }
+
+    public void Defeat()
+    {
+        animator.SetTrigger("Defeat");
+    }
+
+    public void boolReset()
+    {
+        animator.SetBool("MoveRight", false);
+        animator.SetBool("MoveLeft", false);
+        animator.SetBool("Spin", false);
+        animator.SetBool("LaserAttck", false);
     }
 }

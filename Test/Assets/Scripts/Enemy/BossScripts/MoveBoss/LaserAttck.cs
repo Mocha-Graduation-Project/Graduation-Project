@@ -182,6 +182,7 @@ public class LaserAttck : MonoBehaviour,IState
                     moveBoss.LazerOn();
                     break;
                 case 2:
+                    moveBoss.boolReset();
                     moveBoss.LazerOff();
                     break;
             }

@@ -20,6 +20,7 @@ public class LeftVerticalMove : MonoBehaviour,IState
     private float angleZ;
     Vector3 rotateAxisRotate;
     private bool isCoolTime;
+    MoveBoss moveBoss;
     
     //移動に関する座標
     private Vector3 centerPos;
@@ -36,6 +37,7 @@ public class LeftVerticalMove : MonoBehaviour,IState
         Debug.Log("2_Enter");
         moveCounter = 0;
         moveEnemy = enemyAI.moveObj;
+        moveBoss = moveEnemy.GetComponentInChildren<MoveBoss>();
         enemyAI.StopAttack();
         isCoolTime = true;
         Initialization();
@@ -115,6 +117,7 @@ public class LeftVerticalMove : MonoBehaviour,IState
         if (moveCounter == 1)
         {
             enemyAI.StartAttack();
+            moveBoss.Attack();
         }
     }
 
@@ -157,7 +160,8 @@ public class LeftVerticalMove : MonoBehaviour,IState
                 Debug.Log("終了");
                 Initialization();
                 finishMoving = true;
+                moveBoss.boolReset();
                 break;
-        }
+        } 
     }
 }

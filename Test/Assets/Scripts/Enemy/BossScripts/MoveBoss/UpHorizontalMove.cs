@@ -20,6 +20,7 @@ public class UpHorizontalMove : MonoBehaviour,IState
     private float angleZ;
     Vector3 rotateAxisRotate;
     private bool isCoolTime;
+    MoveBoss moveBoss;
     
     //移動に関する座標
     private Vector3 centerPos;
@@ -35,6 +36,7 @@ public class UpHorizontalMove : MonoBehaviour,IState
          Debug.Log("3_Enter");
          moveCounter = 0;
          moveEnemy = enemyAI.moveObj;
+         moveBoss = moveEnemy.GetComponentInChildren<MoveBoss>();
          enemyAI.StopAttack();
          isCoolTime = true;
          Initialization();
@@ -107,6 +109,8 @@ public class UpHorizontalMove : MonoBehaviour,IState
         centerPos = moveEnemy.transform.position;
         if (moveCounter == 1)
         {
+            Debug.Log("回転");
+            moveBoss.SpinAttack();
             enemyAI.StartAttack();
         }
     }
@@ -136,6 +140,7 @@ public class UpHorizontalMove : MonoBehaviour,IState
                 Debug.Log("終了");
                 Initialization();
                 finishMoving = true;
+                moveBoss.boolReset();
                 break;
         }
     }
