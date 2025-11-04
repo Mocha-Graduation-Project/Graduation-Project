@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Enemy.Basic;
 using Scripts.Scriptable;
 using TMPro;
 using UI;
@@ -171,11 +172,15 @@ namespace Systems
                         deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
                         StartCoroutine(DepthBoss(enemy,true));
                     }
-
                     if (enemy.GetComponentInChildren<MoveBoss>())
                     {
                         deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
                         StartCoroutine(MoveBoss(enemy,true));
+                    }
+                    else
+                    {
+                        deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
+                        StartCoroutine(NormalEnemyDeathAnimation(enemy,true));
                     }
                 }
             }
@@ -193,6 +198,7 @@ namespace Systems
                 }
                 else
                 {
+                    deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
                     StartCoroutine(NormalEnemyDeathAnimation(enemy,false));
                 }
             }
