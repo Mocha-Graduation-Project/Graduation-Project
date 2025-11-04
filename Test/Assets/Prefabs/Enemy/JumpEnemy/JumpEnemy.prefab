@@ -107,7 +107,7 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: f8fdbf5973a08fb48926ae07de8c436c, type: 2}
   hp: 0
   moveObj: {fileID: 340557379405577080}
-  playerLookObj: {fileID: 1037284762400122623}
+  playerLookObj: {fileID: 340557379405577080}
   rotateAxis: {fileID: 0}
   shotObj: {fileID: 3623607188312440936}
   straightObj: {fileID: 0}
@@ -117,6 +117,7 @@ MonoBehaviour:
   deathEffectPrefab: {fileID: 3966444480152705194}
   animator: {fileID: 0}
   jumpTime: 0
+  jumpCoolTime: 0.1
   hitBox: {fileID: 1822520219385722980}
 --- !u!82 &8063455991637519505
 AudioSource:

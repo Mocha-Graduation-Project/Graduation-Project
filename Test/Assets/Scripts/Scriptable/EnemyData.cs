@@ -27,10 +27,18 @@ public class EnemyData :  ScriptableObject
         straight,
     }
     
+    public enum PlayerLookType
+    {
+        look,
+        lookY,
+        dontLook,
+    }
+    
     [Header("敵の基礎ステータス")] 
     [JapaneseLabel("HPの最大値")] public int maxHP;
 
     [JapaneseLabel("エネミータイプ")] public EnemyType enemyType;
+    [JapaneseLabel("プレイヤーを向くタイプ")] public PlayerLookType playerLookType;
     
     [JapaneseLabel("パターンのクールタイム")] public float coolTime;
     [JapaneseLabel("音源")] public SoundData soundData;

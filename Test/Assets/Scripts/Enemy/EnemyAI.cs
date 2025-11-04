@@ -104,10 +104,23 @@ public class EnemyAI : MonoBehaviour
         {
             //Debug.Log("EnemyAIUpdate");
             // DOLookAt(ターゲットの位置, 回転にかける時間)
-            if (enemyData.enemyType != EnemyData.EnemyType.boss) 
+            switch (enemyData.playerLookType)
             {
-                playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
+                case EnemyData.PlayerLookType.look:
+                    playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
+                    break;
+                case EnemyData.PlayerLookType.lookY:
+                    Vector3 lookPos = new Vector3(player.transform.position.x, playerLookObj.transform.position.y,
+                        player.transform.position.z);
+                    playerLookObj.transform.DOLookAt(lookPos, 0.5f);
+                    break;
+                case EnemyData.PlayerLookType.dontLook:
+                    break;
             }
+            // if (enemyData.enemyType != EnemyData.EnemyType.boss) 
+            // {
+            //     playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
+            // }
         }
 
         switch (enemyData.moveType)
