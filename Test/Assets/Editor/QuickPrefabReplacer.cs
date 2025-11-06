@@ -367,8 +367,8 @@ public class QuickPrefabReplacer : EditorWindow
         }
         GUI.enabled = true;
         
-        EditorGUILayout.EndHorizontal();
-        EditorGUILayout.Space();
+        // EditorGUILayout.EndHorizontal();
+        // EditorGUILayout.Space();
         
         // 既存のPrefab置換エリア
         GUILayout.Label("Prefab Replacement", EditorStyles.miniLabel);
