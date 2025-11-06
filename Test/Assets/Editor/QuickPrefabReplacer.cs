@@ -360,21 +360,12 @@ public class QuickPrefabReplacer : EditorWindow
 
         int count = selectedObjects.Count;
         
-        GUI.enabled = count > 0;
-        if (GUILayout.Button($"{count}個のオブジェクトを置き替えます", EditorStyles.miniButton, GUILayout.Width(300)))//Set Tag to {count} Obj(s)　　120
-        {
-            SetUnityTagToSelectedObjects(tagToAssign);
-        }
-        GUI.enabled = true;
-        
-        // EditorGUILayout.EndHorizontal();
-        // EditorGUILayout.Space();
-        
-        // 既存のPrefab置換エリア
         GUILayout.Label("Prefab Replacement", EditorStyles.miniLabel);
+        
         GUI.enabled = targetPrefab != null && count > 0;
 
         string replaceText = $"Replace {count} Selected Object(s) with Prefab";
+  
         if (GUILayout.Button(replaceText, GUILayout.Height(30)))
         {
             ReplaceSelectedObjects();
@@ -383,6 +374,7 @@ public class QuickPrefabReplacer : EditorWindow
         GUI.enabled = true;
         EditorGUILayout.EndVertical();
     }
+    
     
     // Unityのタグを設定するメソッド
     private void SetUnityTagToSelectedObjects(string tag)
