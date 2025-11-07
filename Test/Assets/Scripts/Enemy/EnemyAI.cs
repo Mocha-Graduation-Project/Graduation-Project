@@ -170,13 +170,6 @@ public class EnemyAI : MonoBehaviour
     {
         time += Time.deltaTime;
         rotateObj.transform.Rotate(0, 0, rotatePerSpeed * Time.deltaTime);
-        Debug.Log(rotateObj.name + "/Z:" + rotateObj.transform.localEulerAngles.z);
-        if ((rotatePerSpeed > 0 && rotateObj.transform.localEulerAngles.z > angles.z)||(rotatePerSpeed < 0 && rotateObj.transform.localEulerAngles.z < angles.z))
-        {
-            Debug.Log(rotateObj.name + "OVER");
-            rotateObj.transform.localEulerAngles = angles;
-            return true;
-        }
         if (time >= rotateTime)
         {
             rotateObj.transform.localEulerAngles = angles;
