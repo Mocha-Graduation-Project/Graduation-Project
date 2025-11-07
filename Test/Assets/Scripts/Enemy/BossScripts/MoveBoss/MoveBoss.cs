@@ -193,6 +193,12 @@ public class MoveBoss : EnemyAI
         {
             rotateSpeed = 180f;
         }
+
+        //パターン3,4が発射レートが高い為、攻撃までに回転を終える為の調整
+        if (pattern == Patterns.pattern3 || pattern == Patterns.pattern4)
+        {
+            rotateSpeed *= 2f;
+        }
     }
 
     public override void EnemyAttack()
@@ -213,7 +219,10 @@ public class MoveBoss : EnemyAI
             reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
             
             PlayAttckSound();
-            isactive = false;
+            //蜂頭を元の方向に戻す
+            isBackRotate = true;
+            finishRotation = false;
+            ResetTimer();
         }
         
         StartAttack();
@@ -250,10 +259,13 @@ public class MoveBoss : EnemyAI
         }
         //Debug.Log("パターン"+pattern);
         
-        //蜂頭を元の方向に戻す
-        isBackRotate = true;
-        finishRotation = false;
-        ResetTimer();
+        //戻っていなければ蜂頭を元の方向に戻す
+        if (isBackRotate == false && shotObj != null)
+        {
+            isBackRotate = true;
+            finishRotation = false;
+            ResetTimer();
+        }
     }
 
     private void ChangePattern(Patterns nextPattern)
@@ -340,20 +352,26 @@ public class MoveBoss : EnemyAI
 
     public override bool EnemyRotate(GameObject rotateObj, Vector3 angles, float rotatePerSpeed, float rotateTime, ref float time)
     {
-        Debug.Log("OverrideMoveBossEnemyRotate");
+        //Debug.Log("OverrideMoveBossEnemyRotate");
         time += Time.deltaTime;
         rotateObj.transform.Rotate(0, 0, rotatePerSpeed * Time.deltaTime);
-        Debug.Log(rotateObj.name + "/Z:" + rotateObj.transform.localEulerAngles.z);
-        if ((rotatePerSpeed > 0 && rotateObj.transform.localEulerAngles.z > angles.z)||(rotatePerSpeed < 0 && rotateObj.transform.localEulerAngles.z < angles.z))
+        if (rotatePerSpeed > 0 && rotateObj.transform.localEulerAngles.z > angles.z)
         {
-            Debug.Log(rotateObj.name + "OVER");
+            //Debug.Log(rotateObj.name + "OVER");
+            rotateObj.transform.localEulerAngles = angles;
+            return true;
+        }
+        else if ((rotatePerSpeed < 0 && rotateObj.transform.localEulerAngles.z < angles.z) ||
+                 (rotatePerSpeed < 0 && rotateObj.transform.localEulerAngles.z > 270))
+        {
+            //Debug.Log(rotateObj.name + "-OVER");
             rotateObj.transform.localEulerAngles = angles;
             return true;
         }
         if (time >= rotateTime)
         {
             rotateObj.transform.localEulerAngles = angles;
-            Debug.Log(rotateObj.name + "/END:" + rotateObj.transform.localEulerAngles.z);
+            //Debug.Log(rotateObj.name + "/END:" + rotateObj.transform.localEulerAngles.z);
             return true;
         }
         return false;
