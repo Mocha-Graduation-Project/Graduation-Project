@@ -85,7 +85,7 @@ namespace Player
         {
             isGrounded = false;
             isGrounded = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
-                
+            animator.SetTrigger("JumpDown");
             animator.SetBool(IsGround, isGrounded);
             player.Ground(isGrounded);
             

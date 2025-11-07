@@ -19,11 +19,12 @@ namespace UI
     
         public State currentState = State.Gameplay;
         [SerializeField] private GameObject player;
-        [SerializeField]private Player.Player playerScript;
+        [SerializeField] private Player.Player playerScript;
         [SerializeField] private PlayerInput playerInput;
         [SerializeField] private GameObject pauseObj;
         [SerializeField] private GameObject clearObj;
-        [SerializeField]  private GameObject gameOverObj;
+        [SerializeField] private GameObject gameOverObj;
+        [SerializeField] private MapManager mapManager; 
     
         public State CurrentState { get { return currentState; } }
     
@@ -31,8 +32,8 @@ namespace UI
         void Start()
         {
             currentState = State.Gameplay;
-        
-            player=GameObject.Find("Player");
+         
+            player = GameObject.Find("PlayerGeneric");
             if (player != null)
             {
                 playerScript = player.GetComponent<Player.Player>();
@@ -75,6 +76,7 @@ namespace UI
             ChangeState(State.Clear);
             Time.timeScale = 0;
             if (clearObj != null) {clearObj.SetActive(true);}
+            mapManager.Clear();
             Debug.Log("Game Clear:" + currentState);
         }
 
@@ -84,6 +86,7 @@ namespace UI
             Time.timeScale = 0;
             DisableAll();
 
+            mapManager.GameOver();
             if (gameOverObj != null){gameOverObj.SetActive(true);}
         }
     
