@@ -117,10 +117,6 @@ public class EnemyAI : MonoBehaviour
                 case EnemyData.PlayerLookType.dontLook:
                     break;
             }
-            // if (enemyData.enemyType != EnemyData.EnemyType.boss) 
-            // {
-            //     playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
-            // }
         }
 
         switch (enemyData.moveType)
@@ -173,11 +169,11 @@ public class EnemyAI : MonoBehaviour
         ref float time)
     {
         time += Time.deltaTime;
-        rotateAxis.transform.Rotate(0, 0, rotatePerSpeed * Time.deltaTime);
-        //moveObj.transform.RotateAround(rotateAxis.transform.position, Vector3.forward, rotatePerSpeed * Time.deltaTime);
+        rotateObj.transform.Rotate(0, 0, rotatePerSpeed * Time.deltaTime);
         if (time >= rotateTime)
         {
-            rotateAxis.transform.eulerAngles = angles;
+            rotateObj.transform.localEulerAngles = angles;
+            Debug.Log(rotateObj.name + "/END:" + rotateObj.transform.localEulerAngles.z);
             return true;
         }
         return false;
@@ -241,11 +237,11 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
         
-        audioSource.PlayOneShot(EnemyShotSound);
+        PlayAttckSound();
         StartAttack();
     }
     
-    public void BeforeAttack()
+    public virtual void BeforeAttack()
     {
         if (enemyData.enemyAttackType == EnemyData.EnemyAttackType.dontAttack) { return; }
             
@@ -380,4 +376,9 @@ public class EnemyAI : MonoBehaviour
     }
     public virtual void Change() {}
     public virtual void CustomMove() {}
+
+    public void PlayAttckSound()
+    {
+        audioSource.PlayOneShot(EnemyShotSound);
+    }
 }
