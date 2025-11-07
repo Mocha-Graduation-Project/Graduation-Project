@@ -1111,6 +1111,10 @@ PrefabInstance:
       propertyPath: checkSkip
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5069097404318093572, guid: d2a8180cd3056a44da68b8d1218999ec, type: 3}
+      propertyPath: soundData
+      value: 
+      objectReference: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
     - target: {fileID: 8140392751563434919, guid: d2a8180cd3056a44da68b8d1218999ec, type: 3}
       propertyPath: m_Name
       value: MapManager
@@ -1135,6 +1139,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2506849230844522354, guid: d2a8180cd3056a44da68b8d1218999ec, type: 3}
   m_PrefabInstance: {fileID: 907987617566517873}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5386547966179638133 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5069097404318093572, guid: d2a8180cd3056a44da68b8d1218999ec, type: 3}
+  m_PrefabInstance: {fileID: 907987617566517873}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8962636042504700374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438ab24cccb39c94897c4debace8bd9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8962636042504700374 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8140392751563434919, guid: d2a8180cd3056a44da68b8d1218999ec, type: 3}
@@ -1758,6 +1773,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9115829838790909611, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: mapManager
+      value: 
+      objectReference: {fileID: 5386547966179638133}
     - target: {fileID: 9115829838790909611, guid: 6603278fafb691345905e2f5e146210f, type: 3}
       propertyPath: gameOverObj
       value: 

@@ -17,7 +17,13 @@ namespace Scripts.Scriptable
         [JapaneseLabel("敵射撃")] public AudioClip EnemyShotSound;
         [JapaneseLabel("盾")] public AudioClip ShieldSound;
         [JapaneseLabel("ワープ")] public AudioClip WarpSound;
-
+        [Space(5)][Header("BGM")]
+        [JapaneseLabel("Title")] public AudioClip Title;
+        [JapaneseLabel("Normal")] public AudioClip Normal;
+        [JapaneseLabel("MoveBoss")] public AudioClip MoveBoss;
+        [JapaneseLabel("Depth")] public AudioClip Depth;
+        [JapaneseLabel("GameOver")] public AudioClip GameOver;
+        [JapaneseLabel("GameClear")] public AudioClip GameClear;
         
     }
 }
