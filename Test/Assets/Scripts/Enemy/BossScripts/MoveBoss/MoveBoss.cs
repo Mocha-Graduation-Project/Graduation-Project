@@ -1,8 +1,12 @@
+using System;
+using System.Collections.Generic;
 using NUnit.Framework.Internal;
+using Player;
 using Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEditor;
+using Random = UnityEngine.Random;
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(EnemyAI))]
@@ -19,16 +23,32 @@ public class MoveBoss : EnemyAI
         pattern4,
         pattern5,
     }
+    
+    [Serializable]
+    public class BeeHead
+    {
+        [JapaneseLabel("発射場所")] public GameObject shotPos;
+        [JapaneseLabel("盾")] public GameObject beeShield;
+        [JapaneseLabel("何度に回転するか")] public float rotatez;
+    }
 
     [SerializeField] private StateMachine stateMachine;
 
     [Header("共通")]
     [SerializeField] [JapaneseLabel("現在の行動パターン")]Patterns pattern;
+
+    [Space(5)] [Header("パターン1,2,3,4")]
     
-    [Space(5)]
-    [Header("パターン1,2,3,4")] 
-    [SerializeField] [JapaneseLabel("パターン1～4に使うデータ")]
-    private PatrolEnemyData patrolEnemyData;
+    [Header("回転蜂")] public List<BeeHead> beeHeads = new();
+    
+    [JapaneseLabel("回転する蜂の頭")] private GameObject rotateBeeHead;
+    private GameObject shotObj;
+    private float rotateZ;
+    private float rotateSpeed;
+    private float startTime;
+    private bool isactive;
+    private bool isBackRotate;
+    [JapaneseLabel("攻撃時の回転")] private bool finishRotation;
 
     [SerializeField] [JapaneseLabel("1,2の発射レート")]
     private float bulletRate1_2;
@@ -71,6 +91,12 @@ public class MoveBoss : EnemyAI
         patten5Flag = false;
         stateMachine=new StateMachine();
         RandomSetPattern();
+        rotateZ = 0;
+        rotateSpeed = 180f;
+        startTime = 0;
+        isactive = false;
+        isBackRotate = false;
+        finishRotation = false;
     }
 
     // Update is called once per frame
@@ -78,6 +104,23 @@ public class MoveBoss : EnemyAI
     {
         base.Update();
         //stateMachine.Update();
+        //蜂の頭を射出方向へ回転
+        if (isactive == true && finishRotation != true && isBackRotate == false)
+        {
+            finishRotation = EnemyRotate(rotateBeeHead, new Vector3(0, 0, rotateZ), rotateSpeed, 0.5f, ref startTime);
+        }
+
+        if (isBackRotate == true && finishRotation != true)
+        {
+            if (EnemyRotate(rotateBeeHead, Vector3.zero, (-1) * rotateSpeed, 0.5f,
+                    ref startTime) == true)
+            {
+                finishRotation = false;
+                isactive = false;
+                isBackRotate = false;
+            }
+
+        }
     }
 
     public override void CustomMove()
@@ -85,9 +128,101 @@ public class MoveBoss : EnemyAI
         stateMachine.Update();
     }
 
+    public override void BeforeAttack()
+    {
+        base.BeforeAttack();
+        //どちらのShotPosから出すか判定
+        shotObj = null;
+        isactive = false;
+        for (int i = 0; i < beeHeads.Count; i++)
+        {
+            //Debug.Log(beeShields[i].name + ":" + beeShields[i].activeSelf);
+            if (beeHeads[i].beeShield.activeSelf == true)
+            {
+                if (isactive == false)
+                {
+                    isactive = true;
+                    SetBeeShot(beeHeads[i]);
+                }
+                else
+                {
+                    switch (pattern)
+                    {
+                        case Patterns.pattern1:
+                            if (shotObj.transform.position.x > beeHeads[i].shotPos.transform.position.x)
+                            {
+                                SetBeeShot(beeHeads[i]);
+                            }
+                            break;
+                        case Patterns.pattern2:
+                            if (shotObj.transform.position.x < beeHeads[i].shotPos.transform.position.x)
+                            {
+                                SetBeeShot(beeHeads[i]);
+                            }
+                            break;
+                        case Patterns.pattern3:
+                        case Patterns.pattern4:
+                            if (shotObj.transform.position.y > beeHeads[i].shotPos.transform.position.y)
+                            {
+                                SetBeeShot(beeHeads[i]);
+                            }
+                            break;
+                    }
+                }
+            }
+        }
+        if (isactive == true)
+        {
+            ResetTimer();
+        }
+    }
+
+    void SetBeeShot(BeeHead setBeeHead)
+    {
+        shotObj = setBeeHead.shotPos;
+        rotateBeeHead = setBeeHead.shotPos.transform.parent.gameObject;
+        rotateZ = setBeeHead.rotatez;
+        if (rotateZ < 0)
+        {
+            //rotateSpeed = -180f;
+            //上のコメントアウトは、後々プレイヤー側のバリアが破壊されたらそちらに回転した時用の処理です
+            rotateZ = 90;
+            rotateSpeed = 180f;
+        }
+        else
+        {
+            rotateSpeed = 180f;
+        }
+    }
+
+    public override void EnemyAttack()
+    {
+        if (isactive == true)
+        {
+            beforeAttackText.After();
+
+            // for (int i = 0; i < beeHeads.Count; i++)
+            // {
+            //     Debug.Log("Shot[" + beeHeads[i].shotPos.name + "]/" + beeHeads[i].shotPos.transform.position);
+            // }
+            // Debug.Log("Attck:" + shotPos);
+            GameObject bullets = Instantiate(enemyData.bulletObj, shotObj.transform.position, Quaternion.identity);
+
+            Bullet reflectionBullet = bullets.GetComponent<Bullet>();
+            
+            reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
+            
+            PlayAttckSound();
+            isactive = false;
+        }
+        
+        StartAttack();
+    }
+
     public override void Change()
     {
         Debug.Log("パターン変更");
+        
         if (CheckFlag5() == true)
         {
             return;
@@ -114,6 +249,11 @@ public class MoveBoss : EnemyAI
                 break;
         }
         //Debug.Log("パターン"+pattern);
+        
+        //蜂頭を元の方向に戻す
+        isBackRotate = true;
+        finishRotation = false;
+        ResetTimer();
     }
 
     private void ChangePattern(Patterns nextPattern)
@@ -253,5 +393,10 @@ public class MoveBoss : EnemyAI
         animator.SetBool("MoveLeft", false);
         animator.SetBool("Spin", false);
         animator.SetBool("LaserAttck", false);
+    }
+
+    private void ResetTimer()
+    {
+        startTime = 0;
     }
 }
