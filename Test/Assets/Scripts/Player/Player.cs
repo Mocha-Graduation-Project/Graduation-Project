@@ -85,6 +85,9 @@ namespace Player
         [JapaneseLabel("射撃スタミナ消費量")]private float shotStaminaDrainPerSecond = 0.25f;
         [JapaneseLabel("射撃クールタイム")]private float shotCoolTime = 0.2f;
         [JapaneseLabel("オーバーヒートしているか")] private bool Overheat = false;
+
+        [JapaneseLabel("攻撃アニメーションに弾きのタイミングを合わせる")][SerializeField]
+        private bool attackAnimationBestTime = true;
         
         private readonly System.Collections.Generic.Dictionary<float, WaitForSeconds> waitCache = new System.Collections.Generic.Dictionary<float, WaitForSeconds>();
         
@@ -235,10 +238,18 @@ namespace Player
             };
             
             PlayAttackAnimation(attackDirection);
+            if (!attackAnimationBestTime)
+            {
+                IsAttacking = true;
+
+                QuickAttackCollision.gameObject.SetActive(true);
+                StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
+            }
         }
 
         public void Attacking()
         {
+            if(!attackAnimationBestTime) return;
             IsAttacking = true;
 
             QuickAttackCollision.gameObject.SetActive(true);
