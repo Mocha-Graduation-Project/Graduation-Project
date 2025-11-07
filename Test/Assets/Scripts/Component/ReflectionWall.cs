@@ -12,14 +12,24 @@ namespace Component
         [SerializeField] [JapaneseLabel("盾の現在HP")]  private float shieldHP;
 
         [SerializeField] [JapaneseLabel("復活までの時間")] private float revivaltime;
+        
+        private float refTime;
+        [SerializeField] private float CoolTime　= 0.5f;
 
         void Start()
         {
             shieldHP = shieldMaxHP;
         }
+
+        private void Update()
+        {
+            refTime += Time.deltaTime;
+        }
+        
         
         private void OnTriggerEnter(Collider collider)
         {
+            if(refTime < CoolTime) return;
             if (collider.TryGetComponent(out Bullet bullet))
             {
                 Vector3 incomingPower = bullet.GetPower();
@@ -44,6 +54,7 @@ namespace Component
                     this.gameObject.SetActive(false);
                     Invoke("ShieldReset", revivaltime);
                 }
+                refTime = 0;
             }
         }
 
