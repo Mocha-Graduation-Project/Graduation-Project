@@ -47,7 +47,7 @@ public class LaserAttck : MonoBehaviour,IState
         
         rotateAxis = enemyAI.rotateAxis;
         rotateAxisRotate = new Vector3(0, 0, 0);
-        angleZ90 = 90f;
+        angleZ90 = 90f / moveBoss.Rotate90PerSec;
         //ランダムで回転方向を決める
         int random = Random.Range(0, 2);
         Debug.Log("random:" + random);
