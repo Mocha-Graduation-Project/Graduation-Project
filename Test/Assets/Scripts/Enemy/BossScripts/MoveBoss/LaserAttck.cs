@@ -113,14 +113,14 @@ public class LaserAttck : MonoBehaviour,IState
 
                 if (finishRotating != true)
                 {
-                    finishRotating = enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ,
+                    finishRotating = Rotate(rotateAxis, rotateAxisRotate, angleZ,
                         enemyAI.enemyData.rotateTime, ref t);
                 }
                 FinishCheck();
                 break;
             case 1:
                 //360度回転させる
-                if (enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ90,
+                if (Rotate(rotateAxis, rotateAxisRotate, angleZ90,
                         moveBoss.Rotate90PerSec * rotateTime, ref t) == true)
                 {
                     finishRotating = true;
@@ -145,6 +145,7 @@ public class LaserAttck : MonoBehaviour,IState
     {
         startTime = Time.time;
         isCoolTime = true;
+        t = 0f;
     }
 
     void NextMove()
@@ -152,20 +153,18 @@ public class LaserAttck : MonoBehaviour,IState
         finishMoving = true;
     }
 
-    void Rotate(Vector3 angles, float time,float z)
+    bool Rotate(GameObject rotateObj, Vector3 angles, float rotatePerSpeed, float rotateTime,
+        ref float time)
     {
-        //Debug.Log("angle:"+rotateAxis.transform.rotation.eulerAngles);
-        if (finishRotating == true)
+        time += Time.deltaTime;
+        rotateObj.transform.Rotate(0, 0, rotatePerSpeed * Time.deltaTime);
+        if (time >= rotateTime)
         {
-            return;
+            rotateObj.transform.localEulerAngles = angles;
+            Debug.Log(rotateObj.name + "/LaserEND:" + rotateObj.transform.localEulerAngles.z);
+            return true;
         }
-        t += Time.deltaTime;
-        rotateAxis.transform.Rotate(0, 0, z * Time.deltaTime);
-        if (t >= time)
-        {
-            rotateAxis.transform.eulerAngles = angles;
-            finishRotating = true;
-        }
+        return false;
     }
 
     void FinishCheck()
