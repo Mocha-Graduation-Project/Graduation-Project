@@ -48,7 +48,7 @@ namespace Player
 
         [Header("<エフェクトリスト>")]
         [SerializeField]
-        private GameObject[] effectPrefabs; 
+        private VisualEffect[] effectPrefabs; 
         [Header("<エフェクト生存時間リスト>")]
         [SerializeField]
         private float[] effectDurations;
@@ -345,7 +345,7 @@ namespace Player
                 Debug.LogWarning($"PlayEffect: Effect duration is not set for index {effectIndex}. Using default duration ({butEffectDuration}).");
             }
             
-            GameObject effectToPlay = effectPrefabs[effectIndex];
+            VisualEffect effectToPlay = effectPrefabs[effectIndex];
             if (effectToPlay != null)
             {
                 // 生存時間を取得（リストに設定がない場合はbutEffectDurationをデフォルト値として使用）
@@ -355,7 +355,7 @@ namespace Player
 
                 // コルーチンでエフェクトを再生
                 //effectToPlay.GetComponent<VisualEffect>().SendEvent("OnPlay");
-                StartCoroutine(ShowEffectForDuration(effectToPlay, duration));
+                ShowEffectForDuration(effectToPlay, duration);
             }
         }
         private WaitForSeconds GetWait(float seconds)
@@ -367,11 +367,9 @@ namespace Player
             }
             return waitObject;
         }
-        private System.Collections.IEnumerator ShowEffectForDuration(GameObject effectObject, float duration)
+        private void ShowEffectForDuration(VisualEffect effectObject, float duration)
         {
-            effectObject.SetActive(true);
-            yield return GetWait(duration);
-            effectObject.SetActive(false);
+            effectObject.SendEvent("OnPlay");
         }
         public void PlayReflectionSound()
         {
