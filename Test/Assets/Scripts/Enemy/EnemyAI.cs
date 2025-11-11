@@ -200,6 +200,13 @@ public class EnemyAI : MonoBehaviour
 
         if (hp <= 0)
         {
+            if (enemyData.enemyAttackType != EnemyData.EnemyAttackType.dontAttack)
+            {
+                StopAttack();
+            }
+            
+            DeathProcess();
+            
             switch (enemyData.enemyType)
             {
                 case EnemyData.EnemyType.normal:
@@ -376,6 +383,7 @@ public class EnemyAI : MonoBehaviour
     }
     public virtual void Change() {}
     public virtual void CustomMove() {}
+    public virtual void DeathProcess(){}
 
     public void PlayAttckSound()
     {
