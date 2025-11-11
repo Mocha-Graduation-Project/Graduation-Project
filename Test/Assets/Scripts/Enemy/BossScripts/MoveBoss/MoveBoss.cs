@@ -323,6 +323,11 @@ public class MoveBoss : EnemyAI
 
     private bool CheckFlag5()
     {
+        if (pattern == Patterns.none)
+        {
+            return false;
+        }
+        
         if (patten5Flag == true)
         {
             actioncounter++;
@@ -375,6 +380,15 @@ public class MoveBoss : EnemyAI
             return true;
         }
         return false;
+    }
+
+    public override void DeathProcess()
+    {
+        pattern = Patterns.none;
+        if (pattern == Patterns.pattern5)
+        {
+            LazerOff();
+        }
     }
 
     public void InvertActiveLazer()
