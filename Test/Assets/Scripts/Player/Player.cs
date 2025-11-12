@@ -48,7 +48,7 @@ namespace Player
 
         [Header("<エフェクトリスト>")]
         [SerializeField]
-        private VisualEffect[] effectPrefabs; 
+        private GameObject[] effectPrefabs; 
         [Header("<エフェクト生存時間リスト>")]
         [SerializeField]
         private float[] effectDurations;
@@ -345,7 +345,7 @@ namespace Player
                 Debug.LogWarning($"PlayEffect: Effect duration is not set for index {effectIndex}. Using default duration ({butEffectDuration}).");
             }
             
-            VisualEffect effectToPlay = effectPrefabs[effectIndex];
+            GameObject effectToPlay = effectPrefabs[effectIndex];
             if (effectToPlay != null)
             {
                 // 生存時間を取得（リストに設定がない場合はbutEffectDurationをデフォルト値として使用）
@@ -367,9 +367,10 @@ namespace Player
             }
             return waitObject;
         }
-        private void ShowEffectForDuration(VisualEffect effectObject, float duration)
+        private void ShowEffectForDuration(GameObject effectObject, float duration)
         {
-            effectObject.SendEvent("OnPlay");
+            VisualEffect effect = effectObject.GetComponent<VisualEffect>();
+            effect.SendEvent("OnPlay");
         }
         public void PlayReflectionSound()
         {
