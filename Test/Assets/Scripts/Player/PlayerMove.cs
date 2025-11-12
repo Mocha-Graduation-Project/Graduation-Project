@@ -82,7 +82,10 @@ namespace Player
         {
             if (currentJumpCount > 0 && Time.time - lastJumpTime >= jumpCooldown)
             {
-                animator.SetTrigger(JumpHash);
+                if (currentJumpCount == MaxJumpCount)
+                { 
+                    animator.SetTrigger(JumpHash);
+                }
                 audioSource1.PlayOneShot(jumpSound);
                 // Rigidbodyの速度を直接操作
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower); 
