@@ -46,6 +46,11 @@ namespace UI
             playerInput.actions["Pause"].performed += OnPause;
         }
 
+        private void Update()
+        {
+            Debug.Log("TimeScale:" + Time.timeScale);
+        }
+
         void ChangeState(State nextState)
         {
             currentState = nextState;
@@ -53,7 +58,7 @@ namespace UI
     
         public void PauseGame()
         {
-            if(currentState == State.Clear){return;}
+            if (currentState == State.Clear || currentState == State.GameOver) { return; }
         
             if (currentState != State.Pause)
             {
@@ -84,12 +89,12 @@ namespace UI
         {
             ChangeState(State.GameOver);
             Time.timeScale = 0;
-            DisableAll();
-
-            mapManager.GameOver();
             if (gameOverObj != null){gameOverObj.SetActive(true);}
+            mapManager.GameOver();
+            DisableAll();
+            Debug.Log("Game Over:" + currentState);
         }
-    
+        
         public void SceneChangeTitle()
         {
             InputReset();
@@ -164,9 +169,9 @@ namespace UI
 
         public void InputReset()
         {
+            Debug.Log("Reset Input:");
             Time.timeScale = 1;
             if (playerInput == null) return;
-            Debug.Log("Reset Input:");
             playerInput.actions["Retry"].performed -= OnRetry;
             playerInput.actions["Finish"].performed -= OnFinished;
             playerInput.actions["Pause"].performed -= OnPause;
