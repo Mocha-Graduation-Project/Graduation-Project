@@ -278,7 +278,6 @@ namespace Player
         public void OnJump(InputAction.CallbackContext context)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
-    
             playerMove.HandleJump(audioSource1); 
         }
         public void OffJump(InputAction.CallbackContext context)
