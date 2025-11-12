@@ -194,7 +194,7 @@ namespace Player
                     return;
 
                 //ResetBullet();
-                Time.timeScale = 1f;
+                //Time.timeScale = 1f;
                 player.isMove = true;
                 isAttack = false;
                 destroyed = true;
@@ -209,7 +209,7 @@ namespace Player
                 }
 
                 //ResetBullet();
-                Time.timeScale = 1f;
+                //Time.timeScale = 1f;
                 player.isMove = true;
                 isAttack = false;
                 destroyed = true;
