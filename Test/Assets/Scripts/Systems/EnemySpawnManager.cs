@@ -148,6 +148,7 @@ namespace Systems
             {
                 if (LastAttackEffectManager.Instance != null)
                 {
+                    sceneButtonManager.ChangeState(SceneButtonManager.State.Clear);
                     LastAttackEffectManager.Instance.PlayLastAttackEffect(enemy.transform, enemy);
 
                     if (enemy.GetComponent<NomalEnemy>())
