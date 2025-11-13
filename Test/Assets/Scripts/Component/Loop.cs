@@ -2,9 +2,13 @@ using UnityEngine;
 
 namespace Component
 {
+    /*
+     コライダー内で特定のオブジェクトをループするscript
+     */
     public class Loop : MonoBehaviour
     {
-        private Collider loopAreaCollider;
+        //軽量化の為エディタから設定すること
+        [SerializeField]private Collider loopAreaCollider;
 
         private float minX, maxX, minY, maxY;
 
@@ -26,7 +30,7 @@ namespace Component
             maxY = bounds.max.y;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             var pos = transform.position;
 

@@ -23,7 +23,7 @@ namespace Enemy.Ability
         private void Start()
         {
             audioSource = GetComponent<AudioSource>();
-            shieldSound = soundData.ShieldSound;
+            shieldSound = soundData.shieldSound;
         }
         private void OnTriggerEnter(Collider collision)
         {

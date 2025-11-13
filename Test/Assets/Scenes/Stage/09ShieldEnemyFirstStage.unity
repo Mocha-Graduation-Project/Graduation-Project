@@ -545,6 +545,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+--- !u!65 &359748418 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 6177454251603797652, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+  m_PrefabInstance: {fileID: 359748417}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &473900603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,6 +1434,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerGeneric
       objectReference: {fileID: 0}
+    - target: {fileID: 5542048663544205056, guid: 02325fa8cd9156345be7cef945cafe86, type: 3}
+      propertyPath: loopAreaCollider
+      value: 
+      objectReference: {fileID: 359748418}
     - target: {fileID: 7384788743195681184, guid: 02325fa8cd9156345be7cef945cafe86, type: 3}
       propertyPath: playerUI
       value: 

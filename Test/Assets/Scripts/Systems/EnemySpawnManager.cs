@@ -73,7 +73,7 @@ namespace Systems
             remainnEnemies = enemiesToSpawn.Count + conditionToSpawn.Count;
             remainingEnemiesText = GameObject.Find("RemainEnemies").GetComponent<TextMeshProUGUI>();
             remainingEnemiesText.text = remainnEnemies.ToString();
-            EnemyDestorySound = soundData.EnemyDestorySound;
+            EnemyDestorySound = soundData.enemyDestroySound;
 
             Debug.Log($"このマップの敵総数: {enemies}");
 

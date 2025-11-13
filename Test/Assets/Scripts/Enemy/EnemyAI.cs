@@ -58,9 +58,9 @@ public class EnemyAI : MonoBehaviour
             return;
         }
             
-        EnemyShotSound = enemyData.soundData.EnemyShotSound;
-        DamageSound = enemyData.soundData.DamageSound;
-        EnemyDestorySound = enemyData.soundData.EnemyDestorySound;
+        EnemyShotSound = enemyData.soundData.enemyShotSound;
+        DamageSound = enemyData.soundData.damageSound;
+        EnemyDestorySound = enemyData.soundData.enemyDestroySound;
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created

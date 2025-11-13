@@ -44,6 +44,7 @@ namespace Scripts.Scriptable
         //射撃
         [Space(5)]
         [Header("<射撃>")]
+        [JapaneseLabel(("最大射撃スタミナ"))]public float maxShotStamina = 1f;
         [JapaneseLabel("射撃スタミナ回復量")]public float shotStaminaRecoveryPerSecond = 0.1f;
         [JapaneseLabel("オーバーヒート時の射撃スタミナ回復量")]public float overheatRecoveryPerSecond = 0.1f;
         [JapaneseLabel("射撃スタミナ消費量")]public float shotStaminaDrainPerSecond = 0.25f;

@@ -6,9 +6,9 @@ using System.Linq;
 using UnityEditorInternal;
 #endregion
 
-public class QuickPrefabReplacer : EditorWindow
+public class StageSupportTool : EditorWindow
 {
-    private const string WindowTitle = "Quick Prefab Replacer";
+    private const string WindowTitle = "Quick Prefab Replacer & Match Tools";
     private GameObject targetPrefab;
     private Vector2 scrollPosition;
     private List<GameObject> sceneObjects = new List<GameObject>();
@@ -21,26 +21,40 @@ public class QuickPrefabReplacer : EditorWindow
     private string currentUnityTagFilter = "All"; 
     private string tagToAssign = "Untagged"; 
 
-    // UnityTagColorManagerのインスタンスを保持
+    // UnityTagColorManagerのインスタンスを保持 (このコードに依存する外部クラス)
     private UnityTagColorManager colorManager; 
     // タグ色をキャッシュするためのディクショナリ
     private Dictionary<string, Color> unityTagColors = new Dictionary<string, Color>(); 
     private Dictionary<Color, Texture2D> colorTextureCache = new Dictionary<Color, Texture2D>();
 
-    [MenuItem("Tools/" + WindowTitle)]
+    [MenuItem("Tools/Quick Prefab Replacer & Match Tools")]
     public static void ShowWindow()
     {
-        GetWindow<QuickPrefabReplacer>(WindowTitle);
+        GetWindow<StageSupportTool>(WindowTitle);
     }
+
+    // MatchSizeEditor から移動したメニュー項目 
+    // 既存のメニュー項目は維持しつつ、処理をこのクラスに移管します
+    [MenuItem("GameObject/Match/サイズを合わせる")]//Size
+    private static void MatchScaleMenu() => MatchScale(Selection.gameObjects);
+    
+    [MenuItem("GameObject/Match/Y座標を合わせる")]//YTransform
+    private static void FlattenYPositionMenu() => FlattenPosition(Selection.gameObjects, Axis.Y);
+
+    [MenuItem("GameObject/Match/X座標を合わせる")]//XTransform
+    private static void FlattenXPositionMenu() => FlattenPosition(Selection.gameObjects, Axis.X);
+
+    [MenuItem("GameObject/Match/Z座標を合わせる")]//ZTransform
+    private static void FlattenZPositionMenu() => FlattenPosition(Selection.gameObjects, Axis.Z);
+    // ---
 
     private void OnEnable()
     {
-        // 色管理マネージャーをロード
+        // 外部クラスに依存するため、存在チェック
         colorManager = UnityTagColorManager.Instance; 
 
         EditorApplication.hierarchyChanged += RefreshSceneObjects;
         EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-        RefreshSceneObjects();
         Selection.selectionChanged += Repaint;
         
         // OnEnable時にも色をロード
@@ -52,6 +66,7 @@ public class QuickPrefabReplacer : EditorWindow
         }
         
         ClearTextureCache();
+        RefreshSceneObjects(); // 最後に呼び出す
     }
 
     private void OnDisable()
@@ -65,7 +80,6 @@ public class QuickPrefabReplacer : EditorWindow
     
     private void OnPlayModeStateChanged(PlayModeStateChange state)
     {
-        // プレイモードの出入りでヒエラルキーが変更されるため、色情報を再ロード
         if (state == PlayModeStateChange.EnteredEditMode || state == PlayModeStateChange.EnteredPlayMode)
         {
             LoadUnityTagColors();
@@ -77,13 +91,11 @@ public class QuickPrefabReplacer : EditorWindow
     {
         if (colorManager != null)
         {
-            // UnityTagColorManagerから色情報を取得し、同期
             unityTagColors = colorManager.SyncAndGetTagColors();
             ClearTextureCache();
         }
     }
     
-    // 1x1ピクセルのテクスチャを作成し、キャッシュするヘルパーメソッド
     private Texture2D MakeTex(Color col)
     {
         if (colorTextureCache.ContainsKey(col))
@@ -99,19 +111,20 @@ public class QuickPrefabReplacer : EditorWindow
         return result;
     }
 
-    // テクスチャをクリーンアップするメソッド
     private void ClearTextureCache()
     {
         foreach (var tex in colorTextureCache.Values)
         {
-            DestroyImmediate(tex);
+            if (tex != null)
+            {
+                DestroyImmediate(tex);
+            }
         }
         colorTextureCache.Clear();
     }
 
     private void RefreshSceneObjects()
     {
-        // シーン内のオブジェクトリストを再構築する前に、必ず色情報を再同期する
         LoadUnityTagColors(); 
 
         var rootObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
@@ -135,7 +148,7 @@ public class QuickPrefabReplacer : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Label("Prefab Quick Replacement Tool", EditorStyles.boldLabel);
+        GUILayout.Label("Prefab Quick Replacement Tool & Match Tools", EditorStyles.boldLabel);
         
         DrawTargetPrefabArea();
         DrawObjectListArea();
@@ -150,7 +163,7 @@ public class QuickPrefabReplacer : EditorWindow
         GUILayout.Label("1. Target Prefab", EditorStyles.miniLabel);
 
         targetPrefab = (GameObject)EditorGUILayout.ObjectField(
-            "新しく置き変えたいPrefab",//Replace Target
+            "NewReplacePrefab",
             targetPrefab,
             typeof(GameObject),
             false
@@ -158,7 +171,7 @@ public class QuickPrefabReplacer : EditorWindow
 
         if (targetPrefab != null && PrefabUtility.GetPrefabAssetType(targetPrefab) == PrefabAssetType.NotAPrefab)
         {
-            EditorGUILayout.HelpBox("選択されたアセットは有効なPrefabではありません。", MessageType.Warning);
+            EditorGUILayout.HelpBox("選択されたアセットは有効なPrefabではありません。", MessageType.Warning);//The selected asset is not a valid Prefab.
             targetPrefab = null;
         }
 
@@ -183,11 +196,11 @@ public class QuickPrefabReplacer : EditorWindow
 
         // フィルタリングと複数選択モードトグル
         EditorGUILayout.BeginHorizontal();
-        filterOnlyRootInstances = GUILayout.Toggle(filterOnlyRootInstances, "フィルター：Prefabのみ表示");//Filter: Prefab Root Instances Only
+        filterOnlyRootInstances = GUILayout.Toggle(filterOnlyRootInstances, "フィルター：Prefabのみ表示");//Filter: Show only prefabs
 
         // Unityタグフィルタリングのドロップダウン
         List<string> filterOptions = new List<string> { "All" };
-        filterOptions.AddRange(InternalEditorUtility.tags); // Unityタグリストを使用
+        filterOptions.AddRange(InternalEditorUtility.tags); 
         
         int currentFilterIndex = filterOptions.IndexOf(currentUnityTagFilter);
         int newFilterIndex = EditorGUILayout.Popup(currentFilterIndex, filterOptions.ToArray(), GUILayout.Width(100));
@@ -199,21 +212,27 @@ public class QuickPrefabReplacer : EditorWindow
         }
         
         // タグの色設定をPingするボタン
-        if (GUILayout.Button("色の設定", EditorStyles.miniButton, GUILayout.Width(100)))//Tag Colors
+        if (GUILayout.Button("Color Settings", EditorStyles.miniButton, GUILayout.Width(100)))//色の設定
         {
-            // UnityTagColorManagerアセットをインスペクタで開く
-            EditorGUIUtility.PingObject(colorManager);
-            Selection.activeObject = colorManager;
+            if (colorManager != null)
+            {
+                EditorGUIUtility.PingObject(colorManager);
+                Selection.activeObject = colorManager;
+            }
+            else
+            {
+                Debug.LogWarning("UnityTagColorManager not found.");//UnityTagColorManagerが見つかりません。
+            }
         }
         
         EditorGUILayout.EndHorizontal();
 
         // 複数選択モード
-        multiSelectMode = GUILayout.Toggle(multiSelectMode, "複数選択モード", EditorStyles.toolbarButton);//Multi-Select Mode
+        multiSelectMode = GUILayout.Toggle(multiSelectMode, "複数選択モード", EditorStyles.toolbarButton);//Multiple Selection Mode
         EditorGUILayout.Space(5);
 
         // オブジェクト一覧
-        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(position.height - 240));
+        scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(position.height - 340)); // Adjust height
 
         var displayObjects = sceneObjects
             .Where(go =>
@@ -225,7 +244,6 @@ public class QuickPrefabReplacer : EditorWindow
                 
                 if (currentUnityTagFilter != "All")
                 {
-                    // Unityタグでフィルタリング
                     if (go.tag != currentUnityTagFilter)
                     {
                         return false;
@@ -252,7 +270,7 @@ public class QuickPrefabReplacer : EditorWindow
         bool isSelected = selectedObjects.Contains(go);
         string currentUnityTag = go.tag; 
         Color tagBgColor;
-        // 永続化された色情報から色を取得
+        
         if (!unityTagColors.TryGetValue(currentUnityTag, out tagBgColor))
         {
             tagBgColor = Color.gray * 0.5f;
@@ -297,18 +315,14 @@ public class QuickPrefabReplacer : EditorWindow
         }
         else
         {
-            // Tagの色を背景として設定
             itemStyle.normal.background = MakeTex(tagBgColor);
         }
         
-        // テキスト色 (ステータス)
         GUIStyle objectNameStyle = new GUIStyle(EditorStyles.label);
         objectNameStyle.normal.textColor = statusColor; 
         
-        // リストアイテム全体にスタイルを適用
         EditorGUILayout.BeginHorizontal(itemStyle);
         
-        // チェックボックス (選択状態)
         bool newSelectionState = EditorGUILayout.Toggle(isSelected, GUILayout.Width(15));
         if (newSelectionState != isSelected)
         {
@@ -325,10 +339,8 @@ public class QuickPrefabReplacer : EditorWindow
             Selection.objects = selectedObjects.ToArray();
         }
 
-        // オブジェクト名とステータス
         EditorGUILayout.LabelField(go.name, statusText, objectNameStyle, GUILayout.Width(150)); 
         
-        // Unityタグをプルダウンで設定
         string[] availableTags = InternalEditorUtility.tags;
         int currentIndex = System.Array.IndexOf(availableTags, currentUnityTag);
         
@@ -344,7 +356,6 @@ public class QuickPrefabReplacer : EditorWindow
             Repaint();
         }
 
-        // 選択ボタン (ヒエラルキーで選択)
         if (GUILayout.Button("Ping", EditorStyles.miniButton, GUILayout.Width(40)))
         {
             EditorGUIUtility.PingObject(go);
@@ -360,6 +371,7 @@ public class QuickPrefabReplacer : EditorWindow
 
         int count = selectedObjects.Count;
         
+        // --- Prefab Replacement ---
         GUILayout.Label("Prefab Replacement", EditorStyles.miniLabel);
         
         GUI.enabled = targetPrefab != null && count > 0;
@@ -372,30 +384,123 @@ public class QuickPrefabReplacer : EditorWindow
         }
         
         GUI.enabled = true;
+
+        EditorGUILayout.Space();
+
+        // --- Match Tools ---
+        GUILayout.Label("Match Tools (Requires 2+ Objects)", EditorStyles.miniLabel);
+        GUI.enabled = count >= 2;
+        
+        // サイズ合わせ
+        if (GUILayout.Button("最初に選んだオブジェクトのサイズに合わせる", GUILayout.Height(20)))//Match Scale (1st object's scale)
+        {
+            MatchScale(selectedObjects.ToArray());
+        }
+
+        EditorGUILayout.BeginHorizontal();
+        // Y座標合わせ
+        if (GUILayout.Button("Y座標を合わせる", EditorStyles.miniButton, GUILayout.ExpandWidth(true)))//Match Y Position
+        {
+            FlattenPosition(selectedObjects.ToArray(), Axis.Y);
+        }
+        // X座標合わせ
+        if (GUILayout.Button("X座標を合わせる", EditorStyles.miniButton, GUILayout.ExpandWidth(true)))//Match X Position
+        {
+            FlattenPosition(selectedObjects.ToArray(), Axis.X);
+        }
+        // Z座標合わせ
+        if (GUILayout.Button("Z座標を合わせる", EditorStyles.miniButton, GUILayout.ExpandWidth(true)))//Match Z Position
+        {
+            FlattenPosition(selectedObjects.ToArray(), Axis.Z);
+        }
+        EditorGUILayout.EndHorizontal();
+
+        GUI.enabled = true;
+        
         EditorGUILayout.EndVertical();
     }
     
-    
-    // Unityのタグを設定するメソッド
-    private void SetUnityTagToSelectedObjects(string tag)
+    // MatchSizeEditor から移動したメソッド
+    private static void MatchScale(GameObject[] selectedObjects)
     {
-        if (selectedObjects.Count == 0 || string.IsNullOrEmpty(tag)) return;
-        
-        Undo.IncrementCurrentGroup();
-        
-        foreach (var go in selectedObjects)
+        if (selectedObjects == null || selectedObjects.Length < 2)
         {
-            if (go == null) continue;
-            
-            Undo.RecordObject(go, $"Set Tag to {tag}"); 
-            go.tag = tag; 
+            Debug.LogWarning("サイズを合わせるには、少なくとも2つのオブジェクトを選択してください。");//To adjust the size, select at least two objects.
+            return;
         }
-        
-        Debug.Log($"[Quick Prefab Replacer] {selectedObjects.Count} objects tagged as '{tag}'.");
-        
-        Undo.SetCurrentGroupName($"Set Unity Tag to {selectedObjects.Count} Objects");
-        Repaint();
+
+        // 最初のオブジェクトを基準（コピー元）とする
+        Transform sourceTransform = selectedObjects[0].transform;
+        Vector3 targetScale = sourceTransform.localScale;
+
+        // 2つ目以降のオブジェクトのスケールを変更
+        for (int i = 1; i < selectedObjects.Length; i++)
+        {
+            Transform targetTransform = selectedObjects[i].transform;
+            
+            Undo.RecordObject(targetTransform, "Match Scale");
+            
+            targetTransform.localScale = targetScale;
+        }
+        Debug.Log($"[Quick Prefab Replacer] Scale matched on {selectedObjects.Length - 1} object(s) based on '{selectedObjects[0].name}'.");
     }
+
+    private enum Axis { X, Y, Z }
+
+    private static void FlattenPosition(GameObject[] selectedObjects, Axis axis)
+    {
+        if (selectedObjects == null || selectedObjects.Length < 2)
+        {
+            Debug.LogWarning("座標を合わせるには、少なくとも2つのオブジェクトを選択してください。");//To align coordinates, select at least two objects.
+            return;
+        }
+
+        // 最初のオブジェクトを基準（コピー元）とする
+        Transform sourceTransform = selectedObjects[0].transform;
+        float targetValue = 0f;
+        string axisName = "";
+
+        switch (axis)
+        {
+            case Axis.X:
+                targetValue = sourceTransform.position.x;
+                axisName = "X";
+                break;
+            case Axis.Y:
+                targetValue = sourceTransform.position.y;
+                axisName = "Y";
+                break;
+            case Axis.Z:
+                targetValue = sourceTransform.position.z;
+                axisName = "Z";
+                break;
+        }
+
+        // 2つ目以降のオブジェクトの座標を変更
+        for (int i = 1; i < selectedObjects.Length; i++)
+        {
+            Transform targetTransform = selectedObjects[i].transform;
+            
+            Undo.RecordObject(targetTransform, $"Flatten {axisName} Position");
+            
+            Vector3 newPosition = targetTransform.position;
+            switch (axis)
+            {
+                case Axis.X:
+                    newPosition.x = targetValue;
+                    break;
+                case Axis.Y:
+                    newPosition.y = targetValue;
+                    break;
+                case Axis.Z:
+                    newPosition.z = targetValue;
+                    break;
+            }
+            targetTransform.position = newPosition;
+        }
+        Debug.Log($"[Quick Prefab Replacer] {axisName} Position matched on {selectedObjects.Length - 1} object(s) based on '{selectedObjects[0].name}'.");
+    }
+    // ---
 
     private void ReplaceSelectedObjects()
     {
@@ -424,7 +529,7 @@ public class QuickPrefabReplacer : EditorWindow
 
             if (newInstance == null)
             {
-                Debug.LogError($"Prefabのインスタンス化に失敗しました: {targetPrefab.name}");
+                Debug.LogError($"Prefabのインスタンス化に失敗しました: {targetPrefab.name}");//Failed to instantiate the Prefab.
                 continue;
             }
             

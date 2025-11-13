@@ -54,14 +54,24 @@ namespace Player
         [JapaneseLabel("ヒットストップ時間")]private float hitStopDuration;
         [JapaneseLabel("敵のレイヤー")]private int enemyLayer;
         
-        [JapaneseLabel("反射処理中かどうか")][NonSerialized] private bool isReflecting = false;
+        [JapaneseLabel("反射処理中かどうか")][NonSerialized] public bool isReflecting = false;
         [JapaneseLabel("反射クールタイムのタイマー")][NonSerialized] private float reflectCooldownTimer = 0f;
 
         [JapaneseLabel("反射クールタイムの秒数")] private float reflectCooldown = 0.5f;
+        private Rigidbody rb;
+        private AudioSource audioSource;
+        private AudioClip reflectionSound;
+        private AudioClip wallReflectionSound;
 
         private void Awake()
         {
             PlayerParamReset();
+            rb = GetComponent<Rigidbody>(); // Rigidbodyを取得
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
+            audioSource = GetComponent<AudioSource>();
         }
         private void Start()
         {
@@ -85,7 +95,7 @@ namespace Player
             enemyLayer = LayerMask.NameToLayer("Enemy");
         }
 
-        void Update()
+        private void FixedUpdate()
         {
             if (!isPaused)
             {
@@ -94,17 +104,28 @@ namespace Player
                 currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
                        
                 // 移動
-                transform.position += currentDirection * (currentSpeed * Time.deltaTime);
+                //transform.position += currentDirection * (currentSpeed * Time.deltaTime);
+                if (rb != null)
+                {
+                    // 現在の位置 + (方向 * 速度 * 時間) を計算
+                    Vector3 newPosition = rb.position + currentDirection * (currentSpeed * Time.deltaTime);
+                    rb.MovePosition(newPosition);
+                }
+                else
+                {
+                    // Rigidbodyがない場合のフォールバック（従来の処理）
+                    transform.position += currentDirection * (currentSpeed * Time.deltaTime);
+                }
             }
-            
             if (reflectCooldownTimer > 0)
             {
-                reflectCooldownTimer -= Time.deltaTime;
-            }
-            else
-            {
-                // クールタイムが終了したら、次の反射を許可
-                isReflecting = false;
+                // Time.timeScaleの影響を受けない unscaledDeltaTime を使うことを推奨
+                reflectCooldownTimer -= Time.unscaledDeltaTime; 
+                if (reflectCooldownTimer <= 0)
+                {
+                    // クールタイムが終了したら、次の反射を許可
+                    isReflecting = false;
+                }
             }
 
 
@@ -122,31 +143,14 @@ namespace Player
             {
                 lastInputDirection = input.normalized;
             }
-            
-            //スタミナ消費
-            // if (isAttack)
-            // {
-            //     player.currentStamina -= staminaDrainPerSecond * Time.deltaTime * 5;
-            //     if (player.currentStamina <= 0)
-            //     {
-            //         player.currentStamina = 0;
-            //         player.AttackFinish();
-            //         if (attackCoolTime > attackCoolMaxTime)
-            //         {
-            //             Attack(); 
-            //             attackCoolTime = 0;
-            //         }
-            //
-            //     }
-            // }
 
             if (isQuick)
             {
                 //player.currentStamina -= quickStaminaDrainPerSecond * Time.deltaTime * 5;
-                if (player.currentStamina <= 0)
+                if (player.PlayerCombat.currentStamina <= 0)
                 {
-                    player.currentStamina = 0;
-                    player.AttackFinish();
+                    player.PlayerCombat.currentStamina = 0;
+                    player.PlayerCombat.AttackFinish();
                     if (attackCoolTime > attackCoolMaxTime)
                     {
                         //QuickAttack(); 
@@ -168,7 +172,7 @@ namespace Player
             }
             
             attackCoolTime+= Time.deltaTime;
-            player.staminaSlider.value = player.currentStamina;
+            player.staminaSlider.value = player.PlayerCombat.currentStamina;
             
         }
 
@@ -244,57 +248,6 @@ namespace Player
                 }
             }
         }
-        
-        // private void Attack()
-        // {
-        //     if (this.gameObject.CompareTag("EnemyBullet"))
-        //     {
-        //         this.gameObject.tag = "Bullet";
-        //         ReflectionEnemyBullet reflectionEnemyBullet = GetComponent<ReflectionEnemyBullet>();
-        //         reflectionEnemyBullet.ChangeMaterial();
-        //     }
-        //
-        //     reflectionCount++;
-        //     if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
-        //     {
-        //         int index = Mathf.Min(reflectionCount - 1, damageByReflectionCount.Length - 1);
-        //         Damage = damageByReflectionCount[index];
-        //     }
-        //
-        //     float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
-        //     if (reflectionCount >= maxReflectionCount)
-        //         powerColor = 1.0f;
-        //     meshRendererChild.material.SetFloat("_PowerLevel", powerColor);
-        //     trailRenderer.material.SetFloat("_PowerLevel", powerColor);
-        //
-        //     player.currentStamina -= 2.5f;
-        //     player.Arrow.SetActive(false);
-        //     player.isMove = true;
-        //     isPaused = false; // スローモーション解除
-        //
-        //     PowerDirection *= 1.25f;
-        //     if (PowerDirection < 0)
-        //         PowerDirection *= -1;
-        //     
-        //     float angle = Mathf.Atan2(lastInputDirection.y, lastInputDirection.x);
-        //     currentDirection = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0).normalized;
-        //
-        //     // スピード増加
-        //     currentSpeed += addSpeed;
-        //     currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
-        //     UpdatePower(); // 最終的な速度と方向でpowerを更新
-        //
-        //     Time.timeScale = 1f;
-        //     player.IsAttacking = false;
-        //     isAttack = false;
-        //
-        //     Invoke("AttackFalse", 0.2f);
-        //
-        //     player.PlayReflectionSound();
-        //     pStatus.StartReflectInvincibility(reflectInvincible);
-        //
-        // }
-
         private void QuickAttack()
         {
             if (this.gameObject.CompareTag("EnemyBullet"))
@@ -319,7 +272,7 @@ namespace Player
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
             
-            Vector2 inputMove = player.quickAttackDirection;
+            Vector2 inputMove = player.PlayerCombat.quickAttackDirection;
             if (inputMove.sqrMagnitude > 0.01f) // 入力がある場合
             {
                 currentDirection = new Vector3(inputMove.x, inputMove.y, 0).normalized;
@@ -339,19 +292,36 @@ namespace Player
             pStatus.StartReflectInvincibility(reflectInvincible);
             StartCoroutine(HitStopDuration());
 
-            player.AttackFinish();
+            player.PlayerCombat.AttackFinish();
+            isPaused = false;
+        }
+        //　壁反射のメソッド
+        public bool ReflectFromWall(Vector3 reflectionNormal)
+        {
+            // クールタイム中、またはプレイヤーがスローモーション中(isAttack)は反射しない
+            if (isReflecting || reflectCooldownTimer > 0 || isAttack)
+            {
+                return false; // 反射しなかった
+            }
+
+            // クールタイム開始
+            isReflecting = true;
+            reflectCooldownTimer = reflectCooldown;
+
+            // 反射ベクトルを計算
+            Vector3 incomingDirection = currentDirection.normalized;
+            Vector3 reflectedDirection = Vector3.Reflect(incomingDirection, reflectionNormal.normalized);
+
+            // 弾の方向に設定
+            SetDirection(reflectedDirection);
+            UpdatePower(); // power 変数を更新
+
+            // 反射音を再生
+            OnReflect();
+
+            return true; // 反射に成功した
         }
 
-        // private void OffAttack(InputAction.CallbackContext context)
-        // {
-        //     //CancelInvoke("Attack");
-        //     if (isAttack)
-        //     {
-        //         Attack();
-        //         player.PlayAttackAnimation();
-        //     }
-        //
-        // }
          public Vector3 GetPower()
          {
              return power;
@@ -415,12 +385,6 @@ namespace Player
             isAttack = false;
             isQuick = false;
         }
-        
-        // public void ResetBullet()
-        // {
-        //     moveAction.actions["Attack"].canceled -= OffAttack;
-        // }
-
         private IEnumerator HitStopDuration()
         {
             Time.timeScale = 0f;

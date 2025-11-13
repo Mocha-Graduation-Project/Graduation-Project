@@ -53,8 +53,8 @@ namespace Player
             jumpCooldown = characterParams.jumpCooldown;
             maxFallSpeed = characterParams.maxFallSpeed;
             groundLayer = characterParams.groundLayer;
-            jumpSound = soundData.JumpSound;
-            walkSound = soundData.WalkSound;
+            jumpSound = soundData.jumpSound;
+            walkSound = soundData.walkSound;
             jumpCanceled = characterParams.jumpCanceled;
             
             currentJumpCount = MaxJumpCount;

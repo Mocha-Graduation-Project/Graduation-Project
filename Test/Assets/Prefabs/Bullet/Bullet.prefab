@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5048839d001741dab5ff90d7d89a7bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loopAreaCollider: {fileID: 0}
 --- !u!135 &9061379316207579321
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -191,7 +192,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &5919746632611300560
 GameObject:
   m_ObjectHideFlags: 0
