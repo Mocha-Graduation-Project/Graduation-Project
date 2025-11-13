@@ -36,7 +36,7 @@ namespace Player
         // Animatorハッシュ
         private static readonly int IsMoveHash = Animator.StringToHash("isMove");
         private static readonly int JumpHash = Animator.StringToHash("Jump");
-        private static readonly int IsGround = Animator.StringToHash("IsGround");
+        private static readonly int IsGround = Animator.StringToHash("isGround");
 
         // 音
         [SerializeField] private AudioSource walkAudioSource; 
