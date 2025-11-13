@@ -16,6 +16,7 @@ namespace Player
         PlayerStatus pStatus => PlayerStatus.Instance;
         [NonSerialized]public float PowerDirection;
         [NonSerialized] public Vector2 quickAttackDirectionInput = Vector2.zero;
+        [SerializeField] private SoundData soundData;
         private int count = 1;
         private bool isAttack = false;
         private bool isQuick = false;
@@ -72,6 +73,8 @@ namespace Player
                 rb.isKinematic = true;
             }
             audioSource = GetComponent<AudioSource>();
+            reflectionSound = soundData.reflectionSound;
+            wallReflectionSound = soundData.wallSound;
         }
         private void Start()
         {
@@ -228,7 +231,6 @@ namespace Player
                 isAttack = true;
                 Time.timeScale = 0.2f;
                 power = UnityEngine.Vector3.zero;
-                //Invoke("Attack", 0.3f);
 
             }
 
@@ -257,7 +259,6 @@ namespace Player
                 reflectionEnemyBullet.ChangeMaterial();
             }
             
-            // Damage = Mathf.Min(Damage + addDamage, maxDamage);
             reflectionCount++;
             
             if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
@@ -288,7 +289,7 @@ namespace Player
             
             player.isMove = true;
             isQuick = false; // 即座に状態をリセット
-            player.PlayReflectionSound();
+            OnReflect();
             pStatus.StartReflectInvincibility(reflectInvincible);
             StartCoroutine(HitStopDuration());
 
@@ -317,7 +318,7 @@ namespace Player
             UpdatePower(); // power 変数を更新
 
             // 反射音を再生
-            OnReflect();
+            OnWallReflect();
 
             return true; // 反射に成功した
         }
@@ -378,7 +379,12 @@ namespace Player
 
         public void OnReflect()
         {
-            player.PlayReflectionSound();
+            audioSource.PlayOneShot(reflectionSound);
+        }
+
+        private void OnWallReflect()
+        {
+            audioSource.PlayOneShot(wallReflectionSound);
         }
         public void AttackFalse()
         {

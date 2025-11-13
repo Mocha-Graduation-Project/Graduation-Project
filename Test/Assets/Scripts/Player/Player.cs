@@ -126,15 +126,6 @@ namespace Player
             VisualEffect effect = effectObject.GetComponent<VisualEffect>();
             effect.SendEvent("OnPlay");
         }
-        
-        public void PlayReflectionSound()
-        {
-            audioSource1.PlayOneShot(reflectionSound);
-        }
-        public void PlayWallReflectionSound()
-        {
-            audioSource1.PlayOneShot(reflectionSound);
-        }
 
         public void PlayDamageSound()
         {
