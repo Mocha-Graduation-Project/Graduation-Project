@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
-using Scripts;
+using Scriptable;
 using Scripts.Scriptable;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 //using System.Numerics;
 
 namespace Player
@@ -11,82 +12,85 @@ namespace Player
     public class Bullet : MonoBehaviour
     {
         private static readonly int PowerLevel = Shader.PropertyToID("_PowerLevel");
-        private UnityEngine.Vector3 power;
-        Player player => Player.Instance;
-        PlayerStatus pStatus => PlayerStatus.Instance;
-        [NonSerialized]public float PowerDirection;
-        [NonSerialized] public Vector2 quickAttackDirectionInput = Vector2.zero;
         [SerializeField] private SoundData soundData;
-        private int count = 1;
-        private bool isAttack = false;
-        private bool isQuick = false;
-        
-        private Material material;
-        private bool destroyed = false; //Destroyで消してもAttckに反応することがあるので仮で配置、バグ治せれば消す
-        private bool isPaused = false;
-        
-        [SerializeField] private MeshRenderer meshRendererChild;
-        [NonSerialized]public int reflectionCount;
-        private int maxReflectionCount = 4;
 
-        private UnityEngine.Vector3 SavePower;
-        private Vector2 lastInputDirection = Vector2.right;
-        
-        private float staminaDrainPerSecond = 0f;
-        
-        private PlayerInput moveAction;
-        
-        private float attackCoolMaxTime = 1f;
-        private float attackCoolTime = 0f;
-        [NonSerialized][JapaneseLabel("初期ダメージ値")]public int Damage = 1;
-        [JapaneseLabel("最大スピード")] private float maxBulletSpeed;
-        [JapaneseLabel("弾くたびに＋〇〇速度を追加")] private float addSpeed;
-        [JapaneseLabel("1回目〇ダメージ、2回目〇ダメージ...")] private int[] damageByReflectionCount;
+        [SerializeField] private MeshRenderer meshRendererChild;
         [SerializeField] private CharacterParams characterParams;
 
-        [JapaneseLabel("現在の速度")]private float currentSpeed;
-        [JapaneseLabel("現在の移動方向")]private Vector3 currentDirection = Vector3.right;
-        
-        [JapaneseLabel("反射後の無敵時間")]　private float reflectInvincible = 1;
-        [NonSerialized] public Transform arrowTransform;
-        
         [SerializeField] private Renderer trailRenderer;
-        private Vector2 savedQuickDirection;
-        [JapaneseLabel("ヒットストップ時間")]private float hitStopDuration;
-        [JapaneseLabel("敵のレイヤー")]private int enemyLayer;
-        
-        [JapaneseLabel("反射処理中かどうか")][NonSerialized] public bool isReflecting = false;
-        [JapaneseLabel("反射クールタイムのタイマー")][NonSerialized] private float reflectCooldownTimer = 0f;
+        [JapaneseLabel("弾くたびに＋〇〇速度を追加")] private float addSpeed;
+        [NonSerialized] public Transform arrowTransform;
+
+        private readonly float attackCoolMaxTime = 1f;
+        private float attackCoolTime;
+        private AudioSource audioSource;
+        private int count = 1;
+        [JapaneseLabel("現在の移動方向")] private Vector3 currentDirection = Vector3.right;
+
+        [JapaneseLabel("現在の速度")] private float currentSpeed;
+
+        [NonSerialized] [JapaneseLabel("初期ダメージ値")]
+        public int Damage = 1;
+
+        [JapaneseLabel("1回目〇ダメージ、2回目〇ダメージ...")]
+        private int[] damageByReflectionCount;
+
+        private bool destroyed; //Destroyで消してもAttckに反応することがあるので仮で配置、バグ治せれば消す
+        [JapaneseLabel("敵のレイヤー")] private int enemyLayer;
+        [JapaneseLabel("ヒットストップ時間")] private float hitStopDuration;
+        private bool isAttack;
+        private bool isPaused;
+        private bool isQuick;
+
+        [JapaneseLabel("反射処理中かどうか")] [NonSerialized]
+        public bool isReflecting;
+
+        private Vector2 lastInputDirection = Vector2.right;
+
+        private Material material;
+        [JapaneseLabel("最大スピード")] private float maxBulletSpeed;
+        private readonly int maxReflectionCount = 4;
+
+        private PlayerInput moveAction;
+        private Vector3 power;
+        [NonSerialized] public float PowerDirection;
+        [NonSerialized] public Vector2 quickAttackDirectionInput = Vector2.zero;
+        private Rigidbody rb;
 
         [JapaneseLabel("反射クールタイムの秒数")] private float reflectCooldown = 0.5f;
-        private Rigidbody rb;
-        private AudioSource audioSource;
+
+        [JapaneseLabel("反射クールタイムのタイマー")] [NonSerialized]
+        private float reflectCooldownTimer;
+
+        [JapaneseLabel("反射後の無敵時間")]　private float reflectInvincible = 1;
+        [NonSerialized] public int reflectionCount;
         private AudioClip reflectionSound;
+        private Vector2 savedQuickDirection;
+
+        private Vector3 SavePower;
+
+        private float staminaDrainPerSecond;
         private AudioClip wallReflectionSound;
+        private Player player => Player.Instance;
+        private PlayerStatus pStatus => PlayerStatus.Instance;
 
         private void Awake()
         {
             PlayerParamReset();
             rb = GetComponent<Rigidbody>(); // Rigidbodyを取得
-            if (rb != null)
-            {
-                rb.isKinematic = true;
-            }
+            if (rb != null) rb.isKinematic = true;
             audioSource = GetComponent<AudioSource>();
             reflectionSound = soundData.reflectionSound;
             wallReflectionSound = soundData.wallSound;
         }
+
         private void Start()
         {
-            if (this.gameObject.CompareTag("EnemyBullet"))
-            {
+            if (gameObject.CompareTag("EnemyBullet"))
                 currentDirection = power * PowerDirection;
-            }
             else
-            {
                 currentDirection = new Vector3(player.direction, 0, 0).normalized;
-            }
-            
+
             //currentDirection = characterParams.power.normalized * PowerDirection;
             currentSpeed = characterParams.power.magnitude;
             arrowTransform = player.Arrow.transform;
@@ -105,13 +109,13 @@ namespace Player
                 //return;
                 // 最大スピード制限
                 currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
-                       
+
                 // 移動
                 //transform.position += currentDirection * (currentSpeed * Time.deltaTime);
                 if (rb != null)
                 {
                     // 現在の位置 + (方向 * 速度 * 時間) を計算
-                    Vector3 newPosition = rb.position + currentDirection * (currentSpeed * Time.deltaTime);
+                    var newPosition = rb.position + currentDirection * (currentSpeed * Time.deltaTime);
                     rb.MovePosition(newPosition);
                 }
                 else
@@ -120,52 +124,44 @@ namespace Player
                     transform.position += currentDirection * (currentSpeed * Time.deltaTime);
                 }
             }
+
             if (reflectCooldownTimer > 0)
             {
                 // Time.timeScaleの影響を受けない unscaledDeltaTime を使うことを推奨
-                reflectCooldownTimer -= Time.unscaledDeltaTime; 
+                reflectCooldownTimer -= Time.unscaledDeltaTime;
                 if (reflectCooldownTimer <= 0)
-                {
                     // クールタイムが終了したら、次の反射を許可
                     isReflecting = false;
-                }
             }
 
 
             // 回転
             if (currentDirection != Vector3.zero)
             {
-                float angle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
+                var angle = Mathf.Atan2(currentDirection.y, currentDirection.x) * Mathf.Rad2Deg;
                 transform.rotation = Quaternion.Euler(0f, 0f, angle);
             }
-            
-            Vector2 input = player.InputMove;
+
+            var input = player.InputMove;
 
             // 入力があれば更新、なければ前回の方向を維持
-            if (input.sqrMagnitude > 0.01f)
-            {
-                lastInputDirection = input.normalized;
-            }
+            if (input.sqrMagnitude > 0.01f) lastInputDirection = input.normalized;
 
             if (isQuick)
-            {
                 //player.currentStamina -= quickStaminaDrainPerSecond * Time.deltaTime * 5;
                 if (player.PlayerCombat.currentStamina <= 0)
                 {
                     player.PlayerCombat.currentStamina = 0;
                     player.PlayerCombat.AttackFinish();
                     if (attackCoolTime > attackCoolMaxTime)
-                    {
                         //QuickAttack(); 
                         attackCoolTime = 0;
-                    }
-
                 }
-            }
+
             if (isAttack && arrowTransform != null)
             {
                 // 矢印の方向ベクトルを取得
-                Vector3 dir = arrowTransform.right; // 右方向が矢印の先なら .right、上方向なら .up
+                var dir = arrowTransform.right; // 右方向が矢印の先なら .right、上方向なら .up
 
                 // currentDirectionを矢印方向に更新
                 currentDirection = dir.normalized;
@@ -173,10 +169,63 @@ namespace Player
                 // 回転も矢印の回転に合わせる（オプション）
                 transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
             }
-            
-            attackCoolTime+= Time.deltaTime;
+
+            attackCoolTime += Time.deltaTime;
             player.staminaSlider.value = player.PlayerCombat.currentStamina;
-            
+        }
+
+        private void OnTriggerEnter(Collider collider)
+        {
+            if (collider.gameObject.CompareTag("Ground") && !isAttack)
+            {
+                if (collider.gameObject.layer == LayerMask.NameToLayer("FloatFloor"))
+                    return;
+
+                //ResetBullet();
+                //Time.timeScale = 1f;
+                player.isMove = true;
+                isAttack = false;
+                destroyed = true;
+                Destroy(gameObject);
+            }
+
+            if (collider.gameObject.CompareTag("Player") && !isAttack)
+            {
+                if (!CompareTag("EnemyBullet")) return;
+                if (collider.TryGetComponent(out PlayerStatus status)) status.Damage(1);
+
+                //ResetBullet();
+                //Time.timeScale = 1f;
+                player.isMove = true;
+                isAttack = false;
+                destroyed = true;
+                Destroy(gameObject);
+            }
+
+            if (collider.gameObject.CompareTag("Attack") && !destroyed)
+            {
+                pStatus.StartReflectInvincibility(1000);
+                player.isMove = false;
+                isPaused = true;
+                player.Arrow.SetActive(true);
+                isAttack = true;
+                Time.timeScale = 0.2f;
+                power = Vector3.zero;
+            }
+
+            if (collider.gameObject.CompareTag("QuickAttack") && !destroyed)
+                // クールタイム中ではない、かつ反射処理中でなければ実行
+                if (reflectCooldownTimer <= 0 && !isReflecting)
+                {
+                    isReflecting = true;
+                    reflectCooldownTimer = reflectCooldown;
+
+                    pStatus.StartReflectInvincibility(1000);
+                    player.isMove = false;
+                    isQuick = true;
+                    SavePower = -power;
+                    QuickAttack();
+                }
         }
 
         private void PlayerParamReset()
@@ -193,100 +242,39 @@ namespace Player
             reflectCooldown = characterParams.reflectCooldown;
         }
 
-        private void OnTriggerEnter(Collider collider)
-        {
-            if (collider.gameObject.CompareTag("Ground")&& !isAttack)
-            {
-                if (collider.gameObject.layer == LayerMask.NameToLayer("FloatFloor"))
-                    return;
-
-                //ResetBullet();
-                //Time.timeScale = 1f;
-                player.isMove = true;
-                isAttack = false;
-                destroyed = true;
-                Destroy(this.gameObject);
-            }
-            if (collider.gameObject.CompareTag("Player") && !isAttack)
-            {
-                if(!CompareTag("EnemyBullet")) return;
-                if (collider.TryGetComponent<PlayerStatus>(out PlayerStatus status))
-                {
-                    status.Damage(1);
-                }
-
-                //ResetBullet();
-                //Time.timeScale = 1f;
-                player.isMove = true;
-                isAttack = false;
-                destroyed = true;
-                Destroy(this.gameObject);
-            }
-            if (collider.gameObject.CompareTag("Attack") && !destroyed)
-            {
-                pStatus.StartReflectInvincibility(1000);
-                player.isMove = false;
-                isPaused = true;
-                player.Arrow.SetActive(true);
-                isAttack = true;
-                Time.timeScale = 0.2f;
-                power = UnityEngine.Vector3.zero;
-
-            }
-
-            if (collider.gameObject.CompareTag("QuickAttack") && !destroyed)
-            {
-                // クールタイム中ではない、かつ反射処理中でなければ実行
-                if (reflectCooldownTimer <= 0 && !isReflecting)
-                {
-                    isReflecting = true;
-                    reflectCooldownTimer = reflectCooldown;
-
-                    pStatus.StartReflectInvincibility(1000);
-                    player.isMove = false;
-                    isQuick = true;
-                    SavePower = -power;
-                    QuickAttack();
-                }
-            }
-        }
         private void QuickAttack()
         {
-            if (this.gameObject.CompareTag("EnemyBullet"))
+            if (gameObject.CompareTag("EnemyBullet"))
             {
-                this.gameObject.tag = "Bullet";
-                ReflectionEnemyBullet reflectionEnemyBullet = GetComponent<ReflectionEnemyBullet>();
+                gameObject.tag = "Bullet";
+                var reflectionEnemyBullet = GetComponent<ReflectionEnemyBullet>();
                 reflectionEnemyBullet.ChangeMaterial();
             }
-            
+
             reflectionCount++;
-            
+
             if (damageByReflectionCount != null && damageByReflectionCount.Length > 0)
             {
-                int index = Mathf.Min(reflectionCount - 1, damageByReflectionCount.Length - 1);
+                var index = Mathf.Min(reflectionCount - 1, damageByReflectionCount.Length - 1);
                 Damage = damageByReflectionCount[index];
             }
-            
-            float powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
+
+            var powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
             meshRendererChild.material.SetFloat(PowerLevel, powerColor);
             trailRenderer.material.SetFloat(PowerLevel, powerColor);
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
-            
-            Vector2 inputMove = player.PlayerCombat.quickAttackDirection;
+
+            var inputMove = player.PlayerCombat.quickAttackDirection;
             if (inputMove.sqrMagnitude > 0.01f) // 入力がある場合
-            {
                 currentDirection = new Vector3(inputMove.x, inputMove.y, 0).normalized;
-            }
             else
-            {
-                currentDirection = new Vector3(player.direction, 0, 0).normalized; 
-            }
+                currentDirection = new Vector3(player.direction, 0, 0).normalized;
 
             currentSpeed += addSpeed;
             currentSpeed = Mathf.Min(currentSpeed, maxBulletSpeed);
             UpdatePower();
-            
+
             player.isMove = true;
             isQuick = false; // 即座に状態をリセット
             OnReflect();
@@ -296,22 +284,20 @@ namespace Player
             player.PlayerCombat.AttackFinish();
             isPaused = false;
         }
+
         //　壁反射のメソッド
         public bool ReflectFromWall(Vector3 reflectionNormal)
         {
             // クールタイム中、またはプレイヤーがスローモーション中(isAttack)は反射しない
-            if (isReflecting || reflectCooldownTimer > 0 || isAttack)
-            {
-                return false; // 反射しなかった
-            }
+            if (isReflecting || reflectCooldownTimer > 0 || isAttack) return false; // 反射しなかった
 
             // クールタイム開始
             isReflecting = true;
             reflectCooldownTimer = reflectCooldown;
 
             // 反射ベクトルを計算
-            Vector3 incomingDirection = currentDirection.normalized;
-            Vector3 reflectedDirection = Vector3.Reflect(incomingDirection, reflectionNormal.normalized);
+            var incomingDirection = currentDirection.normalized;
+            var reflectedDirection = Vector3.Reflect(incomingDirection, reflectionNormal.normalized);
 
             // 弾の方向に設定
             SetDirection(reflectedDirection);
@@ -323,14 +309,16 @@ namespace Player
             return true; // 反射に成功した
         }
 
-         public Vector3 GetPower()
-         {
-             return power;
-         }
+        public Vector3 GetPower()
+        {
+            return power;
+        }
+
         public void UpdatePower()
         {
             power = currentDirection.normalized * currentSpeed;
         }
+
         public void SetDirection(Vector3 newDirection)
         {
             currentDirection = newDirection.normalized;
@@ -340,22 +328,22 @@ namespace Player
         {
             currentSpeed = newSpeed;
         }
-        
+
         public void SetPowerEnemy(Vector3 pos)
         {
             const float CorrectionAimPos = 1.5f;
-            float angle = Mathf.Atan2(player.gameObject.transform.position.y - pos.y + CorrectionAimPos,
+            var angle = Mathf.Atan2(player.gameObject.transform.position.y - pos.y + CorrectionAimPos,
                 player.gameObject.transform.position.x - pos.x);
             //Debug.Log("角度:"+Angle);
-            Vector3 direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0).normalized;
+            var direction = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0).normalized;
             power = direction;
             PowerDirection = 1f;
             //Debug.Log("Pos:"+Pos+"/Power:"+power);;
         }
-        
+
         public void SetStraightPowerEnemy(Vector3 angle)
         {
-            Vector3 direction=Vector3.zero;
+            var direction = Vector3.zero;
 
             switch (angle.z)
             {
@@ -386,16 +374,18 @@ namespace Player
         {
             audioSource.PlayOneShot(wallReflectionSound);
         }
+
         public void AttackFalse()
         {
             isAttack = false;
             isQuick = false;
         }
+
         private IEnumerator HitStopDuration()
         {
             Time.timeScale = 0f;
             yield return new WaitForSecondsRealtime(hitStopDuration);
-            
+
             Time.timeScale = 1f;
         }
     }

@@ -53,7 +53,6 @@ namespace Systems
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
-            sceneButtonManager = FindObjectOfType<SceneButtonManager>();
 
             // enemyIdの自動設定
             for (var i = 0; i < enemiesToSpawn.Count; i++)
@@ -71,43 +70,42 @@ namespace Systems
             knockEnemies = 0;
 
             remainnEnemies = enemiesToSpawn.Count + conditionToSpawn.Count;
-            remainingEnemiesText = GameObject.Find("RemainEnemies").GetComponent<TextMeshProUGUI>();
             remainingEnemiesText.text = remainnEnemies.ToString();
             EnemyDestorySound = soundData.enemyDestroySound;
 
             Debug.Log($"このマップの敵総数: {enemies}");
 
-            foreach (var enemy in enemiesToSpawn) StartCoroutine(SpawnEnemy(enemy));
+            foreach (var enemyData in enemiesToSpawn) 
+            {
+                StartCoroutine(SpawnEnemyCoroutine(
+                    enemyData.enemyPrefab, 
+                    enemyData.spawnPoint, 
+                    enemyData.spawnDelay, 
+                    $"Enemy_{enemyData.enemyId}"
+                ));
+            }
         }
-
-
-        private IEnumerator SpawnEnemy(EnemySpawnData enemyData)
+        private IEnumerator SpawnEnemyCoroutine(GameObject prefab, Transform spawnPoint, float spawnDelay, string instanceName)
         {
-            var adjustedWarningTime = Mathf.Min(warningTime, enemyData.spawnDelay);
-            yield return new WaitForSeconds(enemyData.spawnDelay - adjustedWarningTime);
-            var warningMarker = Instantiate(warningMarkerPrefab, enemyData.spawnPoint.position,
-                warningMarkerPrefab.transform.rotation);
-            StartCoroutine(BlinkWarningMarker(warningMarker));
-            yield return new WaitForSeconds(adjustedWarningTime);
-            Destroy(warningMarker);
-            var spawnedEnemy = Instantiate(enemyData.enemyPrefab, enemyData.spawnPoint.position, Quaternion.identity);
-            activeEnemies.Add(spawnedEnemy);
-            spawnedEnemy.name = $"Enemy_{enemyData.enemyId}";
-        }
+            var adjustedWarningTime = Mathf.Min(warningTime, spawnDelay);
+            if (adjustedWarningTime > 0)
+            {
+                yield return new WaitForSeconds(spawnDelay - adjustedWarningTime);
+                var warningMarker = Instantiate(warningMarkerPrefab, spawnPoint.position,
+                    warningMarkerPrefab.transform.rotation);
+                StartCoroutine(BlinkWarningMarker(warningMarker));
+                yield return new WaitForSeconds(adjustedWarningTime);
+                Destroy(warningMarker);
+            }
+            else
+            {
+                // スポーン遅延が0か、警告時間より短い場合
+                yield return new WaitForSeconds(spawnDelay);
+            }
 
-        private IEnumerator ConditionSpawnEnemy(ConditionEnemySpawn enemyData)
-        {
-            var adjustedWarningTime = Mathf.Min(warningTime, enemyData.conditionSpawnDelay);
-            yield return new WaitForSeconds(enemyData.conditionSpawnDelay - adjustedWarningTime);
-            var warningMarker = Instantiate(warningMarkerPrefab, enemyData.spawnPoint.position,
-                warningMarkerPrefab.transform.rotation);
-            StartCoroutine(BlinkWarningMarker(warningMarker));
-            yield return new WaitForSeconds(adjustedWarningTime);
-            Destroy(warningMarker);
-            var spawnedEnemy = Instantiate(enemyData.conditionGameObject, enemyData.spawnPoint.position,
-                Quaternion.identity);
+            var spawnedEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
             activeEnemies.Add(spawnedEnemy);
-            spawnedEnemy.name = $"ConditionEnemy_{enemyData.conditionId}";
+            spawnedEnemy.name = instanceName;
         }
 
         private IEnumerator BlinkWarningMarker(GameObject marker)
@@ -141,7 +139,12 @@ namespace Systems
                 if (condition.hasSpawned ||
                     !condition.conditionEnemyIds.TrueForAll(id => defeatedEnemyIds.Contains(id))) continue;
                 condition.hasSpawned = true;
-                StartCoroutine(ConditionSpawnEnemy(condition));
+                StartCoroutine(SpawnEnemyCoroutine(
+                    condition.conditionGameObject,
+                    condition.spawnPoint,
+                    condition.conditionSpawnDelay,
+                    $"ConditionEnemy_{condition.conditionId}"
+                ));
             }
 
             if (activeEnemies.Count == 0 && remainnEnemies == 0)

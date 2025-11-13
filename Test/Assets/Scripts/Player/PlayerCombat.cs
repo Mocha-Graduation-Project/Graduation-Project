@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Scriptable;
 using Scripts.Scriptable;
 using UI;
 using UnityEngine;
@@ -13,8 +14,8 @@ namespace Player
     {
         private Player player;
         private Animator animator;
-        [SerializeField] private AudioSource audioSource1; // Playerから参照をもらう
-        [SerializeField] private AudioSource audioSource2; // Playerから参照をもらう
+        [SerializeField] private AudioSource audioSource1;
+        [SerializeField] private AudioSource audioSource2;
 
         // 参照
         private CharacterParams characterParams;
@@ -112,7 +113,7 @@ namespace Player
             bool isMove = player.isMove;
             direction = player.direction;
             
-            // --- 射撃スタミナ/UI更新 ---
+            // 射撃スタミナ/UI更新
             if (BulletUI != null) BulletUI.fillAmount = currentShotStamina;
             switch (Overheat)
             {
@@ -127,13 +128,13 @@ namespace Player
             if (currentShotStamina >= maxShotStamina) Overheat = false;
             if (BulletUI != null) BulletUI.color = Overheat ? Color.red : Color.white;
             
-            // --- 移動中かチェック ---
+            // 移動中かチェック
             if (!isMove)
             {
                 return;
             }
             
-            // --- 反射スタミナ/UI更新 ---
+            // 反射スタミナ/UI更新
             if (!IsAttacking && currentStamina < maxStamina)
             {
                 currentStamina += staminaRecoveryPerSecond * Time.deltaTime;
@@ -141,7 +142,7 @@ namespace Player
             }
             if (staminaSlider != null) staminaSlider.value = currentStamina;
 
-            // --- アニメーション状態チェック ---
+            // アニメーション状態チェック
             animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
             if (animatorStateInfo.IsName("isShot") && animatorStateInfo.normalizedTime >= 1.0f)
             {
@@ -149,7 +150,7 @@ namespace Player
             }
         }
         
-        // --- publicメソッド (InputHandlerから呼ばれる) ---
+        // (InputHandlerから呼ばれる)メソッド 
         
         public void HandleQuickAttackAim(Vector2 input)
         {
@@ -182,9 +183,7 @@ namespace Player
                 StartCoroutine(ShootWithCoolDown(0.45f, shotCoolTime));
             }
         }
-        
-        // --- 以下、Player.csから移動したprivate/publicメソッド ---
-        
+        //弾き処理
         private void OnQuickAttackTriggered(float angle)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
@@ -204,7 +203,7 @@ namespace Player
                 StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
             }
         }
-
+        
         public void Attacking() // Animation Event
         {
             if(!attackAnimationBestTime) return;
@@ -215,7 +214,7 @@ namespace Player
         
         private void ShotFinish() // Animation Event
         {
-            IsShot=false;
+            IsShot　=　false;
         }
 
         public void AttackFinish()
@@ -229,14 +228,14 @@ namespace Player
             animator.SetInteger(AttackDirection,attackDirection);
             animator.SetTrigger(IsAttack);
         }
-        
+        //弾き判定解除遅延
         private IEnumerator DeactivateAttackCollisionAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
             QuickAttackCollision.gameObject.SetActive(false);
             IsAttacking = false;
         }
-        
+        //射撃クールダウン
         private IEnumerator ShootWithCoolDown(float preShotDelay, float coolDown)
         {
             yield return new WaitForSeconds(preShotDelay);

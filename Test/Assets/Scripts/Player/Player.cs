@@ -1,5 +1,6 @@
 using System;
 using Component;
+using Scriptable;
 using Scripts.Scriptable;
 using UI;
 using UnityEngine;
@@ -28,7 +29,7 @@ namespace Player
         [SerializeField] private SoundData soundData;
         [SerializeField] private GameObject playerUI;
         [NonSerialized] public PlayerInput MoveAction;
-        [SerializeField] private AudioSource audioSource1;
+        [SerializeField] private AudioSource audioSource;
 
         [NonSerialized] public Vector2 InputMove = Vector2.zero;
         [NonSerialized] public Slider staminaSlider;
@@ -50,8 +51,7 @@ namespace Player
         [JapaneseLabel("バットのアニメーションからエフェクトがでるまでの時間")] private float butEffectDuration = 0.1f;
         
         //サウンド関連
-        [NonSerialized] public AudioClip reflectionSound;
-        [NonSerialized] public AudioClip damageSound;
+        [NonSerialized] private AudioClip damageSound;
 
         private readonly System.Collections.Generic.Dictionary<float, WaitForSeconds> waitCache = new System.Collections.Generic.Dictionary<float, WaitForSeconds>();
         
@@ -78,7 +78,6 @@ namespace Player
         private void PlayerParamReset()
         {
             MoveAction = characterParams.moveAction;
-            reflectionSound = soundData.reflectionSound;
             damageSound = soundData.damageSound;
             butEffectDuration = characterParams.butEffectDuration;
             
@@ -94,20 +93,14 @@ namespace Player
         
         private void Update()
         {
-           // プレイヤー自身のUpdateはZ軸補正のみ
+           // Z軸補正のみ
             Vector3 temp = transform.position;
             temp.z = 0f;
             transform.position = temp;
         }
-
-        public void Ground(bool isGrounded)
-        {
-            PlayerMove.SetGroundState(isGrounded);
-        }
         
         public void PlayEffect(int effectIndex)
         {
-            // (PlayEffectの中身は変更なし)
             if (effectPrefabs == null || effectIndex < 0 || effectIndex >= effectPrefabs.Length) return;
             if (effectDurations == null || effectIndex >= effectDurations.Length) { }
             
@@ -129,7 +122,7 @@ namespace Player
 
         public void PlayDamageSound()
         {
-            audioSource1.PlayOneShot(damageSound);
+            audioSource.PlayOneShot(damageSound);
         }
     }
 }

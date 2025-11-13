@@ -82,9 +82,10 @@ namespace Player
             UnregisterInputActions();
         }
 
-        // === 以下、入力コールバック ===
-        // 実際の処理はPlayerMoveやPlayerCombatに「委譲」する
-        
+        /*
+         以下、入力コールバック
+         実際の処理はPlayerMoveやPlayerCombatに
+        */
         private void OnMove(InputAction.CallbackContext context)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
@@ -130,7 +131,5 @@ namespace Player
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
             playerCombat.AttackFinish(); // PlayerCombatに伝える
         }
-        
-        // OnQuickAttackは使われていなかったので削除 (もし使うならPlayerCombatを呼ぶ)
     }
 }

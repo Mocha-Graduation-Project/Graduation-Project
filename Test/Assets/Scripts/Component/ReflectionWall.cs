@@ -18,8 +18,6 @@ namespace Component
         [SerializeField] [JapaneseLabel("盾の現在HP")]  private float shieldHP;
 
         [SerializeField] [JapaneseLabel("復活までの時間")] private float revivaltime;
-        
-        private float refTime;
 
         void Start()
         {

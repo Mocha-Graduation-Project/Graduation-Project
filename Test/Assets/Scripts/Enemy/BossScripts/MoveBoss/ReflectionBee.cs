@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Enemy.BossScripts.DepthBoss
 {
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Collider))]
     public class ReflectionBee : MonoBehaviour
     {
         //一定ダメージ受けると機能停止して弾を通すようにして、一定時間後に元に戻す
@@ -17,11 +19,14 @@ namespace Enemy.BossScripts.DepthBoss
         private float revivaltime;
 
         [SerializeField] private Animator animator;
-        bool dead = false;
-        Rigidbody rb;
+        private bool dead = false;
+        private bool isDeathProcessingStarted = false;
+        private Rigidbody rb;
         private Collider col;
+        private bool isShieldDown = false;
         [SerializeField] [JapaneseLabel("地面レイヤー")]
         public LayerMask groundLayer;
+        
         private void Start()
         {
             shieldHP = shieldMaxHP;
@@ -31,12 +36,27 @@ namespace Enemy.BossScripts.DepthBoss
 
         private void Update()
         {
+            // 既に死亡処理が始まっているか、盾がダウン中ならUpdate処理をスキップ
+            if (isDeathProcessingStarted || isShieldDown) return;
+
             dead = animator.GetBool("Defeat");
-            if (dead)
+
+            // deadがtrueになり、まだ死亡処理が開始されていない場合
+            if (dead && !isDeathProcessingStarted)
             {
+                isDeathProcessingStarted = true; // 死亡処理フラグを立てる
+
+                // 盾のダウン処理が動いている可能性があるので停止する
+                if (isShieldDown)
+                {
+                    StopAllCoroutines();
+                }
+
                 rb.useGravity = true;
-                Destroy(col);
-                //StartCoroutine(FryEnemyDeathAnimation(gameObject));
+                //Destroy(col);
+
+                // 死亡アニメーションを開始
+                StartCoroutine(FryEnemyDeathAnimation(gameObject));
             }
         }
 
@@ -44,28 +64,22 @@ namespace Enemy.BossScripts.DepthBoss
         {
             if (collider.TryGetComponent(out Bullet bullet))
             {
-                var incomingPower = bullet.GetPower();
-                var speed = incomingPower.magnitude;
+                // 壁の法線ベクトル (このオブジェクトの「上」方向) を渡す
+                Vector3 normal = transform.up; 
 
-                var normal = transform.up.normalized;
-
-                // Vector3.Reflectで反射ベクトルを求める
-                var reflectedDirection = Vector3.Reflect(incomingPower.normalized, normal);
-
-                // Bulletに新しい方向とスピードを設定
-                bullet.SetDirection(reflectedDirection);
-                bullet.SetSpeed(speed);
-                bullet.UpdatePower();
-
-                bullet.OnReflect();
-
-                shieldHP -= bullet.Damage;
-                if (shieldHP <= 0)
+                // BulletのReflectFromWall関数を呼び出し、反射が成功したかを受け取る
+                bool didReflect = bullet.ReflectFromWall(normal);
+                
+                // 反射に成功した場合（クールダウン中でなかった場合）のみ、HPを減らす
+                if (didReflect)
                 {
-                    shieldHP = 0;
-                    gameObject.SetActive(false);
-                    animator.SetBool("Stag", true);
-                    Invoke("ShieldReset", revivaltime);
+                    shieldHP -= bullet.Damage;
+                    
+                    //特定の時間盾を無効化する
+                    if (shieldHP <= 0)
+                    {
+                        StartCoroutine(ShieldDownCoroutine());
+                    }
                 }
             }
         }
@@ -133,11 +147,21 @@ namespace Enemy.BossScripts.DepthBoss
                 enemy.transform.position.z
             );
         }
-        private void ShieldReset()
+        private IEnumerator ShieldDownCoroutine()
         {
+            isShieldDown = true; // ダウン状態に設定
+            shieldHP = 0;
+            animator.SetBool("Stag", true);
+            col.enabled = false; // ★コライダーを無効化し、弾が当たらないようにする
+
+            // 復活時間待機
+            yield return new WaitForSeconds(revivaltime);
+
+            // 復活処理 (元のShieldResetの処理)
             shieldHP = shieldMaxHP;
-            gameObject.SetActive(true);
             animator.SetBool("Stag", false);
+            col.enabled = true; // ★コライダーを再度有効化
+            isShieldDown = false; // ダウン状態を解除
         }
     }
 }

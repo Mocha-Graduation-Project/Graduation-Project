@@ -599,7 +599,6 @@ MonoBehaviour:
   characterParams: {fileID: 11400000, guid: ba6e45e6d168adb41bcb14b428391fe5, type: 2}
   characterData: {fileID: 11400000, guid: 7812e98a291b22241a901b1de0ae041e, type: 2}
   playerHp: 0
-  groundCheck: {fileID: 2335780435290033169}
   animator: {fileID: 8906615988043019670}
   hitEffect: {fileID: 441973028638082585}
 --- !u!136 &576870663172480296
@@ -1764,7 +1763,7 @@ MonoBehaviour:
   characterParams: {fileID: 11400000, guid: ba6e45e6d168adb41bcb14b428391fe5, type: 2}
   soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
   playerUI: {fileID: 4782663261511517043, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
-  audioSource1: {fileID: 3485683195366542829}
+  audioSource: {fileID: 3485683195366542829}
   Arrow: {fileID: 3959296674686234946}
   effectPrefabs:
   - {fileID: 431104157719478913}
@@ -1785,6 +1784,7 @@ MonoBehaviour:
   characterParams: {fileID: 11400000, guid: ba6e45e6d168adb41bcb14b428391fe5, type: 2}
   soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
   walkAudioSource: {fileID: 303866036858272053}
+  groundCheck: {fileID: 2335780435290033169}
 --- !u!114 &2751670149630440826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1800,7 +1800,6 @@ MonoBehaviour:
   audioSource1: {fileID: 3485683195366542829}
   audioSource2: {fileID: 303866036858272053}
   ShotPosition: {fileID: 4827083004097579758}
-  AttackCollision: {fileID: 4345442053038248739}
   QuickAttackCollision: {fileID: 4345442053038248739}
   quickAxis: {fileID: 3716815810994547823}
   attackAnimationBestTime: 1
