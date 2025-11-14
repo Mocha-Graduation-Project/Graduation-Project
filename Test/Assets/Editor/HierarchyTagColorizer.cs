@@ -7,7 +7,7 @@ using System.Collections.Generic;
 [InitializeOnLoad]
 public static class HierarchyTagColorizer
 {
-    private static Dictionary<string, Color> _tagColors;
+    private static Dictionary<string, Color> tagColors;
 
     // クラスがロードされたとき（Unity起動時やスクリプトコンパイル時）に実行
     static HierarchyTagColorizer()
@@ -20,7 +20,7 @@ public static class HierarchyTagColorizer
     /// TagColorManagerから最新の色設定をロードし、キャッシュします。
     private static void LoadTagColors()
     {
-        _tagColors = UnityTagColorManager.Instance.SyncAndGetTagColors();
+        tagColors = UnityTagColorManager.Instance.SyncAndGetTagColors();
         // 描画を強制的に更新
         EditorApplication.RepaintHierarchyWindow();
     }
@@ -40,11 +40,11 @@ public static class HierarchyTagColorizer
         GameObject go = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
 
         // GameObjectが存在し、かつタグの色がロードされていることを確認
-        if (go != null && _tagColors != null)
+        if (go != null && tagColors != null)
         {
             string tag = go.tag;
 
-            if (_tagColors.TryGetValue(tag, out Color color))
+            if (tagColors.TryGetValue(tag, out Color color))
             {
                 if (tag == "Untagged" || color.a < 0.01f)
                 {

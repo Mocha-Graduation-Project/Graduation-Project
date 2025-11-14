@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Scriptable;
 using Scripts.Scriptable;
 using UI;
 using UnityEngine;
@@ -24,14 +25,11 @@ namespace Player
 
         [JapaneseLabel("地面レイヤー")] private LayerMask groundLayer;
 
-        [SerializeField] [JapaneseLabel("足元")] private Transform groundCheck;
-
         [SerializeField] private Animator animator;
 
         [JapaneseLabel("被弾時無敵時間")]
         private float invincibleDuration = 2.0f;
-
-        private readonly float checkDistance = 0.08f; // Raycastの長さ
+        
         private string enemyBulletTag = "EnemyBullet";
 
         private bool invincible;
@@ -45,10 +43,7 @@ namespace Player
         private Coroutine invincibilityCoroutine;
         [JapaneseLabel("被弾エフェクト")] public GameObject hitEffect;
         VisualEffect effect;
-        [JapaneseLabel("被弾時間")] public float hitTime;
         
-
-        [Obsolete("Obsolete")]
         private void Awake()
         {
             SetScriptable();
@@ -56,7 +51,6 @@ namespace Player
             effect = hitEffect.GetComponent<VisualEffect>();
         }
 
-        [Obsolete("Obsolete")]
         private void Start()
         {
             if (Instance == null)
@@ -70,28 +64,10 @@ namespace Player
             //sceneButtonManager = GameObject.Find("SceneManager").GetComponent<SceneButtonManager>();
         }
 
-        private void Update()
-        {
-            CheckGround();
-        }
-
         private void SetScriptable()
         {
             invincibleDuration = characterParams.invincibleDuration;
             groundLayer = characterParams.groundLayer;
-        }
-
-        private void CheckGround()
-        {
-            isGrounded = false;
-            isGrounded = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
-            animator.SetTrigger("JumpDown");
-            animator.SetBool(IsGround, isGrounded);
-            player.Ground(isGrounded);
-            
-            if(!isGrounded) return;
-                
-            Debug.DrawRay(groundCheck.position, Vector2.down * checkDistance, Color.red);
         }
 
         public bool IsGrounded()
@@ -99,13 +75,6 @@ namespace Player
             return isGrounded;
         }
 
-        // void OnTriggerEnter2D(Collider2D other)
-        // {
-        //     if (other.CompareTag(playerBulletTag) || other.CompareTag(enemyBulletTag))
-        //     {
-        //         Damage(1);
-        //     }
-        // }
         public void Damage(int damage)
         {
             if (invincible) return; // 無敵時間中ならダメージを受けない
@@ -157,14 +126,6 @@ namespace Player
             Debug.Log("StartSetUp");
             playerHp = characterData.InitialHp;
             for (var i = 0; i < characterData.InitialHp; i++) uiLife.AddLife();
-        }
-        private IEnumerator HideHitEffectCoroutine()
-        {
-            yield return new WaitForSeconds(hitTime); // 表示する秒数（ここは調整可）
-            if (hitEffect != null)
-            {
-                hitEffect.SetActive(false);
-            }
         }
     }
 }

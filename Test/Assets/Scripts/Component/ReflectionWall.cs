@@ -4,57 +4,49 @@ using UnityEngine;
 
 namespace Component
 {
-
+    /*
+     弾を反対方向に弾き返すscript
+     主にステージギミックとして使う
+     */
     public class ReflectionWall : MonoBehaviour
     {
-        //一定ダメージ受けると機能停止して弾を通すようにして、一定時間後に元に戻す
+        /*
+         一定ダメージ受けると機能停止して弾を通すようにして、一定時間後に元に戻す
+         ボスReflectionBeeに移動したためHPを現在使用していないが今後使用する可能性がある為残す
+        */
         [SerializeField] [JapaneseLabel("盾のHP")] private float shieldMaxHP;
         [SerializeField] [JapaneseLabel("盾の現在HP")]  private float shieldHP;
 
         [SerializeField] [JapaneseLabel("復活までの時間")] private float revivaltime;
-        
-        private float refTime;
-        [SerializeField] private float CoolTime　= 0.5f;
 
         void Start()
         {
             shieldHP = shieldMaxHP;
         }
 
-        private void Update()
-        {
-            refTime += Time.deltaTime;
-        }
-        
-        
         private void OnTriggerEnter(Collider collider)
         {
-            if(refTime < CoolTime) return;
             if (collider.TryGetComponent(out Bullet bullet))
-            {
-                Vector3 incomingPower = bullet.GetPower();
-                float speed = incomingPower.magnitude;
+            { 
+                // 壁の法線ベクトル (このオブジェクトの「上」方向) を渡す
+                Vector3 normal = transform.up; 
 
-                Vector3 normal = transform.up.normalized;
+                // BulletのReflectFromWall関数を呼び出し、反射が成功したかを受け取る
+                bool didReflect = bullet.ReflectFromWall(normal);
 
-                // Vector3.Reflectで反射ベクトルを求める
-                Vector3 reflectedDirection = Vector3.Reflect(incomingPower.normalized, normal);
-
-                // Bulletに新しい方向とスピードを設定
-                bullet.SetDirection(reflectedDirection);
-                bullet.SetSpeed(speed);
-                bullet.UpdatePower();
-
-                bullet.OnReflect();
-
-                shieldHP -= bullet.Damage;
-                if (shieldHP <= 0)
+                // 反射に成功した場合（クールダウン中でなかった場合）のみ、HPを減らす
+                if (didReflect)
                 {
-                    shieldHP = 0;
-                    this.gameObject.SetActive(false);
-                    Invoke("ShieldReset", revivaltime);
+                    shieldHP -= bullet.Damage;
+                    
+                    //特定の時間盾を無効化する
+                    if (shieldHP <= 0)
+                    {
+                        shieldHP = 0;
+                        this.gameObject.SetActive(false);
+                        Invoke("ShieldReset", revivaltime);
+                    }
                 }
-                refTime = 0;
             }
         }
 

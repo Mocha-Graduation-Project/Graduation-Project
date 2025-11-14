@@ -1,4 +1,6 @@
 # region
+
+using Scriptable;
 using UnityEngine;
 using Scripts.Scriptable;
 using UnityEngine.InputSystem;
@@ -34,9 +36,14 @@ namespace Player
         // Animatorハッシュ
         private static readonly int IsMoveHash = Animator.StringToHash("isMove");
         private static readonly int JumpHash = Animator.StringToHash("Jump");
+        private static readonly int IsGround = Animator.StringToHash("isGround");
 
         // 音
         [SerializeField] private AudioSource walkAudioSource; 
+        
+        
+        [SerializeField] [JapaneseLabel("足元")] private Transform groundCheck;
+        private readonly float checkDistance = 0.08f;
 
         private void Awake()
         {
@@ -53,8 +60,8 @@ namespace Player
             jumpCooldown = characterParams.jumpCooldown;
             maxFallSpeed = characterParams.maxFallSpeed;
             groundLayer = characterParams.groundLayer;
-            jumpSound = soundData.JumpSound;
-            walkSound = soundData.WalkSound;
+            jumpSound = soundData.jumpSound;
+            walkSound = soundData.walkSound;
             jumpCanceled = characterParams.jumpCanceled;
             
             currentJumpCount = MaxJumpCount;
@@ -106,20 +113,10 @@ namespace Player
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
             }
         }
-        // 接地判定
-        public void SetGroundState(bool isGrounded)
-        {
-            if (isGrounded && !isGround)
-            {
-                // 地面に着いた瞬間にジャンプ回数をリセット
-                currentJumpCount = MaxJumpCount;
-            }
-            isGround = isGrounded;
-        }
-
-
+        
         private void FixedUpdate()
         {
+            CheckGround();
             // 1. 水平移動の実行
             if (Player.Instance.isMove)
             {
@@ -158,6 +155,20 @@ namespace Player
                 {
                     walkAudioSource.Stop();
                 }
+            }
+        }
+        private void CheckGround()
+        {
+            bool wasGrounded = isGround; // 前フレームの接地状態
+            isGround = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
+    
+            // アニメーターへの通知
+            animator.SetBool(IsGround, isGround);
+
+            // 地面に着いた瞬間にジャンプ回数をリセット
+            if (isGround && !wasGrounded)
+            {
+                currentJumpCount = MaxJumpCount;
             }
         }
     }

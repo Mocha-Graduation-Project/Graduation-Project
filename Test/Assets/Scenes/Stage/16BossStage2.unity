@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerGeneric
       objectReference: {fileID: 0}
+    - target: {fileID: 5542048663544205056, guid: 02325fa8cd9156345be7cef945cafe86, type: 3}
+      propertyPath: loopAreaCollider
+      value: 
+      objectReference: {fileID: 359748419}
     - target: {fileID: 7384788743195681184, guid: 02325fa8cd9156345be7cef945cafe86, type: 3}
       propertyPath: playerUI
       value: 
@@ -480,6 +484,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &359748419 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 6177454251603797652, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+  m_PrefabInstance: {fileID: 359748417}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

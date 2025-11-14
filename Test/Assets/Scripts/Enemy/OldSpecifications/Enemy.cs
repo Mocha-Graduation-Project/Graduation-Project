@@ -93,9 +93,9 @@ namespace Scripts
                 return;
             }
             
-            EnemyShotSound = soundData.EnemyShotSound;
-            DamageSound = soundData.DamageSound;
-            EnemyDestorySound = soundData.EnemyDestorySound;
+            EnemyShotSound = soundData.enemyShotSound;
+            DamageSound = soundData.damageSound;
+            EnemyDestorySound = soundData.enemyDestroySound;
         }
 
         private void Start()

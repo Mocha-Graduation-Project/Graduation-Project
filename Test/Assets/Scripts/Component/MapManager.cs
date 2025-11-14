@@ -28,22 +28,22 @@ namespace Component
             switch (gameplayState)
             {
                 case GameplayState.Title:
-                  bgm = soundData.Title;
+                  bgm = soundData.title;
                     break;
                 case GameplayState.Normal:
-                    bgm = soundData.Normal;
+                    bgm = soundData.normal;
                     break;
                 case GameplayState.MoveBoss:
-                    bgm = soundData.MoveBoss;
+                    bgm = soundData.moveBoss;
                     break;
                 case GameplayState.Depth:
-                    bgm = soundData.Depth;
+                    bgm = soundData.depth;
                     break;
                 case GameplayState.GameOver:
-                    bgm = soundData.GameOver;
+                    bgm = soundData.gameOver;
                     break;
                 case GameplayState.GameClear:
-                    bgm = soundData.GameClear;
+                    bgm = soundData.gameClear;
                     break;
             }
 
@@ -61,7 +61,7 @@ namespace Component
         public void Clear()
         {
             audioSource.Stop();
-            bgm = soundData.GameClear;
+            bgm = soundData.gameClear;
             audioSource.clip = bgm; 
             audioSource.Play();
         }
@@ -69,7 +69,7 @@ namespace Component
         public void GameOver()
         {
             audioSource.Stop();
-            bgm = soundData.GameOver;
+            bgm = soundData.gameOver;
             audioSource.clip = bgm; 
             audioSource.Play();
         }

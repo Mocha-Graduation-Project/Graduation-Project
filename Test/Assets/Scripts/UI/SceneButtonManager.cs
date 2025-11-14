@@ -45,13 +45,8 @@ namespace UI
             playerInput.actions["Finish"].performed += OnFinished;
             playerInput.actions["Pause"].performed += OnPause;
         }
-
-        private void Update()
-        {
-            Debug.Log("TimeScale:" + Time.timeScale);
-        }
-
-        void ChangeState(State nextState)
+        
+        public void ChangeState(State nextState)
         {
             currentState = nextState;
         }
@@ -78,7 +73,13 @@ namespace UI
 
         public void GameClear()
         {
-            ChangeState(State.Clear);
+            if (currentState == State.Pause)
+            {
+                pauseObj.SetActive(false);
+            }
+            else if (currentState != State.Clear) {return;}
+            
+            //ChangeState(State.Clear);
             Time.timeScale = 0;
             if (clearObj != null) {clearObj.SetActive(true);}
             mapManager.Clear();
@@ -87,6 +88,12 @@ namespace UI
 
         public void GameOver()
         {
+            if (currentState == State.Pause)
+            {
+                pauseObj.SetActive(false);
+            }
+            else if (currentState != State.Gameplay) {return;}
+            
             ChangeState(State.GameOver);
             Time.timeScale = 0;
             if (gameOverObj != null){gameOverObj.SetActive(true);}
