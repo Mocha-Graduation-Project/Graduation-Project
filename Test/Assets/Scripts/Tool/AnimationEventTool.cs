@@ -483,6 +483,8 @@ public class AnimationEventTool : EditorWindow
             helper.Cleanup();
         }
 
+        helper.hideFlags = HideFlags.HideAndDontSave;
+        helper.Setup(selectedClip);
 
         var animator = previewObject.GetComponent<Animator>();
 
@@ -524,13 +526,13 @@ public class AnimationEventTool : EditorWindow
     }
     
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         if (playableGraph.IsValid())
         {
             playableGraph.Destroy();
         }
-        
+    
         if (helper != null)
         {
             helper.Cleanup();

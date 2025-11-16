@@ -85,7 +85,6 @@ namespace Player
             PlayerCombat.Initialize(characterParams, soundData);
         }
         
-        [Obsolete("Obsolete")]
         private void Start()
         {
             Arrow.SetActive(false);

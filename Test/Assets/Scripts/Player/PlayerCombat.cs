@@ -22,18 +22,18 @@ namespace Player
         private SoundData soundData;
         private SceneButtonManager sceneButtonManager;
         private Slider staminaSlider;
-        private Image BulletUI;
+        private Image bulletUI;
 
         // 状態
         [NonSerialized] public int direction = 1;
-        [NonSerialized][JapaneseLabel("攻撃中か")] public bool IsAttacking = false;
-        [NonSerialized][JapaneseLabel("発射中か")] private bool IsShot = false;
+        [NonSerialized][JapaneseLabel("攻撃中か")] public bool isAttacking = false;
+        [NonSerialized][JapaneseLabel("発射中か")] private bool isShot = false;
         [NonSerialized] public Vector2 quickAttackDirection = Vector2.zero;
 
         // オブジェクト
         private GameObject Bullets;
-        [JapaneseLabel("弾発射位置")][SerializeField] private GameObject ShotPosition;
-        [JapaneseLabel("即弾き判定")][SerializeField] private GameObject QuickAttackCollision;
+        [JapaneseLabel("弾発射位置")][SerializeField] private GameObject shotPosition;
+        [JapaneseLabel("即弾き判定")][SerializeField] private GameObject quickAttackCollision;
         [JapaneseLabel("クイック軸")] public GameObject quickAxis;
         
         // アニメーション関連
@@ -54,6 +54,9 @@ namespace Player
         private Vector2 lastAimInput = Vector2.zero;
         private float deadZone;
         private float collisionRadius;
+
+        [Header("反射の固定化")] [SerializeField] [JapaneseLabel("反射の角度ステップ")] [Tooltip("反射の角度を何度ごとに固定化するか。0にすると固定化しない。")]
+        private float angleStep = 30;
         
         // 射撃スタミナ
         private float maxShotStamina = 1f;
@@ -62,7 +65,7 @@ namespace Player
         private float currentShotStamina;
         private float shotStaminaDrainPerSecond;
         private float shotCoolTime;
-        private bool Overheat = false;
+        private bool overheat = false;
 
         [SerializeField] private bool attackAnimationBestTime = true;
         
@@ -80,7 +83,7 @@ namespace Player
             
             // UI参照をPlayerから取得
             staminaSlider = player.staminaSlider;
-            BulletUI = player.BulletUI;
+            bulletUI = player.BulletUI;
 
             // パラメータ設定
             Bullets = characterParams.bullets;
@@ -101,7 +104,6 @@ namespace Player
             currentShotStamina = maxShotStamina;
         }
 
-        [Obsolete("Obsolete")]
         private void Start()
         {
             sceneButtonManager = FindObjectOfType<SceneButtonManager>();
@@ -114,8 +116,8 @@ namespace Player
             direction = player.direction;
             
             // 射撃スタミナ/UI更新
-            if (BulletUI != null) BulletUI.fillAmount = currentShotStamina;
-            switch (Overheat)
+            if (bulletUI != null) bulletUI.fillAmount = currentShotStamina;
+            switch (overheat)
             {
                 case false when currentShotStamina < maxShotStamina:
                     currentShotStamina += shotStaminaRecoveryPerSecond * Time.deltaTime;
@@ -124,9 +126,9 @@ namespace Player
                     currentShotStamina += overheatRecoveryPerSecond * Time.deltaTime;
                     break;
             }
-            if (currentShotStamina <= 0) Overheat = true;
-            if (currentShotStamina >= maxShotStamina) Overheat = false;
-            if (BulletUI != null) BulletUI.color = Overheat ? Color.red : Color.white;
+            if (currentShotStamina <= 0) overheat = true;
+            if (currentShotStamina >= maxShotStamina) overheat = false;
+            if (bulletUI != null) bulletUI.color = overheat ? Color.red : Color.white;
             
             // 移動中かチェック
             if (!isMove)
@@ -135,7 +137,7 @@ namespace Player
             }
             
             // 反射スタミナ/UI更新
-            if (!IsAttacking && currentStamina < maxStamina)
+            if (!isAttacking && currentStamina < maxStamina)
             {
                 currentStamina += staminaRecoveryPerSecond * Time.deltaTime;
                 currentStamina = Mathf.Min(currentStamina, maxStamina);
@@ -146,7 +148,7 @@ namespace Player
             animatorStateInfo = animator.GetCurrentAnimatorStateInfo(0);
             if (animatorStateInfo.IsName("isShot") && animatorStateInfo.normalizedTime >= 1.0f)
             {
-                IsShot = false;
+                isShot = false;
             }
         }
         
@@ -158,8 +160,11 @@ namespace Player
             {
                 quickAttackDirection = input.normalized; 
                 float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
+                
+                float snappedAngle = SnapAngle(quickAngle,angleStep);
+                quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, snappedAngle - 90);
 
-                if (!IsAttacking && lastAimInput.sqrMagnitude <= deadZone)
+                if (!isAttacking && lastAimInput.sqrMagnitude <= deadZone)
                 {
                     OnQuickAttackTriggered(quickAngle);
                 }
@@ -172,12 +177,25 @@ namespace Player
             }
             lastAimInput = input;
         }
+        private float SnapAngle(float angle, float step)
+        {
+            // stepが0以下の場合は、固定化しないで元の角度を返す
+            if (step <= 0)
+            {
+                return angle;
+            }
+            
+            // (入力角度 / ステップ) を四捨五入し、それにステップを掛ける
+            // 例: angle=16, step=30 -> Round(16/30) * 30 -> Round(0.53) * 30 -> 1 * 30 = 30
+            // 例: angle=14, step=30 -> Round(14/30) * 30 -> Round(0.46) * 30 -> 0 * 30 = 0
+            return Mathf.Round(angle / step) * step;
+        }
 
         public void PerformShot()
         {
-            if (Overheat == false && IsShot == false)
+            if (overheat == false && isShot == false)
             {
-                IsShot = true;
+                isShot = true;
                 currentShotStamina -= shotStaminaDrainPerSecond;
                 animator.SetTrigger(IsShot1);
                 StartCoroutine(ShootWithCoolDown(0.45f, shotCoolTime));
@@ -198,8 +216,8 @@ namespace Player
             PlayAttackAnimation(attackDirection);
             if (!attackAnimationBestTime)
             {
-                IsAttacking = true;
-                QuickAttackCollision.gameObject.SetActive(true);
+                isAttacking = true;
+                quickAttackCollision.gameObject.SetActive(true);
                 StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
             }
         }
@@ -207,19 +225,19 @@ namespace Player
         public void Attacking() // Animation Event
         {
             if(!attackAnimationBestTime) return;
-            IsAttacking = true;
-            QuickAttackCollision.gameObject.SetActive(true);
+            isAttacking = true;
+            quickAttackCollision.gameObject.SetActive(true);
             StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
         }
         
         private void ShotFinish() // Animation Event
         {
-            IsShot　=　false;
+            isShot　=　false;
         }
 
         public void AttackFinish()
         {
-            QuickAttackCollision.gameObject.SetActive(false);
+            quickAttackCollision.gameObject.SetActive(false);
         }
 
         private void PlayAttackAnimation(int attackDirection)
@@ -232,8 +250,8 @@ namespace Player
         private IEnumerator DeactivateAttackCollisionAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
-            QuickAttackCollision.gameObject.SetActive(false);
-            IsAttacking = false;
+            quickAttackCollision.gameObject.SetActive(false);
+            isAttacking = false;
         }
         //射撃クールダウン
         private IEnumerator ShootWithCoolDown(float preShotDelay, float coolDown)
@@ -241,13 +259,13 @@ namespace Player
             yield return new WaitForSeconds(preShotDelay);
     
             audioSource1.PlayOneShot(shotSound);
-            var bullets = Instantiate(Bullets, ShotPosition.transform.position, Quaternion.identity);
+            var bullets = Instantiate(Bullets, shotPosition.transform.position, Quaternion.identity);
             var bullet = bullets.GetComponent<Bullet>();
             bullet.PowerDirection = direction;
     
             yield return new WaitForSeconds(coolDown);
     
-            IsShot = false;
+            isShot = false;
         }
     }
 }
