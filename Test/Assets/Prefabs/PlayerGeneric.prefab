@@ -1186,11 +1186,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 28fffe722d9c5bf43932deb93e406ccf, type: 2}
     - target: {fileID: 5866666021909216657, guid: 779504477bf20654c9f5ae356b569ff1, type: 3}
       propertyPath: m_AnimatePhysics
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 779504477bf20654c9f5ae356b569ff1, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6025708393589979117, guid: 779504477bf20654c9f5ae356b569ff1, type: 3}
       propertyPath: m_Materials.Array.size
@@ -2350,10 +2350,10 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 28fffe722d9c5bf43932deb93e406ccf, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
