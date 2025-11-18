@@ -29,7 +29,100 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Loop_JE_Shoot_02_x2d
+      takeName: Loop_JE_Shoot_02_x2d
+      internalID: -6414838372994042824
+      firstFrame: 460
+      lastFrame: 640
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: locator1
+        weight: 0
+      - path: locator1/Bone
+        weight: 0
+      - path: locator1/Bone/Root
+        weight: 0
+      - path: locator1/Bone/Root/Hips
+        weight: 0
+      - path: locator1/Bone/Root/Hips/LeftUpLeg
+        weight: 0
+      - path: locator1/Bone/Root/Hips/LeftUpLeg/LeftUpLegHelp
+        weight: 0
+      - path: locator1/Bone/Root/Hips/LeftUpLeg/LeftUpLegHelp/LeftLegHelp
+        weight: 0
+      - path: locator1/Bone/Root/Hips/LeftUpLeg/LeftUpLegHelp/LeftLegHelp/LeftLeg
+        weight: 0
+      - path: locator1/Bone/Root/Hips/LeftUpLeg/LeftUpLegHelp/LeftLegHelp/LeftLeg/LeftFoot
+        weight: 0
+      - path: locator1/Bone/Root/Hips/LeftUpLeg/LeftUpLegHelp/LeftLegHelp/LeftLeg/LeftFoot/LeftToe
+        weight: 0
+      - path: locator1/Bone/Root/Hips/RightUpLeg
+        weight: 0
+      - path: locator1/Bone/Root/Hips/RightUpLeg/RightUpLegHelp
+        weight: 0
+      - path: locator1/Bone/Root/Hips/RightUpLeg/RightUpLegHelp/RightLegHelp
+        weight: 0
+      - path: locator1/Bone/Root/Hips/RightUpLeg/RightUpLegHelp/RightLegHelp/RightLeg
+        weight: 0
+      - path: locator1/Bone/Root/Hips/RightUpLeg/RightUpLegHelp/RightLegHelp/RightLeg/RightFoot
+        weight: 0
+      - path: locator1/Bone/Root/Hips/RightUpLeg/RightUpLegHelp/RightLegHelp/RightLeg/RightFoot/RightToe
+        weight: 0
+      - path: locator1/Bone/Root/Hips/Spine
+        weight: 1
+      - path: locator1/Bone/Root/Hips/Spine/Head
+        weight: 1
+      - path: locator1/Mesh
+        weight: 0
+      - path: locator1/Mesh/MeshGun2
+        weight: 0
+      - path: locator1/Mesh/MeshHead
+        weight: 0
+      - path: locator1/Mesh/MeshLeftParts
+        weight: 0
+      - path: locator1/Mesh/MeshLeftParts/MeshLeftFoot1
+        weight: 0
+      - path: locator1/Mesh/MeshLeftParts/MeshLeftLeg2
+        weight: 0
+      - path: locator1/Mesh/MeshLeftParts/MeshLeftLegHelp1
+        weight: 0
+      - path: locator1/Mesh/MeshLeftParts/MeshLeftUpLeg1
+        weight: 0
+      - path: locator1/Mesh/MeshRightParts
+        weight: 0
+      - path: locator1/Mesh/MeshRightParts/MeshRightFoot
+        weight: 0
+      - path: locator1/Mesh/MeshRightParts/MeshRightLeg
+        weight: 0
+      - path: locator1/Mesh/MeshRightParts/MeshRightLegHelp
+        weight: 0
+      - path: locator1/Mesh/MeshRightParts/MeshRightUpLeg
+        weight: 0
+      maskType: 1
+      maskSource: {fileID: 31900000, guid: e8f8357fbd80a38488bb2e9bb03108b4, type: 2}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
