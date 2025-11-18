@@ -39,9 +39,9 @@ public class PlayerLook : MonoBehaviour
     {
         if (player != null)
         {
-            transform.LookAt(player.transform);
+            //transform.LookAt(player.transform);
             // DOLookAt(ターゲットの位置, 回転にかける時間)
-            //transform.DOLookAt(player.transform.localPosition, 0.5f);
+            transform.DOLookAt(player.transform.localPosition, 0.5f);
             
             // Vector3 dir = player.transform.position - transform.position;
             // Quaternion rotation = Quaternion.LookRotation(dir);
