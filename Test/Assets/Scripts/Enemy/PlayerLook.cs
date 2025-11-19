@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Animations;
+using System.Collections.Generic; 
 
 public class PlayerLook : MonoBehaviour
 {
@@ -12,7 +14,12 @@ public class PlayerLook : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        AimConstraint aimConstraint= GetComponent<AimConstraint>();
+        if (aimConstraint != null)
+        {
+            ConstraintSource source = new ConstraintSource { sourceTransform = player.transform, weight = 1.0f };
+            aimConstraint.AddSource(source);
+        }
     }
 
     // Update is called once per frame
@@ -41,7 +48,7 @@ public class PlayerLook : MonoBehaviour
         {
             //transform.LookAt(player.transform);
             // DOLookAt(ターゲットの位置, 回転にかける時間)
-            transform.DOLookAt(player.transform.localPosition, 0.5f);
+            //transform.DOLookAt(player.transform.localPosition, 0.5f);
             
             // Vector3 dir = player.transform.position - transform.position;
             // Quaternion rotation = Quaternion.LookRotation(dir);

@@ -467,6 +467,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -4690620514710376991, guid: cdb4ea2384f8bb74ba80bbb2f29a3223, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4695303776702454650}
+    - targetCorrespondingSourceObject: {fileID: -4690620514710376991, guid: cdb4ea2384f8bb74ba80bbb2f29a3223, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6689087015742038643}
   m_SourcePrefab: {fileID: 100100000, guid: cdb4ea2384f8bb74ba80bbb2f29a3223, type: 3}
 --- !u!1 &1037284762400122623 stripped
 GameObject:
@@ -485,6 +488,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d42b6e353228684dacb251487338777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!895512359 &6689087015742038643
+AimConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1037284762400122623}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Weight: 0.45
+  m_RotationAtRest: {x: 1.862, y: 0.856, z: 2.68}
+  m_RotationOffset: {x: 0, y: 0, z: 0}
+  m_AimVector: {x: 0, y: 0, z: 1}
+  m_UpVector: {x: 0, y: 1, z: 0}
+  m_WorldUpVector: {x: 0, y: 1, z: 0}
+  m_WorldUpObject: {fileID: 0}
+  m_UpType: 0
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_Active: 1
+  m_IsLocked: 0
+  m_Sources: []
 --- !u!4 &3965424960665726197 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cdb4ea2384f8bb74ba80bbb2f29a3223, type: 3}
