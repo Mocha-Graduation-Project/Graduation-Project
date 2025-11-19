@@ -101,7 +101,6 @@ namespace Player
             currentShotStamina = maxShotStamina;
         }
 
-        [Obsolete("Obsolete")]
         private void Start()
         {
             sceneButtonManager = FindObjectOfType<SceneButtonManager>();
