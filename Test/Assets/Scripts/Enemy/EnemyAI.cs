@@ -6,6 +6,7 @@ using Systems;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.VFX;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class EnemyAI : MonoBehaviour
     [JapaneseLabel("警告UI")] public BeforeAttack beforeAttackText;
     public EnemySpawnManager enemySpawnManager;
     [JapaneseLabel("死亡エフェクト")][SerializeField]private GameObject deathEffectPrefab;
+    [JapaneseLabel("被弾エフェクト")] [SerializeField] private GameObject damageEffectPrefab;
     [JapaneseLabel("プレイヤー")] public Player.Player player => Player.Player.Instance;
     [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
     private AudioSource audioSource;
@@ -187,6 +189,7 @@ public class EnemyAI : MonoBehaviour
             Debug.Log("当たった");
             Bullet bullet = collider.gameObject.GetComponent<Bullet>();
             hp -= bullet.Damage;
+            damageEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
                 
             if (enemyHPSlider != null)
             {
