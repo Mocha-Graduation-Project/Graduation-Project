@@ -223,7 +223,7 @@ namespace Player
 
         private void PlayAttackAnimation(int attackDirection)
         {
-            animator.SetTrigger(Idle);
+            //animator.SetTrigger(Idle);
             animator.SetInteger(AttackDirection,attackDirection);
             animator.SetTrigger(IsAttack);
         }
