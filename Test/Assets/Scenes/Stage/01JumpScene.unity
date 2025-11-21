@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 5e244d0356772ee4d8d137db5a9092a2, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1387,8 +1387,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.08
+  m_Color: {r: 0.91823894, g: 0.8579074, b: 0.8113998, a: 1}
+  m_Intensity: 1.7
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1450,13 +1450,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923439661}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.11543115, y: -0.012371484, z: -0.9926367, w: -0.034570336}
+  m_LocalRotation: {x: -0.12078905, y: 0.22305843, z: -0.96536314, w: -0.061064795}
   m_LocalPosition: {x: 1.2425191, y: -3.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 180.95, y: 193.3, z: -4.1}
+  m_LocalEulerAnglesHint: {x: 153.55, y: 193.3, z: -4.1}
 --- !u!1001 &934281682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2247,6 +2247,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1510241094}
     m_Modifications:
+    - target: {fileID: 1245318076049462343, guid: 77c6647bb63e0d742a1c38a7173b5cd0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.042
+      objectReference: {fileID: 0}
     - target: {fileID: 2496723188732049160, guid: 77c6647bb63e0d742a1c38a7173b5cd0, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light5
@@ -2305,11 +2309,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4246733176238696908, guid: 77c6647bb63e0d742a1c38a7173b5cd0, type: 3}
       propertyPath: m_SpotAngle
-      value: 78.78945
+      value: 143.97823
       objectReference: {fileID: 0}
     - target: {fileID: 4246733176238696908, guid: 77c6647bb63e0d742a1c38a7173b5cd0, type: 3}
       propertyPath: m_InnerSpotAngle
-      value: 0
+      value: 65.18878
       objectReference: {fileID: 0}
     - target: {fileID: 4246733176238696908, guid: 77c6647bb63e0d742a1c38a7173b5cd0, type: 3}
       propertyPath: m_BounceIntensity
