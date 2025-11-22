@@ -72,7 +72,8 @@ namespace Player
             currentMoveInput = input;
             
             // アニメーション制御と方向転換
-            animator.SetBool(IsMoveHash, currentMoveInput != Vector2.zero);
+            
+            animator.SetBool(IsMoveHash, Mathf.Abs(currentMoveInput.x) > 0.01f);
 
             if (currentMoveInput.x != 0)
             {

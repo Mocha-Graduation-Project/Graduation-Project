@@ -65,6 +65,7 @@ namespace Player
         private bool Overheat = false;
 
         [SerializeField] private bool attackAnimationBestTime = true;
+        private Coroutine attackCoroutine;
         
         private void Awake()
         {
@@ -101,7 +102,6 @@ namespace Player
             currentShotStamina = maxShotStamina;
         }
 
-        [Obsolete("Obsolete")]
         private void Start()
         {
             sceneButtonManager = FindObjectOfType<SceneButtonManager>();
@@ -158,7 +158,7 @@ namespace Player
             {
                 quickAttackDirection = input.normalized; 
                 float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
-
+                
                 if (!IsAttacking && lastAimInput.sqrMagnitude <= deadZone)
                 {
                     OnQuickAttackTriggered(quickAngle);
@@ -198,18 +198,22 @@ namespace Player
             PlayAttackAnimation(attackDirection);
             if (!attackAnimationBestTime)
             {
+                if (attackCoroutine != null) StopCoroutine(attackCoroutine);
                 IsAttacking = true;
+                QuickAttackCollision.gameObject.SetActive(false); // Reset first
                 QuickAttackCollision.gameObject.SetActive(true);
-                StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
+                attackCoroutine = StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
             }
         }
         
         public void Attacking() // Animation Event
         {
             if(!attackAnimationBestTime) return;
+            if (attackCoroutine != null) StopCoroutine(attackCoroutine);
             IsAttacking = true;
+            QuickAttackCollision.gameObject.SetActive(false); // Reset first
             QuickAttackCollision.gameObject.SetActive(true);
-            StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
+            attackCoroutine = StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
         }
         
         private void ShotFinish() // Animation Event
@@ -224,7 +228,7 @@ namespace Player
 
         private void PlayAttackAnimation(int attackDirection)
         {
-            animator.SetTrigger(Idle);
+            //animator.SetTrigger(Idle);
             animator.SetInteger(AttackDirection,attackDirection);
             animator.SetTrigger(IsAttack);
         }
