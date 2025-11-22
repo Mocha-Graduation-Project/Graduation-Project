@@ -158,8 +158,7 @@ namespace Player
             {
                 quickAttackDirection = input.normalized; 
                 float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
-
-                // Removed !IsAttacking check to allow input buffering/canceling
+                
                 if (lastAimInput.sqrMagnitude <= deadZone)
                 {
                     OnQuickAttackTriggered(quickAngle);

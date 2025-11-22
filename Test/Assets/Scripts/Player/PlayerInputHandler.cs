@@ -92,7 +92,7 @@ namespace Player
             if (player == null) return; // Playerが破棄された場合
 
             Vector2 input = context.ReadValue<Vector2>();
-            player.InputMove = input; // Player.csのInputMoveは残す
+            player.InputMove = input;
             playerMove.SetMoveInput(input); // PlayerMoveに伝える
 
             if (input != Vector2.zero)
