@@ -12,6 +12,9 @@ namespace Player
     [RequireComponent(typeof(Animator))]
     public class PlayerCombat : MonoBehaviour
     {
+        public event Action OnShoot;
+        public event Action OnReflect;
+
         private Player player;
         private Animator animator;
         [SerializeField] private AudioSource audioSource1;
@@ -180,6 +183,7 @@ namespace Player
                 IsShot = true;
                 currentShotStamina -= shotStaminaDrainPerSecond;
                 animator.SetTrigger(IsShot1);
+                OnShoot?.Invoke();
                 StartCoroutine(ShootWithCoolDown(0.45f, shotCoolTime));
             }
         }
@@ -202,6 +206,7 @@ namespace Player
                 IsAttacking = true;
                 QuickAttackCollision.gameObject.SetActive(false); // Reset first
                 QuickAttackCollision.gameObject.SetActive(true);
+                OnReflect?.Invoke();
                 attackCoroutine = StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
             }
         }

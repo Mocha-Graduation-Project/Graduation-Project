@@ -4,6 +4,7 @@ using Scriptable;
 using UnityEngine;
 using Scripts.Scriptable;
 using UnityEngine.InputSystem;
+using System;
 # endregion
 namespace Player
 {
@@ -13,6 +14,8 @@ namespace Player
         [SerializeField] private CharacterParams characterParams;
         [SerializeField] private SoundData soundData;
         
+        public event Action OnJump;
+
         private Rigidbody rb;
         private Animator animator;
         
@@ -97,6 +100,7 @@ namespace Player
                 audioSource1.PlayOneShot(jumpSound);
                 // Rigidbodyの速度を直接操作
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower); 
+                OnJump?.Invoke();
 
                 currentJumpCount--;
                 lastJumpTime = Time.time;
