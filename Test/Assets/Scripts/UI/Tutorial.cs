@@ -3,6 +3,7 @@ using UnityEngine.Video;
 using UnityEngine.UI;
 using System.Collections;
 using DG.Tweening;
+using TMPro;
 
 namespace UI
 {
@@ -14,6 +15,8 @@ namespace UI
 
         [JapaneseLabel("動画を表示するためのUI RawImageコンポーネント")]
         public RawImage videoDisplayImage;
+        
+        [SerializeField] private TextMeshProUGUI instructionText;
 
         [JapaneseLabel("動画再生のためのVideoPlayerコンポーネント")]
         public VideoPlayer videoPlayer;
@@ -51,6 +54,7 @@ namespace UI
 
             // 最初は非表示にしておく
             videoDisplayImage.gameObject.SetActive(false);
+            instructionText.gameObject.SetActive(false);
             // 初期アルファ値を0にしておく（念のため）
             Color c = videoDisplayImage.color;
             c.a = 0f;
@@ -88,6 +92,8 @@ namespace UI
             // 動画UIを一旦非表示にする（まだ見せない）
             videoDisplayImage.DOKill(); // 実行中のTweenがあれば停止
             videoDisplayImage.gameObject.SetActive(false);
+            instructionText.DOKill(); // 実行中のTweenがあれば停止
+            instructionText.gameObject.SetActive(false);
             videoPlayer.Stop();
 
             // 現在のインデックスに対応するTutorialTypeを設定
@@ -107,12 +113,16 @@ namespace UI
 
             // 待機時間が終わったら、UIを表示して動画を再生
             videoDisplayImage.gameObject.SetActive(true);
+            instructionText.gameObject.SetActive(true);
             
             // フェードイン処理
-            Color c = videoDisplayImage.color;
-            c.a = 0f;
-            videoDisplayImage.color = c;
+            Color videoDisplayColor = videoDisplayImage.color;
+            //Color textColor = instructionText.color;
+            videoDisplayColor.a = 0f;
+            
+            videoDisplayImage.color = videoDisplayColor;
             videoDisplayImage.DOFade(1f, fadeInDuration);
+            instructionText.DOFade(1f, fadeInDuration);
 
             videoPlayer.clip = tutorialVideos[currentVideoIndex];
             videoPlayer.Prepare();
@@ -149,9 +159,11 @@ namespace UI
             if (displayCoroutine != null) StopCoroutine(displayCoroutine);
             
             videoDisplayImage.DOKill(); // Tween停止
+            instructionText.DOKill();
             videoPlayer.Stop();
+            
             videoDisplayImage.gameObject.SetActive(false); // 即座に消す
-
+            instructionText.gameObject.SetActive(false);
             currentVideoIndex++; 
             
             if (currentVideoIndex < tutorialVideos.Length)
@@ -172,8 +184,10 @@ namespace UI
         {
             if (displayCoroutine != null) StopCoroutine(displayCoroutine);
             videoDisplayImage.DOKill(); // Tween停止
+            instructionText.DOKill();
             videoPlayer.Stop();
             videoDisplayImage.gameObject.SetActive(false);
+            instructionText.gameObject.SetActive(false);
             Debug.Log("チュートリアルが終了しました。");
         }
     }
