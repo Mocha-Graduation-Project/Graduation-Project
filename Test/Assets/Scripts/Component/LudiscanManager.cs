@@ -52,10 +52,10 @@ namespace Component
             try
             {
                 // LudiscanConfig がない場合はデフォルト値を使用
-                string apiBaseUrl = "http://localhost:3211";
-                string xapiKey = "ludi_fb3e6386762dcf6692a317faae7418dc";
+                string apiBaseUrl = "https://matuyuhi.com";
+                string xapiKey = "ludi_205bbe581c4dfecd8e61ff37c391911f";
                 int timeoutSeconds = 10;
-                currentProjectId = 8;
+                currentProjectId = 9;
 
                 // Ludiscan APIクライアント初期化
                 var config = new LudiscanClientConfig(
