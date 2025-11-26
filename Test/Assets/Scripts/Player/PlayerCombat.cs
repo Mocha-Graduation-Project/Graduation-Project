@@ -206,7 +206,7 @@ namespace Player
                 IsAttacking = true;
                 QuickAttackCollision.gameObject.SetActive(false); // Reset first
                 QuickAttackCollision.gameObject.SetActive(true);
-                OnReflect?.Invoke();
+                //OnReflect?.Invoke();
                 attackCoroutine = StartCoroutine(DeactivateAttackCollisionAfterDelay(collisionRadius));
             }
         }
@@ -229,6 +229,7 @@ namespace Player
         public void AttackFinish()
         {
             QuickAttackCollision.gameObject.SetActive(false);
+            OnReflect?.Invoke();
         }
 
         private void PlayAttackAnimation(int attackDirection)

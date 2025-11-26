@@ -11,33 +11,39 @@ namespace UI
     {
         [Header("Tutorial Settings")]
         [JapaneseLabel("再生するチュートリアル動画のクリップ配列")]
-        public VideoClip[] tutorialVideos;
+        [SerializeField]
+        private VideoClip[] tutorialVideos;
 
         [JapaneseLabel("動画を表示するためのUI RawImageコンポーネント")]
-        public RawImage videoDisplayImage;
+        [SerializeField]
+        private RawImage videoDisplayImage;
         
         [SerializeField] private TextMeshProUGUI instructionText;
 
         [JapaneseLabel("動画再生のためのVideoPlayerコンポーネント")]
-        public VideoPlayer videoPlayer;
+        [SerializeField]
+        private VideoPlayer videoPlayer;
 
         [Header("Display Settings")]
         [JapaneseLabel("動画を表示するまでの待機時間（秒）。この時間内にクリアすれば動画は出ません。")]
-        public float showVideoDelay = 3.0f;
+        [SerializeField]
+        private float showVideoDelay = 3.0f;
 
         [JapaneseLabel("フェードインにかかる時間（秒）")]
-        public float fadeInDuration = 1.0f;
+        [SerializeField]
+        private float fadeInDuration = 1.0f;
 
         [Header("Current Tutorial State")]
-        public TutorialType currentTutorialType = TutorialType.None;
-        private int currentVideoIndex = 0;
+        [SerializeField]
+        private TutorialType currentTutorialType;
+        private int currentVideoIndex;
         
         private Coroutine displayCoroutine;
 
-        public enum TutorialType
+        private enum TutorialType
         {
             None,
-            ScreenLoop,
+            Loop,
             Jump,
             Shoot,
             Reflect
@@ -52,10 +58,10 @@ namespace UI
                 return;
             }
 
-            // 最初は非表示にしておく
+            // 非表示
             videoDisplayImage.gameObject.SetActive(false);
             instructionText.gameObject.SetActive(false);
-            // 初期アルファ値を0にしておく（念のため）
+            // 初期アルファ値を0
             Color c = videoDisplayImage.color;
             c.a = 0f;
             videoDisplayImage.color = c;
@@ -63,10 +69,9 @@ namespace UI
             StartTutorial();
         }
 
-        public void StartTutorial()
+        private void StartTutorial()
         {
-            currentVideoIndex = 0;
-            SetCurrentTutorialType(TutorialType.ScreenLoop);
+            SetCurrentTutorialType(currentTutorialType);
             
             // 動画再生（遅延処理付き）を開始
             StartDisplaySequence();
@@ -91,9 +96,9 @@ namespace UI
 
             // 動画UIを一旦非表示にする（まだ見せない）
             videoDisplayImage.DOKill(); // 実行中のTweenがあれば停止
-            videoDisplayImage.gameObject.SetActive(false);
+            videoDisplayImage.DOFade(0f, fadeInDuration);
             instructionText.DOKill(); // 実行中のTweenがあれば停止
-            instructionText.gameObject.SetActive(false);
+            instructionText.DOFade(0f, fadeInDuration);
             videoPlayer.Stop();
 
             // 現在のインデックスに対応するTutorialTypeを設定
@@ -117,12 +122,14 @@ namespace UI
             
             // フェードイン処理
             Color videoDisplayColor = videoDisplayImage.color;
-            //Color textColor = instructionText.color;
+            Color textColor = instructionText.color;
             videoDisplayColor.a = 0f;
+            textColor.a = 0f;
             
             videoDisplayImage.color = videoDisplayColor;
             videoDisplayImage.DOFade(1f, fadeInDuration);
             instructionText.DOFade(1f, fadeInDuration);
+            
 
             videoPlayer.clip = tutorialVideos[currentVideoIndex];
             videoPlayer.Prepare();
@@ -139,17 +146,41 @@ namespace UI
 
         private void UpdateTutorialType()
         {
-            if (currentVideoIndex == 0) SetCurrentTutorialType(TutorialType.ScreenLoop);
-            else if (currentVideoIndex == 1) SetCurrentTutorialType(TutorialType.Jump);
-            else if (currentVideoIndex == 2) SetCurrentTutorialType(TutorialType.Shoot);
-            else if (currentVideoIndex == 3) SetCurrentTutorialType(TutorialType.Reflect);
-            else SetCurrentTutorialType(TutorialType.None);
+            if (currentVideoIndex == 0)
+                SetCurrentTutorialType(TutorialType.Loop);
+            else if (currentVideoIndex == 1)
+                SetCurrentTutorialType(TutorialType.Jump);
+            else if (currentVideoIndex == 2)
+                SetCurrentTutorialType(TutorialType.Shoot);
+            else if (currentVideoIndex == 3)
+                SetCurrentTutorialType(TutorialType.Reflect);
+            else
+                SetCurrentTutorialType(TutorialType.None);
 
             Debug.Log($"現在のチュートリアル（待機中/再生中）: {currentTutorialType}");
         }
 
         private void SetCurrentTutorialType(TutorialType type)
         {
+            switch (type)
+            {
+                case TutorialType.None:
+                    break;
+                case TutorialType.Loop:
+                    currentVideoIndex = 0;
+                    break;
+                case TutorialType.Jump:
+                    currentVideoIndex = 1;
+                    break;
+                case TutorialType.Shoot:
+                    currentVideoIndex = 2;
+                    break;
+                case TutorialType.Reflect:
+                    currentVideoIndex = 3;
+                    break;
+                default:
+                    break;
+            }
             currentTutorialType = type;
         }
 
@@ -162,8 +193,8 @@ namespace UI
             instructionText.DOKill();
             videoPlayer.Stop();
             
-            videoDisplayImage.gameObject.SetActive(false); // 即座に消す
-            instructionText.gameObject.SetActive(false);
+            videoDisplayImage.DOFade(0f, fadeInDuration);
+            instructionText.DOFade(0f, fadeInDuration);
             currentVideoIndex++; 
             
             if (currentVideoIndex < tutorialVideos.Length)
@@ -177,17 +208,14 @@ namespace UI
             }
         }
 
-        // 外部呼び出し用イベント
-        public void OnScreenLoopCompleted() { /*...*/ } // 必要ならNextTutorialを呼ぶロジック
-
-        public void EndTutorial()
+        private void EndTutorial()
         {
             if (displayCoroutine != null) StopCoroutine(displayCoroutine);
             videoDisplayImage.DOKill(); // Tween停止
             instructionText.DOKill();
             videoPlayer.Stop();
-            videoDisplayImage.gameObject.SetActive(false);
-            instructionText.gameObject.SetActive(false);
+            videoDisplayImage.DOFade(0f, fadeInDuration);
+            instructionText.DOFade(0f, fadeInDuration);
             Debug.Log("チュートリアルが終了しました。");
         }
     }

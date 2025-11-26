@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using System.Collections;
 using Component;
 using Player;
 
@@ -8,7 +9,7 @@ namespace Tutorial
 {
     public class TutorialManager : MonoBehaviour
     {
-        public enum TutorialStep
+        private enum TutorialStep
         {
             None,
             Loop,
@@ -25,7 +26,7 @@ namespace Tutorial
         [Header("Settings")]
         [SerializeField] private float stepDelay = 1.0f;
 
-        private TutorialStep currentStep = TutorialStep.None;
+        [SerializeField] private TutorialStep currentStep;
         [SerializeField] private PlayerMove playerMove;
         private PlayerCombat playerCombat;
         private Loop playerLoop;
@@ -46,8 +47,7 @@ namespace Tutorial
 
         private void Start()
         {
-            // Start Tutorial
-            SetStep(TutorialStep.Loop);
+            SetStep(currentStep);
         }
 
         private void OnEnable()
@@ -75,28 +75,34 @@ namespace Tutorial
         private void SetStep(TutorialStep step)
         {
             currentStep = step;
-            UpdateUI();
+            StartCoroutine(UpdateUI());
+            //UpdateUI();
         }
 
-        private void UpdateUI()
+        private IEnumerator UpdateUI()
         {
-            if (instructionText == null) return;
+            //if (instructionText == null) return;
 
             switch (currentStep)
             {
                 case TutorialStep.Loop:
+                    yield return new WaitForSeconds(stepDelay);
                     instructionText.text = "画面端に行き自身がループをする";
                     break;
                 case TutorialStep.Jump:
+                    yield return new WaitForSeconds(stepDelay);
                     instructionText.text = "ジャンプ";
                     break;
                 case TutorialStep.Shoot:
+                    yield return new WaitForSeconds(stepDelay);
                     instructionText.text = "射撃";
                     break;
                 case TutorialStep.Reflect:
+                    yield return new WaitForSeconds(stepDelay);
                     instructionText.text = "反射";
                     break;
                 case TutorialStep.Completed:
+                    yield return new WaitForSeconds(stepDelay);
                     instructionText.text = "チュートリアル完了！";
                     break;
             }
@@ -106,7 +112,7 @@ namespace Tutorial
         {
             if (currentStep == TutorialStep.Loop)
             {
-                Debug.Log("Loop Completed!");
+                //Debug.Log("Loop Completed!");
                 if (tutorialUI != null) tutorialUI.NextTutorial();
                 SetStep(TutorialStep.Jump);
             }
@@ -116,7 +122,7 @@ namespace Tutorial
         {
             if (currentStep == TutorialStep.Jump)
             {
-                Debug.Log("Jump Completed!");
+                //Debug.Log("Jump Completed!");
                 if (tutorialUI != null) tutorialUI.NextTutorial();
                 SetStep(TutorialStep.Shoot);
             }
@@ -126,7 +132,7 @@ namespace Tutorial
         {
             if (currentStep == TutorialStep.Shoot)
             {
-                Debug.Log("Shoot Completed!");
+                //Debug.Log("Shoot Completed!");
                 if (tutorialUI != null) tutorialUI.NextTutorial();
                 SetStep(TutorialStep.Reflect);
             }
@@ -136,7 +142,7 @@ namespace Tutorial
         {
             if (currentStep == TutorialStep.Reflect)
             {
-                Debug.Log("Reflect Completed!");
+                //Debug.Log("Reflect Completed!");
                 if (tutorialUI != null) tutorialUI.NextTutorial();
                 SetStep(TutorialStep.Completed);
             }
