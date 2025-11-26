@@ -188,19 +188,22 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.Log("当たった");
             Bullet bullet = collider.gameObject.GetComponent<Bullet>();
-            hp -= bullet.Damage;
-            damageEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
-                
-            if (enemyHPSlider != null)
-            {
-                enemyHPSlider.value = hp;
-            }
-            // DamageText.enabled = true;
-            // DamageText.text = bullet.Damage.ToString();
-            damageText.ShowDamage(bullet.Damage);
-            audioSource.PlayOneShot(DamageSound);
+            TakeDamage(bullet.Damage);
         }
+    }
 
+    public void TakeDamage(int damage)
+    {
+        hp -= damage;
+        damageEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
+                
+        if (enemyHPSlider != null)
+        {
+            enemyHPSlider.value = hp;
+        }
+        damageText.ShowDamage(damage);
+        audioSource.PlayOneShot(DamageSound);
+        
         if (hp <= 0)
         {
             if (enemyData.enemyAttackType != EnemyData.EnemyAttackType.dontAttack)
