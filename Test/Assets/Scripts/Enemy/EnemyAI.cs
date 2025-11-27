@@ -1,4 +1,5 @@
 using System;
+using Component;
 using Player;
 using Scripts.Scriptable;
 using Scripts.UI;
@@ -87,7 +88,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         SetUp();
-        
+
         switch (enemyData.enemyType)
         {
             case EnemyData.EnemyType.boss:
@@ -96,6 +97,14 @@ public class EnemyAI : MonoBehaviour
                 enemyHPSlider.value = hp;
                 break;
         }
+
+        // 敵スポーンイベントをログ
+        string enemyTypeStr = enemyData.enemyType.ToString();
+        LudiscanManager.Instance.LogEnemySpawn(
+            enemyId: gameObject.name,
+            enemyType: enemyTypeStr,
+            position: transform.position
+        );
     }
 
     // Update is called once per frame
@@ -210,9 +219,17 @@ public class EnemyAI : MonoBehaviour
             {
                 StopAttack();
             }
-            
+
+            // 敵死亡イベントをログ
+            string enemyTypeStr = enemyData.enemyType.ToString();
+            LudiscanManager.Instance.LogEnemyDeath(
+                enemyId: gameObject.name,
+                enemyType: enemyTypeStr,
+                position: transform.position
+            );
+
             DeathProcess();
-            
+
             switch (enemyData.enemyType)
             {
                 case EnemyData.EnemyType.normal:
