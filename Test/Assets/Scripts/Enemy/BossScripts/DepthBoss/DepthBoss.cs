@@ -191,17 +191,17 @@ public class DepthBoss : EnemyAI
         if (pos <= left33Pos)
         {
             Debug.Log("LeftAttck");
-            //animator.SetTrigger("LeftFallingAttck");
+            animator.SetTrigger("LeftFallingAttck");
         }
         else if (pos >= right33Pos)
         {
             Debug.Log("RightAttck");
-            //animator.SetTrigger("RightFallingAttck");
+            animator.SetTrigger("RightFallingAttck");
         }
         else
         {
             Debug.Log("CenterAttck");
-            //animator.SetTrigger("CenterFallingAttck");
+            animator.SetTrigger("CenterFallingAttck");
         }
     }
 }
