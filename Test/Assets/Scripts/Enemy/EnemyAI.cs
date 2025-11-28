@@ -1,4 +1,5 @@
 using System;
+using Component;
 using Player;
 using Scripts.Scriptable;
 using Scripts.UI;
@@ -87,7 +88,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         SetUp();
-        
+
         switch (enemyData.enemyType)
         {
             case EnemyData.EnemyType.boss:
@@ -96,6 +97,14 @@ public class EnemyAI : MonoBehaviour
                 enemyHPSlider.value = hp;
                 break;
         }
+
+        // 敵スポーンイベントをログ
+        string enemyTypeStr = enemyData.enemyType.ToString();
+        LudiscanManager.Instance.LogEnemySpawn(
+            enemyId: gameObject.name,
+            enemyType: enemyTypeStr,
+            position: transform.position
+        );
     }
 
     // Update is called once per frame
@@ -188,28 +197,39 @@ public class EnemyAI : MonoBehaviour
         {
             Debug.Log("当たった");
             Bullet bullet = collider.gameObject.GetComponent<Bullet>();
-            hp -= bullet.Damage;
-            damageEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
-                
-            if (enemyHPSlider != null)
-            {
-                enemyHPSlider.value = hp;
-            }
-            // DamageText.enabled = true;
-            // DamageText.text = bullet.Damage.ToString();
-            damageText.ShowDamage(bullet.Damage);
-            audioSource.PlayOneShot(DamageSound);
+            TakeDamage(bullet.Damage);
         }
+    }
 
+    public void TakeDamage(int damage)
+    {
+        hp -= damage;
+        damageEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
+                
+        if (enemyHPSlider != null)
+        {
+            enemyHPSlider.value = hp;
+        }
+        damageText.ShowDamage(damage);
+        audioSource.PlayOneShot(DamageSound);
+        
         if (hp <= 0)
         {
             if (enemyData.enemyAttackType != EnemyData.EnemyAttackType.dontAttack)
             {
                 StopAttack();
             }
-            
+
+            // 敵死亡イベントをログ
+            string enemyTypeStr = enemyData.enemyType.ToString();
+            LudiscanManager.Instance.LogEnemyDeath(
+                enemyId: gameObject.name,
+                enemyType: enemyTypeStr,
+                position: transform.position
+            );
+
             DeathProcess();
-            
+
             switch (enemyData.enemyType)
             {
                 case EnemyData.EnemyType.normal:
