@@ -183,6 +183,21 @@ namespace Component
                 // 残りのデータをアップロード
                 await UploadAllLogsAsync();
 
+                // プレイ時間を計測（秒単位）
+                double playtimeSeconds = Time.time - sessionStartTimeStamp;
+                Debug.Log($"[Ludiscan] Play duration: {playtimeSeconds:F2} seconds");
+
+                // プレイ時間をセッションメタデータに送信
+                try
+                {
+                    await LudiscanClient.Instance.PutObject(currentProjectId, sessionIdToFinish, "playtime", playtimeSeconds);
+                    Debug.Log($"[Ludiscan] Play duration submitted: {playtimeSeconds:F2}s");
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.LogWarning($"[Ludiscan] Failed to submit play duration: {ex.Message}");
+                }
+
                 // セッション終了
                 await LudiscanClient.Instance.FinishSession(currentProjectId, sessionIdToFinish);
                 Debug.Log($"[Ludiscan] Session finished: {sessionIdToFinish}");

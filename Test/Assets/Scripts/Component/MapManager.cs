@@ -53,7 +53,7 @@ namespace Component
             audioSource.Play();
 
             // Ludiscanセッション開始（非同期処理を分離）
-            if (gameplayState != GameplayState.Title)
+            if (gameplayState is GameplayState.Normal or GameplayState.MoveBoss or GameplayState.Depth)
             {
                 StartLudiscanSessionAsync().Forget();
             }
