@@ -26,7 +26,9 @@ namespace UI
         [SerializeField]
         private RawImage videoDisplayImage;
         
-        [SerializeField] private TextMeshProUGUI instructionText;
+        [JapaneseLabel("テキスト")]
+        [SerializeField]
+        private TextMeshProUGUI instructionText;
 
         [JapaneseLabel("動画再生のためのVideoPlayerコンポーネント")]
         [SerializeField]
@@ -50,11 +52,11 @@ namespace UI
 
         private enum TutorialType
         {
-            None,
             Loop,
             Jump,
             Shoot,
-            Reflect
+            Reflect,
+            None
         }
 
         private void Start()
