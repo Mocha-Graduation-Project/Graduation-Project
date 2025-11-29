@@ -519,8 +519,8 @@ Transform:
   m_GameObject: {fileID: 473900603}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.86, y: -4.87, z: 0}
-  m_LocalScale: {x: 9.737377, y: 1, z: 1}
+  m_LocalPosition: {x: -5.9134, y: -4.87, z: 0}
+  m_LocalScale: {x: 9.630266, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1307,8 +1307,8 @@ Transform:
   m_GameObject: {fileID: 2008060810}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.93, y: -4.87, z: 0}
-  m_LocalScale: {x: 9.737377, y: 1, z: 1}
+  m_LocalPosition: {x: 6.0097, y: -4.87, z: 0}
+  m_LocalScale: {x: 9.577684, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1435,9 +1435,29 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8771177549977971624, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
+      propertyPath: buttonImages.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771177549977971624, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
       propertyPath: tutorialVideos.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8771177549977971624, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
+      propertyPath: 'buttonImages.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2800000, guid: f6eb64b0458114444a124c66978bda2d, type: 3}
+    - target: {fileID: 8771177549977971624, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
+      propertyPath: 'buttonImages.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2800000, guid: 9e7baeca2e2ad44468123eb3432bd7b4, type: 3}
+    - target: {fileID: 8771177549977971624, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
+      propertyPath: 'buttonImages.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2800000, guid: 56ce22887cb8a1c41b330381e4da7360, type: 3}
+    - target: {fileID: 8771177549977971624, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
+      propertyPath: 'buttonImages.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2800000, guid: bbf709682492cfd45a4175b260e3dc1e, type: 3}
     - target: {fileID: 8771177549977971624, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
       propertyPath: 'tutorialVideos.Array.data[0]'
       value: 

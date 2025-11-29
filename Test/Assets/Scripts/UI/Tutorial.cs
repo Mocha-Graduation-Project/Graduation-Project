@@ -14,6 +14,14 @@ namespace UI
         [SerializeField]
         private VideoClip[] tutorialVideos;
 
+        [JapaneseLabel("各チュートリアルに対応するボタン画像（RawImage用）")]
+        [SerializeField]
+        private Texture[] buttonImages;
+        
+        [JapaneseLabel("ボタン画像を表示するためのUI RawImageコンポーネント")]
+        [SerializeField] 
+        private RawImage buttonDisplayImage;
+        
         [JapaneseLabel("動画を表示するためのUI RawImageコンポーネント")]
         [SerializeField]
         private RawImage videoDisplayImage;
@@ -33,7 +41,7 @@ namespace UI
         [SerializeField]
         private float fadeInDuration = 1.0f;
 
-        [Header("Current Tutorial State")]
+        [Header("チュートリアル開始地点")]
         [SerializeField]
         private TutorialType currentTutorialType;
         private int currentVideoIndex;
@@ -61,10 +69,14 @@ namespace UI
             // 非表示
             videoDisplayImage.gameObject.SetActive(false);
             instructionText.gameObject.SetActive(false);
+            buttonDisplayImage.gameObject.SetActive(false);
             // 初期アルファ値を0
             Color c = videoDisplayImage.color;
             c.a = 0f;
             videoDisplayImage.color = c;
+            Color btnC = buttonDisplayImage.color;
+            btnC.a = 0f;
+            buttonDisplayImage.color = btnC;
 
             StartTutorial();
         }
@@ -95,10 +107,12 @@ namespace UI
             }
 
             // 動画UIを一旦非表示にする（まだ見せない）
-            videoDisplayImage.DOKill(); // 実行中のTweenがあれば停止
+            videoDisplayImage.DOKill(); // 実行中のTween停止
             videoDisplayImage.DOFade(0f, fadeInDuration);
-            instructionText.DOKill(); // 実行中のTweenがあれば停止
+            instructionText.DOKill(); // 実行中のTween停止
             instructionText.DOFade(0f, fadeInDuration);
+            buttonDisplayImage.DOKill(); // ボタン画像のTween停止
+            buttonDisplayImage.DOFade(0f, fadeInDuration); // ボタン画像のフェードアウト
             videoPlayer.Stop();
 
             // 現在のインデックスに対応するTutorialTypeを設定
@@ -119,22 +133,29 @@ namespace UI
             // 待機時間が終わったら、UIを表示して動画を再生
             videoDisplayImage.gameObject.SetActive(true);
             instructionText.gameObject.SetActive(true);
+            buttonDisplayImage.gameObject.SetActive(true);
             
             // フェードイン処理
             Color videoDisplayColor = videoDisplayImage.color;
             Color textColor = instructionText.color;
+            Color buttonColor = buttonDisplayImage.color;
+            
             videoDisplayColor.a = 0f;
             textColor.a = 0f;
+            buttonColor.a = 0f;
             
             videoDisplayImage.color = videoDisplayColor;
+            buttonDisplayImage.color = buttonColor;
             videoDisplayImage.DOFade(1f, fadeInDuration);
             instructionText.DOFade(1f, fadeInDuration);
+            buttonDisplayImage.DOFade(1f, fadeInDuration);
+            
             
 
             videoPlayer.clip = tutorialVideos[currentVideoIndex];
             videoPlayer.Prepare();
             
-            // 準備完了イベントは一度だけ登録（念のため以前のものを削除してから）
+            // 準備完了イベントは一度だけ登録
             videoPlayer.prepareCompleted -= OnPrepareCompleted;
             videoPlayer.prepareCompleted += OnPrepareCompleted;
         }
@@ -156,6 +177,8 @@ namespace UI
                 SetCurrentTutorialType(TutorialType.Reflect);
             else
                 SetCurrentTutorialType(TutorialType.None);
+            
+            SetButtonImageFromIndex(currentVideoIndex);
 
             Debug.Log($"現在のチュートリアル（待機中/再生中）: {currentTutorialType}");
         }
@@ -183,6 +206,20 @@ namespace UI
             }
             currentTutorialType = type;
         }
+        
+        private void SetButtonImageFromIndex(int index)
+        {
+            if (buttonImages != null && index >= 0 && index < buttonImages.Length)
+            {
+                buttonDisplayImage.texture = buttonImages[index];
+            }
+            else
+            {
+                // 画像が設定されていない、またはインデックスが範囲外の場合はクリア（またはデフォルト画像を設定）
+                buttonDisplayImage.texture = null;
+                Debug.LogWarning($"インデックス {index} に対応するボタン画像がありません。");
+            }
+        }
 
         public void NextTutorial()
         {
@@ -191,21 +228,29 @@ namespace UI
             
             videoDisplayImage.DOKill(); // Tween停止
             instructionText.DOKill();
+            buttonDisplayImage.DOKill();
             videoPlayer.Stop();
+            Sequence fadeOutSequence = DOTween.Sequence();
             
-            videoDisplayImage.DOFade(0f, fadeInDuration);
-            instructionText.DOFade(0f, fadeInDuration);
-            currentVideoIndex++; 
-            
-            if (currentVideoIndex < tutorialVideos.Length)
+            fadeOutSequence.Join(videoDisplayImage.DOFade(0f, fadeInDuration));
+            fadeOutSequence.Join(instructionText.DOFade(0f, fadeInDuration));
+            fadeOutSequence.Join(buttonDisplayImage.DOFade(0f, fadeInDuration));
+
+            fadeOutSequence.OnComplete(() =>
             {
-                // 次のステップのタイマー開始
-                StartDisplaySequence();
-            }
-            else
-            {
-                EndTutorial();
-            }
+                currentVideoIndex++;
+                if (currentVideoIndex < tutorialVideos.Length)
+                {
+                    // 次のステップのタイマー開始
+                    StartDisplaySequence();
+
+                }
+                else
+                {
+                    EndTutorial();
+                }
+            });
+
         }
 
         private void EndTutorial()
@@ -213,9 +258,11 @@ namespace UI
             if (displayCoroutine != null) StopCoroutine(displayCoroutine);
             videoDisplayImage.DOKill(); // Tween停止
             instructionText.DOKill();
+            buttonDisplayImage.DOKill();
             videoPlayer.Stop();
             videoDisplayImage.DOFade(0f, fadeInDuration);
             instructionText.DOFade(0f, fadeInDuration);
+            buttonDisplayImage.DOFade(0f, fadeInDuration);
             Debug.Log("チュートリアルが終了しました。");
         }
     }

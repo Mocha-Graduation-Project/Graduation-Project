@@ -1,5 +1,77 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1188167818864260449
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9117625880063442803}
+  - component: {fileID: 4130012716463355289}
+  - component: {fileID: 3320239806994793301}
+  m_Layer: 5
+  m_Name: Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &9117625880063442803
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188167818864260449}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8195341000562250982}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 751, y: -162}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4130012716463355289
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188167818864260449}
+  m_CullTransparentMesh: 1
+--- !u!114 &3320239806994793301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188167818864260449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Texture: {fileID: 2800000, guid: 9e7baeca2e2ad44468123eb3432bd7b4, type: 3}
+  m_UVRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &1708654175868513950
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +216,7 @@ RectTransform:
   m_Children:
   - {fileID: 7377085096414898828}
   - {fileID: 6860880529189178963}
+  - {fileID: 9117625880063442803}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -230,7 +303,13 @@ MonoBehaviour:
   - {fileID: 32900000, guid: e5106947188b5a64c87cecc2f1295bfb, type: 3}
   - {fileID: 32900000, guid: 8758f3c12712844448c64701a9022654, type: 3}
   - {fileID: 32900000, guid: 5664ca2a52eb77741bf8d6426c273973, type: 3}
+  buttonImages:
+  - {fileID: 2800000, guid: f6eb64b0458114444a124c66978bda2d, type: 3}
+  - {fileID: 2800000, guid: 9e7baeca2e2ad44468123eb3432bd7b4, type: 3}
+  - {fileID: 2800000, guid: 56ce22887cb8a1c41b330381e4da7360, type: 3}
+  buttonDisplayImage: {fileID: 3320239806994793301}
   videoDisplayImage: {fileID: 639721870434063164}
+  instructionText: {fileID: 6744484255214100676}
   videoPlayer: {fileID: 5689282926944360857}
   showVideoDelay: 3
   fadeInDuration: 1
@@ -250,6 +329,7 @@ MonoBehaviour:
   instructionText: {fileID: 6744484255214100676}
   tutorialUI: {fileID: 8771177549977971624}
   stepDelay: 1
+  currentStep: 0
   playerMove: {fileID: 0}
 --- !u!1 &4802546216209118605
 GameObject:
