@@ -21,6 +21,8 @@ public class DepthBoss : EnemyAI
     }
 
     [SerializeField] private StateMachine stateMachine;
+    
+    private Animator animator;
 
     [Header("共通")]
     [SerializeField] [JapaneseLabel("現在の行動パターン")]Patterns pattern;
@@ -33,43 +35,50 @@ public class DepthBoss : EnemyAI
     [SerializeField] [JapaneseLabel("パターン移行のクールタイム")] float coolTime;
     
     [SerializeField] [JapaneseLabel("攻撃表示のUI")]　AttckWarningUI attckWarningUI;
-    
-    [Space(5)]
-    [Header("パターン1,2")] 
-    [SerializeField] [JapaneseLabel("パターン1,2に使うデータ")]
-    private PatrolEnemyData patrolEnemyData;
 
     [Space(5)]
     [Header("パターン3")] 
     [SerializeField] [JapaneseLabel("左右タックルの最大ループ数")] private int maxLRTackle;
 
-    [SerializeField] [JapaneseLabel("左右タックルのループ回数")] private int LRTackleCounter;
+    [JapaneseLabel("左側に行く基準の座標")] private float left33Pos;
+    
+    [JapaneseLabel("右側に行く基準の座標")] private float right33Pos;
 
-    [SerializeField] [JapaneseLabel("タックルの回数")] private int tackleCounter;
+    [JapaneseLabel("左右タックルのループ回数")] private int LRTackleCounter;
+
+    [JapaneseLabel("タックルの回数")] private int tackleCounter;
 
     [SerializeField] [JapaneseLabel("落下後の待機時間")] private float fallAttckWaitTime;
     
     [JapaneseLabel("落下する座標")] private Vector3 fallingAttckPos;
-    
-    //GameObject player;
 
     public float FlontZPos{get{ return flontZPos; }}
     public float FallAttckWaitTime { get { return fallAttckWaitTime; } }
     public AttckWarningUI AttckWarningUI{ get{ return attckWarningUI; } }
     public Vector3 FallingAttckPos{ get{ return fallingAttckPos; } set { fallingAttckPos = value; } }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     public override void SetUp()
     {
+        animator = GetComponent<Animator>();
         stateMachine = new StateMachine();
-        RandomSetPattern();
+        Invoke("RandomSetPattern", enemyData.coolTime);
         LRTackleCounter = 0;
         tackleCounter = 0;
         isAttck = true;
         //player = GameObject.FindGameObjectWithTag("Player");
         attckWarningUI = GameObject.FindGameObjectWithTag("WarningUI").GetComponent<AttckWarningUI>();
         attckWarningUI.SetFallingAttckEnemy(this.gameObject);
+        
+        GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
+        if (loopAreaObj != null)
+        {
+            float scale = loopAreaObj.transform.localScale.x;
+            float leftPos = loopAreaObj.transform.position.x - scale * 0.5f;
+            float rightPos = loopAreaObj.transform.position.x + scale * 0.5f;
+
+            left33Pos = leftPos + scale * 0.33f;
+            right33Pos = rightPos - scale * 0.33f;
+        }
     }
 
     // Update is called once per frame
@@ -81,7 +90,7 @@ public class DepthBoss : EnemyAI
 
     public override void CustomMove()
     {
-        stateMachine.Update();
+        //stateMachine.Update();
     }
 
     public void Change()
@@ -127,13 +136,16 @@ public class DepthBoss : EnemyAI
             case Patterns.none:
                 break;
             case Patterns.rightTackle:
-                stateMachine.ChangeState(new RightTackle(this));
+                //stateMachine.ChangeState(new RightTackle(this));
+                animator.SetTrigger("RightTackleTrigger");
                 break;
             case Patterns.leftTackle:
-                stateMachine.ChangeState(new LeftTackle(this));
+                //stateMachine.ChangeState(new LeftTackle(this));
+                animator.SetTrigger("LeftTackleTrigger");
                 break;
             case Patterns.fallingAttack:
-                stateMachine.ChangeState(new FallingAttack(this));
+                //stateMachine.ChangeState(new FallingAttack(this));
+                animator.SetTrigger("FallingAttckTrigger");
                 break;
         }
     }
@@ -156,18 +168,6 @@ public class DepthBoss : EnemyAI
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (isAttck == true && collision.gameObject.tag == "Player")
-        {
-            PlayerStatus playerStatus = collision.gameObject.GetComponentInChildren<PlayerStatus>();
-            if (playerStatus != null)
-            {
-                playerStatus.Damage(1);
-            }
-        }
-    }
-
     public void AttckTrue()
     {
         isAttck = true;
@@ -176,5 +176,32 @@ public class DepthBoss : EnemyAI
     public void AttckFalse()
     {
         isAttck = false;
+    }
+
+    public void AnimationEnd()
+    {
+        //アニメーションが終わって呼ばれたらクールタイム後に次の行動へ
+        Invoke("Change", enemyData.coolTime);
+    }
+
+    public void SwitchFallingAttck()
+    {
+        //プレイヤーの位置によって再生するアニメーション切り替え
+        float pos = player.transform.position.x;
+        if (pos <= left33Pos)
+        {
+            Debug.Log("LeftAttck");
+            animator.SetTrigger("LeftFallingAttck");
+        }
+        else if (pos >= right33Pos)
+        {
+            Debug.Log("RightAttck");
+            animator.SetTrigger("RightFallingAttck");
+        }
+        else
+        {
+            Debug.Log("CenterAttck");
+            animator.SetTrigger("CenterFallingAttck");
+        }
     }
 }

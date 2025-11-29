@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
   m_Fog: 1
-  m_FogColor: {r: 0, g: 0.3019608, b: 0.2910846, a: 1}
+  m_FogColor: {r: 0, g: 0.17855005, b: 0.19496846, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.02
   m_LinearFogStart: 0
@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 12f2e0fdda333be489f493ffc16e1d5f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1211,7 +1211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1874353953443984737, guid: afe63f738e5c5e9498e34e31bae930ee, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
-      value: 0.11
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 1874353953443984737, guid: afe63f738e5c5e9498e34e31bae930ee, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[3].m_Value
@@ -1231,27 +1231,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1874353953443984737, guid: afe63f738e5c5e9498e34e31bae930ee, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
-      value: 0.028934743
+      value: 0.052450456
       objectReference: {fileID: 0}
     - target: {fileID: 1874353953443984737, guid: afe63f738e5c5e9498e34e31bae930ee, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
-      value: 0.06582836
+      value: 0.0754717
       objectReference: {fileID: 0}
     - target: {fileID: 1874353953443984737, guid: afe63f738e5c5e9498e34e31bae930ee, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
-      value: 0.06918234
+      value: 0.0754717
       objectReference: {fileID: 0}
     - target: {fileID: 1874353953443984737, guid: afe63f738e5c5e9498e34e31bae930ee, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.x
-      value: 0.01882343
+      value: 0.02749095
       objectReference: {fileID: 0}
     - target: {fileID: 1874353953443984737, guid: afe63f738e5c5e9498e34e31bae930ee, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.y
-      value: 0.020135833
+      value: 0.054790776
       objectReference: {fileID: 0}
     - target: {fileID: 1874353953443984737, guid: afe63f738e5c5e9498e34e31bae930ee, type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.z
-      value: 0.028301895
+      value: 0.06289297
       objectReference: {fileID: 0}
     - target: {fileID: 4449144508267636707, guid: afe63f738e5c5e9498e34e31bae930ee, type: 3}
       propertyPath: m_Name
@@ -1352,6 +1352,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2100918360592718593, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 07FirstFloatFloorStage
+      objectReference: {fileID: 0}
     - target: {fileID: 2692864704121530493, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: currentButtonIndex
       value: 1
@@ -3146,7 +3150,7 @@ Transform:
   m_GameObject: {fileID: 689056698}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -12.434238, y: -23.422764, z: 35.742363}
+  m_LocalPosition: {x: -12.434238, y: -47.2, z: 35.742363}
   m_LocalScale: {x: 29.443, y: 29.443, z: 29.443}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4353,8 +4357,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 0.9883242, b: 0.9575472, a: 1}
-  m_Intensity: 2.08
+  m_Color: {r: 0.3148806, g: 0.37858778, b: 0.38364768, a: 1}
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

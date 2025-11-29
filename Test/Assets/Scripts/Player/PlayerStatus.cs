@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Scriptable;
+using Component;
 using Scripts.Scriptable;
 using UI;
 using UnityEngine;
@@ -29,7 +30,7 @@ namespace Player
 
         [JapaneseLabel("被弾時無敵時間")]
         private float invincibleDuration = 2.0f;
-        
+
         private string enemyBulletTag = "EnemyBullet";
 
         private bool invincible;
@@ -43,7 +44,7 @@ namespace Player
         private Coroutine invincibilityCoroutine;
         [JapaneseLabel("被弾エフェクト")] public GameObject hitEffect;
         VisualEffect effect;
-        
+
         private void Awake()
         {
             SetScriptable();
@@ -78,7 +79,7 @@ namespace Player
         public void Damage(int damage)
         {
             if (invincible) return; // 無敵時間中ならダメージを受けない
-            
+
             if (hitEffect != null)
             {
                 effect.SendEvent("OnPlay");
@@ -91,6 +92,8 @@ namespace Player
 
             if (playerHp <= 0 && sceneButtonManager != null)
             {
+                // プレイヤー死亡イベントをログ
+                LudiscanManager.Instance.LogPlayerDeath(transform.position);
                 sceneButtonManager.GameOver();
             }
             else
