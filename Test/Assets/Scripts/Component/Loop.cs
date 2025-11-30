@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace Component
 {
@@ -9,6 +10,8 @@ namespace Component
     {
         //軽量化の為エディタから設定すること
         [SerializeField]private Collider loopAreaCollider;
+
+        public event Action OnLoop;
 
         private float minX, maxX, minY, maxY;
 
@@ -34,11 +37,27 @@ namespace Component
         {
             var pos = transform.position;
 
-            if (pos.x > maxX) pos.x = minX;
-            else if (pos.x < minX) pos.x = maxX;
+            if (pos.x > maxX)
+            {
+                pos.x = minX;
+                OnLoop?.Invoke();
+            }
+            else if (pos.x < minX)
+            {
+                pos.x = maxX;
+                OnLoop?.Invoke();
+            }
 
-            if (pos.y > maxY) pos.y = minY;
-            else if (pos.y < minY) pos.y = maxY;
+            if (pos.y > maxY)
+            {
+                pos.y = minY;
+                OnLoop?.Invoke();
+            }
+            else if (pos.y < minY)
+            {
+                pos.y = maxY;
+                OnLoop?.Invoke();
+            }
 
             transform.position = pos;
         }
