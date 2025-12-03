@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Video;
 using UnityEngine.UI;
@@ -17,6 +18,10 @@ namespace UI
         [JapaneseLabel("各チュートリアルに対応するボタン画像（RawImage用）")]
         [SerializeField]
         private Texture[] buttonImages;
+        
+        [JapaneseLabel("変更用ボタン画像（RawImage用）")]
+        [SerializeField]
+        private Texture[] buttonChangeImages;
         
         [JapaneseLabel("ボタン画像を表示するためのUI RawImageコンポーネント")]
         [SerializeField] 
@@ -42,6 +47,9 @@ namespace UI
         [JapaneseLabel("フェードインにかかる時間（秒）")]
         [SerializeField]
         private float fadeInDuration = 1.0f;
+        
+        [JapaneseLabel("ボタン画像変更の秒数")]
+        private float buttonDuration = 1.0f;
 
         [Header("チュートリアル開始地点")]
         [SerializeField]
@@ -81,6 +89,16 @@ namespace UI
             buttonDisplayImage.color = btnC;
 
             StartTutorial();
+            StartCoroutine(changeAnimationButton());
+        }
+
+        private IEnumerator changeAnimationButton()
+        {
+            buttonDisplayImage.texture = buttonImages[currentVideoIndex];
+            yield return new WaitForSeconds(buttonDuration);
+            buttonDisplayImage.texture = buttonChangeImages[currentVideoIndex];
+            yield return new WaitForSeconds(buttonDuration);
+            StartCoroutine(changeAnimationButton());
         }
 
         private void StartTutorial()
