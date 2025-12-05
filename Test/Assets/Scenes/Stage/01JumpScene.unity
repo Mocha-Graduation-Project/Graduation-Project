@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 5e244d0356772ee4d8d137db5a9092a2, type: 2}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -395,6 +395,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5904299242554878190, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 5904299242554878190, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.size
       value: 2
@@ -447,6 +455,18 @@ PrefabInstance:
     - target: {fileID: 1987615433523298812, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
       propertyPath: m_Name
       value: Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 3457957927461741579, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    - target: {fileID: 3457957927461741579, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3457957927461741579, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8195341000562250982, guid: eb7b327efb6ae9f4d847bc75e664f48e, type: 3}
       propertyPath: m_Pivot.x

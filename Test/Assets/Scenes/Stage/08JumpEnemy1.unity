@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 26996628bb392c54cac83a1c0fb98a46, type: 2}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -868,6 +868,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7b208a4f1b84f64eac750f9802c4629, type: 3}
+--- !u!20 &174502112 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5456729635612065850, guid: c7b208a4f1b84f64eac750f9802c4629, type: 3}
+  m_PrefabInstance: {fileID: 174502111}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &204445046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
@@ -1176,6 +1181,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5904299242554878190, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 174502112}
+    - target: {fileID: 5904299242554878190, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: activeEnemies.Array.size
       value: 0
@@ -1247,7 +1260,7 @@ PrefabInstance:
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].enemyPrefab
       value: 
-      objectReference: {fileID: 7051768376811337806, guid: e065fdea945b6b343aec1b4f60339d0a, type: 3}
+      objectReference: {fileID: 4931697069532253782, guid: 4bfdfdd99d73f1443883c20faca1e132, type: 3}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1].enemyPrefab
       value: 
@@ -1291,7 +1304,7 @@ PrefabInstance:
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: conditionToSpawn.Array.data[1].conditionGameObject
       value: 
-      objectReference: {fileID: 9189188726037878689, guid: 5f540dc0aa5eae64eb6e18f878bc797a, type: 3}
+      objectReference: {fileID: 4864162042301720261, guid: 1e68688eeff14df44b83a588254dddcb, type: 3}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: conditionToSpawn.Array.data[1].conditionSpawnDelay
       value: 3
@@ -3513,15 +3526,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3782708181428690570, guid: 02325fa8cd9156345be7cef945cafe86, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.78
+      value: 3.93
       objectReference: {fileID: 0}
     - target: {fileID: 3782708181428690570, guid: 02325fa8cd9156345be7cef945cafe86, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.36
+      value: -1.54
       objectReference: {fileID: 0}
     - target: {fileID: 3782708181428690570, guid: 02325fa8cd9156345be7cef945cafe86, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3782708181428690570, guid: 02325fa8cd9156345be7cef945cafe86, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3724,7 +3737,7 @@ PrefabInstance:
     - target: {fileID: 5909565856014618877, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 174502112}
     - target: {fileID: 5909565856014618877, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
       propertyPath: m_RenderMode
       value: 1

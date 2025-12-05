@@ -21,7 +21,7 @@ public class OBSController : MonoBehaviour
             if(canTakeFhotoObj != null){canTakeFhotoObj.SetActive(true);}
             StartCoroutine(OBSConnection());
         }
-        else{_sceneButtonManager.SceneChangeMainMenu();}
+        else{_sceneButtonManager.SceneChangeGame("01JumpScene");}
     }
     
     IEnumerator OBSConnection()
@@ -41,7 +41,7 @@ public class OBSController : MonoBehaviour
         RecordController.OBSSetCurrentProgromScene(sceneName);
         yield return new WaitForSeconds (0.2f);
         RecordController.OBSRecordStart();
-        _sceneButtonManager.SceneChangeMainMenu();
+        _sceneButtonManager.SceneChangeGame("01JumpScene");
     }
 
     public void SetSceneName(string sceneName)

@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 509d4c6100d5a154b8a1bb4d07793ee7, type: 2}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1520,7 +1520,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2100918360592718593, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: 15WarpFirstStage
+      value: 12Level2Enemys
       objectReference: {fileID: 0}
     - target: {fileID: 2692864704121530493, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: currentButtonIndex
@@ -1565,6 +1565,14 @@ PrefabInstance:
     - target: {fileID: 3194788029779790702, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904299242554878190, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2080800938}
+    - target: {fileID: 5904299242554878190, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: activeEnemies.Array.size
@@ -5854,7 +5862,7 @@ PrefabInstance:
     - target: {fileID: 5909565856014618877, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2080800938}
     - target: {fileID: 5909565856014618877, guid: 9d9d3cd79e148d442ae05fe8cbb5a99f, type: 3}
       propertyPath: m_RenderMode
       value: 1
@@ -9473,6 +9481,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7b208a4f1b84f64eac750f9802c4629, type: 3}
+--- !u!20 &2080800938 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5456729635612065850, guid: c7b208a4f1b84f64eac750f9802c4629, type: 3}
+  m_PrefabInstance: {fileID: 2080800937}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2088124655
 PrefabInstance:
   m_ObjectHideFlags: 0
