@@ -27,7 +27,7 @@ public class DepthBoss : EnemyAI
     [Header("共通")]
     [SerializeField] [JapaneseLabel("現在の行動パターン")]Patterns pattern;
 
-    [SerializeField] [JapaneseLabel("攻撃中か")] private bool isAttck;
+    [SerializeField] [JapaneseLabel("攻撃中か")] private bool isAttack;
 
     [SerializeField] [JapaneseLabel("手前側のz座標")] private float flontZPos;
     
@@ -56,6 +56,7 @@ public class DepthBoss : EnemyAI
     public float FallAttckWaitTime { get { return fallAttckWaitTime; } }
     public AttckWarningUI AttckWarningUI{ get{ return attckWarningUI; } }
     public Vector3 FallingAttckPos{ get{ return fallingAttckPos; } set { fallingAttckPos = value; } }
+    public bool IsAttack { get { return isAttack; } }
 
     public override void SetUp()
     {
@@ -64,7 +65,7 @@ public class DepthBoss : EnemyAI
         Invoke("RandomSetPattern", enemyData.coolTime);
         LRTackleCounter = 0;
         tackleCounter = 0;
-        isAttck = true;
+        isAttack = true;
         //player = GameObject.FindGameObjectWithTag("Player");
         attckWarningUI = GameObject.FindGameObjectWithTag("WarningUI").GetComponent<AttckWarningUI>();
         attckWarningUI.SetFallingAttckEnemy(this.gameObject);
@@ -168,23 +169,25 @@ public class DepthBoss : EnemyAI
         }
     }
 
-    public void AttckTrue()
+    public void AttackTrue()
     {
-        isAttck = true;
+        isAttack = true;
     }
 
-    public void AttckFalse()
+    public void AttackFalse()
     {
-        isAttck = false;
+        Debug.Log("AttackFalse");
+        isAttack = false;
     }
 
     public void AnimationEnd()
     {
         //アニメーションが終わって呼ばれたらクールタイム後に次の行動へ
+        AttackTrue();
         Invoke("Change", enemyData.coolTime);
     }
 
-    public void SwitchFallingAttck()
+    public void SwitchFallingAttack()
     {
         //プレイヤーの位置によって再生するアニメーション切り替え
         float pos = player.transform.position.x;
@@ -203,5 +206,10 @@ public class DepthBoss : EnemyAI
             Debug.Log("CenterAttck");
             animator.SetTrigger("CenterFallingAttck");
         }
+    }
+
+    public void DepthBossDeath()
+    {
+        animator.SetTrigger("Death");
     }
 }

@@ -307,6 +307,10 @@ namespace Systems
         }
         private IEnumerator DepthBoss(GameObject boss,bool clear)
         {
+            var bossEnemy= boss.GetComponentInChildren<DepthBoss>();
+            bossEnemy.DepthBossDeath();
+            bossEnemy.enabled = false;
+            
             var duration = 3.0f; // 演出にかける時間
             var startTime = Time.time;
             yield return new WaitForSeconds(duration);

@@ -3,23 +3,11 @@ using UnityEngine;
 
 public class DepthBossHammer : MonoBehaviour
 {
-    [SerializeField] private EnemyAI enemyAI;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private DepthBoss depthBoss;
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (depthBoss.IsAttack == true && other.tag == "Player")
         {
             // Debug.Log("PlayerHit");
             if (other.TryGetComponent<PlayerStatus>(out PlayerStatus status))
@@ -32,7 +20,7 @@ public class DepthBossHammer : MonoBehaviour
             // Debug.Log("BulletHit");
             if (other.TryGetComponent<Bullet>(out Bullet bullet))
             {
-                enemyAI.TakeDamage(bullet.Damage);
+                depthBoss.TakeDamage(bullet.Damage);
             }
         }
     }

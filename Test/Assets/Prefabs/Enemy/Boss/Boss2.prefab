@@ -119,10 +119,7 @@ MonoBehaviour:
   flontZPos: 0
   coolTime: 1
   attckWarningUI: {fileID: 0}
-  rightTackleTrigger: 
-  leftTackleTrigger: 
   maxLRTackle: 1
-  fallingAttckTrigger: 
   fallAttckWaitTime: 1
 --- !u!135 &6314603403497138251
 SphereCollider:
@@ -602,7 +599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b4d349033ff774e908b3bb70e3f32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAI: {fileID: 3258717980588411651}
+  depthBoss: {fileID: 3258717980588411651}
 --- !u!54 &7506082581388684439
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -669,10 +666,7 @@ MonoBehaviour:
   flontZPos: 0
   coolTime: 0
   attckWarningUI: {fileID: 0}
-  rightTackleTrigger: RightTackleTrigger
-  leftTackleTrigger: LeftTackleTrigger
   maxLRTackle: 1
-  fallingAttckTrigger: FallingAttckTrigger
   fallAttckWaitTime: 1
 --- !u!82 &1279635815458456648
 AudioSource:
@@ -809,7 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b4d349033ff774e908b3bb70e3f32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyAI: {fileID: 3258717980588411651}
+  depthBoss: {fileID: 3258717980588411651}
 --- !u!54 &3690393914288176599
 Rigidbody:
   m_ObjectHideFlags: 0
