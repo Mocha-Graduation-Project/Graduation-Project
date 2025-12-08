@@ -56,6 +56,7 @@ namespace UI
         private TutorialType currentTutorialType;
         private int currentVideoIndex;
         
+        private Coroutine buttonAnimCoroutine;
         private Coroutine displayCoroutine;
 
         private enum TutorialType
@@ -89,16 +90,47 @@ namespace UI
             buttonDisplayImage.color = btnC;
 
             StartTutorial();
-            StartCoroutine(changeAnimationButton());
+            
+            if (buttonAnimCoroutine != null) StopCoroutine(buttonAnimCoroutine);
+            buttonAnimCoroutine = StartCoroutine(ChangeAnimationButtonLoop());
         }
 
-        private IEnumerator changeAnimationButton()
+        private IEnumerator ChangeAnimationButtonLoop()
         {
-            buttonDisplayImage.texture = buttonImages[currentVideoIndex];
-            yield return new WaitForSeconds(buttonDuration);
-            buttonDisplayImage.texture = buttonChangeImages[currentVideoIndex];
-            yield return new WaitForSeconds(buttonDuration);
-            StartCoroutine(changeAnimationButton());
+            while (true)
+            {
+                // インデックスの安全確認（範囲外なら待機して次のループへ）
+                if (!IsIndexValid(currentVideoIndex))
+                {
+                    yield return null;
+                    continue;
+                }
+
+                // 1枚目を表示
+                if (buttonImages[currentVideoIndex] != null)
+                {
+                    buttonDisplayImage.texture = buttonImages[currentVideoIndex];
+                }
+                yield return new WaitForSeconds(buttonDuration);
+
+                // 待機中にインデックスが変わっている可能性があるので再チェック
+                if (!IsIndexValid(currentVideoIndex)) continue;
+
+                // 2枚目を表示
+                if (buttonChangeImages[currentVideoIndex] != null)
+                {
+                    buttonDisplayImage.texture = buttonChangeImages[currentVideoIndex];
+                }
+                yield return new WaitForSeconds(buttonDuration);
+            }
+        }
+        
+        private bool IsIndexValid(int index)
+        {
+            if (buttonImages == null || buttonChangeImages == null) return false;
+            if (index < 0) return false;
+            // 両方の配列の範囲内に収まっているか
+            return index < buttonImages.Length && index < buttonChangeImages.Length;
         }
 
         private void StartTutorial()
@@ -187,16 +219,11 @@ namespace UI
 
         private void UpdateTutorialType()
         {
-            if (currentVideoIndex == 0)
-                SetCurrentTutorialType(TutorialType.Loop);
-            else if (currentVideoIndex == 1)
-                SetCurrentTutorialType(TutorialType.Jump);
-            else if (currentVideoIndex == 2)
-                SetCurrentTutorialType(TutorialType.Shoot);
-            else if (currentVideoIndex == 3)
-                SetCurrentTutorialType(TutorialType.Reflect);
-            else
-                SetCurrentTutorialType(TutorialType.None);
+            if (currentVideoIndex == 0) SetCurrentTutorialType(TutorialType.Loop);
+            else if (currentVideoIndex == 1) SetCurrentTutorialType(TutorialType.Jump);
+            else if (currentVideoIndex == 2) SetCurrentTutorialType(TutorialType.Shoot);
+            else if (currentVideoIndex == 3) SetCurrentTutorialType(TutorialType.Reflect);
+            else SetCurrentTutorialType(TutorialType.None);
             
             SetButtonImageFromIndex(currentVideoIndex);
 
@@ -207,8 +234,6 @@ namespace UI
         {
             switch (type)
             {
-                case TutorialType.None:
-                    break;
                 case TutorialType.Loop:
                     currentVideoIndex = 0;
                     break;
@@ -275,8 +300,9 @@ namespace UI
 
         private void EndTutorial()
         {
-            if (displayCoroutine != null) StopCoroutine(displayCoroutine);
-            videoDisplayImage.DOKill(); // Tween停止
+            StopAllCoroutines(); 
+
+            videoDisplayImage.DOKill();
             instructionText.DOKill();
             buttonDisplayImage.DOKill();
             videoPlayer.Stop();

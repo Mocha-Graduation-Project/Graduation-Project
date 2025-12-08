@@ -41,9 +41,11 @@ namespace Scriptable
 
         [JapaneseLabel("反射スタミナ消費量")] public float staminaDrainPerSecond = 20f;
 
-        //[JapaneseLabel("quick反射消費量")] public float quickStaminaDrainPerSecond = 20f;
         [JapaneseLabel("スティックで弾きが発動するデットゾーン")]　public float deadZone = 0.25f;
-
+        [Header("弾き方向の調整")]
+        [JapaneseLabel("スナップする角度の間隔 (45=8方向, 30=12方向)")]
+        public float angleStep = 45f; 
+        
         //射撃
         [Space(5)] [Header("<射撃>")] [JapaneseLabel("最大射撃スタミナ")]
         public float maxShotStamina = 1f;
