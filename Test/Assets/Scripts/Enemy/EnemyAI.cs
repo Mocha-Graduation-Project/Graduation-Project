@@ -92,6 +92,7 @@ public class EnemyAI : MonoBehaviour
         switch (enemyData.enemyType)
         {
             case EnemyData.EnemyType.boss:
+            case EnemyData.EnemyType.humanoid:
                 enemyHPSlider = GameObject.FindWithTag("EnemyHPBar").GetComponent<Slider>();
                 enemyHPSlider.maxValue = hp;
                 enemyHPSlider.value = hp;
@@ -240,6 +241,9 @@ public class EnemyAI : MonoBehaviour
                     break;
                 case EnemyData.EnemyType.boss:
                     enemySpawnManager.RemoveEnemy(this.gameObject.transform.parent.gameObject,deathEffectPrefab);
+                    break;
+                case EnemyData.EnemyType.humanoid:
+                    enemySpawnManager.RemoveEnemy(this.gameObject, deathEffectPrefab);
                     break;
             }
         }

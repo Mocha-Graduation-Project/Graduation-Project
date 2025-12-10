@@ -10,6 +10,7 @@ public class EnemyData :  ScriptableObject
         normal,
         shield,
         boss,
+        humanoid,
     }
     
     public enum MoveType
