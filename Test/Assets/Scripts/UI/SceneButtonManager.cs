@@ -19,8 +19,8 @@ namespace UI
     
         public State currentState = State.Gameplay;
         [SerializeField] private GameObject player;
-        [SerializeField] private Player.Player playerScript;
-        [SerializeField] private PlayerInput playerInput;
+        private Player.Player playerScript;
+        private PlayerInput playerInput;
         [SerializeField] private GameObject pauseObj;
         [SerializeField] private GameObject clearObj;
         [SerializeField] private GameObject gameOverObj;
@@ -33,7 +33,6 @@ namespace UI
         {
             currentState = State.Gameplay;
          
-            player = GameObject.Find("PlayerGeneric");
             if (player != null)
             {
                 playerScript = player.GetComponent<Player.Player>();
@@ -86,6 +85,7 @@ namespace UI
             Debug.Log("Game Clear:" + currentState);
         }
 
+        [Obsolete("Obsolete")]
         public void GameOver()
         {
             if (currentState == State.Pause)

@@ -85,6 +85,7 @@ namespace Player
             // UI参照をPlayerから取得
             staminaSlider = player.staminaSlider;
             BulletUI = player.BulletUI;
+            sceneButtonManager = player.sceneButtonManager;
 
             // パラメータ設定
             Bullets = characterParams.bullets;
@@ -103,11 +104,6 @@ namespace Player
             currentStamina = maxStamina;
             if (staminaSlider != null) staminaSlider.maxValue = currentStamina;
             currentShotStamina = maxShotStamina;
-        }
-
-        private void Start()
-        {
-            sceneButtonManager = FindObjectOfType<SceneButtonManager>();
         }
 
         private void Update()

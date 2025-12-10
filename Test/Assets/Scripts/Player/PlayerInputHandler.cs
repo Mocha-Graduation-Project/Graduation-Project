@@ -29,7 +29,7 @@ namespace Player
         private void Start()
         {
             moveAction = player.MoveAction; // Player.csからInput Actionアセットをもらう
-            sceneButtonManager = FindObjectOfType<SceneButtonManager>();
+            sceneButtonManager = player.sceneButtonManager;
             
             // 実行タイミングを遅らせて、moveActionがnullでないことを保証
             if (moveAction != null)

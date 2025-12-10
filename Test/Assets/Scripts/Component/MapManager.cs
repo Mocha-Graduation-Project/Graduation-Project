@@ -20,6 +20,7 @@ namespace Component
         [SerializeField] private bool checkSkip;
         [SerializeField] private SoundData soundData;
 
+        private global::Player.Player player => global::Player.Player.Instance;
         [SerializeField] private GameplayState gameplayState = GameplayState.Normal;
         private AudioSource audioSource;
         private AudioClip bgm;
@@ -101,7 +102,6 @@ namespace Component
         {
             try
             {
-                var player = FindObjectOfType<Player.Player>();
                 if (player != null)
                 {
                     LudiscanManager.Instance.LogPlayerGoal(player.transform.position);

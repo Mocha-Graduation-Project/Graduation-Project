@@ -1,9 +1,13 @@
-#region 
+#region
+
+using System;
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditorInternal;
+using Object = UnityEngine.Object;
+
 #endregion
 
 public class StageSupportTool : EditorWindow
@@ -146,6 +150,7 @@ public class StageSupportTool : EditorWindow
         Repaint();
     }
 
+    [Obsolete("Obsolete")]
     private void OnGUI()
     {
         GUILayout.Label("Prefab Quick Replacement Tool & Match Tools", EditorStyles.boldLabel);
@@ -179,6 +184,7 @@ public class StageSupportTool : EditorWindow
         EditorGUILayout.Space();
     }
 
+    [Obsolete("Obsolete")]
     private void DrawObjectListArea()
     {
         EditorGUILayout.BeginVertical("box");
@@ -265,6 +271,7 @@ public class StageSupportTool : EditorWindow
         EditorGUILayout.Space();
     }
 
+    [Obsolete("Obsolete")]
     private void DrawObjectItem(GameObject go)
     {
         bool isSelected = selectedObjects.Contains(go);

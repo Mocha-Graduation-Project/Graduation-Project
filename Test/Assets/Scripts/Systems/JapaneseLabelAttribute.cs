@@ -24,7 +24,29 @@ public class JapaneseLabelDrawer : PropertyDrawer
     {
         JapaneseLabelAttribute japaneseLabel = (JapaneseLabelAttribute)attribute;
         label.text = japaneseLabel.label;
-        EditorGUI.PropertyField(position, property, label);
+        //EditorGUI.PropertyField(position, property, label);
+        // 安全チェック：オブジェクト参照かつ、その中身が「保存禁止」フラグを持っているか確認
+        if (IsUnsafeRuntimeObject(property))
+        {
+            // PropertyFieldを使わずに、単なるラベルとして表示（エラー回避）
+            EditorGUI.LabelField(position, label, new GUIContent("(Runtime Object - Not Editable)"));
+        }
+        else
+        {
+            // 通常通り描画
+            EditorGUI.PropertyField(position, property, label, true);
+        }
+    }
+    private bool IsUnsafeRuntimeObject(SerializedProperty property)
+    {
+        // プロパティがオブジェクト参照以外なら安全
+        if (property.propertyType != SerializedPropertyType.ObjectReference) return false;
+        
+        // 中身がnullなら安全
+        if (property.objectReferenceValue == null) return false;
+
+        // DontSaveInEditor フラグが立っているかチェック
+        return (property.objectReferenceValue.hideFlags & HideFlags.DontSaveInEditor) != 0;
     }
 }
 

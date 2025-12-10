@@ -48,7 +48,7 @@ namespace Player
         private void Awake()
         {
             SetScriptable();
-            uiLife = FindObjectOfType<UILife>();
+            uiLife = player.uiLife;
             effect = hitEffect.GetComponent<VisualEffect>();
         }
 
@@ -61,7 +61,7 @@ namespace Player
             
             StartSetUp();
             
-            sceneButtonManager = FindObjectOfType<SceneButtonManager>();
+            sceneButtonManager = player.sceneButtonManager;
             //sceneButtonManager = GameObject.Find("SceneManager").GetComponent<SceneButtonManager>();
         }
 

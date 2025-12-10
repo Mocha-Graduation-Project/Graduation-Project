@@ -23,6 +23,9 @@ namespace Player
         [NonSerialized] public PlayerInputHandler PlayerInputHandler;
         [NonSerialized] public PlayerStatus PlayerStatus;
         [NonSerialized] public Animator Animator;
+        public SceneButtonManager sceneButtonManager;
+        public UILife uiLife;
+        
 
         //参照
         [SerializeField] private CharacterParams characterParams;
