@@ -85,6 +85,9 @@ namespace Component
 
         public void Clear()
         {
+            if (audioSource == null || audioSource.gameObject == null)
+                return;
+
             audioSource.Stop();
             bgm = soundData.gameClear;
             audioSource.clip = bgm; 

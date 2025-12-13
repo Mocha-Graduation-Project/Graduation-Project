@@ -136,11 +136,11 @@ public class FallingAttack : MonoBehaviour, IState
                 break;
             case 3: 
                 //攻撃中を解除
-                depthBoss.AttckFalse();
+                depthBoss.AttackFalse();
                 break;
             case 5:
                 //攻撃中を有効
-                depthBoss.AttckTrue();
+                depthBoss.AttackTrue();
                 break;
         }
     }
