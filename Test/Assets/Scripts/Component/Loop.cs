@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Systems;
 
 namespace Component
 {
@@ -9,7 +10,7 @@ namespace Component
     public class Loop : MonoBehaviour
     {
         //軽量化の為エディタから設定すること
-        [SerializeField]private Collider loopAreaCollider;
+        private Collider loopAreaCollider;
 
         public event Action OnLoop;
 
@@ -17,14 +18,20 @@ namespace Component
 
         private void Awake()
         {
-            var loopAreaObj = GameObject.FindWithTag("LoopArea");
-            if (loopAreaObj != null)
-                loopAreaCollider = loopAreaObj.GetComponent<Collider>();
+            if (LoopManager.Instance != null)
+            {
+                loopAreaCollider = LoopManager.Instance.AreaCollider;
+                
+                // バウンズ計算
+                CalculateBounds();
+            }
             else
-                Debug.LogError("LoopAreaColliderが見つかりません。LoopAreaタグを持つGameObjectを配置してください。");
+            {
+                Debug.LogError("LoopManagerが見つかりません。シーンに配置してください。");
+            }
         }
 
-        private void Start()
+        private void CalculateBounds()
         {
             var bounds = loopAreaCollider.bounds;
             minX = bounds.min.x;

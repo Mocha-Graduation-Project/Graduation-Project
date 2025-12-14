@@ -118,7 +118,7 @@ namespace Player
 
         private void Start()
         {
-            sceneButtonManager = FindObjectOfType<SceneButtonManager>();
+            sceneButtonManager = SceneButtonManager.Instance;
         }
 
         private void Update()

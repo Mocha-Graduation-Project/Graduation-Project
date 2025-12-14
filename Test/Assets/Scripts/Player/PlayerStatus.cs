@@ -18,8 +18,6 @@ namespace Player
         [SerializeField] private CharacterParams characterParams;
         [SerializeField] private CharacterData characterData;
         [SerializeField] private int playerHp;
-        
-        private UILife uiLife;
 
         [FormerlySerializedAs("sceneManager")]
         private SceneButtonManager sceneButtonManager;
@@ -48,7 +46,6 @@ namespace Player
         private void Awake()
         {
             SetScriptable();
-            uiLife = FindObjectOfType<UILife>();
             effect = hitEffect.GetComponent<VisualEffect>();
         }
 
@@ -61,8 +58,12 @@ namespace Player
             
             StartSetUp();
             
-            sceneButtonManager = FindObjectOfType<SceneButtonManager>();
-            //sceneButtonManager = GameObject.Find("SceneManager").GetComponent<SceneButtonManager>();
+            sceneButtonManager = SceneButtonManager.Instance;
+            if (sceneButtonManager == null)
+            {
+                 // Maybe it's not ready yet or not in scene?
+                 // But we avoided Find.
+            }
         }
 
         private void SetScriptable()
@@ -86,7 +87,11 @@ namespace Player
             }
 
             playerHp -= damage;
-            uiLife.RemoveLife();
+            if (UILife.Instance != null)
+            {
+                UILife.Instance.RemoveLife();
+            }
+
             Debug.Log("PlayerHP:" + playerHp);
             player.PlayDamageSound();
 
@@ -128,7 +133,7 @@ namespace Player
         {
             Debug.Log("StartSetUp");
             playerHp = characterData.InitialHp;
-            for (var i = 0; i < characterData.InitialHp; i++) uiLife.AddLife();
+            for (var i = 0; i < characterData.InitialHp; i++) UILife.Instance.AddLife();
         }
     }
 }

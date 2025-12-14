@@ -24,7 +24,7 @@ public class FallingAttack : MonoBehaviour, IState
     {
         Debug.Log("2_3_Enter");
         moveCounter = 0;
-        depthBoss = GameObject.Find("DepthBoss").GetComponent<DepthBoss>();
+        depthBoss = (DepthBoss)enemyAI;
         moveEnemy = enemyAI.moveObj;
         isCoolTime = true;
         Initialization();

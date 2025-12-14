@@ -50,8 +50,17 @@ namespace Systems
         private int knockEnemies;
         private int remainnEnemies;
 
+        public static EnemySpawnManager Instance { get; private set; }
+
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+
             audioSource = GetComponent<AudioSource>();
 
             // enemyIdの自動設定

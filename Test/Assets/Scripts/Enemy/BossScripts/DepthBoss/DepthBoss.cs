@@ -6,9 +6,7 @@ using Random = UnityEngine.Random;
 using UnityEditor;
 using UnityEngine.Serialization;
 
-#if UNITY_EDITOR
-[CustomEditor(typeof(EnemyAI))]
-#endif
+
 
 public class DepthBoss : EnemyAI
 {
@@ -66,16 +64,20 @@ public class DepthBoss : EnemyAI
         LRTackleCounter = 0;
         tackleCounter = 0;
         isAttack = true;
-        //player = GameObject.FindGameObjectWithTag("Player");
-        attckWarningUI = GameObject.FindGameObjectWithTag("WarningUI").GetComponent<AttckWarningUI>();
-        attckWarningUI.SetFallingAttckEnemy(this.gameObject);
-        
-        GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
-        if (loopAreaObj != null)
+        if (attckWarningUI != null)
         {
-            float scale = loopAreaObj.transform.localScale.x;
-            float leftPos = loopAreaObj.transform.position.x - scale * 0.5f;
-            float rightPos = loopAreaObj.transform.position.x + scale * 0.5f;
+            attckWarningUI.SetFallingAttckEnemy(this.gameObject);
+        }
+        else
+        {
+             Debug.LogWarning("AttckWarningUI is not assigned.", this);
+        }
+        
+        if (loopAreaCollider != null)
+        {
+            float scale = loopAreaCollider.transform.localScale.x;
+            float leftPos = loopAreaCollider.transform.position.x - scale * 0.5f;
+            float rightPos = loopAreaCollider.transform.position.x + scale * 0.5f;
 
             left33Pos = leftPos + scale * 0.33f;
             right33Pos = rightPos - scale * 0.33f;

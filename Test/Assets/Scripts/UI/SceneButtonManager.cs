@@ -17,6 +17,7 @@ namespace UI
             GameOver 
         }
     
+        public static SceneButtonManager Instance { get; private set; }
         public State currentState = State.Gameplay;
         [SerializeField] private GameObject player;
         [SerializeField] private Player.Player playerScript;
@@ -27,16 +28,26 @@ namespace UI
         [SerializeField] private MapManager mapManager; 
     
         public State CurrentState { get { return currentState; } }
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+        }
     
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             currentState = State.Gameplay;
          
-            player = GameObject.Find("PlayerGeneric");
-            if (player != null)
+            if (playerScript == null && Player.Player.Instance != null)
             {
-                playerScript = player.GetComponent<Player.Player>();
+                playerScript = Player.Player.Instance;
+                player = playerScript.gameObject;
                 playerInput = player.GetComponent<PlayerInput>();
             }
 

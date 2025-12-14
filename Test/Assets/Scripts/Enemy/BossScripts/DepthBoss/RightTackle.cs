@@ -25,7 +25,7 @@ public class RightTackle : MonoBehaviour, IState
     {
         Debug.Log("2_1_Enter");
         moveCounter = 0;
-        depthBoss=GameObject.Find("DepthBoss").GetComponent<DepthBoss>();
+        depthBoss = (DepthBoss)enemyAI;
         moveEnemy = enemyAI.moveObj;
         isCoolTime = true;
         Initialization();
