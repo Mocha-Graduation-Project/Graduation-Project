@@ -42,6 +42,10 @@ namespace Systems
         [SerializeField] [JapaneseLabel("地面レイヤー")]
         public LayerMask groundLayer;
 
+        
+        // Optimize: Cache Enemy IDs for O(1) lookup
+        private readonly Dictionary<int, string> enemyIdCache = new();
+
         private readonly HashSet<string> defeatedEnemyIds = new();
 
         private AudioSource audioSource;
@@ -90,11 +94,12 @@ namespace Systems
                     enemyData.enemyPrefab, 
                     enemyData.spawnPoint, 
                     enemyData.spawnDelay, 
-                    $"Enemy_{enemyData.enemyId}"
+                    $"Enemy_{enemyData.enemyId}",
+                    enemyData.enemyId
                 ));
             }
         }
-        private IEnumerator SpawnEnemyCoroutine(GameObject prefab, Transform spawnPoint, float spawnDelay, string instanceName)
+        private IEnumerator SpawnEnemyCoroutine(GameObject prefab, Transform spawnPoint, float spawnDelay, string instanceName, string rawEnemyId)
         {
             var adjustedWarningTime = Mathf.Min(warningTime, spawnDelay);
             if (adjustedWarningTime > 0)
@@ -115,6 +120,12 @@ namespace Systems
             var spawnedEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.name = instanceName;
+            
+            // Note: Cache the ID
+            if (spawnedEnemy != null)
+            {
+                enemyIdCache[spawnedEnemy.GetInstanceID()] = rawEnemyId;
+            }
         }
 
         private IEnumerator BlinkWarningMarker(GameObject marker)
@@ -152,7 +163,8 @@ namespace Systems
                     condition.conditionGameObject,
                     condition.spawnPoint,
                     condition.conditionSpawnDelay,
-                    $"ConditionEnemy_{condition.conditionId}"
+                    $"ConditionEnemy_{condition.conditionId}",
+                    condition.conditionId
                 ));
             }
 
@@ -341,6 +353,16 @@ namespace Systems
 
         private string GetEnemyIdByObject(GameObject enemy)
         {
+            if (enemy == null) return "";
+            
+            // Optimization: Try cache first
+            if (enemyIdCache.TryGetValue(enemy.GetInstanceID(), out var id))
+            {
+                // Remove from cache as it's being removed
+                enemyIdCache.Remove(enemy.GetInstanceID());
+                return id;
+            }
+
             var name = enemy.name;
 
             if (name.StartsWith("Enemy_"))
