@@ -118,26 +118,26 @@ namespace UI
             InputReset();
             RecordController.OBSRecordStop();
             RecordController.OBSDisconnect();
-            SceneManager.LoadScene("Title");
+            FadeManager.Instance.LoadScene("Title");
         }
 
         // ReSharper disable Unity.PerformanceAnalysis
         public void SceneChangeMainMenu()
         {
             InputReset();
-            SceneManager.LoadScene("MainMenu");
+            FadeManager.Instance.LoadScene("MainMenu");
         }
     
         public void SceneChangeGame(string sceneName)
         {
             InputReset();
-            SceneManager.LoadScene(sceneName);
+            FadeManager.Instance.LoadScene(sceneName);
         }
 
         public void Retry()
         {
             InputReset();
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+            FadeManager.Instance.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void FinishGame()

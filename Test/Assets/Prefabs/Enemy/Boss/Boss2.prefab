@@ -114,8 +114,9 @@ MonoBehaviour:
   enemySpawnManager: {fileID: 0}
   deathEffectPrefab: {fileID: 7380536490815638982}
   damageEffectPrefab: {fileID: 8700488866718887438}
+  attackEffect: {fileID: 0}
   pattern: 0
-  isAttck: 0
+  isAttack: 0
   flontZPos: 0
   coolTime: 1
   attckWarningUI: {fileID: 0}
@@ -299,8 +300,92 @@ Transform:
   - {fileID: 462762675993152607}
   - {fileID: 8416338039421071927}
   - {fileID: 6579812472278805706}
+  - {fileID: 5109226005166084794}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3375291627038962733
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1839331524649859587}
+    m_Modifications:
+    - target: {fileID: 3750629643030923676, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_Name
+      value: DangerEye
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+--- !u!1 &1935307676282617265 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3750629643030923676, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+  m_PrefabInstance: {fileID: 3375291627038962733}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5109226005166084794 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7507760206648780439, guid: 9540905faa7ccb74f9b5a0c7b434fa20, type: 3}
+  m_PrefabInstance: {fileID: 3375291627038962733}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5399036704632694900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -661,8 +746,9 @@ MonoBehaviour:
   enemySpawnManager: {fileID: 0}
   deathEffectPrefab: {fileID: 7380536490815638982}
   damageEffectPrefab: {fileID: 8700488866718887438}
+  attackEffect: {fileID: 1935307676282617265}
   pattern: 0
-  isAttck: 0
+  isAttack: 0
   flontZPos: 0
   coolTime: 0
   attckWarningUI: {fileID: 0}

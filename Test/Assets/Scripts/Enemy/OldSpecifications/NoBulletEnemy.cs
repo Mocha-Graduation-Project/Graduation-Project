@@ -38,7 +38,7 @@ namespace Scripts
         private void Start()
         {
             audioSource = GetComponent<AudioSource>();
-            enemySpawn = GameObject.FindObjectOfType<EnemySpawnManager>();
+            enemySpawn = EnemySpawnManager.Instance;
             DamageSound = soundData.damageSound;
             EnemyDestorySound = soundData.enemyDestroySound;
         }

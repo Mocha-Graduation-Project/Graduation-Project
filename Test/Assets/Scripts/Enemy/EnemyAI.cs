@@ -27,6 +27,7 @@ public class EnemyAI : MonoBehaviour
     [JapaneseLabel("被弾エフェクト")] [SerializeField] private GameObject damageEffectPrefab;
     [JapaneseLabel("プレイヤー")] public Player.Player player => Player.Player.Instance;
     [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
+    [JapaneseLabel("攻撃エフェクト")][SerializeField] private GameObject attackEffect;
     private AudioSource audioSource;
     private AudioClip EnemyShotSound;
     private AudioClip DamageSound;
@@ -286,7 +287,7 @@ public class EnemyAI : MonoBehaviour
     public virtual void BeforeAttack()
     {
         if (enemyData.enemyAttackType == EnemyData.EnemyAttackType.dontAttack) { return; }
-            
+        attackEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
         beforeAttackText.Warning(enemyData.blinkDuration);
     }
 
