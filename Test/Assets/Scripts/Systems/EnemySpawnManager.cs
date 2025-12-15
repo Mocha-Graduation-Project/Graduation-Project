@@ -323,6 +323,10 @@ namespace Systems
         private async UniTaskVoid GameClearDelayed()
         {
             await UniTask.Delay(TimeSpan.FromSeconds(gameClearDelay));
+
+            if (this == null) return;
+            if (sceneButtonManager == null) return;
+
             sceneButtonManager.GameClear();
         }
 

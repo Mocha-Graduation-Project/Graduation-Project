@@ -39,6 +39,16 @@ namespace Player
         [JapaneseLabel("即弾き判定")][SerializeField] private GameObject QuickAttackCollision;
         [JapaneseLabel("クイック軸")] public GameObject quickAxis;
         
+        // 角度のスナップ設定
+        // [Header("弾き方向の調整")] [JapaneseLabel("90度を何分割するか(1=90度毎, 2=45度毎)")]
+        // private int angleSnapSegments;
+        [Header("弾き方向の調整")]
+        [JapaneseLabel("スナップする角度の間隔 (45=8方向, 30=12方向)")]
+        private float angleStep = 45f; 
+
+        [JapaneseLabel("斜め方向の判定の広さ (0.5=均等, 0.6=広め)")]
+        private float diagonalMagnetism = 0.5f;
+        
         // アニメーション関連
         private static readonly int IsShot1 = Animator.StringToHash("isShot");
         private static readonly int AttackDirection = Animator.StringToHash("AttackDirection");
@@ -98,6 +108,7 @@ namespace Player
             shotCoolTime = characterParams.shotCoolTime;
             collisionRadius = characterParams.collisionRadius;
             deadZone = characterParams.deadZone;
+            angleStep = characterParams.angleStep;
 
             // 初期化
             currentStamina = maxStamina;
@@ -159,21 +170,52 @@ namespace Player
         {
             if (input.sqrMagnitude > deadZone)
             {
-                quickAttackDirection = input.normalized; 
-                float quickAngle = Mathf.Atan2(quickAttackDirection.y, quickAttackDirection.x) * Mathf.Rad2Deg;
-                
+                // 元の角度 (-180 ～ 180度)
+                float rawAngle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
+
+                // 負の角度を正の角度 (0 ～ 360) に変換して計算しやすくする
+                float positiveAngle = (rawAngle < 0) ? rawAngle + 360f : rawAngle;
+
+                // スナップ処理（重み付け対応）
+                float snappedAngle = SnapAngleWeighted(positiveAngle, angleStep, diagonalMagnetism);
+
+                float snappedRad = snappedAngle * Mathf.Deg2Rad;
+                quickAttackDirection = new Vector2(Mathf.Cos(snappedRad), Mathf.Sin(snappedRad));
+
+                // 矢印の回転反映
+                quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, snappedAngle - 90);
+                quickAxis.SetActive(true);
+
+                // トリガー判定（入力変化の確認用には元の入力か、あるいはスナップ後の変化を見る）
                 if (!IsAttacking && lastAimInput.sqrMagnitude <= deadZone)
                 {
-                    OnQuickAttackTriggered(quickAngle);
+                    OnQuickAttackTriggered(snappedAngle); 
                 }
-                quickAxis.transform.rotation = Quaternion.Euler(0f, 0f, quickAngle - 90);
-                quickAxis.SetActive(true);
             }
             else
             {
                 quickAxis.SetActive(false);
             }
             lastAimInput = input;
+        }
+        // 指定した間隔で角度をスナップさせる。斜めの判定幅(weight)を考慮する。
+        private float SnapAngleWeighted(float angle, float step, float weight)
+        {
+            float indexFloat = angle / step;
+            int index = Mathf.FloorToInt(indexFloat);
+            
+            float remainder = indexFloat - index;
+            
+            bool isEvenIndex = (index % 2 == 0);
+            float threshold = isEvenIndex ? (1f - weight) : weight;
+
+            int snappedIndex = index;
+            if (remainder >= threshold)
+            {
+                snappedIndex = index + 1;
+            }
+
+            return snappedIndex * step;
         }
 
         public void PerformShot()
