@@ -20,11 +20,12 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WarpPortal
+  m_Name: WarpPortalMain
   m_Shader: {fileID: -6465566751694194690, guid: 5bb0d66a1fa6286469cb017fdef7f903, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ALPHATEST_ON
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -50,7 +51,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WarpPortalTexture:
-        m_Texture: {fileID: 2800000, guid: 7684a3bf699d4894f928b5533d031834, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4bd3a5a525bdbe049b8371f21793b670, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -67,15 +68,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.82
-    - _AlphaClip: 0
+    - _Alpha: 0.55
+    - _AlphaClip: 0.5
     - _AlphaToMask: 0
-    - _Blend: 2
+    - _BAlpha: 1
+    - _Blend: 0
     - _CastShadows: 0
     - _Cull: 0
-    - _DstBlend: 1
+    - _DstBlend: 10
+    - _GAlpha: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _RAlpha: 1
     - _RadialDistortion: 0.66
     - _Speed: 1
     - _SrcBlend: 5
@@ -87,6 +91,12 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
+    - _PortalBlueColor: {r: 7.4642644, g: 2.5602262, b: 0.7745927, a: 0}
     - _PortalColor: {r: 110.13089, g: 60.765507, b: 0, a: 0}
+    - _PortalGreenColor: {r: 0, g: 0.5879052, b: 7.572283, a: 0}
+    - _PortalMainColor: {r: 70.878746, g: 51.088886, b: 9.584219, a: 0}
+    - _PortalOutColor: {r: 18.221333, g: 109.328064, b: 37.170288, a: 0}
+    - _PortalRedColor: {r: 5.9921556, g: 3.1105866, b: 0, a: 1}
+    - _PortalSubColor: {r: 0, g: 89.45412, b: 63.68303, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5731867463746256482
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WarpPortalEffect
+  m_Shader: {fileID: -6465566751694194690, guid: 5bb0d66a1fa6286469cb017fdef7f903, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  - DepthOnly
+  - SHADOWCASTER
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _Alpha_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WarpNoiseTexture:
+        m_Texture: {fileID: 2800000, guid: 8b518aa2d8d6eaf46aef3f1eebe8474c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WarpPortalTexture:
+        m_Texture: {fileID: 2800000, guid: 449e5bb07a856c14786dfc37cc4e5c51, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 1
+    - _AlphaClip: 0.462
+    - _AlphaToMask: 0
+    - _BAlpha: 1
+    - _Blend: 0
+    - _CastShadows: 0
+    - _Cull: 0
+    - _DstBlend: 10
+    - _GAlpha: 1
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _RAlpha: 1
+    - _RadialDistortion: 0.66
+    - _Speed: 1
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _TwirlDistortion: 3
+    - _TwirlScale: 1.17
+    - _TwirlStrength: 15
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
+    m_Colors:
+    - _PortalBlueColor: {r: 1.2981575, g: 3.313958, b: 8.094401, a: 0}
+    - _PortalColor: {r: 110.13089, g: 60.765507, b: 0, a: 0}
+    - _PortalGreenColor: {r: 0, g: 9.262448, b: 5.81803, a: 0}
+    - _PortalMainColor: {r: 70.878746, g: 51.088886, b: 9.584219, a: 0}
+    - _PortalOutColor: {r: 18.221333, g: 109.328064, b: 37.170288, a: 0}
+    - _PortalRedColor: {r: 0, g: 1.8257339, b: 1.4395673, a: 0}
+    - _PortalSubColor: {r: 0, g: 89.45412, b: 63.68303, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
