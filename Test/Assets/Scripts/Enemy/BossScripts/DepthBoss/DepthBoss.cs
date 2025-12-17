@@ -62,7 +62,7 @@ public class DepthBoss : EnemyAI
     {
         animator = GetComponent<Animator>();
         stateMachine = new StateMachine();
-        Invoke("RandomSetPattern", enemyData.coolTime);
+        Invoke("RandomSetPattern", ExcelData.Enemy[DataNumber].coolTime);
         LRTackleCounter = 0;
         tackleCounter = 0;
         isAttack = true;
@@ -80,6 +80,8 @@ public class DepthBoss : EnemyAI
             left33Pos = leftPos + scale * 0.33f;
             right33Pos = rightPos - scale * 0.33f;
         }
+
+        IsSetUp = true;
     }
 
     // Update is called once per frame
@@ -184,7 +186,7 @@ public class DepthBoss : EnemyAI
     {
         //アニメーションが終わって呼ばれたらクールタイム後に次の行動へ
         AttackTrue();
-        Invoke("Change", enemyData.coolTime);
+        Invoke("Change", ExcelData.Enemy[DataNumber].coolTime);
     }
 
     public void SwitchFallingAttack()

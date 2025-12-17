@@ -36,7 +36,7 @@ public class LeftVerticalMove : MonoBehaviour,IState
     {
         Debug.Log("2_Enter");
         moveCounter = 0;
-        moveEnemy = enemyAI.moveObj;
+        moveEnemy = enemyAI.MoveObj;
         moveBoss = moveEnemy.GetComponentInChildren<MoveBoss>();
         enemyAI.StopAttack();
         isCoolTime = true;
@@ -44,16 +44,16 @@ public class LeftVerticalMove : MonoBehaviour,IState
         finishMoving = false;
         finishRotating = false;
 
-        centerPos = enemyAI.centerPos;
+        centerPos = enemyAI.CenterPos;
         startPos = moveEnemy.transform.position;
-        leftPosX = centerPos.x - enemyAI.enemyData.leftRenge;
-        upPosY = centerPos.y + enemyAI.enemyData.upRenge;
-        downPosY = centerPos.y - enemyAI.enemyData.downRenge;
+        leftPosX = centerPos.x - enemyAI.ExcelData.Enemy[enemyAI.DataNumber].leftRenge;
+        upPosY = centerPos.y + enemyAI.ExcelData.Enemy[enemyAI.DataNumber].upRenge;
+        downPosY = centerPos.y - enemyAI.ExcelData.Enemy[enemyAI.DataNumber].downRenge;
         leftUpPos = new Vector3(leftPosX, upPosY, centerPos.z);
         leftDownPos = new Vector3(leftPosX, downPosY, centerPos.z);
         leftCenterPos= new Vector3(leftPosX, centerPos.y, centerPos.z);
         
-        rotateAxis = enemyAI.rotateAxis;
+        rotateAxis = enemyAI.RotateAxis;
         rotateAxisRotate = new Vector3(0, 0, 180);
         if (rotateAxis.transform.eulerAngles == rotateAxisRotate)
         {
@@ -75,7 +75,7 @@ public class LeftVerticalMove : MonoBehaviour,IState
         if (isCoolTime == true)
         {
             float diff = Time.time - startTime;
-            if (diff < enemyAI.enemyData.coolTime)
+            if (diff < enemyAI.ExcelData.Enemy[enemyAI.DataNumber].coolTime)
             {
                 //Debug.Log("クールタイム中");
                 return;
@@ -90,7 +90,7 @@ public class LeftVerticalMove : MonoBehaviour,IState
         if (finishRotating != true)
         {
             finishRotating =
-                enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ, enemyAI.enemyData.rotateTime, ref t);
+                enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].rotateTime, ref t);
         }
         if (finishMoving == true && finishRotating == true)
         {
@@ -129,28 +129,28 @@ public class LeftVerticalMove : MonoBehaviour,IState
         switch (moveCounter)
         {
             case 0:
-                if (enemyAI.EnemyMove(moveEnemy, startPos, leftCenterPos, enemyAI.enemyData.moveVerticalTime,
+                if (enemyAI.EnemyMove(moveEnemy, startPos, leftCenterPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].verticalTime,
                         startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 1:
-                if (enemyAI.EnemyMove(moveEnemy, leftCenterPos, leftUpPos, enemyAI.enemyData.moveHorizontalTime,
+                if (enemyAI.EnemyMove(moveEnemy, leftCenterPos, leftUpPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].horizontalTime,
                         startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 2:
-                if (enemyAI.EnemyMove(moveEnemy, leftUpPos, leftDownPos, enemyAI.enemyData.moveHorizontalTime * 2,
+                if (enemyAI.EnemyMove(moveEnemy, leftUpPos, leftDownPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].horizontalTime * 2,
                         startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 3:
-                if (enemyAI.EnemyMove(moveEnemy, leftDownPos, leftCenterPos, enemyAI.enemyData.moveHorizontalTime,
+                if (enemyAI.EnemyMove(moveEnemy, leftDownPos, leftCenterPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].horizontalTime,
                         startTime) == true)
                 {
                     NextMove();

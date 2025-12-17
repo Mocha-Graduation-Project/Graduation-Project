@@ -678,17 +678,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4931697069532253782, guid: 4bfdfdd99d73f1443883c20faca1e132, type: 3}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[0].excelDataId
+      value: 201
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1].enemyPrefab
       value: 
       objectReference: {fileID: 3733848497803515013, guid: d806af1f6e7e54b47adfe1905703c481, type: 3}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[1].excelDataId
+      value: 203
+      objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[2].enemyPrefab
       value: 
       objectReference: {fileID: 4864162042301720261, guid: 1e68688eeff14df44b83a588254dddcb, type: 3}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[2].excelDataId
+      value: 202
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[3].enemyPrefab
       value: 
       objectReference: {fileID: 7051768376811337806, guid: e065fdea945b6b343aec1b4f60339d0a, type: 3}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[3].excelDataId
+      value: 101
+      objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[4].enemyPrefab
       value: 
@@ -701,6 +717,10 @@ PrefabInstance:
       propertyPath: conditionToSpawn.Array.data[0].spawnPoint
       value: 
       objectReference: {fileID: 1124196129}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: conditionToSpawn.Array.data[0].excelDataId
+      value: 103
+      objectReference: {fileID: 0}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: conditionToSpawn.Array.data[0].conditionGameObject
       value: 

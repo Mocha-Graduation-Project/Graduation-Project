@@ -420,9 +420,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4931697069532253782, guid: 4bfdfdd99d73f1443883c20faca1e132, type: 3}
     - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[0].excelDataId
+      value: 201
+      objectReference: {fileID: 0}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1].enemyPrefab
       value: 
       objectReference: {fileID: 4931697069532253782, guid: 4bfdfdd99d73f1443883c20faca1e132, type: 3}
+    - target: {fileID: 6797630135018218613, guid: a6530c668a42a98498ec557efab67d21, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[1].excelDataId
+      value: 201
+      objectReference: {fileID: 0}
     - target: {fileID: 7414324679359569832, guid: a6530c668a42a98498ec557efab67d21, type: 3}
       propertyPath: m_Name
       value: Manager

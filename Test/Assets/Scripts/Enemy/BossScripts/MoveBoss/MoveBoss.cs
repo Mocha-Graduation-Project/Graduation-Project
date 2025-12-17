@@ -86,7 +86,7 @@ public class MoveBoss : EnemyAI
         actioncounter = 0;
         loopCounter = 0;
         maxAction = 4;
-        changeHP = enemyData.maxHP * (changeHPPercent * 0.01f);
+        changeHP = ExcelData.Enemy[DataNumber].maxHP * (changeHPPercent * 0.01f);
         //Debug.Log("ChangeHP:" + changeHP);
         patten5Flag = false;
         stateMachine=new StateMachine();
@@ -97,6 +97,8 @@ public class MoveBoss : EnemyAI
         isactive = false;
         isBackRotate = false;
         finishRotation = false;
+
+        IsSetUp = true;
     }
 
     // Update is called once per frame
@@ -205,18 +207,18 @@ public class MoveBoss : EnemyAI
     {
         if (isactive == true)
         {
-            beforeAttackText.After();
+            BeforeAttackText.After();
 
             // for (int i = 0; i < beeHeads.Count; i++)
             // {
             //     Debug.Log("Shot[" + beeHeads[i].shotPos.name + "]/" + beeHeads[i].shotPos.transform.position);
             // }
             // Debug.Log("Attck:" + shotPos);
-            GameObject bullets = Instantiate(enemyData.bulletObj, shotObj.transform.position, Quaternion.identity);
+            GameObject bullets = Instantiate(BulletObj, shotObj.transform.position, Quaternion.identity);
 
             Bullet reflectionBullet = bullets.GetComponent<Bullet>();
             
-            reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
+            reflectionBullet.SetStraightPowerEnemy(StraightObj.transform.rotation.eulerAngles);
             
             PlayAttckSound();
             //蜂頭を元の方向に戻す
@@ -275,23 +277,21 @@ public class MoveBoss : EnemyAI
             case Patterns.none:
                 break;
             case Patterns.pattern1:
-                enemyData.bulletRate = bulletRate1_2;
-                Debug.Log(enemyData.bulletRate);
+                ChangeBulletRate(bulletRate1_2);
                 stateMachine.ChangeState(new RightVerticalMove(this));
                 animator.SetTrigger("MoveRight");
                 break;
             case Patterns.pattern2:
-                enemyData.bulletRate = bulletRate1_2;
-                Debug.Log(enemyData.bulletRate);
+                ChangeBulletRate(bulletRate1_2);
                 stateMachine.ChangeState(new LeftVerticalMove(this));
                 animator.SetTrigger("MoveLeft");
                 break;
             case Patterns.pattern3:
-                enemyData.bulletRate = bulletRate3_4;
+                ChangeBulletRate(bulletRate3_4);
                 stateMachine.ChangeState(new UpHorizontalMove(this));
                 break;
             case Patterns.pattern4:
-                enemyData.bulletRate = bulletRate3_4;
+                ChangeBulletRate(bulletRate3_4);
                 stateMachine.ChangeState(new DownHorizontalMove(this));
                 
                 break;
@@ -345,7 +345,7 @@ public class MoveBoss : EnemyAI
         }
         else
         {
-            if (hp <= changeHP)
+            if (Hp <= changeHP)
             {
                 patten5Flag = true;
                 ChangePattern(Patterns.pattern5);

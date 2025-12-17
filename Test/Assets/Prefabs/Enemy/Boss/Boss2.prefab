@@ -102,8 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6292ed41b070a40a665ce7ceee3cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 814a6c3d13e837748afc0956b3555fe2, type: 2}
-  hp: 100
+  excelData: {fileID: 0}
   moveObj: {fileID: 4769372897256545517}
   playerLookObj: {fileID: 371008759041216445}
   rotateAxis: {fileID: 0}
@@ -114,6 +113,8 @@ MonoBehaviour:
   enemySpawnManager: {fileID: 0}
   deathEffectPrefab: {fileID: 7380536490815638982}
   damageEffectPrefab: {fileID: 8700488866718887438}
+  soundData: {fileID: 0}
+  bulletObj: {fileID: 0}
   pattern: 0
   isAttack: 0
   flontZPos: 0
@@ -649,8 +650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6292ed41b070a40a665ce7ceee3cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 814a6c3d13e837748afc0956b3555fe2, type: 2}
-  hp: 0
+  excelData: {fileID: 11400000, guid: 2d43465508f67774485093a63d61a9ef, type: 2}
   moveObj: {fileID: 0}
   playerLookObj: {fileID: 0}
   rotateAxis: {fileID: 0}
@@ -661,6 +661,8 @@ MonoBehaviour:
   enemySpawnManager: {fileID: 0}
   deathEffectPrefab: {fileID: 7380536490815638982}
   damageEffectPrefab: {fileID: 8700488866718887438}
+  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
+  bulletObj: {fileID: 0}
   pattern: 0
   isAttack: 0
   flontZPos: 0

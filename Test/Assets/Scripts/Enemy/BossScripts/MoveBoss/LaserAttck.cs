@@ -34,7 +34,7 @@ public class LaserAttck : MonoBehaviour,IState
         is360Rotate = true;
         moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
         moveCounter = 0;
-        moveEnemy = enemyAI.moveObj;
+        moveEnemy = enemyAI.MoveObj;
         enemyAI.StopAttack();
         t = 0f;
         Initialization();
@@ -42,10 +42,10 @@ public class LaserAttck : MonoBehaviour,IState
         finishRotating = false;
         isCoolTime = true;
 
-        centerPos = enemyAI.centerPos;
+        centerPos = enemyAI.CenterPos;
         startPos = moveEnemy.transform.position;
         
-        rotateAxis = enemyAI.rotateAxis;
+        rotateAxis = enemyAI.RotateAxis;
         rotateAxisRotate = new Vector3(0, 0, 0);
         angleZ90 = 90f / moveBoss.Rotate90PerSec;
         //ランダムで回転方向を決める
@@ -105,7 +105,7 @@ public class LaserAttck : MonoBehaviour,IState
         {
             case 0:
                 //Move(moveBoss.CenterPos,moveBoss.MoveTime);
-                if (enemyAI.EnemyMove(moveEnemy, startPos, centerPos, enemyAI.enemyData.moveVerticalTime, startTime) ==
+                if (enemyAI.EnemyMove(moveEnemy, startPos, centerPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].verticalTime, startTime) ==
                     true)
                 {
                     NextMove();
@@ -114,7 +114,7 @@ public class LaserAttck : MonoBehaviour,IState
                 if (finishRotating != true)
                 {
                     finishRotating = Rotate(rotateAxis, rotateAxisRotate, angleZ,
-                        enemyAI.enemyData.rotateTime, ref t);
+                        enemyAI.ExcelData.Enemy[enemyAI.DataNumber].rotateTime, ref t);
                 }
                 FinishCheck();
                 break;
@@ -194,7 +194,7 @@ public class LaserAttck : MonoBehaviour,IState
         if (isCoolTime == true)
         {
             float diff = Time.time - startTime;
-            if (diff < enemyAI.enemyData.coolTime)
+            if (diff < enemyAI.ExcelData.Enemy[enemyAI.DataNumber].coolTime)
             {
                 //Debug.Log("クールタイム中");
                 return isCoolTime;

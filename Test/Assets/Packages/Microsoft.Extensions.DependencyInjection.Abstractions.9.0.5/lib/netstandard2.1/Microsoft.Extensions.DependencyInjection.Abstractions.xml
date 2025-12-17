@@ -11,19 +11,19 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance(System.IServiceProvider,System.Type,System.Object[])">
             <summary>
-            Instantiates a type with constructor arguments provided directly and/or from an <see cref="T:System.IServiceProvider"/>.
+            Instantiates a enemyType with constructor arguments provided directly and/or from an <see cref="T:System.IServiceProvider"/>.
             </summary>
             <param name="provider">The service provider used to resolve dependencies.</param>
-            <param name="instanceType">The type to activate.</param>
+            <param name="instanceType">The enemyType to activate.</param>
             <param name="parameters">Constructor arguments not provided by the <paramref name="provider"/>.</param>
-            <returns>An activated object of type instanceType.</returns>
+            <returns>An activated object of enemyType instanceType.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory(System.Type,System.Type[])">
             <summary>
-            Creates a delegate that will instantiate a type with constructor arguments provided directly
+            Creates a delegate that will instantiate a enemyType with constructor arguments provided directly
             and/or from an <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <param name="instanceType">The type to activate.</param>
+            <param name="instanceType">The enemyType to activate.</param>
             <param name="argumentTypes">
             The types of objects, in order, that will be passed to the returned function as its second parameter.
             </param>
@@ -34,46 +34,46 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory``1(System.Type[])">
             <summary>
-            Create a delegate that will instantiate a type with constructor arguments provided directly
+            Create a delegate that will instantiate a enemyType with constructor arguments provided directly
             and/or from an <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <typeparam name="T">The type to activate</typeparam>
+            <typeparam name="T">The enemyType to activate</typeparam>
             <param name="argumentTypes">
             The types of objects, in order, that will be passed to the returned function as its second parameter
             </param>
             <returns>
-            A factory that will instantiate type T using an <see cref="T:System.IServiceProvider"/>
+            A factory that will instantiate enemyType T using an <see cref="T:System.IServiceProvider"/>
             and an argument array containing objects matching the types defined in argumentTypes
             </returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance``1(System.IServiceProvider,System.Object[])">
             <summary>
-            Instantiate a type with constructor arguments provided directly and/or from an <see cref="T:System.IServiceProvider"/>.
+            Instantiate a enemyType with constructor arguments provided directly and/or from an <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <typeparam name="T">The type to activate</typeparam>
+            <typeparam name="T">The enemyType to activate</typeparam>
             <param name="provider">The service provider used to resolve dependencies</param>
             <param name="parameters">Constructor arguments not provided by the <paramref name="provider"/>.</param>
-            <returns>An activated object of type T</returns>
+            <returns>An activated object of enemyType T</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetServiceOrCreateInstance``1(System.IServiceProvider)">
             <summary>
-            Retrieve an instance of the given type from the service provider. If one is not found then instantiate it directly.
+            Retrieve an instance of the given enemyType from the service provider. If one is not found then instantiate it directly.
             </summary>
-            <typeparam name="T">The type of the service.</typeparam>
+            <typeparam name="T">The enemyType of the service.</typeparam>
             <param name="provider">The service provider used to resolve dependencies.</param>
             <returns>The resolved service or created instance.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetServiceOrCreateInstance(System.IServiceProvider,System.Type)">
             <summary>
-            Retrieve an instance of the given type from the service provider. If one is not found then instantiate it directly.
+            Retrieve an instance of the given enemyType from the service provider. If one is not found then instantiate it directly.
             </summary>
             <param name="provider">The service provider.</param>
-            <param name="type">The type of the service.</param>
+            <param name="enemyType">The enemyType of the service.</param>
             <returns>The resolved service or created instance.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ActivatorUtilitiesConstructorAttribute">
             <summary>
-            Marks the constructor to be used when activating type using <see cref="T:Microsoft.Extensions.DependencyInjection.ActivatorUtilities"/>.
+            Marks the constructor to be used when activating enemyType using <see cref="T:Microsoft.Extensions.DependencyInjection.ActivatorUtilities"/>.
             </summary>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.AsyncServiceScope">
@@ -121,7 +121,7 @@
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAdd(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceDescriptor)">
             <summary>
             Adds the specified <paramref name="descriptor"/> to the <paramref name="collection"/> if the
-            service type hasn't already been registered.
+            service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="descriptor">The <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/> to add.</param>
@@ -129,7 +129,7 @@
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAdd(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Collections.Generic.IEnumerable{Microsoft.Extensions.DependencyInjection.ServiceDescriptor})">
             <summary>
             Adds the specified <paramref name="descriptors"/> to the <paramref name="collection"/> if the
-            service type hasn't already been registered.
+            service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="descriptors">The <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>s to add.</param>
@@ -137,168 +137,168 @@
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Type)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
             with the <paramref name="implementationType"/> implementation
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="service">The enemyType of the service to register.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Func{System.IServiceProvider,System.Object})">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
-            implementation type specified in <typeparamref name="TImplementation"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            implementation enemyType specified in <typeparamref name="TImplementation"/>
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="services"/> if the service type hasn't already been registered.
+            to the <paramref name="services"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Type)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
             with the <paramref name="implementationType"/> implementation
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="service">The enemyType of the service to register.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Func{System.IServiceProvider,System.Object})">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddScoped``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddScoped``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
-            implementation type specified in <typeparamref name="TImplementation"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            implementation enemyType specified in <typeparamref name="TImplementation"/>
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddScoped``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="services"/> if the service type hasn't already been registered.
+            to the <paramref name="services"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Type)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
             with the <paramref name="implementationType"/> implementation
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="service">The enemyType of the service to register.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Func{System.IServiceProvider,System.Object})">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
-            implementation type specified in <typeparamref name="TImplementation"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            implementation enemyType specified in <typeparamref name="TImplementation"/>
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddSingleton``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,``0)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
             with an instance specified in <paramref name="instance"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="instance">The instance of the service to add.</param>
         </member>
@@ -306,9 +306,9 @@
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="services"/> if the service type hasn't already been registered.
+            to the <paramref name="services"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
         </member>
@@ -322,8 +322,8 @@
             <param name="descriptor">The <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</param>
             <remarks>
             Use <see cref="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddEnumerable(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceDescriptor)"/> when registering a service implementation of a
-            service type that
-            supports multiple registrations of the same service type. Using
+            service enemyType that
+            supports multiple registrations of the same service enemyType. Using
             <see cref="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.Add(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceDescriptor)"/> is not idempotent and can add
             duplicate
             <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/> instances if called twice. Using
@@ -341,8 +341,8 @@
             <param name="descriptors">The <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>s.</param>
             <remarks>
             Use <see cref="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddEnumerable(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceDescriptor)"/> when registering a service
-            implementation of a service type that
-            supports multiple registrations of the same service type. Using
+            implementation of a service enemyType that
+            supports multiple registrations of the same service enemyType. Using
             <see cref="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.Add(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceDescriptor)"/> is not idempotent and can add
             duplicate
             <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/> instances if called twice. Using
@@ -352,7 +352,7 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.Replace(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceDescriptor)">
             <summary>
-            Removes the first service in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> with the same service type
+            Removes the first service in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> with the same service enemyType
             as <paramref name="descriptor"/> and adds <paramref name="descriptor"/> to the collection.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
@@ -361,67 +361,67 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.RemoveAll``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Removes all services of type <typeparamref name="T"/> in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            Removes all services of enemyType <typeparamref name="T"/> in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> for chaining.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.RemoveAll(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
             <summary>
-            Removes all services of type <paramref name="serviceType"/> in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            Removes all services of enemyType <paramref name="serviceType"/> in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="serviceType">The service type to remove.</param>
+            <param name="serviceType">The service enemyType to remove.</param>
             <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> for chaining.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="serviceKey">The service key.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Type)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
             with the <paramref name="implementationType"/> implementation
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="serviceKey">The service key.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Func{System.IServiceProvider,System.Object,System.Object})">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="serviceKey">The service key.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedTransient``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="serviceKey">The service key.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedTransient``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
-            implementation type specified in <typeparamref name="TImplementation"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            implementation enemyType specified in <typeparamref name="TImplementation"/>
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="serviceKey">The service key.</param>
         </member>
@@ -429,9 +429,9 @@
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="services"/> if the service type hasn't already been registered.
+            to the <paramref name="services"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="serviceKey">The service key.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
@@ -439,51 +439,51 @@
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="serviceKey">The service key.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Type)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
             with the <paramref name="implementationType"/> implementation
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="serviceKey">The service key.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Func{System.IServiceProvider,System.Object,System.Object})">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="serviceKey">The service key.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedScoped``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="serviceKey">The service key.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedScoped``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
-            implementation type specified in <typeparamref name="TImplementation"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            implementation enemyType specified in <typeparamref name="TImplementation"/>
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="serviceKey">The service key.</param>
         </member>
@@ -491,9 +491,9 @@
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="services"/> if the service type hasn't already been registered.
+            to the <paramref name="services"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <param name="serviceKey">The service key.</param>
@@ -501,51 +501,51 @@
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="serviceKey">The service key.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Type)">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
             with the <paramref name="implementationType"/> implementation
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="serviceKey">The service key.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Func{System.IServiceProvider,System.Object,System.Object})">
             <summary>
             Adds the specified <paramref name="service"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="service">The type of the service to register.</param>
+            <param name="service">The enemyType of the service to register.</param>
             <param name="serviceKey">The service key.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedSingleton``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="serviceKey">The service key.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddKeyedSingleton``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
-            implementation type specified in <typeparamref name="TImplementation"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            implementation enemyType specified in <typeparamref name="TImplementation"/>
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="serviceKey">The service key.</param>
         </member>
@@ -553,9 +553,9 @@
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
             with an instance specified in <paramref name="instance"/>
-            to the <paramref name="collection"/> if the service type hasn't already been registered.
+            to the <paramref name="collection"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="serviceKey">The service key.</param>
             <param name="instance">The instance of the service to add.</param>
@@ -564,16 +564,16 @@
             <summary>
             Adds the specified <typeparamref name="TService"/> as a <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> service
             using the factory specified in <paramref name="implementationFactory"/>
-            to the <paramref name="services"/> if the service type hasn't already been registered.
+            to the <paramref name="services"/> if the service enemyType hasn't already been registered.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="serviceKey">The service key.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.RemoveAllKeyed``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
-            Removes all services of type <typeparamref name="T"/> in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            Removes all services of enemyType <typeparamref name="T"/> in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
             <param name="serviceKey">The service key.</param>
@@ -581,10 +581,10 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.RemoveAllKeyed(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object)">
             <summary>
-            Removes all services of type <paramref name="serviceType"/> in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            Removes all services of enemyType <paramref name="serviceType"/> in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="collection">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.</param>
-            <param name="serviceType">The service type to remove.</param>
+            <param name="serviceType">The service enemyType to remove.</param>
             <param name="serviceKey">The service key.</param>
             <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> for chaining.</returns>
         </member>
@@ -606,27 +606,27 @@
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.IKeyedServiceProvider">
             <summary>
-            Retrieves services using a key and a type.
+            Retrieves services using a key and a enemyType.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.IKeyedServiceProvider.GetKeyedService(System.Type,System.Object)">
             <summary>
-            Gets the service object of the specified type.
+            Gets the service object of the specified enemyType.
             </summary>
-            <param name="serviceType">An object that specifies the type of service object to get.</param>
+            <param name="serviceType">An object that specifies the enemyType of service object to get.</param>
             <param name="serviceKey">An object that specifies the key of service object to get.</param>
-            <returns><para>A service object of type <paramref name="serviceType"/>.</para>
+            <returns><para>A service object of enemyType <paramref name="serviceType"/>.</para>
             <para>-or-</para>
-            <para><see langword="null"/> if there is no service object of type <paramref name="serviceType"/>.</para></returns>
+            <para><see langword="null"/> if there is no service object of enemyType <paramref name="serviceType"/>.</para></returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.IKeyedServiceProvider.GetRequiredKeyedService(System.Type,System.Object)">
             <summary>
-            Gets service of type <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/> implementing
+            Gets service of enemyType <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/> implementing
             this interface.
             </summary>
-            <param name="serviceType">An object that specifies the type of service object to get.</param>
+            <param name="serviceType">An object that specifies the enemyType of service object to get.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
-            <returns>A service object of type <paramref name="serviceType"/>.
+            <returns>A service object of enemyType <paramref name="serviceType"/>.
             Throws an exception if the <see cref="T:System.IServiceProvider"/> cannot create the object.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.KeyedService">
@@ -665,29 +665,29 @@
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.IServiceProviderIsKeyedService">
             <summary>
-            Provides methods to determine if the specified type with the specified service key is available
+            Provides methods to determine if the specified enemyType with the specified service key is available
             from the <see cref="T:System.IServiceProvider"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.IServiceProviderIsKeyedService.IsKeyedService(System.Type,System.Object)">
             <summary>
-            Determines if the specified service type with the specified service key is available from the
+            Determines if the specified service enemyType with the specified service key is available from the
             <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <param name="serviceType">An object that specifies the type of service object to test.</param>
+            <param name="serviceType">An object that specifies the enemyType of service object to test.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>true if the specified service is a available, false if it is not.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.IServiceProviderIsService">
             <summary>
-            Provides methods to determine if the specified type is available from the <see cref="T:System.IServiceProvider"/>.
+            Provides methods to determine if the specified enemyType is available from the <see cref="T:System.IServiceProvider"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.IServiceProviderIsService.IsService(System.Type)">
             <summary>
-            Determines if the specified service type is available from the <see cref="T:System.IServiceProvider"/>.
+            Determines if the specified service enemyType is available from the <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <param name="serviceType">An object that specifies the type of service object to test.</param>
+            <param name="serviceType">An object that specifies the enemyType of service object to test.</param>
             <returns>true if the specified service is a available, false if it is not.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.IServiceScope">
@@ -733,11 +733,11 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ISupportRequiredService.GetRequiredService(System.Type)">
             <summary>
-            Gets service of type <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/> implementing
+            Gets service of enemyType <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/> implementing
             this interface.
             </summary>
-            <param name="serviceType">An object that specifies the type of service object to get.</param>
-            <returns>A service object of type <paramref name="serviceType"/>.
+            <param name="serviceType">An object that specifies the enemyType of service object to get.</param>
+            <returns>A service object of enemyType <paramref name="serviceType"/>.
             Throws an exception if the <see cref="T:System.IServiceProvider"/> cannot create the object.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ObjectFactory">
@@ -746,16 +746,16 @@
             </summary>
             <param name="serviceProvider">The <see cref="T:System.IServiceProvider"/> to get service arguments from.</param>
             <param name="arguments">Additional constructor arguments.</param>
-            <returns>The instantiated type.</returns>
+            <returns>The instantiated enemyType.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ObjectFactory`1">
             <summary>
-            Returns the result of <see cref="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory``1(System.Type[])" />, which is a delegate that specifies a factory method to call to instantiate an instance of type <typeparamref name="T" />.
+            Returns the result of <see cref="M:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateFactory``1(System.Type[])" />, which is a delegate that specifies a factory method to call to instantiate an instance of enemyType <typeparamref name="T" />.
             </summary>
-            <typeparam name="T">The type of the instance that's returned.</typeparam>
+            <typeparam name="T">The enemyType of the instance that's returned.</typeparam>
             <param name="serviceProvider">The <see cref="T:System.IServiceProvider"/> to get service arguments from.</param>
             <param name="arguments">Additional constructor arguments.</param>
-            <returns>An instance of type <typeparamref name="T" />.</returns>
+            <returns>An instance of enemyType <typeparamref name="T" />.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ServiceCollection">
             <summary>
@@ -813,67 +813,67 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Type)">
             <summary>
-            Adds a transient service of the type specified in <paramref name="serviceType"/> with an
-            implementation of the type specified in <paramref name="implementationType"/> to the
+            Adds a transient service of the enemyType specified in <paramref name="serviceType"/> with an
+            implementation of the enemyType specified in <paramref name="implementationType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Func{System.IServiceProvider,System.Object})">
             <summary>
-            Adds a transient service of the type specified in <paramref name="serviceType"/> with a
+            Adds a transient service of the enemyType specified in <paramref name="serviceType"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Adds a transient service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation"/> to the
+            Adds a transient service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
             <summary>
-            Adds a transient service of the type specified in <paramref name="serviceType"/> to the
+            Adds a transient service of the enemyType specified in <paramref name="serviceType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register and the implementation to use.</param>
+            <param name="serviceType">The enemyType of the service to register and the implementation to use.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Adds a transient service of the type specified in <typeparamref name="TService"/> to the
+            Adds a transient service of the enemyType specified in <typeparamref name="TService"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
             <summary>
-            Adds a transient service of the type specified in <typeparamref name="TService"/> with a
+            Adds a transient service of the enemyType specified in <typeparamref name="TService"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -881,13 +881,13 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddTransient``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``1})">
             <summary>
-            Adds a transient service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation" /> using the
+            Adds a transient service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation" /> using the
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -895,67 +895,67 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Type)">
             <summary>
-            Adds a scoped service of the type specified in <paramref name="serviceType"/> with an
-            implementation of the type specified in <paramref name="implementationType"/> to the
+            Adds a scoped service of the enemyType specified in <paramref name="serviceType"/> with an
+            implementation of the enemyType specified in <paramref name="implementationType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Func{System.IServiceProvider,System.Object})">
             <summary>
-            Adds a scoped service of the type specified in <paramref name="serviceType"/> with a
+            Adds a scoped service of the enemyType specified in <paramref name="serviceType"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Adds a scoped service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation"/> to the
+            Adds a scoped service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
             <summary>
-            Adds a scoped service of the type specified in <paramref name="serviceType"/> to the
+            Adds a scoped service of the enemyType specified in <paramref name="serviceType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register and the implementation to use.</param>
+            <param name="serviceType">The enemyType of the service to register and the implementation to use.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Adds a scoped service of the type specified in <typeparamref name="TService"/> to the
+            Adds a scoped service of the enemyType specified in <typeparamref name="TService"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
             <summary>
-            Adds a scoped service of the type specified in <typeparamref name="TService"/> with a
+            Adds a scoped service of the enemyType specified in <typeparamref name="TService"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -963,13 +963,13 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``1})">
             <summary>
-            Adds a scoped service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation" /> using the
+            Adds a scoped service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation" /> using the
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -977,67 +977,67 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Type)">
             <summary>
-            Adds a singleton service of the type specified in <paramref name="serviceType"/> with an
-            implementation of the type specified in <paramref name="implementationType"/> to the
+            Adds a singleton service of the enemyType specified in <paramref name="serviceType"/> with an
+            implementation of the enemyType specified in <paramref name="implementationType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Func{System.IServiceProvider,System.Object})">
             <summary>
-            Adds a singleton service of the type specified in <paramref name="serviceType"/> with a
+            Adds a singleton service of the enemyType specified in <paramref name="serviceType"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Adds a singleton service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation"/> to the
+            Adds a singleton service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
             <summary>
-            Adds a singleton service of the type specified in <paramref name="serviceType"/> to the
+            Adds a singleton service of the enemyType specified in <paramref name="serviceType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register and the implementation to use.</param>
+            <param name="serviceType">The enemyType of the service to register and the implementation to use.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Adds a singleton service of the type specified in <typeparamref name="TService"/> to the
+            Adds a singleton service of the enemyType specified in <typeparamref name="TService"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``0})">
             <summary>
-            Adds a singleton service of the type specified in <typeparamref name="TService"/> with a
+            Adds a singleton service of the enemyType specified in <typeparamref name="TService"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1045,13 +1045,13 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{System.IServiceProvider,``1})">
             <summary>
-            Adds a singleton service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation" /> using the
+            Adds a singleton service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation" /> using the
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1059,19 +1059,19 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object)">
             <summary>
-            Adds a singleton service of the type specified in <paramref name="serviceType"/> with an
+            Adds a singleton service of the enemyType specified in <paramref name="serviceType"/> with an
             instance specified in <paramref name="implementationInstance"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="implementationInstance">The instance of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,``0)">
             <summary>
-            Adds a singleton service of the type specified in <typeparamref name="TService" /> with an
+            Adds a singleton service of the enemyType specified in <typeparamref name="TService" /> with an
             instance specified in <paramref name="implementationInstance"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
@@ -1082,25 +1082,25 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Type)">
             <summary>
-            Adds a transient service of the type specified in <paramref name="serviceType"/> with an
-            implementation of the type specified in <paramref name="implementationType"/> to the
+            Adds a transient service of the enemyType specified in <paramref name="serviceType"/> with an
+            implementation of the enemyType specified in <paramref name="implementationType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Func{System.IServiceProvider,System.Object,System.Object})">
             <summary>
-            Adds a transient service of the type specified in <paramref name="serviceType"/> with a
+            Adds a transient service of the enemyType specified in <paramref name="serviceType"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1108,12 +1108,12 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedTransient``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
-            Adds a transient service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation"/> to the
+            Adds a transient service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1121,21 +1121,21 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedTransient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object)">
             <summary>
-            Adds a transient service of the type specified in <paramref name="serviceType"/> to the
+            Adds a transient service of the enemyType specified in <paramref name="serviceType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register and the implementation to use.</param>
+            <param name="serviceType">The enemyType of the service to register and the implementation to use.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedTransient``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
-            Adds a transient service of the type specified in <typeparamref name="TService"/> to the
+            Adds a transient service of the enemyType specified in <typeparamref name="TService"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1143,11 +1143,11 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedTransient``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object,System.Func{System.IServiceProvider,System.Object,``0})">
             <summary>
-            Adds a transient service of the type specified in <typeparamref name="TService"/> with a
+            Adds a transient service of the enemyType specified in <typeparamref name="TService"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
@@ -1156,13 +1156,13 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedTransient``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object,System.Func{System.IServiceProvider,System.Object,``1})">
             <summary>
-            Adds a transient service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation" /> using the
+            Adds a transient service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation" /> using the
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
@@ -1171,25 +1171,25 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Type)">
             <summary>
-            Adds a scoped service of the type specified in <paramref name="serviceType"/> with an
-            implementation of the type specified in <paramref name="implementationType"/> to the
+            Adds a scoped service of the enemyType specified in <paramref name="serviceType"/> with an
+            implementation of the enemyType specified in <paramref name="implementationType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Func{System.IServiceProvider,System.Object,System.Object})">
             <summary>
-            Adds a scoped service of the type specified in <paramref name="serviceType"/> with a
+            Adds a scoped service of the enemyType specified in <paramref name="serviceType"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1197,12 +1197,12 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedScoped``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
-            Adds a scoped service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation"/> to the
+            Adds a scoped service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1210,21 +1210,21 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedScoped(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object)">
             <summary>
-            Adds a scoped service of the type specified in <paramref name="serviceType"/> to the
+            Adds a scoped service of the enemyType specified in <paramref name="serviceType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register and the implementation to use.</param>
+            <param name="serviceType">The enemyType of the service to register and the implementation to use.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedScoped``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
-            Adds a scoped service of the type specified in <typeparamref name="TService"/> to the
+            Adds a scoped service of the enemyType specified in <typeparamref name="TService"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1232,11 +1232,11 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedScoped``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object,System.Func{System.IServiceProvider,System.Object,``0})">
             <summary>
-            Adds a scoped service of the type specified in <typeparamref name="TService"/> with a
+            Adds a scoped service of the enemyType specified in <typeparamref name="TService"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
@@ -1245,13 +1245,13 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedScoped``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object,System.Func{System.IServiceProvider,System.Object,``1})">
             <summary>
-            Adds a scoped service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation" /> using the
+            Adds a scoped service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation" /> using the
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
@@ -1260,25 +1260,25 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Type)">
             <summary>
-            Adds a singleton service of the type specified in <paramref name="serviceType"/> with an
-            implementation of the type specified in <paramref name="implementationType"/> to the
+            Adds a singleton service of the enemyType specified in <paramref name="serviceType"/> with an
+            implementation of the enemyType specified in <paramref name="implementationType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
-            <param name="implementationType">The implementation type of the service.</param>
+            <param name="implementationType">The implementation enemyType of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Func{System.IServiceProvider,System.Object,System.Object})">
             <summary>
-            Adds a singleton service of the type specified in <paramref name="serviceType"/> with a
+            Adds a singleton service of the enemyType specified in <paramref name="serviceType"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1286,12 +1286,12 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedSingleton``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
-            Adds a singleton service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation"/> to the
+            Adds a singleton service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1299,21 +1299,21 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object)">
             <summary>
-            Adds a singleton service of the type specified in <paramref name="serviceType"/> to the
+            Adds a singleton service of the enemyType specified in <paramref name="serviceType"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register and the implementation to use.</param>
+            <param name="serviceType">The enemyType of the service to register and the implementation to use.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
             <seealso cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedSingleton``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object)">
             <summary>
-            Adds a singleton service of the type specified in <typeparamref name="TService"/> to the
+            Adds a singleton service of the enemyType specified in <typeparamref name="TService"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1321,11 +1321,11 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedSingleton``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object,System.Func{System.IServiceProvider,System.Object,``0})">
             <summary>
-            Adds a singleton service of the type specified in <typeparamref name="TService"/> with a
+            Adds a singleton service of the enemyType specified in <typeparamref name="TService"/> with a
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
@@ -1334,13 +1334,13 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedSingleton``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object,System.Func{System.IServiceProvider,System.Object,``1})">
             <summary>
-            Adds a singleton service of the type specified in <typeparamref name="TService"/> with an
-            implementation type specified in <typeparamref name="TImplementation" /> using the
+            Adds a singleton service of the enemyType specified in <typeparamref name="TService"/> with an
+            implementation enemyType specified in <typeparamref name="TImplementation" /> using the
             factory specified in <paramref name="implementationFactory"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
-            <typeparam name="TService">The type of the service to add.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation to use.</typeparam>
+            <typeparam name="TService">The enemyType of the service to add.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation to use.</typeparam>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">The factory that creates the service.</param>
@@ -1349,12 +1349,12 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedSingleton(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type,System.Object,System.Object)">
             <summary>
-            Adds a singleton service of the type specified in <paramref name="serviceType"/> with an
+            Adds a singleton service of the enemyType specified in <paramref name="serviceType"/> with an
             instance specified in <paramref name="implementationInstance"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
             <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the service to.</param>
-            <param name="serviceType">The type of the service to register.</param>
+            <param name="serviceType">The enemyType of the service to register.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationInstance">The instance of the service.</param>
             <returns>A reference to this instance after the operation has completed.</returns>
@@ -1362,7 +1362,7 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddKeyedSingleton``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Object,``0)">
             <summary>
-            Adds a singleton service of the type specified in <typeparamref name="TService" /> with an
+            Adds a singleton service of the enemyType specified in <typeparamref name="TService" /> with an
             instance specified in <paramref name="implementationInstance"/> to the
             specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
             </summary>
@@ -1374,7 +1374,7 @@
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor">
             <summary>
-            Describes a service with its service type, implementation, and lifetime.
+            Describes a service with its service enemyType, implementation, and lifetime.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.#ctor(System.Type,System.Type,Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
@@ -1511,8 +1511,8 @@
             <typeparamref name="TService"/>, <typeparamref name="TImplementation"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedTransient``2(System.Object)">
@@ -1521,8 +1521,8 @@
             <typeparamref name="TService"/>, <typeparamref name="TImplementation"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1532,8 +1532,8 @@
             <paramref name="service"/> and <paramref name="implementationType"/>
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
-            <param name="service">The type of the service.</param>
-            <param name="implementationType">The type of the implementation.</param>
+            <param name="service">The enemyType of the service.</param>
+            <param name="implementationType">The enemyType of the implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedTransient(System.Type,System.Object,System.Type)">
@@ -1542,9 +1542,9 @@
             <paramref name="service"/> and <paramref name="implementationType"/>
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
-            <param name="service">The type of the service.</param>
+            <param name="service">The enemyType of the service.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
-            <param name="implementationType">The type of the implementation.</param>
+            <param name="implementationType">The enemyType of the implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient``2(System.Func{System.IServiceProvider,``1})">
@@ -1554,8 +1554,8 @@
             <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1566,8 +1566,8 @@
             <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1578,7 +1578,7 @@
             <typeparamref name="TService"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1588,7 +1588,7 @@
             <typeparamref name="TService"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1599,7 +1599,7 @@
             <paramref name="service"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
-            <param name="service">The type of the service.</param>
+            <param name="service">The enemyType of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1609,7 +1609,7 @@
             <paramref name="service"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
-            <param name="service">The type of the service.</param>
+            <param name="service">The enemyType of the service.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1620,8 +1620,8 @@
             <typeparamref name="TService"/>, <typeparamref name="TImplementation"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedScoped``2(System.Object)">
@@ -1630,8 +1630,8 @@
             <typeparamref name="TService"/>, <typeparamref name="TImplementation"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1641,8 +1641,8 @@
             <paramref name="service"/> and <paramref name="implementationType"/>
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
             </summary>
-            <param name="service">The type of the service.</param>
-            <param name="implementationType">The type of the implementation.</param>
+            <param name="service">The enemyType of the service.</param>
+            <param name="implementationType">The enemyType of the implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedScoped(System.Type,System.Object,System.Type)">
@@ -1651,9 +1651,9 @@
             <paramref name="service"/> and <paramref name="implementationType"/>
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
             </summary>
-            <param name="service">The type of the service.</param>
+            <param name="service">The enemyType of the service.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
-            <param name="implementationType">The type of the implementation.</param>
+            <param name="implementationType">The enemyType of the implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped``2(System.Func{System.IServiceProvider,``1})">
@@ -1663,8 +1663,8 @@
             <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1675,8 +1675,8 @@
             <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1687,7 +1687,7 @@
             <typeparamref name="TService"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1697,7 +1697,7 @@
             <typeparamref name="TService"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1708,7 +1708,7 @@
             <paramref name="service"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
             </summary>
-            <param name="service">The type of the service.</param>
+            <param name="service">The enemyType of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1718,7 +1718,7 @@
             <paramref name="service"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
             </summary>
-            <param name="service">The type of the service.</param>
+            <param name="service">The enemyType of the service.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1729,8 +1729,8 @@
             <typeparamref name="TService"/>, <typeparamref name="TImplementation"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedSingleton``2(System.Object)">
@@ -1739,8 +1739,8 @@
             <typeparamref name="TService"/>, <typeparamref name="TImplementation"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1750,8 +1750,8 @@
             <paramref name="service"/> and <paramref name="implementationType"/>
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <param name="service">The type of the service.</param>
-            <param name="implementationType">The type of the implementation.</param>
+            <param name="service">The enemyType of the service.</param>
+            <param name="implementationType">The enemyType of the implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.KeyedSingleton(System.Type,System.Object,System.Type)">
@@ -1760,9 +1760,9 @@
             <paramref name="service"/> and <paramref name="implementationType"/>
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <param name="service">The type of the service.</param>
+            <param name="service">The enemyType of the service.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
-            <param name="implementationType">The type of the implementation.</param>
+            <param name="implementationType">The enemyType of the implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton``2(System.Func{System.IServiceProvider,``1})">
@@ -1772,8 +1772,8 @@
             <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1784,8 +1784,8 @@
             <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
-            <typeparam name="TImplementation">The type of the implementation.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
+            <typeparam name="TImplementation">The enemyType of the implementation.</typeparam>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1796,7 +1796,7 @@
             <typeparamref name="TService"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1806,7 +1806,7 @@
             <typeparamref name="TService"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1817,7 +1817,7 @@
             <paramref name="serviceType"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <param name="serviceType">The type of the service.</param>
+            <param name="serviceType">The enemyType of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1827,7 +1827,7 @@
             <paramref name="serviceType"/>, <paramref name="implementationFactory"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <param name="serviceType">The type of the service.</param>
+            <param name="serviceType">The enemyType of the service.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1838,7 +1838,7 @@
             <typeparamref name="TService"/>, <paramref name="implementationInstance"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
             <param name="implementationInstance">The instance of the implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1848,7 +1848,7 @@
             <typeparamref name="TService"/>, <paramref name="implementationInstance"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <typeparam name="TService">The type of the service.</typeparam>
+            <typeparam name="TService">The enemyType of the service.</typeparam>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationInstance">The instance of the implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1859,7 +1859,7 @@
             <paramref name="serviceType"/>, <paramref name="implementationInstance"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <param name="serviceType">The type of the service.</param>
+            <param name="serviceType">The enemyType of the service.</param>
             <param name="implementationInstance">The instance of the implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1869,7 +1869,7 @@
             <paramref name="serviceType"/>, <paramref name="implementationInstance"/>,
             and the <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
             </summary>
-            <param name="serviceType">The type of the service.</param>
+            <param name="serviceType">The enemyType of the service.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationInstance">The instance of the implementation.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1880,8 +1880,8 @@
             <paramref name="serviceType"/>, <paramref name="implementationType"/>,
             and <paramref name="lifetime"/>.
             </summary>
-            <param name="serviceType">The type of the service.</param>
-            <param name="implementationType">The type of the implementation.</param>
+            <param name="serviceType">The enemyType of the service.</param>
+            <param name="implementationType">The enemyType of the implementation.</param>
             <param name="lifetime">The lifetime of the service.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1891,9 +1891,9 @@
             <paramref name="serviceType"/>, <paramref name="implementationType"/>,
             and <paramref name="lifetime"/>.
             </summary>
-            <param name="serviceType">The type of the service.</param>
+            <param name="serviceType">The enemyType of the service.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
-            <param name="implementationType">The type of the implementation.</param>
+            <param name="implementationType">The enemyType of the implementation.</param>
             <param name="lifetime">The lifetime of the service.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
         </member>
@@ -1903,7 +1903,7 @@
             <paramref name="serviceType"/>, <paramref name="implementationFactory"/>,
             and <paramref name="lifetime"/>.
             </summary>
-            <param name="serviceType">The type of the service.</param>
+            <param name="serviceType">The enemyType of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <param name="lifetime">The lifetime of the service.</param>
             <returns>A new instance of <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>.</returns>
@@ -1914,7 +1914,7 @@
             <paramref name="serviceType"/>, <paramref name="implementationFactory"/>,
             and <paramref name="lifetime"/>.
             </summary>
-            <param name="serviceType">The type of the service.</param>
+            <param name="serviceType">The enemyType of the service.</param>
             <param name="serviceKey">The <see cref="P:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.ServiceKey"/> of the service.</param>
             <param name="implementationFactory">A factory to create new instances of the service implementation.</param>
             <param name="lifetime">The lifetime of the service.</param>
@@ -1955,50 +1955,50 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderKeyedServiceExtensions.GetKeyedService``1(System.IServiceProvider,System.Object)">
             <summary>
-            Get service of type <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
+            Get service of enemyType <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <typeparam name="T">The type of service object to get.</typeparam>
+            <typeparam name="T">The enemyType of service object to get.</typeparam>
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the service object from.</param>
             <param name="serviceKey">An object that specifies the key of service object to get.</param>
-            <returns>A service object of type <typeparamref name="T"/> or null if there is no such service.</returns>
+            <returns>A service object of enemyType <typeparamref name="T"/> or null if there is no such service.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderKeyedServiceExtensions.GetRequiredKeyedService(System.IServiceProvider,System.Type,System.Object)">
             <summary>
-            Get service of type <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/>.
+            Get service of enemyType <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/>.
             </summary>
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the service object from.</param>
-            <param name="serviceType">An object that specifies the type of service object to get.</param>
+            <param name="serviceType">An object that specifies the enemyType of service object to get.</param>
             <param name="serviceKey">An object that specifies the key of service object to get.</param>
-            <returns>A service object of type <paramref name="serviceType"/>.</returns>
-            <exception cref="T:System.InvalidOperationException">There is no service of type <paramref name="serviceType"/>.</exception>
+            <returns>A service object of enemyType <paramref name="serviceType"/>.</returns>
+            <exception cref="T:System.InvalidOperationException">There is no service of enemyType <paramref name="serviceType"/>.</exception>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderKeyedServiceExtensions.GetRequiredKeyedService``1(System.IServiceProvider,System.Object)">
             <summary>
-            Get service of type <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
+            Get service of enemyType <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <typeparam name="T">The type of service object to get.</typeparam>
+            <typeparam name="T">The enemyType of service object to get.</typeparam>
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the service object from.</param>
             <param name="serviceKey">An object that specifies the key of service object to get.</param>
-            <returns>A service object of type <typeparamref name="T"/>.</returns>
-            <exception cref="T:System.InvalidOperationException">There is no service of type <typeparamref name="T"/>.</exception>
+            <returns>A service object of enemyType <typeparamref name="T"/>.</returns>
+            <exception cref="T:System.InvalidOperationException">There is no service of enemyType <typeparamref name="T"/>.</exception>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderKeyedServiceExtensions.GetKeyedServices``1(System.IServiceProvider,System.Object)">
             <summary>
-            Get an enumeration of services of type <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
+            Get an enumeration of services of enemyType <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <typeparam name="T">The type of service object to get.</typeparam>
+            <typeparam name="T">The enemyType of service object to get.</typeparam>
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the services from.</param>
             <param name="serviceKey">An object that specifies the key of service object to get.</param>
-            <returns>An enumeration of services of type <typeparamref name="T"/>.</returns>
+            <returns>An enumeration of services of enemyType <typeparamref name="T"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderKeyedServiceExtensions.GetKeyedServices(System.IServiceProvider,System.Type,System.Object)">
             <summary>
-            Get an enumeration of services of type <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/>.
+            Get an enumeration of services of enemyType <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/>.
             </summary>
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the services from.</param>
-            <param name="serviceType">An object that specifies the type of service object to get.</param>
+            <param name="serviceType">An object that specifies the enemyType of service object to get.</param>
             <param name="serviceKey">An object that specifies the key of service object to get.</param>
-            <returns>An enumeration of services of type <paramref name="serviceType"/>.</returns>
+            <returns>An enumeration of services of enemyType <paramref name="serviceType"/>.</returns>
         </member>
         <member name="T:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions">
             <summary>
@@ -2007,45 +2007,45 @@
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService``1(System.IServiceProvider)">
             <summary>
-            Get service of type <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
+            Get service of enemyType <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <typeparam name="T">The type of service object to get.</typeparam>
+            <typeparam name="T">The enemyType of service object to get.</typeparam>
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the service object from.</param>
-            <returns>A service object of type <typeparamref name="T"/> or null if there is no such service.</returns>
+            <returns>A service object of enemyType <typeparamref name="T"/> or null if there is no such service.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(System.IServiceProvider,System.Type)">
             <summary>
-            Get service of type <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/>.
+            Get service of enemyType <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/>.
             </summary>
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the service object from.</param>
-            <param name="serviceType">An object that specifies the type of service object to get.</param>
-            <returns>A service object of type <paramref name="serviceType"/>.</returns>
-            <exception cref="T:System.InvalidOperationException">There is no service of type <paramref name="serviceType"/>.</exception>
+            <param name="serviceType">An object that specifies the enemyType of service object to get.</param>
+            <returns>A service object of enemyType <paramref name="serviceType"/>.</returns>
+            <exception cref="T:System.InvalidOperationException">There is no service of enemyType <paramref name="serviceType"/>.</exception>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService``1(System.IServiceProvider)">
             <summary>
-            Get service of type <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
+            Get service of enemyType <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <typeparam name="T">The type of service object to get.</typeparam>
+            <typeparam name="T">The enemyType of service object to get.</typeparam>
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the service object from.</param>
-            <returns>A service object of type <typeparamref name="T"/>.</returns>
-            <exception cref="T:System.InvalidOperationException">There is no service of type <typeparamref name="T"/>.</exception>
+            <returns>A service object of enemyType <typeparamref name="T"/>.</returns>
+            <exception cref="T:System.InvalidOperationException">There is no service of enemyType <typeparamref name="T"/>.</exception>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetServices``1(System.IServiceProvider)">
             <summary>
-            Get an enumeration of services of type <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
+            Get an enumeration of services of enemyType <typeparamref name="T"/> from the <see cref="T:System.IServiceProvider"/>.
             </summary>
-            <typeparam name="T">The type of service object to get.</typeparam>
+            <typeparam name="T">The enemyType of service object to get.</typeparam>
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the services from.</param>
-            <returns>An enumeration of services of type <typeparamref name="T"/>.</returns>
+            <returns>An enumeration of services of enemyType <typeparamref name="T"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetServices(System.IServiceProvider,System.Type)">
             <summary>
-            Get an enumeration of services of type <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/>.
+            Get an enumeration of services of enemyType <paramref name="serviceType"/> from the <see cref="T:System.IServiceProvider"/>.
             </summary>
             <param name="provider">The <see cref="T:System.IServiceProvider"/> to retrieve the services from.</param>
-            <param name="serviceType">An object that specifies the type of service object to get.</param>
-            <returns>An enumeration of services of type <paramref name="serviceType"/>.</returns>
+            <param name="serviceType">An object that specifies the enemyType of service object to get.</param>
+            <returns>An enumeration of services of enemyType <paramref name="serviceType"/>.</returns>
         </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.CreateScope(System.IServiceProvider)">
             <summary>
@@ -2070,7 +2070,7 @@
         </member>
         <member name="M:System.ThrowHelper.ThrowIfNull(System.Object,System.String)">
             <summary>Throws an <see cref="T:System.ArgumentNullException"/> if <paramref name="argument"/> is null.</summary>
-            <param name="argument">The reference type argument to validate as non-null.</param>
+            <param name="argument">The reference enemyType argument to validate as non-null.</param>
             <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
         </member>
         <member name="M:System.ThrowHelper.IfNullOrWhitespace(System.String,System.String)">
@@ -2162,10 +2162,10 @@
              This allows tools to understand which members are being accessed during the execution
              of a program.
             
-             This attribute is valid on members whose type is <see cref="T:System.Type"/> or <see cref="T:System.String"/>.
+             This attribute is valid on members whose enemyType is <see cref="T:System.Type"/> or <see cref="T:System.String"/>.
             
-             When this attribute is applied to a location of type <see cref="T:System.String"/>, the assumption is
-             that the string represents a fully qualified type name.
+             When this attribute is applied to a location of enemyType <see cref="T:System.String"/>, the assumption is
+             that the string represents a fully qualified enemyType name.
             
              When this attribute is applied to a class, interface, or struct, the members specified
              can be accessed dynamically on <see cref="T:System.Type"/> instances returned from calling
@@ -2186,7 +2186,7 @@
         </member>
         <member name="P:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMembersAttribute.MemberTypes">
             <summary>
-            Gets the <see cref="T:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes"/> which specifies the type
+            Gets the <see cref="T:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes"/> which specifies the enemyType
             of members dynamically accessed.
             </summary>
         </member>
@@ -2270,7 +2270,7 @@
         </member>
         <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.Interfaces">
             <summary>
-            Specifies all interfaces implemented by the type.
+            Specifies all interfaces implemented by the enemyType.
             </summary>
         </member>
         <member name="F:System.Diagnostics.CodeAnalysis.DynamicallyAccessedMemberTypes.All">
@@ -2427,22 +2427,22 @@
             <summary>Gets field or property member names.</summary>
         </member>
         <member name="P:System.SR.AmbiguousConstructorMatch">
-            <summary>Multiple constructors accepting all given argument types have been found in type '{0}'. There should only be one applicable constructor.</summary>
+            <summary>Multiple constructors accepting all given argument types have been found in enemyType '{0}'. There should only be one applicable constructor.</summary>
         </member>
         <member name="P:System.SR.CannotResolveService">
-            <summary>Unable to resolve service for type '{0}' while attempting to activate '{1}'.</summary>
+            <summary>Unable to resolve service for enemyType '{0}' while attempting to activate '{1}'.</summary>
         </member>
         <member name="P:System.SR.NoConstructorMatch">
-            <summary>A suitable constructor for type '{0}' could not be located. Ensure the type is concrete and services are registered for all parameters of a public constructor.</summary>
+            <summary>A suitable constructor for enemyType '{0}' could not be located. Ensure the enemyType is concrete and services are registered for all parameters of a public constructor.</summary>
         </member>
         <member name="P:System.SR.NoServiceRegistered">
-            <summary>No service for type '{0}' has been registered.</summary>
+            <summary>No service for enemyType '{0}' has been registered.</summary>
         </member>
         <member name="P:System.SR.ServiceCollectionReadOnly">
             <summary>The service collection cannot be modified because it is read-only.</summary>
         </member>
         <member name="P:System.SR.TryAddIndistinguishableTypeToEnumerable">
-            <summary>Implementation type cannot be '{0}' because it is indistinguishable from other services registered for '{1}'.</summary>
+            <summary>Implementation enemyType cannot be '{0}' because it is indistinguishable from other services registered for '{1}'.</summary>
         </member>
         <member name="P:System.SR.MultipleCtorsMarkedWithAttribute">
             <summary>Multiple constructors were marked with {0}.</summary>
@@ -2454,16 +2454,16 @@
             <summary>Instances of abstract classes cannot be created.</summary>
         </member>
         <member name="P:System.SR.MultipleCtorsFoundWithBestLength">
-            <summary>Multiple constructors for type '{0}' were found with length {1}.</summary>
+            <summary>Multiple constructors for enemyType '{0}' were found with length {1}.</summary>
         </member>
         <member name="P:System.SR.UnableToResolveService">
-            <summary>Unable to resolve service for type '{0}' while attempting to activate '{1}'.</summary>
+            <summary>Unable to resolve service for enemyType '{0}' while attempting to activate '{1}'.</summary>
         </member>
         <member name="P:System.SR.CtorNotLocated">
-            <summary>A suitable constructor for type '{0}' could not be located. Ensure the type is concrete and all parameters of a public constructor are either registered as services or passed as arguments. Also ensure no extraneous arguments are provided.</summary>
+            <summary>A suitable constructor for enemyType '{0}' could not be located. Ensure the enemyType is concrete and all parameters of a public constructor are either registered as services or passed as arguments. Also ensure no extraneous arguments are provided.</summary>
         </member>
         <member name="P:System.SR.MultipleCtorsFound">
-            <summary>Multiple constructors accepting all given argument types have been found in type '{0}'. There should only be one applicable constructor.</summary>
+            <summary>Multiple constructors accepting all given argument types have been found in enemyType '{0}'. There should only be one applicable constructor.</summary>
         </member>
         <member name="P:System.SR.KeyedServicesNotSupported">
             <summary>This service provider doesn't support keyed services.</summary>

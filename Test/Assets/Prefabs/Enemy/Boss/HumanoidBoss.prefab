@@ -1854,8 +1854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 583c807e5ffb2f44a959755606ef0e16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: e226b28164aa5f0499afc2bfe5043738, type: 2}
-  hp: 0
+  excelData: {fileID: 11400000, guid: 2d43465508f67774485093a63d61a9ef, type: 2}
   moveObj: {fileID: 0}
   playerLookObj: {fileID: 0}
   rotateAxis: {fileID: 0}
@@ -1866,6 +1865,11 @@ MonoBehaviour:
   enemySpawnManager: {fileID: 0}
   deathEffectPrefab: {fileID: 850359612930764431}
   damageEffectPrefab: {fileID: 1762810237852302247}
+  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
+  bulletObj: {fileID: 1734557430232284754, guid: 50aaa5bb5e5a5f44fa3f2ac7b7cb1f5d, type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 640
   groundCheck: {fileID: 3893517127504024773}
 --- !u!95 &3683149514288886180
 Animator:
