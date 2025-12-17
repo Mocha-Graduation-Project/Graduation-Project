@@ -150,6 +150,7 @@ public class StageSupportTool : EditorWindow
         Repaint();
     }
 
+    [Obsolete("Obsolete")]
     private void OnGUI()
     {
         GUILayout.Label("Prefab Quick Replacement Tool & Match Tools", EditorStyles.boldLabel);

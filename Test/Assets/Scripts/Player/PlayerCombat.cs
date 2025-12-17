@@ -233,6 +233,17 @@ namespace Player
         private void OnQuickAttackTriggered(float angle)
         {
             if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            
+            // 射撃などの他のアクションを強制キャンセル
+            if (IsShot)
+            {
+                IsShot = false;
+                animator.ResetTrigger(IsShot1);
+                // ShootWithCoolDownコルーチンが回っていれば止める等の処理が必要だが、
+                // PerformShotで生成したコルーチンを変数に保持していないため、ここではフラグとトリガーのリセットのみ行う
+                // (IsShot = false により PerformShot のガードは効く)
+            }
+
             int attackDirection = angle switch
             {
                 >= 45 and < 135 => 0,
@@ -265,7 +276,7 @@ namespace Player
         
         private void ShotFinish() // Animation Event
         {
-            IsShot　=　false;
+            IsShot = false;
         }
 
         public void AttackFinish()
@@ -277,8 +288,19 @@ namespace Player
         private void PlayAttackAnimation(int attackDirection)
         {
             //animator.SetTrigger(Idle);
-            animator.SetInteger(AttackDirection,attackDirection);
-            animator.SetTrigger(IsAttack);
+           // animator.SetInteger(AttackDirection,attackDirection);
+            
+            // 方向に応じたステート名を指定して遷移
+            string stateName = attackDirection switch
+            {
+                0 => "UPAttack",
+                1 => "Attack",
+                2 => "DawnAttack",
+                3 => "BackAttack",
+                _ => "Attack"
+            };
+            
+            animator.CrossFadeInFixedTime(stateName, 0.05f); 
         }
         //弾き判定解除遅延
         private IEnumerator DeactivateAttackCollisionAfterDelay(float delay)

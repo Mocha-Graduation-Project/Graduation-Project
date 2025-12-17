@@ -22,6 +22,8 @@ namespace UI
             }
 
             Instance = this;
+            transform.parent = null;
+            
             DontDestroyOnLoad(gameObject);
             
             if (fadeImage == null)

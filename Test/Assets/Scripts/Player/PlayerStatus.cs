@@ -77,6 +77,7 @@ namespace Player
             return isGrounded;
         }
 
+        [Obsolete("Obsolete")]
         public void Damage(int damage)
         {
             if (invincible) return; // 無敵時間中ならダメージを受けない

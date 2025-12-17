@@ -18,6 +18,7 @@ public class AnimationEventToolHelper : MonoBehaviour
     private float lastTime = -1f;
 
     private Dictionary<string, (ParticleSystem ps, float startTime)> activeVfx = new Dictionary<string, (ParticleSystem ps, float startTime)>();
+    private Dictionary<string, ParticleSystem> cachedVfx = new Dictionary<string, ParticleSystem>();
     
     // ツールからの初期化時に呼ばれる
     public void Setup(AnimationClip targetClip)
@@ -26,7 +27,25 @@ public class AnimationEventToolHelper : MonoBehaviour
         events = AnimationUtility.GetAnimationEvents(clip);
         lastTime = -1f;
         
+        CacheAllVfx();
         StopAllVfx();
+    }
+    
+    // 事前にVFXコンポーネントをキャッシュする
+    private void CacheAllVfx()
+    {
+        cachedVfx.Clear();
+        foreach (Transform child in transform)
+        {
+            var ps = child.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                if (!cachedVfx.ContainsKey(child.name))
+                {
+                    cachedVfx.Add(child.name, ps);
+                }
+            }
+        }
     }
     
     // 外部から呼ばれるイベント処理関数
@@ -40,30 +59,43 @@ public class AnimationEventToolHelper : MonoBehaviour
             activeVfx.Remove(vfxName);
         }
 
-        Transform vfxChild = transform.Find(vfxName);
-        if (vfxChild != null)
+        // キャッシュから取得を試みる
+        if (!cachedVfx.TryGetValue(vfxName, out var particleSystem))
         {
-            var particleSystem = vfxChild.GetComponent<ParticleSystem>();
-            if (particleSystem != null)
+            // キャッシュにない場合のみ検索（動的生成対応やフォールバック）
+            Transform vfxChild = transform.Find(vfxName);
+            if (vfxChild != null)
             {
-                // Looping設定の警告
-                if (particleSystem.main.loop)
+                particleSystem = vfxChild.GetComponent<ParticleSystem>();
+                if (particleSystem != null)
                 {
-                    Debug.LogWarning($"<color=red>[AET Helper]</color> VFX '{vfxName}' is looping. It will not stop automatically based on Duration. Please disable looping.");
+                    cachedVfx[vfxName] = particleSystem;
                 }
-                
-                // VFXを再生し、アクティブリストにイベント発生時刻を記録
-                particleSystem.Play(true);
-                activeVfx.Add(vfxName, (particleSystem, eventTime));
             }
-            else
+        }
+
+        if (particleSystem != null)
+        {
+            // Looping設定の警告
+            if (particleSystem.main.loop)
             {
-                Debug.LogWarning($"<color=red>ParticleSystem component not found</color> on child object: {vfxChild.name}.");
+                Debug.LogWarning($"<color=red>[AET Helper]</color> VFX '{vfxName}' is looping. It will not stop automatically based on Duration. Please disable looping.");
             }
+            
+            // VFXを再生し、アクティブリストにイベント発生時刻を記録
+            particleSystem.Play(true);
+            activeVfx.Add(vfxName, (particleSystem, eventTime));
         }
         else
         {
-            Debug.LogWarning($"<color=red>VFX GameObject not found</color> with name: '{vfxName}' as a child of the Preview Object.");
+            if (transform.Find(vfxName) == null)
+            {
+                Debug.LogWarning($"<color=red>VFX GameObject not found</color> with name: '{vfxName}' as a child of the Preview Object.");
+            }
+            else
+            {
+                Debug.LogWarning($"<color=red>ParticleSystem component not found</color> on child object: {vfxName}.");
+            }
         }
     }
     
@@ -80,7 +112,7 @@ public class AnimationEventToolHelper : MonoBehaviour
         if (Mathf.Abs(currentTime - lastTime) > 0.5f || currentTime < lastTime)
         {
             StopAllVfx();
-            activeVfx.Clear(); // activeVfxもクリア
+            activeVfx.Clear(); // activeVfxクリア
             lastTime = currentTime;
             return;
         }
