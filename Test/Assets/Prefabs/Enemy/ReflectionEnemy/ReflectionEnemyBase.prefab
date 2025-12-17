@@ -252,6 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   excelData: {fileID: 11400000, guid: 2d43465508f67774485093a63d61a9ef, type: 2}
+  hp: 0
   moveObj: {fileID: 0}
   playerLookObj: {fileID: 8869151566590248326}
   rotateAxis: {fileID: 0}
@@ -272,6 +273,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 768197620946454911}
     m_Modifications:
+    - target: {fileID: 1062745915777014244, guid: fd7b7a2765916a24ab04a3e18f3f77eb, type: 3}
+      propertyPath: m_Constraints
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 1875006491058082821, guid: fd7b7a2765916a24ab04a3e18f3f77eb, type: 3}
       propertyPath: m_Name
       value: WeakAttackReflector
