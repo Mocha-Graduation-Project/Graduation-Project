@@ -6,9 +6,9 @@ using Random = UnityEngine.Random;
 using UnityEditor;
 using UnityEngine.Serialization;
 
-#if UNITY_EDITOR
-[CustomEditor(typeof(EnemyAI))]
-#endif
+// #if UNITY_EDITOR
+// [CustomEditor(typeof(EnemyAI))]
+// #endif
 
 public class DepthBoss : EnemyAI
 {

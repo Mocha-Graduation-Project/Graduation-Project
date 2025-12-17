@@ -15,8 +15,8 @@ namespace Enemy.Basic
         private bool isGrounded;
 
         [SerializeField] private GameObject hitBox;
-    
-        Rigidbody rigidbody;
+
+        private Rigidbody rb;
         
         [SerializeField] [JapaneseLabel("地面のレイヤー")] private LayerMask groundLayer;
 
@@ -24,9 +24,9 @@ namespace Enemy.Basic
         {
             animator = GetComponentInChildren<Animator>();
             jumpTime = 0;
-            rigidbody = GetComponent<Rigidbody>();
+            rb = GetComponent<Rigidbody>();
         
-            rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+            rb.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
             if (hitBox != null)
             {
                 hitBox.transform.parent = null;
@@ -55,7 +55,7 @@ namespace Enemy.Basic
         {
             if (!isGrounded || jumpTime < jumpCoolTime) return;
             animator.SetTrigger("JumpTrigger");
-            rigidbody.AddForce(Vector3.up * ExcelData.Enemy[DataNumber].jumpPower, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * ExcelData.Enemy[DataNumber].jumpPower, ForceMode.Impulse);
             jumpTime = 0;
         }
 

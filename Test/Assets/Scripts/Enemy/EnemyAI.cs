@@ -28,6 +28,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private EnemySpawnManager enemySpawnManager;
     [JapaneseLabel("死亡エフェクト")][SerializeField]private GameObject deathEffectPrefab;
     [JapaneseLabel("被弾エフェクト")] [SerializeField] private GameObject damageEffectPrefab;
+    [JapaneseLabel("攻撃エフェクト")][SerializeField] private GameObject attackEffect;
     [JapaneseLabel("プレイヤー")] public Player.Player player => Player.Player.Instance;
     [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
     [SerializeField] [JapaneseLabel("音源")] private SoundData soundData;
@@ -38,7 +39,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] [JapaneseLabel("発射する弾")] private GameObject bulletObj;
     [JapaneseLabel("弾を発射するレート")] private float bulletRate;
     
-    private Collider loopAreaCollider;
+    protected Collider loopAreaCollider;
     
     //移動に関する変数(overrideしないで動く用)
     private bool isCoolTime;
@@ -67,17 +68,22 @@ public class EnemyAI : MonoBehaviour
 
     public void Awake()
     {
-        GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
-        if (loopAreaObj != null)
+        if (LoopManager.Instance != null)
         {
-            loopAreaCollider = loopAreaObj.GetComponent<Collider>();
+            loopAreaCollider = LoopManager.Instance.AreaLoopCollider;
         }
         else
         {
-            Debug.LogError("LoopAreaColliderが見つかりません。LoopAreaタグを持つGameObjectを配置してください。");
-            return;
+            Debug.LogError("LoopManagerが見つかりません。シーンに配置してください。");
         }
-            
+        if (EnemyHPSlider.Instance != null)
+        {
+            enemyHPSlider = EnemyHPSlider.Instance.Slider;
+        }
+        else
+        {
+            Debug.LogError("EnemyHPSliderが見つかりません。シーンに配置してください。");
+        }
         EnemyShotSound = soundData.enemyShotSound;
         DamageSound = soundData.damageSound;
         EnemyDestorySound = soundData.enemyDestroySound;
@@ -90,7 +96,7 @@ public class EnemyAI : MonoBehaviour
         //hp = enemyData.maxHP;
         centerPos = this.transform.position;
         audioSource = GetComponent<AudioSource>();
-        enemySpawnManager = GameObject.FindObjectOfType<EnemySpawnManager>();
+        enemySpawnManager = EnemySpawnManager.Instance;
 
         // //攻撃
         // switch (enemyData.enemyAttackType)
@@ -294,7 +300,7 @@ public class EnemyAI : MonoBehaviour
     public virtual void BeforeAttack()
     {
         if (excelData.Enemy[dataNumber].enemyAttackType == EnemyDataEntity.EnemyAttackType.dontAttack) { return; }
-            
+        attackEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
         beforeAttackText.Warning(excelData.Enemy[dataNumber].brinkDuration);
     }
 

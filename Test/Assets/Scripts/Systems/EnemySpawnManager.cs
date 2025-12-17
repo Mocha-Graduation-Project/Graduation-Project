@@ -42,6 +42,7 @@ namespace Systems
         [SerializeField] [JapaneseLabel("地面レイヤー")]
         public LayerMask groundLayer;
 
+        private readonly Dictionary<int, string> enemyIdCache = new();
         private readonly HashSet<string> defeatedEnemyIds = new();
 
         private AudioSource audioSource;
@@ -53,6 +54,7 @@ namespace Systems
         private int shieldEnemyID = 400;
         private int bossID = 10;
         
+        public static EnemySpawnManager Instance { get; private set; }
         public enum EnemyID
         {
             test=0,
@@ -72,6 +74,13 @@ namespace Systems
 
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+            
             audioSource = GetComponent<AudioSource>();
 
             // enemyIdの自動設定
