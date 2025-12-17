@@ -6,5 +6,7 @@ using UnityEngine;
 [ExcelAsset]
 public class ExcelData : ScriptableObject
 {
-	public List<EnemyDataEntity> Enemy; // Replace 'EntityType' to an actual enemyType that is serializable.
+	public List<EnemyDataEntity> Enemy;
+	public List<MoveBossDataEntity> MoveBoss;
+	public List<DepthBossDataEntity> DepthBoss;
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ExcelData
   m_EditorClassIdentifier: 
   Enemy:
-  - id: 100
+  - id: 0
     enemyName: Test
     maxHP: 100
     enemyType: 0
@@ -312,3 +312,11 @@ MonoBehaviour:
     isJump: 0
     jumpPower: 0
     jumpCoolTime: 0
+  MoveBoss:
+  - bulletRate1_2: 1
+    bulletRate3_4: 0.5
+    rotate90PerSec: 2
+    changeHPPercent: 50
+    maxLoop: 1
+  DepthBoss:
+  - maxLRTackle: 1
