@@ -373,22 +373,22 @@
         </member>
         <member name="P:Websocket.Client.ResponseMessage.Text">
             <summary>
-            Received text message (only if type = <see cref="F:System.Net.WebSockets.WebSocketMessageType.Text"/>)
+            Received text message (only if enemyType = <see cref="F:System.Net.WebSockets.WebSocketMessageType.Text"/>)
             </summary>
         </member>
         <member name="P:Websocket.Client.ResponseMessage.Binary">
             <summary>
-            Received text message (only if type = <see cref="F:System.Net.WebSockets.WebSocketMessageType.Binary"/>)
+            Received text message (only if enemyType = <see cref="F:System.Net.WebSockets.WebSocketMessageType.Binary"/>)
             </summary>
         </member>
         <member name="P:Websocket.Client.ResponseMessage.Stream">
             <summary>
-            Received stream message (only if type = <see cref="F:System.Net.WebSockets.WebSocketMessageType.Binary"/> and <see cref="P:Websocket.Client.WebsocketClient.IsStreamDisposedAutomatically"/> = false)
+            Received stream message (only if enemyType = <see cref="F:System.Net.WebSockets.WebSocketMessageType.Binary"/> and <see cref="P:Websocket.Client.WebsocketClient.IsStreamDisposedAutomatically"/> = false)
             </summary>
         </member>
         <member name="P:Websocket.Client.ResponseMessage.MessageType">
             <summary>
-            Current message type (Text or Binary)
+            Current message enemyType (Text or Binary)
             </summary>
         </member>
         <member name="M:Websocket.Client.ResponseMessage.ToString">

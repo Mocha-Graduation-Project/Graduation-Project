@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac687a9a7473f340a920be6454e8a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 5c07b269ff61116448d7c7629189dc08, type: 2}
+  excelData: {fileID: 11400000, guid: 2d43465508f67774485093a63d61a9ef, type: 2}
   hp: 0
   moveObj: {fileID: 0}
   playerLookObj: {fileID: 8869151566590248326}
@@ -263,6 +263,8 @@ MonoBehaviour:
   enemySpawnManager: {fileID: 0}
   deathEffectPrefab: {fileID: 2987192512680176867}
   damageEffectPrefab: {fileID: 5660116124911642965}
+  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
+  bulletObj: {fileID: 0}
 --- !u!1001 &808306289885246544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -271,6 +273,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 768197620946454911}
     m_Modifications:
+    - target: {fileID: 1062745915777014244, guid: fd7b7a2765916a24ab04a3e18f3f77eb, type: 3}
+      propertyPath: m_Constraints
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 1875006491058082821, guid: fd7b7a2765916a24ab04a3e18f3f77eb, type: 3}
       propertyPath: m_Name
       value: WeakAttackReflector

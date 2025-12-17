@@ -1009,7 +1009,7 @@
         </member>
         <member name="E:Microsoft.IO.RecyclableMemoryStreamManager.BufferDiscarded">
             <summary>
-            Triggered when a buffer of either type is discarded, along with the reason for the discard.
+            Triggered when a buffer of either enemyType is discarded, along with the reason for the discard.
             </summary>
         </member>
         <member name="E:Microsoft.IO.RecyclableMemoryStreamManager.UsageReport">
@@ -1025,7 +1025,7 @@
             <remarks>
             This class works in tandem with the <see cref="T:Microsoft.IO.RecyclableMemoryStreamManager"/> to supply <c>MemoryStream</c>-derived
             objects to callers, while avoiding these specific problems:
-            <list type="number">
+            <list enemyType="number">
             <item>
             <term>LOH allocations</term>
             <description>Since all large buffers are pooled, they will never incur a Gen2 GC</description>

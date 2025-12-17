@@ -50,6 +50,26 @@ namespace Systems
         private int knockEnemies;
         private int remainnEnemies;
 
+        private int shieldEnemyID = 400;
+        private int bossID = 10;
+        
+        public enum EnemyID
+        {
+            test=0,
+            moveBoss=1,
+            depthBoss=2,
+            humanoidBoss=3,
+            nomalEnemyBase=101,
+            horizontalNomalEnemy=102,
+            verticalNomalEnemy=103,
+            noBulletEnemyBase=201,
+            horizontalNoBulletEnemy=202,
+            verticalNoBulletEnemy=203,
+            reflectionEnemy=301,
+            jumpEnemy=401,
+            shieldEnemy=501,
+        }
+
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
@@ -81,11 +101,12 @@ namespace Systems
                     enemyData.enemyPrefab, 
                     enemyData.spawnPoint, 
                     enemyData.spawnDelay, 
-                    $"Enemy_{enemyData.enemyId}"
+                    $"Enemy_{enemyData.enemyId}",
+                    enemyData.excelDataId
                 ));
             }
         }
-        private IEnumerator SpawnEnemyCoroutine(GameObject prefab, Transform spawnPoint, float spawnDelay, string instanceName)
+        private IEnumerator SpawnEnemyCoroutine(GameObject prefab, Transform spawnPoint, float spawnDelay, string instanceName,EnemyID excelEnemyID)
         {
             var adjustedWarningTime = Mathf.Min(warningTime, spawnDelay);
             if (adjustedWarningTime > 0)
@@ -104,6 +125,18 @@ namespace Systems
             }
 
             var spawnedEnemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+
+            EnemyAI enemyAI;
+            if ((int)excelEnemyID < bossID || (int)excelEnemyID > shieldEnemyID)
+            {
+                enemyAI = spawnedEnemy.GetComponentInChildren<EnemyAI>();
+            }
+            else
+            {
+                enemyAI = spawnedEnemy.GetComponent<EnemyAI>();
+            }
+            enemyAI.SetNumber((int)excelEnemyID);
+            
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.name = instanceName;
         }
@@ -144,6 +177,7 @@ namespace Systems
                     condition.spawnPoint,
                     condition.conditionSpawnDelay,
                     $"ConditionEnemy_{condition.conditionId}"
+                    ,condition.excelDataId
                 ));
             }
 
@@ -357,6 +391,7 @@ namespace Systems
             [JapaneseLabel("出現させる敵のプレハブ")] public GameObject enemyPrefab;
             [JapaneseLabel("出現するまでの時間（秒）")] public float spawnDelay;
             [JapaneseLabel("出現位置")] public Transform spawnPoint;
+            [JapaneseLabel("ExcelDataのID")] public EnemyID excelDataId;
         }
 
         [Serializable]
@@ -369,6 +404,7 @@ namespace Systems
 
             [JapaneseLabel("倒した後出現までの時間")] public float conditionSpawnDelay;
             [JapaneseLabel("出現位置")] public Transform spawnPoint;
+            [JapaneseLabel("ExcelDataのID")] public EnemyID excelDataId;
             [HideInInspector] public bool hasSpawned;
         }
     }

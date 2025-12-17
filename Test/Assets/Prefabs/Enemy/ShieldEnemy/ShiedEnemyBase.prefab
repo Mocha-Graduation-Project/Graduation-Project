@@ -124,8 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac687a9a7473f340a920be6454e8a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 36790c6073eee5a4ebb1eb425cfc301d, type: 2}
-  hp: 0
+  excelData: {fileID: 11400000, guid: 2d43465508f67774485093a63d61a9ef, type: 2}
   moveObj: {fileID: 1080111151516072046}
   playerLookObj: {fileID: 1080111151516072046}
   rotateAxis: {fileID: 0}
@@ -136,6 +135,8 @@ MonoBehaviour:
   enemySpawnManager: {fileID: 0}
   deathEffectPrefab: {fileID: 5757170592674156133}
   damageEffectPrefab: {fileID: 6664498318374430452}
+  soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
+  bulletObj: {fileID: 0}
 --- !u!54 &1493722784526873155
 Rigidbody:
   m_ObjectHideFlags: 0

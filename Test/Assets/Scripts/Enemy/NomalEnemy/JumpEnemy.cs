@@ -17,6 +17,8 @@ namespace Enemy.Basic
         [SerializeField] private GameObject hitBox;
     
         Rigidbody rigidbody;
+        
+        [SerializeField] [JapaneseLabel("地面のレイヤー")] private LayerMask groundLayer;
 
         public override void SetUp()
         {
@@ -29,12 +31,14 @@ namespace Enemy.Basic
             {
                 hitBox.transform.parent = null;
             }
+
+            IsSetUp = true;
         }
         
         override protected void Update()
         {
             base.Update();
-            isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, enemyData.groundLayer);
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f, groundLayer);
             if (isGrounded) 
             {
                 jumpTime += Time.deltaTime; 
@@ -51,7 +55,7 @@ namespace Enemy.Basic
         {
             if (!isGrounded || jumpTime < jumpCoolTime) return;
             animator.SetTrigger("JumpTrigger");
-            rigidbody.AddForce(Vector3.up * enemyData.jumpPower, ForceMode.Impulse);
+            rigidbody.AddForce(Vector3.up * ExcelData.Enemy[DataNumber].jumpPower, ForceMode.Impulse);
             jumpTime = 0;
         }
 

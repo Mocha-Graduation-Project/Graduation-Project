@@ -20,6 +20,7 @@ public class HumanoidBoss : EnemyAI
     private int direction = 1;
     private bool isGround = false;
     
+    [SerializeField] [JapaneseLabel("地面のレイヤー")] private LayerMask groundLayer;
     [SerializeField] [JapaneseLabel("足元")] private Transform groundCheck;
     private readonly float checkDistance = 0.08f;
 
@@ -28,6 +29,8 @@ public class HumanoidBoss : EnemyAI
     {
         animator=GetComponent<Animator>();
         this.transform.eulerAngles = new Vector3(0, 90, 0);
+        
+        IsSetUp = true;
     }
     
     override protected void Update()
@@ -52,7 +55,7 @@ public class HumanoidBoss : EnemyAI
     private void CheckGround()
     {
         bool wasGrounded = isGround; // 前フレームの接地状態
-        isGround = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, enemyData.groundLayer);
+        isGround = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
     
         // アニメーターへの通知
         animator.SetBool(IsGround, isGround);

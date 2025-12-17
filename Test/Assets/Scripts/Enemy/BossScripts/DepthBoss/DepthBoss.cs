@@ -28,17 +28,8 @@ public class DepthBoss : EnemyAI
     [SerializeField] [JapaneseLabel("現在の行動パターン")]Patterns pattern;
 
     [SerializeField] [JapaneseLabel("攻撃中か")] private bool isAttack;
-
-    [SerializeField] [JapaneseLabel("手前側のz座標")] private float flontZPos;
     
-    [Space(15)]
-    [SerializeField] [JapaneseLabel("パターン移行のクールタイム")] float coolTime;
-    
-    [SerializeField] [JapaneseLabel("攻撃表示のUI")]　AttckWarningUI attckWarningUI;
-
-    [Space(5)]
-    [Header("パターン3")] 
-    [SerializeField] [JapaneseLabel("左右タックルの最大ループ数")] private int maxLRTackle;
+    [JapaneseLabel("DepthBossDataの値")] private int depthBossData = 0;
 
     [JapaneseLabel("左側に行く基準の座標")] private float left33Pos;
     
@@ -47,29 +38,19 @@ public class DepthBoss : EnemyAI
     [JapaneseLabel("左右タックルのループ回数")] private int LRTackleCounter;
 
     [JapaneseLabel("タックルの回数")] private int tackleCounter;
-
-    [SerializeField] [JapaneseLabel("落下後の待機時間")] private float fallAttckWaitTime;
     
-    [JapaneseLabel("落下する座標")] private Vector3 fallingAttckPos;
-
-    public float FlontZPos{get{ return flontZPos; }}
-    public float FallAttckWaitTime { get { return fallAttckWaitTime; } }
-    public AttckWarningUI AttckWarningUI{ get{ return attckWarningUI; } }
-    public Vector3 FallingAttckPos{ get{ return fallingAttckPos; } set { fallingAttckPos = value; } }
     public bool IsAttack { get { return isAttack; } }
 
     public override void SetUp()
     {
         animator = GetComponent<Animator>();
         stateMachine = new StateMachine();
-        Invoke("RandomSetPattern", enemyData.coolTime);
+        Invoke("RandomSetPattern", ExcelData.Enemy[DataNumber].coolTime);
         LRTackleCounter = 0;
         tackleCounter = 0;
         isAttack = true;
         //player = GameObject.FindGameObjectWithTag("Player");
-        attckWarningUI = GameObject.FindGameObjectWithTag("WarningUI").GetComponent<AttckWarningUI>();
-        attckWarningUI.SetFallingAttckEnemy(this.gameObject);
-        
+
         GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
         if (loopAreaObj != null)
         {
@@ -80,6 +61,8 @@ public class DepthBoss : EnemyAI
             left33Pos = leftPos + scale * 0.33f;
             right33Pos = rightPos - scale * 0.33f;
         }
+
+        IsSetUp = true;
     }
 
     // Update is called once per frame
@@ -103,7 +86,7 @@ public class DepthBoss : EnemyAI
             if (tackleCounter != 0 && tackleCounter % 2 == 0)
             {
                 LRTackleCounter++;
-                if (LRTackleCounter == maxLRTackle)
+                if (LRTackleCounter == ExcelData.DepthBoss[depthBossData].maxLRTackle)
                 {
                     ChangePattern(Patterns.fallingAttack);
                     LRTackleCounter = 0;
@@ -184,7 +167,7 @@ public class DepthBoss : EnemyAI
     {
         //アニメーションが終わって呼ばれたらクールタイム後に次の行動へ
         AttackTrue();
-        Invoke("Change", enemyData.coolTime);
+        Invoke("Change", ExcelData.Enemy[DataNumber].coolTime);
     }
 
     public void SwitchFallingAttack()
