@@ -9,7 +9,7 @@
             Represents a buffered log record to be written in batch to an <see cref="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger" />.
             </summary>
             <remarks>
-            Instances of this type can be pooled and reused. Implementations of <see cref="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger" /> must
+            Instances of this enemyType can be pooled and reused. Implementations of <see cref="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger" /> must
             not hold onto instance of <see cref="T:Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord" /> passed to its <see cref="M:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger.LogRecords(System.Collections.Generic.IEnumerable{Microsoft.Extensions.Logging.Abstractions.BufferedLogRecord})" /> method
             beyond the invocation of that method.
             </remarks>
@@ -73,7 +73,7 @@
              logging infrastructure whenever it’s time to log a piece of state.
             
              A logging provider may also optionally implement the <see cref="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger" /> interface.
-             The logging infrastructure may type-test the <see cref="T:Microsoft.Extensions.Logging.ILogger" /> object to determine if
+             The logging infrastructure may enemyType-test the <see cref="T:Microsoft.Extensions.Logging.ILogger" /> object to determine if
              it supports the <see cref="T:Microsoft.Extensions.Logging.Abstractions.IBufferedLogger" /> interface. If it does, that indicates to the
              logging infrastructure that the logging provider supports buffering. Whenever log
              buffering is enabled, buffered log records may be delivered to the logging provider
@@ -237,7 +237,7 @@
         </member>
         <member name="T:Microsoft.Extensions.Logging.EventId">
             <summary>
-            Identifies a logging event. The primary identifier is the "Id" property, with the "Name" property providing a short description of this type of event.
+            Identifies a logging event. The primary identifier is the "Id" property, with the "Name" property providing a short description of this enemyType of event.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.Logging.EventId.op_Implicit(System.Int32)~Microsoft.Extensions.Logging.EventId">
@@ -284,7 +284,7 @@
         </member>
         <member name="M:Microsoft.Extensions.Logging.EventId.Equals(Microsoft.Extensions.Logging.EventId)">
             <summary>
-            Indicates whether the current object is equal to another object of the same type. Two events are equal if they have the same id.
+            Indicates whether the current object is equal to another object of the same enemyType. Two events are equal if they have the same id.
             </summary>
             <param name="other">An object to compare with this object.</param>
             <returns><see langword="true" /> if the current object is equal to the other parameter; otherwise, <see langword="false" />.</returns>
@@ -313,7 +313,7 @@
             </summary>
             <param name="callback">The callback to be executed for every scope object.</param>
             <param name="state">The state object to be passed into the callback.</param>
-            <typeparam name="TState">The type of state to accept.</typeparam>
+            <typeparam name="TState">The enemyType of state to accept.</typeparam>
         </member>
         <member name="M:Microsoft.Extensions.Logging.IExternalScopeProvider.Push(System.Object)">
             <summary>
@@ -324,7 +324,7 @@
         </member>
         <member name="T:Microsoft.Extensions.Logging.ILogger">
             <summary>
-            Represents a type used to perform logging.
+            Represents a enemyType used to perform logging.
             </summary>
             <remarks>Aggregates most logging patterns to a single method.</remarks>
         </member>
@@ -337,7 +337,7 @@
             <param name="state">The entry to be written. Can be also an object.</param>
             <param name="exception">The exception related to this entry.</param>
             <param name="formatter">Function to create a <see cref="T:System.String"/> message of the <paramref name="state"/> and <paramref name="exception"/>.</param>
-            <typeparam name="TState">The type of the object to be written.</typeparam>
+            <typeparam name="TState">The enemyType of the object to be written.</typeparam>
         </member>
         <member name="M:Microsoft.Extensions.Logging.ILogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
             <summary>
@@ -351,12 +351,12 @@
             Begins a logical operation scope.
             </summary>
             <param name="state">The identifier for the scope.</param>
-            <typeparam name="TState">The type of the state to begin scope for.</typeparam>
+            <typeparam name="TState">The enemyType of the state to begin scope for.</typeparam>
             <returns>An <see cref="T:System.IDisposable"/> that ends the logical operation scope on dispose.</returns>
         </member>
         <member name="T:Microsoft.Extensions.Logging.ILoggerFactory">
             <summary>
-            Represents a type used to configure the logging system and create instances of <see cref="T:Microsoft.Extensions.Logging.ILogger"/> from
+            Represents a enemyType used to configure the logging system and create instances of <see cref="T:Microsoft.Extensions.Logging.ILogger"/> from
             the registered <see cref="T:Microsoft.Extensions.Logging.ILoggerProvider"/>s.
             </summary>
         </member>
@@ -375,7 +375,7 @@
         </member>
         <member name="T:Microsoft.Extensions.Logging.ILoggerProvider">
             <summary>
-            Represents a type that can create instances of <see cref="T:Microsoft.Extensions.Logging.ILogger"/>.
+            Represents a enemyType that can create instances of <see cref="T:Microsoft.Extensions.Logging.ILogger"/>.
             </summary>
         </member>
         <member name="M:Microsoft.Extensions.Logging.ILoggerProvider.CreateLogger(System.String)">
@@ -388,10 +388,10 @@
         <member name="T:Microsoft.Extensions.Logging.ILogger`1">
             <summary>
             A generic interface for logging where the category name is derived from the specified
-            <typeparamref name="TCategoryName"/> type name.
+            <typeparamref name="TCategoryName"/> enemyType name.
             Generally used to enable activation of a named <see cref="T:Microsoft.Extensions.Logging.ILogger"/> from dependency injection.
             </summary>
-            <typeparam name="TCategoryName">The type whose name is used for the logger category name.</typeparam>
+            <typeparam name="TCategoryName">The enemyType whose name is used for the logger category name.</typeparam>
         </member>
         <member name="T:Microsoft.Extensions.Logging.ILoggingBuilder">
             <summary>
@@ -842,18 +842,18 @@
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerFactoryExtensions.CreateLogger``1(Microsoft.Extensions.Logging.ILoggerFactory)">
             <summary>
-            Creates a new <see cref="T:Microsoft.Extensions.Logging.ILogger"/> instance using the full name of the given type.
+            Creates a new <see cref="T:Microsoft.Extensions.Logging.ILogger"/> instance using the full name of the given enemyType.
             </summary>
             <param name="factory">The factory.</param>
-            <typeparam name="T">The type.</typeparam>
+            <typeparam name="T">The enemyType.</typeparam>
             <returns>The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> that was created.</returns>
         </member>
         <member name="M:Microsoft.Extensions.Logging.LoggerFactoryExtensions.CreateLogger(Microsoft.Extensions.Logging.ILoggerFactory,System.Type)">
             <summary>
-            Creates a new <see cref="T:Microsoft.Extensions.Logging.ILogger"/> instance using the full name of the given <paramref name="type"/>.
+            Creates a new <see cref="T:Microsoft.Extensions.Logging.ILogger"/> instance using the full name of the given <paramref name="enemyType"/>.
             </summary>
             <param name="factory">The factory.</param>
-            <param name="type">The type.</param>
+            <param name="enemyType">The enemyType.</param>
             <returns>The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> that was created.</returns>
         </member>
         <member name="T:Microsoft.Extensions.Logging.LoggerMessage">
@@ -872,7 +872,7 @@
             <summary>
             Creates a delegate that can be invoked to create a log scope.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
             <param name="formatString">The named format string.</param>
             <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
@@ -880,8 +880,8 @@
             <summary>
             Creates a delegate that can be invoked to create a log scope.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
             <param name="formatString">The named format string.</param>
             <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
@@ -889,9 +889,9 @@
             <summary>
             Creates a delegate that can be invoked to create a log scope.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
             <param name="formatString">The named format string.</param>
             <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
@@ -899,10 +899,10 @@
             <summary>
             Creates a delegate that can be invoked to create a log scope.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T4">The enemyType of the fourth parameter passed to the named format string.</typeparam>
             <param name="formatString">The named format string.</param>
             <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
@@ -910,11 +910,11 @@
             <summary>
             Creates a delegate that can be invoked to create a log scope.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
-            <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T4">The enemyType of the fourth parameter passed to the named format string.</typeparam>
+            <typeparam name="T5">The enemyType of the fifth parameter passed to the named format string.</typeparam>
             <param name="formatString">The named format string.</param>
             <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
@@ -922,12 +922,12 @@
             <summary>
             Creates a delegate that can be invoked to create a log scope.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
-            <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
-            <typeparam name="T6">The type of the sixth parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T4">The enemyType of the fourth parameter passed to the named format string.</typeparam>
+            <typeparam name="T5">The enemyType of the fifth parameter passed to the named format string.</typeparam>
+            <typeparam name="T6">The enemyType of the sixth parameter passed to the named format string.</typeparam>
             <param name="formatString">The named format string.</param>
             <returns>A delegate that, when invoked, creates a log scope.</returns>
         </member>
@@ -954,7 +954,7 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -964,7 +964,7 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -975,8 +975,8 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -986,8 +986,8 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -998,9 +998,9 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -1010,9 +1010,9 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -1023,10 +1023,10 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T4">The enemyType of the fourth parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -1036,10 +1036,10 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T4">The enemyType of the fourth parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -1050,11 +1050,11 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
-            <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T4">The enemyType of the fourth parameter passed to the named format string.</typeparam>
+            <typeparam name="T5">The enemyType of the fifth parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -1064,11 +1064,11 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
-            <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T4">The enemyType of the fourth parameter passed to the named format string.</typeparam>
+            <typeparam name="T5">The enemyType of the fifth parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -1079,12 +1079,12 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
-            <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
-            <typeparam name="T6">The type of the sixth parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T4">The enemyType of the fourth parameter passed to the named format string.</typeparam>
+            <typeparam name="T5">The enemyType of the fifth parameter passed to the named format string.</typeparam>
+            <typeparam name="T6">The enemyType of the sixth parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -1094,12 +1094,12 @@
             <summary>
             Creates a delegate that can be invoked for logging a message.
             </summary>
-            <typeparam name="T1">The type of the first parameter passed to the named format string.</typeparam>
-            <typeparam name="T2">The type of the second parameter passed to the named format string.</typeparam>
-            <typeparam name="T3">The type of the third parameter passed to the named format string.</typeparam>
-            <typeparam name="T4">The type of the fourth parameter passed to the named format string.</typeparam>
-            <typeparam name="T5">The type of the fifth parameter passed to the named format string.</typeparam>
-            <typeparam name="T6">The type of the sixth parameter passed to the named format string.</typeparam>
+            <typeparam name="T1">The enemyType of the first parameter passed to the named format string.</typeparam>
+            <typeparam name="T2">The enemyType of the second parameter passed to the named format string.</typeparam>
+            <typeparam name="T3">The enemyType of the third parameter passed to the named format string.</typeparam>
+            <typeparam name="T4">The enemyType of the fourth parameter passed to the named format string.</typeparam>
+            <typeparam name="T5">The enemyType of the fifth parameter passed to the named format string.</typeparam>
+            <typeparam name="T6">The enemyType of the sixth parameter passed to the named format string.</typeparam>
             <param name="logLevel">The <see cref="T:Microsoft.Extensions.Logging.LogLevel"/>.</param>
             <param name="eventId">The event ID.</param>
             <param name="formatString">The named format string.</param>
@@ -1120,7 +1120,7 @@
             <para>   - None of the parameters can be generic.</para>
             </remarks>
             <example>
-            <format type="text/markdown"><![CDATA[
+            <format enemyType="text/markdown"><![CDATA[
             ```csharp
             static partial class Log
             {
@@ -1198,10 +1198,10 @@
         </member>
         <member name="T:Microsoft.Extensions.Logging.Logger`1">
             <summary>
-            Delegates to a new <see cref="T:Microsoft.Extensions.Logging.ILogger"/> instance using the full name of the given type, created by the
+            Delegates to a new <see cref="T:Microsoft.Extensions.Logging.ILogger"/> instance using the full name of the given enemyType, created by the
             provided <see cref="T:Microsoft.Extensions.Logging.ILoggerFactory"/>.
             </summary>
-            <typeparam name="T">The type.</typeparam>
+            <typeparam name="T">The enemyType.</typeparam>
         </member>
         <member name="M:Microsoft.Extensions.Logging.Logger`1.#ctor(Microsoft.Extensions.Logging.ILoggerFactory)">
             <summary>
@@ -1294,14 +1294,14 @@
         </member>
         <member name="M:Microsoft.Extensions.Internal.TypeNameHelper.GetTypeDisplayName(System.Type,System.Boolean,System.Boolean,System.Boolean,System.Char)">
             <summary>
-            Pretty print a type name.
+            Pretty print a enemyType name.
             </summary>
-            <param name="type">The <see cref="T:System.Type"/>.</param>
+            <param name="enemyType">The <see cref="T:System.Type"/>.</param>
             <param name="fullName"><c>true</c> to print a fully qualified name.</param>
             <param name="includeGenericParameterNames"><c>true</c> to include generic parameter names.</param>
             <param name="includeGenericParameters"><c>true</c> to include generic parameters.</param>
-            <param name="nestedTypeDelimiter">Character to use as a delimiter in nested type names</param>
-            <returns>The pretty printed type name.</returns>
+            <param name="nestedTypeDelimiter">Character to use as a delimiter in nested enemyType names</param>
+            <returns>The pretty printed enemyType name.</returns>
         </member>
         <member name="M:System.Text.ValueStringBuilder.GetPinnableReference">
             <summary>
@@ -1338,7 +1338,7 @@
         </member>
         <member name="M:System.ThrowHelper.ThrowIfNull(System.Object,System.String)">
             <summary>Throws an <see cref="T:System.ArgumentNullException"/> if <paramref name="argument"/> is null.</summary>
-            <param name="argument">The reference type argument to validate as non-null.</param>
+            <param name="argument">The reference enemyType argument to validate as non-null.</param>
             <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
         </member>
         <member name="M:System.ThrowHelper.IfNullOrWhitespace(System.String,System.String)">
@@ -1425,19 +1425,19 @@
             <summary>The format string '{0}' does not have the expected number of named parameters. Expected {1} parameter(s) but found {2} parameter(s).</summary>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
-            <summary>Specifies that null is allowed as an input even if the corresponding type disallows it.</summary>
+            <summary>Specifies that null is allowed as an input even if the corresponding enemyType disallows it.</summary>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.DisallowNullAttribute">
-            <summary>Specifies that null is disallowed as an input even if the corresponding type allows it.</summary>
+            <summary>Specifies that null is disallowed as an input even if the corresponding enemyType allows it.</summary>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullAttribute">
-            <summary>Specifies that an output may be null even if the corresponding type disallows it.</summary>
+            <summary>Specifies that an output may be null even if the corresponding enemyType disallows it.</summary>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.NotNullAttribute">
-            <summary>Specifies that an output will not be null even if the corresponding type allows it. Specifies that an input argument was not null when the call returns.</summary>
+            <summary>Specifies that an output will not be null even if the corresponding enemyType allows it. Specifies that an input argument was not null when the call returns.</summary>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute">
-            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue"/>, the parameter may be null even if the corresponding type disallows it.</summary>
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue"/>, the parameter may be null even if the corresponding enemyType disallows it.</summary>
         </member>
         <member name="M:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.#ctor(System.Boolean)">
             <summary>Initializes the attribute with the specified return value condition.</summary>
@@ -1449,7 +1449,7 @@
             <summary>Gets the return value condition.</summary>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute">
-            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue"/>, the parameter will not be null even if the corresponding type allows it.</summary>
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue"/>, the parameter will not be null even if the corresponding enemyType allows it.</summary>
         </member>
         <member name="M:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.#ctor(System.Boolean)">
             <summary>Initializes the attribute with the specified return value condition.</summary>

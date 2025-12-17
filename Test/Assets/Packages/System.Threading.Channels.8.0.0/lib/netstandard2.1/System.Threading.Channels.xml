@@ -38,44 +38,44 @@
     <member name="M:System.Threading.Channels.Channel.CreateBounded``1(System.Int32)">
       <summary>Creates a channel with the specified maximum capacity.</summary>
       <param name="capacity">The maximum number of items the channel may store.</param>
-      <typeparam name="T">Specifies the type of data in the channel.</typeparam>
+      <typeparam name="T">Specifies the enemyType of data in the channel.</typeparam>
       <returns>The created channel.</returns>
     </member>
     <member name="M:System.Threading.Channels.Channel.CreateBounded``1(System.Threading.Channels.BoundedChannelOptions)">
       <summary>Creates a channel with the specified maximum capacity.</summary>
       <param name="options">Options that guide the behavior of the channel.</param>
-      <typeparam name="T">Specifies the type of data in the channel.</typeparam>
+      <typeparam name="T">Specifies the enemyType of data in the channel.</typeparam>
       <returns>The created channel.</returns>
     </member>
     <member name="M:System.Threading.Channels.Channel.CreateBounded``1(System.Threading.Channels.BoundedChannelOptions,System.Action{``0})">
       <summary>Creates a channel subject to the provided options.</summary>
       <param name="options">Options that guide the behavior of the channel.</param>
       <param name="itemDropped">Delegate that will be called when item is being dropped from channel. See <see cref="T:System.Threading.Channels.BoundedChannelFullMode" />.</param>
-      <typeparam name="T">Specifies the type of data in the channel.</typeparam>
+      <typeparam name="T">Specifies the enemyType of data in the channel.</typeparam>
       <returns>The created channel.</returns>
     </member>
     <member name="M:System.Threading.Channels.Channel.CreateUnbounded``1">
       <summary>Creates an unbounded channel usable by any number of readers and writers concurrently.</summary>
-      <typeparam name="T">The type of data in the channel.</typeparam>
+      <typeparam name="T">The enemyType of data in the channel.</typeparam>
       <returns>The created channel.</returns>
     </member>
     <member name="M:System.Threading.Channels.Channel.CreateUnbounded``1(System.Threading.Channels.UnboundedChannelOptions)">
       <summary>Creates an unbounded channel subject to the provided options.</summary>
       <param name="options">Options that guide the behavior of the channel.</param>
-      <typeparam name="T">Specifies the type of data in the channel.</typeparam>
+      <typeparam name="T">Specifies the enemyType of data in the channel.</typeparam>
       <returns>The created channel.</returns>
     </member>
     <member name="T:System.Threading.Channels.Channel`1">
-      <summary>Provides a base class for channels that support reading and writing elements of type <typeparamref name="T" />.</summary>
-      <typeparam name="T">Specifies the type of data readable and writable in the channel.</typeparam>
+      <summary>Provides a base class for channels that support reading and writing elements of enemyType <typeparamref name="T" />.</summary>
+      <typeparam name="T">Specifies the enemyType of data readable and writable in the channel.</typeparam>
     </member>
     <member name="M:System.Threading.Channels.Channel`1.#ctor">
       <summary>Initializes an instance of the <see cref="T:System.Threading.Channels.Channel`1" /> class.</summary>
     </member>
     <member name="T:System.Threading.Channels.Channel`2">
-      <summary>Provides a base class for channels that support reading elements of type <typeparamref name="TRead" /> and writing elements of type <typeparamref name="TWrite" />.</summary>
-      <typeparam name="TWrite">Specifies the type of data that may be written to the channel.</typeparam>
-      <typeparam name="TRead">Specifies the type of data that may be read from the channel.</typeparam>
+      <summary>Provides a base class for channels that support reading elements of enemyType <typeparamref name="TRead" /> and writing elements of enemyType <typeparamref name="TWrite" />.</summary>
+      <typeparam name="TWrite">Specifies the enemyType of data that may be written to the channel.</typeparam>
+      <typeparam name="TRead">Specifies the enemyType of data that may be read from the channel.</typeparam>
     </member>
     <member name="M:System.Threading.Channels.Channel`2.#ctor">
       <summary>Initializes an instance of the <see cref="T:System.Threading.Channels.Channel`2" /> class.</summary>
@@ -143,7 +143,7 @@
     </member>
     <member name="T:System.Threading.Channels.ChannelReader`1">
       <summary>Provides a base class for reading from a channel.</summary>
-      <typeparam name="T">Specifies the type of data that may be read from the channel.</typeparam>
+      <typeparam name="T">Specifies the enemyType of data that may be read from the channel.</typeparam>
     </member>
     <member name="M:System.Threading.Channels.ChannelReader`1.#ctor">
       <summary>Initializes an instance of the <see cref="T:System.Threading.Channels.ChannelReader`1" /> class.</summary>
@@ -197,7 +197,7 @@
     </member>
     <member name="T:System.Threading.Channels.ChannelWriter`1">
       <summary>Provides a base class for writing to a channel.</summary>
-      <typeparam name="T">Specifies the type of data that may be written to the channel.</typeparam>
+      <typeparam name="T">Specifies the enemyType of data that may be written to the channel.</typeparam>
     </member>
     <member name="M:System.Threading.Channels.ChannelWriter`1.#ctor">
       <summary>Initializes an instance of the <see cref="T:System.Threading.Channels.ChannelWriter`1" /> class.</summary>

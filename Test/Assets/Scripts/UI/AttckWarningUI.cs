@@ -52,7 +52,7 @@ public class AttckWarningUI : MonoBehaviour
                     fallingUIRectTransform.localPosition = new Vector3(0, fallingUIRectTransform.localPosition.y, 0);
                     // Debug.Log("Before:" + fallingUIRectTransform.localPosition + "FallPos:" +
                     //           depthBoss.FallingAttckPos);
-                    Vector3 screenPosition =mainCamera.WorldToScreenPoint(depthBoss.FallingAttckPos);
+                    Vector3 screenPosition = Vector3.zero;//mainCamera.WorldToScreenPoint(depthBoss.FallingAttckPos);
                     //Debug.Log("screenPos:" + screenPosition);
                     RectTransformUtility.ScreenPointToLocalPointInRectangle(fallingUIRectTransform, screenPosition, mainCamera,out Vector2 localPosition);
                     Vector3 uipos = fallingUIRectTransform.localPosition;

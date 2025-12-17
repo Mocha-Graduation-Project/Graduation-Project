@@ -35,6 +35,8 @@ public class MoveBoss : EnemyAI
     [Header("共通")]
     [SerializeField] [JapaneseLabel("現在の行動パターン")]Patterns pattern;
 
+    [JapaneseLabel("MoveBossDataの値")] private int moveBossData = 0;
+
     [Space(5)] [Header("パターン1,2,3,4")]
     
     [Header("回転蜂")] public List<BeeHead> beeHeads = new();
@@ -48,18 +50,9 @@ public class MoveBoss : EnemyAI
     private bool isBackRotate;
     [JapaneseLabel("攻撃時の回転")] private bool finishRotation;
 
-    [SerializeField] [JapaneseLabel("1,2の発射レート")]
-    private float bulletRate1_2;
-    
-    [SerializeField] [JapaneseLabel("3,4の発射レート")]
-    private float bulletRate3_4;
-
     [Space(5)]
     [Header("パターン5")] 
     [SerializeField] [JapaneseLabel("レーザー")] private GameObject[] laser;
-    [SerializeField] [JapaneseLabel("90度回転するのにかかる秒数")] private float rotate90PerSec;
-    [SerializeField] [JapaneseLabel("パターン5発動のHPの割合(%)")][Space(5)] 
-    private int changeHPPercent;
     [JapaneseLabel("パターン5を行うようになるHP")][Space(5)] 
     private float changeHP;
     private float zeroHp = 0;
@@ -71,11 +64,9 @@ public class MoveBoss : EnemyAI
 
     [SerializeField] [JapaneseLabel("ループ回数")]
     private int loopCounter;
-    [SerializeField] [JapaneseLabel("ループさせる最大回数")]
-    private int maxLoop;
     
     public GameObject[]  Laser { get { return laser; } }
-    public float Rotate90PerSec { get { return rotate90PerSec; } }
+    public float Rotate90PerSec { get { return ExcelData.MoveBoss[moveBossData].rotate90PerSec; } }
     
     [SerializeField] private Animator animator;
 
@@ -84,7 +75,7 @@ public class MoveBoss : EnemyAI
         actioncounter = 0;
         loopCounter = 0;
         maxAction = 4;
-        changeHP = enemyData.maxHP * (changeHPPercent * 0.01f);
+        changeHP = ExcelData.Enemy[DataNumber].maxHP * (ExcelData.MoveBoss[moveBossData].changeHPPercent * 0.01f);
         //Debug.Log("ChangeHP:" + changeHP);
         patten5Flag = false;
         stateMachine=new StateMachine();
@@ -95,6 +86,8 @@ public class MoveBoss : EnemyAI
         isactive = false;
         isBackRotate = false;
         finishRotation = false;
+
+        IsSetUp = true;
     }
 
     // Update is called once per frame
@@ -203,18 +196,18 @@ public class MoveBoss : EnemyAI
     {
         if (isactive == true)
         {
-            beforeAttackText.After();
+            BeforeAttackText.After();
 
             // for (int i = 0; i < beeHeads.Count; i++)
             // {
             //     Debug.Log("Shot[" + beeHeads[i].shotPos.name + "]/" + beeHeads[i].shotPos.transform.position);
             // }
             // Debug.Log("Attck:" + shotPos);
-            GameObject bullets = Instantiate(enemyData.bulletObj, shotObj.transform.position, Quaternion.identity);
+            GameObject bullets = Instantiate(BulletObj, shotObj.transform.position, Quaternion.identity);
 
             Bullet reflectionBullet = bullets.GetComponent<Bullet>();
             
-            reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
+            reflectionBullet.SetStraightPowerEnemy(StraightObj.transform.rotation.eulerAngles);
             
             PlayAttckSound();
             //蜂頭を元の方向に戻す
@@ -273,23 +266,21 @@ public class MoveBoss : EnemyAI
             case Patterns.none:
                 break;
             case Patterns.pattern1:
-                enemyData.bulletRate = bulletRate1_2;
-                Debug.Log(enemyData.bulletRate);
+                ChangeBulletRate(ExcelData.MoveBoss[moveBossData].bulletRate1_2);
                 stateMachine.ChangeState(new RightVerticalMove(this));
                 animator.SetTrigger("MoveRight");
                 break;
             case Patterns.pattern2:
-                enemyData.bulletRate = bulletRate1_2;
-                Debug.Log(enemyData.bulletRate);
+                ChangeBulletRate(ExcelData.MoveBoss[moveBossData].bulletRate1_2);
                 stateMachine.ChangeState(new LeftVerticalMove(this));
                 animator.SetTrigger("MoveLeft");
                 break;
             case Patterns.pattern3:
-                enemyData.bulletRate = bulletRate3_4;
+                ChangeBulletRate(ExcelData.MoveBoss[moveBossData].bulletRate3_4);
                 stateMachine.ChangeState(new UpHorizontalMove(this));
                 break;
             case Patterns.pattern4:
-                enemyData.bulletRate = bulletRate3_4;
+                ChangeBulletRate(ExcelData.MoveBoss[moveBossData].bulletRate3_4);
                 stateMachine.ChangeState(new DownHorizontalMove(this));
                 
                 break;
@@ -333,7 +324,7 @@ public class MoveBoss : EnemyAI
             {
                 actioncounter = 0;
                 loopCounter++;
-                if (loopCounter == maxLoop)
+                if (loopCounter == ExcelData.MoveBoss[moveBossData].maxLoop)
                 {
                     loopCounter = 0;
                     ChangePattern(Patterns.pattern5);
@@ -343,7 +334,7 @@ public class MoveBoss : EnemyAI
         }
         else
         {
-            if (hp <= changeHP)
+            if (Hp <= changeHP)
             {
                 patten5Flag = true;
                 ChangePattern(Patterns.pattern5);

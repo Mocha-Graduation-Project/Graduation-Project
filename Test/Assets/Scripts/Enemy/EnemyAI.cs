@@ -11,29 +11,34 @@ using UnityEngine.VFX;
 
 public class EnemyAI : MonoBehaviour
 {
-    public EnemyData enemyData;
+    //public EnemyData enemyData;
+    [SerializeField] private ExcelData excelData;
+    [JapaneseLabel("何番目のデータを取得するか")] private int dataNumber;
+    [JapaneseLabel("SetUpが正常に完了したか")] private bool isSetUp;
 
-    [JapaneseLabel("現在のHP")] public int hp;
-    [NonSerialized] [JapaneseLabel("初期(中央)座標")] public Vector3 centerPos;
-    [JapaneseLabel("動かすオブジェクト")] public GameObject moveObj;
-    [JapaneseLabel("プレイヤーの方を向くオブジェクト")] public GameObject playerLookObj;
-    [JapaneseLabel("回転軸")] public GameObject rotateAxis;
-    [JapaneseLabel("弾を出す場所")] public GameObject shotObj;
-    [JapaneseLabel("ストレート時の角度参照オブジェクト")] public GameObject straightObj;
-    public DamageUI damageText;
-    [JapaneseLabel("警告UI")] public BeforeAttack beforeAttackText;
-    public EnemySpawnManager enemySpawnManager;
+    [SerializeField] [JapaneseLabel("現在のHP")] private int hp;
+    [NonSerialized] [JapaneseLabel("初期(中央)座標")] private Vector3 centerPos;
+    [SerializeField] [JapaneseLabel("動かすオブジェクト")] private GameObject moveObj;
+    [SerializeField] [JapaneseLabel("プレイヤーの方を向くオブジェクト")] private GameObject playerLookObj;
+    [SerializeField] [JapaneseLabel("回転軸")] private GameObject rotateAxis;
+    [SerializeField] [JapaneseLabel("弾を出す場所")] private GameObject shotObj;
+    [SerializeField] [JapaneseLabel("ストレート時の角度参照オブジェクト")] private GameObject straightObj;
+    [SerializeField] private DamageUI damageText;
+    [SerializeField] [JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
+    [SerializeField] private EnemySpawnManager enemySpawnManager;
     [JapaneseLabel("死亡エフェクト")][SerializeField]private GameObject deathEffectPrefab;
     [JapaneseLabel("被弾エフェクト")] [SerializeField] private GameObject damageEffectPrefab;
     [JapaneseLabel("プレイヤー")] public Player.Player player => Player.Player.Instance;
     [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
-    [JapaneseLabel("攻撃エフェクト")][SerializeField] private GameObject attackEffect;
+    [SerializeField] [JapaneseLabel("音源")] private SoundData soundData;
     private AudioSource audioSource;
     private AudioClip EnemyShotSound;
     private AudioClip DamageSound;
     private AudioClip EnemyDestorySound;
+    [SerializeField] [JapaneseLabel("発射する弾")] private GameObject bulletObj;
+    [JapaneseLabel("弾を発射するレート")] private float bulletRate;
     
-    protected Collider loopAreaCollider;
+    private Collider loopAreaCollider;
     
     //移動に関する変数(overrideしないで動く用)
     private bool isCoolTime;
@@ -49,120 +54,119 @@ public class EnemyAI : MonoBehaviour
     private float upPosY;
     private float downPosY;
     
+    public ExcelData ExcelData{ get { return excelData; } }
+    public int DataNumber { get { return dataNumber; } }
+    public int Hp { get { return hp; } }
+    public BeforeAttack BeforeAttackText { get { return beforeAttackText; } }
+    public Vector3 CenterPos { get { return centerPos; } }
+    public GameObject MoveObj {get  { return moveObj; } }
+    public GameObject BulletObj {get  { return bulletObj; } }
+    public GameObject StraightObj { get { return straightObj; } }
+    public GameObject RotateAxis { get { return rotateAxis; } }
+    public bool IsSetUp { get => isSetUp; set => isSetUp = value; }
+
     public void Awake()
     {
-        if (LoopManager.Instance != null)
+        GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
+        if (loopAreaObj != null)
         {
-            loopAreaCollider = LoopManager.Instance.AreaLoopCollider;
+            loopAreaCollider = loopAreaObj.GetComponent<Collider>();
         }
         else
         {
-            Debug.LogError("LoopManagerが見つかりません。シーンに配置してください。");
+            Debug.LogError("LoopAreaColliderが見つかりません。LoopAreaタグを持つGameObjectを配置してください。");
+            return;
         }
-
-        if (EnemyHPSlider.Instance != null)
-        {
-            enemyHPSlider = EnemyHPSlider.Instance.Slider;
-        }
-        else
-        {
-            Debug.LogError("EnemyHPSliderが見つかりません。シーンに配置してください。");
-        }
-        EnemyShotSound = enemyData.soundData.enemyShotSound;
-        DamageSound = enemyData.soundData.damageSound;
-        EnemyDestorySound = enemyData.soundData.enemyDestroySound;
+            
+        EnemyShotSound = soundData.enemyShotSound;
+        DamageSound = soundData.damageSound;
+        EnemyDestorySound = soundData.enemyDestroySound;
+        isSetUp = false;
     }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        hp = enemyData.maxHP;
+        //hp = enemyData.maxHP;
         centerPos = this.transform.position;
         audioSource = GetComponent<AudioSource>();
-        enemySpawnManager = EnemySpawnManager.Instance;
+        enemySpawnManager = GameObject.FindObjectOfType<EnemySpawnManager>();
 
-        //攻撃
-        switch (enemyData.enemyAttackType)
-        {
-            case EnemyData.EnemyAttackType.dontAttack:
-                break;
-            case EnemyData.EnemyAttackType.playerAim:
-                StartAttack();
-                break;
-            case EnemyData.EnemyAttackType.straight:
-                StartAttack();
-                break;
-        }
-
-        SetUp();
-
-        switch (enemyData.enemyType)
-        {
-            case EnemyData.EnemyType.boss:
-            case EnemyData.EnemyType.humanoid:
-                if (enemyHPSlider != null)
-                {
-                    enemyHPSlider.maxValue = hp;
-                    enemyHPSlider.value = hp;
-                }
-                break;
-        }
-
-        // 敵スポーンイベントをログ
-        string enemyTypeStr = enemyData.enemyType.ToString();
-        LudiscanManager.Instance.LogEnemySpawn(
-            enemyId: gameObject.name,
-            enemyType: enemyTypeStr,
-            position: transform.position
-        );
+        // //攻撃
+        // switch (enemyData.enemyAttackType)
+        // {
+        //     case EnemyData.EnemyAttackType.dontAttack:
+        //         break;
+        //     case EnemyData.EnemyAttackType.playerAim:
+        //         StartAttack();
+        //         break;
+        //     case EnemyData.EnemyAttackType.straight:
+        //         StartAttack();
+        //         break;
+        // }
+        //
+        // SetUp();
+        //
+        // switch (enemyData.enemyType)
+        // {
+        //     case EnemyData.EnemyType.boss:
+        //     case EnemyData.EnemyType.humanoid:
+        //         enemyHPSlider = GameObject.FindWithTag("EnemyHPBar").GetComponent<Slider>();
+        //         enemyHPSlider.maxValue = hp;
+        //         enemyHPSlider.value = hp;
+        //         break;
+        // }
+        //
+        // // 敵スポーンイベントをログ
+        // string enemyTypeStr = enemyData.enemyType.ToString();
+        // LudiscanManager.Instance.LogEnemySpawn(
+        //     enemyId: gameObject.name,
+        //     enemyType: enemyTypeStr,
+        //     position: transform.position
+        // );
     }
 
     // Update is called once per frame
     virtual protected void Update()
     {
+        if (isSetUp == false)
+        {
+            Debug.Log("セットアップが完了していません");
+            return;
+        }
         //プレイヤーの方を向く処理
         if (player != null)
         {
             //Debug.Log("EnemyAIUpdate");
             // DOLookAt(ターゲットの位置, 回転にかける時間)
-            switch (enemyData.playerLookType)
+            switch (excelData.Enemy[dataNumber].playerLookType)
             {
-                case EnemyData.PlayerLookType.look:
+                case EnemyDataEntity.PlayerLookType.look:
                     playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
                     break;
-                case EnemyData.PlayerLookType.lookY:
+                case EnemyDataEntity.PlayerLookType.lookY:
                     Vector3 lookPos = new Vector3(player.transform.position.x, playerLookObj.transform.position.y,
                         player.transform.position.z);
                     playerLookObj.transform.DOLookAt(lookPos, 0.5f);
                     break;
-                case EnemyData.PlayerLookType.dontLook:
+                case EnemyDataEntity.PlayerLookType.dontLook:
                     break;
             }
         }
 
-        switch (enemyData.moveType)
+        switch (excelData.Enemy[dataNumber].moveType)
         {
-            case EnemyData.MoveType.dontMove:
+            case EnemyDataEntity.MoveType.dontMove:
                 break;
-            case EnemyData.MoveType.custom:
+            case EnemyDataEntity.MoveType.custom:
                 CustomMove();
                 break;
-            case EnemyData.MoveType.vertical:
+            case EnemyDataEntity.MoveType.vertical:
                 VerticalMove();
                 break;
-            case EnemyData.MoveType.horizontal:
+            case EnemyDataEntity.MoveType.horizontal:
                 HorizontalMove();
                 break;
-        }
-    }
-
-    public void OnAnimatorIK()
-    {
-        Debug.Log("EnemyAIOnAnimatorIK");
-        if (player != null)
-        {
-            // DOLookAt(ターゲットの位置, 回転にかける時間)
-            playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
         }
     }
 
@@ -203,6 +207,12 @@ public class EnemyAI : MonoBehaviour
     //被弾
     void OnTriggerEnter(Collider collider)
     {
+        if (isSetUp == false)
+        {
+            Debug.Log("セットアップが完了していません");
+            return;
+        }
+        
         if (collider.gameObject.tag == "Bullet")
         {
             Debug.Log("当たった");
@@ -225,13 +235,13 @@ public class EnemyAI : MonoBehaviour
         
         if (hp <= 0)
         {
-            if (enemyData.enemyAttackType != EnemyData.EnemyAttackType.dontAttack)
+            if (excelData.Enemy[dataNumber].enemyAttackType != EnemyDataEntity.EnemyAttackType.dontAttack)
             {
                 StopAttack();
             }
 
             // 敵死亡イベントをログ
-            string enemyTypeStr = enemyData.enemyType.ToString();
+            string enemyTypeStr = excelData.Enemy[dataNumber].enemyType.ToString();
             LudiscanManager.Instance.LogEnemyDeath(
                 enemyId: gameObject.name,
                 enemyType: enemyTypeStr,
@@ -240,18 +250,19 @@ public class EnemyAI : MonoBehaviour
 
             DeathProcess();
 
-            switch (enemyData.enemyType)
+            Debug.Log("Dead:" + excelData.Enemy[dataNumber].enemyType);
+            switch (excelData.Enemy[dataNumber].enemyType)
             {
-                case EnemyData.EnemyType.normal:
+                case EnemyDataEntity.EnemyType.normal:
                     enemySpawnManager.RemoveEnemy(this.gameObject,deathEffectPrefab);
                     break;
-                case EnemyData.EnemyType.shield:
+                case EnemyDataEntity.EnemyType.shield:
                     enemySpawnManager.RemoveEnemy(this.gameObject.transform.parent.gameObject,deathEffectPrefab);
                     break;
-                case EnemyData.EnemyType.boss:
+                case EnemyDataEntity.EnemyType.boss:
                     enemySpawnManager.RemoveEnemy(this.gameObject.transform.parent.gameObject,deathEffectPrefab);
                     break;
-                case EnemyData.EnemyType.humanoid:
+                case EnemyDataEntity.EnemyType.humanoid:
                     enemySpawnManager.RemoveEnemy(this.gameObject, deathEffectPrefab);
                     break;
             }
@@ -263,19 +274,15 @@ public class EnemyAI : MonoBehaviour
     {
         //Debug.Log("Attack");
         beforeAttackText.After();
-        // if (enemyData.enemyType == EnemyData.EnemyType.boss)
-        // {
-        //     animator.SetTrigger("Attack");
-        // }
-        GameObject bullets = Instantiate(enemyData.bulletObj, shotObj.transform.position, Quaternion.identity);
+        GameObject bullets = Instantiate(bulletObj, shotObj.transform.position, Quaternion.identity);
 
         Bullet reflectionBullet = bullets.GetComponent<Bullet>();
-        switch (enemyData.enemyAttackType)
+        switch (excelData.Enemy[dataNumber].enemyAttackType)
         {
-            case EnemyData.EnemyAttackType.playerAim:
+            case EnemyDataEntity.EnemyAttackType.playerAim:
                 reflectionBullet.SetPowerEnemy(transform.position);
                 break;
-            case EnemyData.EnemyAttackType.straight:
+            case EnemyDataEntity.EnemyAttackType.straight:
                 reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
                 break;
         }
@@ -286,9 +293,9 @@ public class EnemyAI : MonoBehaviour
     
     public virtual void BeforeAttack()
     {
-        if (enemyData.enemyAttackType == EnemyData.EnemyAttackType.dontAttack) { return; }
-        attackEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
-        beforeAttackText.Warning(enemyData.blinkDuration);
+        if (excelData.Enemy[dataNumber].enemyAttackType == EnemyDataEntity.EnemyAttackType.dontAttack) { return; }
+            
+        beforeAttackText.Warning(excelData.Enemy[dataNumber].brinkDuration);
     }
 
     public void StopAttack()
@@ -300,8 +307,8 @@ public class EnemyAI : MonoBehaviour
     public void StartAttack()
     {
         //Debug.Log("AttackStart");
-        Invoke("BeforeAttack", enemyData.bulletRate - enemyData.beforeAttackTime);
-        Invoke("EnemyAttack", enemyData.bulletRate);
+        Invoke("BeforeAttack", bulletRate - excelData.Enemy[dataNumber].beforeAttackTime);
+        Invoke("EnemyAttack", bulletRate);
     }
 
     public void VerticalMove()
@@ -309,7 +316,7 @@ public class EnemyAI : MonoBehaviour
         if (isCoolTime == true)
         {
             float diff = Time.time - t;
-            if (diff < enemyData.moveWaitTime)
+            if (diff < excelData.Enemy[dataNumber].waitTime)
             {
                 //Debug.Log("クールタイム中");
                 return;
@@ -324,19 +331,19 @@ public class EnemyAI : MonoBehaviour
         switch (moveCounter)
         {
             case 0:
-                if (EnemyMove(moveObj, startPos, upCenterPos, enemyData.moveVerticalTime, t) == true)
+                if (EnemyMove(moveObj, startPos, upCenterPos, excelData.Enemy[dataNumber].verticalTime, t) == true)
                 {
                     NextMove();
                 }
                 break;
             case 1:
-                if (EnemyMove(moveObj, upCenterPos, downCenterPos, enemyData.moveVerticalTime * 2, t) == true)
+                if (EnemyMove(moveObj, upCenterPos, downCenterPos, excelData.Enemy[dataNumber].verticalTime * 2, t) == true)
                 {
                     NextMove();
                 }
                 break;
             case 2:
-                if (EnemyMove(moveObj, downCenterPos, upCenterPos, enemyData.moveVerticalTime * 2, t) == true)
+                if (EnemyMove(moveObj, downCenterPos, upCenterPos, excelData.Enemy[dataNumber].verticalTime * 2, t) == true)
                 {
                     NextMove();
                 }
@@ -349,7 +356,7 @@ public class EnemyAI : MonoBehaviour
         if (isCoolTime == true)
         {
             float diff = Time.time - t;
-            if (diff < enemyData.moveWaitTime)
+            if (diff < excelData.Enemy[dataNumber].waitTime)
             {
                 //Debug.Log("クールタイム中");
                 return;
@@ -364,19 +371,19 @@ public class EnemyAI : MonoBehaviour
         switch (moveCounter)
         {
             case 0:
-                if (EnemyMove(moveObj, startPos, rightCenterPos, enemyData.moveHorizontalTime, t) == true)
+                if (EnemyMove(moveObj, startPos, rightCenterPos, excelData.Enemy[dataNumber].horizontalTime, t) == true)
                 {
                     NextMove();
                 }
                 break;
             case 1:
-                if (EnemyMove(moveObj, rightCenterPos, leftCenterPos, enemyData.moveHorizontalTime * 2, t) == true)
+                if (EnemyMove(moveObj, rightCenterPos, leftCenterPos, excelData.Enemy[dataNumber].horizontalTime * 2, t) == true)
                 {
                     NextMove();
                 }
                 break;
             case 2:
-                if (EnemyMove(moveObj, leftCenterPos, rightCenterPos, enemyData.moveHorizontalTime * 2, t) == true)
+                if (EnemyMove(moveObj, leftCenterPos, rightCenterPos, excelData.Enemy[dataNumber].horizontalTime * 2, t) == true)
                 {
                     NextMove();
                 }
@@ -399,15 +406,69 @@ public class EnemyAI : MonoBehaviour
             moveCounter = 1;
         }
     }
-    
+
+    public virtual void SetNumber(int enemyID)
+    {
+        dataNumber = -1;
+        for (int i = 0; i < excelData.Enemy.Count; i++)
+        {
+            if (enemyID == excelData.Enemy[i].id)
+            {
+                dataNumber = i;
+            }
+        }
+
+        if (dataNumber == -1)
+        {
+            //idが存在しない場合
+            Debug.Log("IDが存在しません");
+            return;
+        }
+
+        hp = excelData.Enemy[dataNumber].maxHP;
+        ChangeBulletRate(excelData.Enemy[dataNumber].bulletRate);
+        
+        //攻撃
+        switch (excelData.Enemy[dataNumber].enemyAttackType)
+        {
+            case EnemyDataEntity.EnemyAttackType.dontAttack:
+                break;
+            case EnemyDataEntity.EnemyAttackType.playerAim:
+                StartAttack();
+                break;
+            case EnemyDataEntity.EnemyAttackType.straight:
+                StartAttack();
+                break;
+        }
+
+        switch (excelData.Enemy[dataNumber].enemyType)
+        {
+            case EnemyDataEntity.EnemyType.boss:
+            case EnemyDataEntity.EnemyType.humanoid:
+                enemyHPSlider = GameObject.FindWithTag("EnemyHPBar").GetComponent<Slider>();
+                enemyHPSlider.maxValue = hp;
+                enemyHPSlider.value = hp;
+                break;
+        }
+
+        // 敵スポーンイベントをログ
+        string enemyTypeStr = excelData.Enemy[dataNumber].enemyType.ToString();
+        LudiscanManager.Instance.LogEnemySpawn(
+            enemyId: gameObject.name,
+            enemyType: enemyTypeStr,
+            position: transform.position
+        );
+        
+        SetUp();
+    }
     public virtual void SetUp()
     {
         //overrideしない場合の移動に使う変数を代入
         startPos = transform.position;
-        rightPosX = centerPos.x + enemyData.rightRenge;
-        leftPosX = centerPos.x - enemyData.leftRenge;
-        upPosY = centerPos.y + enemyData.upRenge;
-        downPosY = centerPos.y - enemyData.downRenge;
+        rightPosX = centerPos.x + excelData.Enemy[dataNumber].rightRenge;
+        leftPosX = centerPos.x - excelData.Enemy[dataNumber].leftRenge;
+        upPosY = centerPos.y + excelData.Enemy[dataNumber].upRenge;
+        downPosY = centerPos.y - excelData.Enemy[dataNumber].downRenge;
         rightCenterPos = new Vector3(rightPosX, centerPos.y, centerPos.z);
         leftCenterPos = new Vector3(leftPosX, centerPos.y, centerPos.z);
         upCenterPos = new Vector3(centerPos.x, upPosY, centerPos.z);
@@ -416,10 +477,17 @@ public class EnemyAI : MonoBehaviour
         isCoolTime = false;
         moveCounter = 0;
         ResetStartTime();
+
+        isSetUp = true;
     }
     public virtual void Change() {}
     public virtual void CustomMove() {}
     public virtual void DeathProcess(){}
+
+    public void ChangeBulletRate(float rate)
+    {
+        bulletRate = rate;
+    }
 
     public void PlayAttckSound()
     {

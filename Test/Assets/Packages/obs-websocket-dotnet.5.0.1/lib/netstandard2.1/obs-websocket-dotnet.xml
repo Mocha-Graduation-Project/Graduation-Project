@@ -57,7 +57,7 @@
         </member>
         <member name="F:OBSWebsocketDotNet.Communication.ObsCloseCodes.InvalidDataFieldType">
             <summary>
-            A data field's value type is invalid.
+            A data field's value enemyType is invalid.
             </summary>
         </member>
         <member name="F:OBSWebsocketDotNet.Communication.ObsCloseCodes.InvalidDataFieldValue">
@@ -321,12 +321,12 @@
         </member>
         <member name="E:OBSWebsocketDotNet.OBSWebsocket.MediaInputPlaybackEnded">
             <summary>
-            These events are emitted by the OBS sources themselves. For example when the media file ends. The behavior depends on the type of media source being used.
+            These events are emitted by the OBS sources themselves. For example when the media file ends. The behavior depends on the enemyType of media source being used.
             </summary>
         </member>
         <member name="E:OBSWebsocketDotNet.OBSWebsocket.MediaInputPlaybackStarted">
             <summary>
-            These events are emitted by the OBS sources themselves. For example when the media file starts playing. The behavior depends on the type of media source being used.
+            These events are emitted by the OBS sources themselves. For example when the media file starts playing. The behavior depends on the enemyType of media source being used.
             </summary>
         </member>
         <member name="E:OBSWebsocketDotNet.OBSWebsocket.MediaInputActionTriggered">
@@ -393,7 +393,7 @@
         </member>
         <member name="E:OBSWebsocketDotNet.OBSWebsocket.InputAudioMonitorTypeChanged">
             <summary>
-            The monitor type of an input has changed.
+            The monitor enemyType of an input has changed.
             Available types are:
             - `OBS_MONITORING_TYPE_NONE`
             - `OBS_MONITORING_TYPE_MONITOR_ONLY`
@@ -434,7 +434,7 @@
             <summary>
             Update message handler
             </summary>
-            <param name="eventType">Value of "event-type" in the JSON body</param>
+            <param name="eventType">Value of "event-enemyType" in the JSON body</param>
             <param name="body">full JSON message body</param>
         </member>
         <member name="P:OBSWebsocketDotNet.OBSWebsocket.WSTimeout">
@@ -480,20 +480,20 @@
         </member>
         <member name="M:OBSWebsocketDotNet.OBSWebsocket.SendRequest(System.String,Newtonsoft.Json.Linq.JObject)">
             <summary>
-            Sends a message to the websocket API with the specified request type and optional parameters
+            Sends a message to the websocket API with the specified request enemyType and optional parameters
             </summary>
-            <param name="requestType">obs-websocket request type, must be one specified in the protocol specification</param>
-            <param name="additionalFields">additional JSON fields if required by the request type</param>
+            <param name="requestType">obs-websocket request enemyType, must be one specified in the protocol specification</param>
+            <param name="additionalFields">additional JSON fields if required by the request enemyType</param>
             <returns>The server's JSON response as a JObject</returns>
         </member>
         <member name="M:OBSWebsocketDotNet.OBSWebsocket.SendRequest(OBSWebsocketDotNet.Communication.MessageTypes,System.String,Newtonsoft.Json.Linq.JObject,System.Boolean)">
             <summary>
             Internal version which allows to set the opcode
-            Sends a message to the websocket API with the specified request type and optional parameters
+            Sends a message to the websocket API with the specified request enemyType and optional parameters
             </summary>
             <param name="operationCode">Type/OpCode for this messaage</param>
-            <param name="requestType">obs-websocket request type, must be one specified in the protocol specification</param>
-            <param name="additionalFields">additional JSON fields if required by the request type</param>
+            <param name="requestType">obs-websocket request enemyType, must be one specified in the protocol specification</param>
+            <param name="additionalFields">additional JSON fields if required by the request enemyType</param>
             <param name="waitForReply">Should wait for reply vs "fire and forget"</param>
             <returns>The server's JSON response as a JObject</returns>
         </member>
@@ -972,7 +972,7 @@
         <member name="M:OBSWebsocketDotNet.OBSWebsocket.SetStreamServiceSettings(OBSWebsocketDotNet.Types.StreamingService)">
             <summary>
             Sets the current stream service settings (stream destination).
-            Note: Simple RTMP settings can be set with type `rtmp_custom` and the settings fields `server` and `key`.
+            Note: Simple RTMP settings can be set with enemyType `rtmp_custom` and the settings fields `server` and `key`.
             </summary>
             <param name="service">Stream Service Type Name and Settings objects</param>
         </member>
@@ -980,25 +980,25 @@
             <summary>
             Gets the current stream service settings (stream destination).
             </summary>
-            <returns>Stream service type and settings objects</returns>
+            <returns>Stream service enemyType and settings objects</returns>
         </member>
         <member name="M:OBSWebsocketDotNet.OBSWebsocket.GetInputAudioMonitorType(System.String)">
             <summary>
-            Gets the audio monitor type of an input.
+            Gets the audio monitor enemyType of an input.
             The available audio monitor types are:
             - `OBS_MONITORING_TYPE_NONE`
             - `OBS_MONITORING_TYPE_MONITOR_ONLY`
             - `OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT`
             </summary>
             <param name="inputName">Source name</param>
-            <returns>The monitor type in use</returns>
+            <returns>The monitor enemyType in use</returns>
         </member>
         <member name="M:OBSWebsocketDotNet.OBSWebsocket.SetInputAudioMonitorType(System.String,System.String)">
             <summary>
-            Sets the audio monitor type of an input.
+            Sets the audio monitor enemyType of an input.
             </summary>
-            <param name="inputName">Name of the input to set the audio monitor type of</param>
-            <param name="monitorType">Audio monitor type. See `GetInputAudioMonitorType for possible types.</param>
+            <param name="inputName">Name of the input to set the audio monitor enemyType of</param>
+            <param name="monitorType">Audio monitor enemyType. See `GetInputAudioMonitorType for possible types.</param>
         </member>
         <member name="M:OBSWebsocketDotNet.OBSWebsocket.BroadcastCustomEvent(Newtonsoft.Json.Linq.JObject)">
             <summary>
@@ -1121,7 +1121,7 @@
             </summary>
             <param name="realm">The data realm to select. `OBS_WEBSOCKET_DATA_REALM_GLOBAL` or `OBS_WEBSOCKET_DATA_REALM_PROFILE`</param>
             <param name="slotName">The name of the slot to retrieve data from</param>
-            <returns type="Any">Value associated with the slot. `null` if not set</returns>
+            <returns enemyType="Any">Value associated with the slot. `null` if not set</returns>
         </member>
         <member name="M:OBSWebsocketDotNet.OBSWebsocket.SetPersistentData(System.String,System.String,Newtonsoft.Json.Linq.JObject)">
             <summary>
@@ -1208,7 +1208,7 @@
             If a plugin or script implements vendor requests or events, documentation is expected to be provided with them.
             </summary>
             <param name="vendorName">Name of the vendor to use</param>
-            <param name="requestType">The request type to call</param>
+            <param name="requestType">The request enemyType to call</param>
             <param name="requestData">Object containing appropriate request data</param>
             <returns>Object containing appropriate response data. {} if request does not provide any response data</returns>
         </member>
@@ -2034,7 +2034,7 @@
         <member name="M:OBSWebsocketDotNet.IOBSWebsocket.SetStreamServiceSettings(OBSWebsocketDotNet.Types.StreamingService)">
             <summary>
             Sets the current stream service settings (stream destination).
-            Note: Simple RTMP settings can be set with type `rtmp_custom` and the settings fields `server` and `key`.
+            Note: Simple RTMP settings can be set with enemyType `rtmp_custom` and the settings fields `server` and `key`.
             </summary>
             <param name="service">Stream Service Type Name and Settings objects</param>
         </member>
@@ -2042,25 +2042,25 @@
             <summary>
             Gets the current stream service settings (stream destination).
             </summary>
-            <returns>Stream service type and settings objects</returns>
+            <returns>Stream service enemyType and settings objects</returns>
         </member>
         <member name="M:OBSWebsocketDotNet.IOBSWebsocket.GetInputAudioMonitorType(System.String)">
             <summary>
-            Gets the audio monitor type of an input.
+            Gets the audio monitor enemyType of an input.
             The available audio monitor types are:
             - `OBS_MONITORING_TYPE_NONE`
             - `OBS_MONITORING_TYPE_MONITOR_ONLY`
             - `OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT`
             </summary>
             <param name="inputName">Source name</param>
-            <returns>The monitor type in use</returns>
+            <returns>The monitor enemyType in use</returns>
         </member>
         <member name="M:OBSWebsocketDotNet.IOBSWebsocket.SetInputAudioMonitorType(System.String,System.String)">
             <summary>
-            Sets the audio monitor type of an input.
+            Sets the audio monitor enemyType of an input.
             </summary>
-            <param name="inputName">Name of the input to set the audio monitor type of</param>
-            <param name="monitorType">Audio monitor type. See `GetInputAudioMonitorType for possible types.</param>
+            <param name="inputName">Name of the input to set the audio monitor enemyType of</param>
+            <param name="monitorType">Audio monitor enemyType. See `GetInputAudioMonitorType for possible types.</param>
         </member>
         <member name="M:OBSWebsocketDotNet.IOBSWebsocket.BroadcastCustomEvent(Newtonsoft.Json.Linq.JObject)">
             <summary>
@@ -2183,7 +2183,7 @@
             </summary>
             <param name="realm">The data realm to select. `OBS_WEBSOCKET_DATA_REALM_GLOBAL` or `OBS_WEBSOCKET_DATA_REALM_PROFILE`</param>
             <param name="slotName">The name of the slot to retrieve data from</param>
-            <returns type="Any">Value associated with the slot. `null` if not set</returns>
+            <returns enemyType="Any">Value associated with the slot. `null` if not set</returns>
         </member>
         <member name="M:OBSWebsocketDotNet.IOBSWebsocket.SetPersistentData(System.String,System.String,Newtonsoft.Json.Linq.JObject)">
             <summary>
@@ -2270,7 +2270,7 @@
             If a plugin or script implements vendor requests or events, documentation is expected to be provided with them.
             </summary>
             <param name="vendorName">Name of the vendor to use</param>
-            <param name="requestType">The request type to call</param>
+            <param name="requestType">The request enemyType to call</param>
             <param name="requestData">Object containing appropriate request data</param>
             <returns>Object containing appropriate response data. {} if request does not provide any response data</returns>
         </member>
@@ -2617,10 +2617,10 @@
         </member>
         <member name="M:OBSWebsocketDotNet.IOBSWebsocket.SendRequest(System.String,Newtonsoft.Json.Linq.JObject)">
             <summary>
-            Sends a message to the websocket API with the specified request type and optional parameters
+            Sends a message to the websocket API with the specified request enemyType and optional parameters
             </summary>
-            <param name="requestType">obs-websocket request type, must be one specified in the protocol specification</param>
-            <param name="additionalFields">additional JSON fields if required by the request type</param>
+            <param name="requestType">obs-websocket request enemyType, must be one specified in the protocol specification</param>
+            <param name="additionalFields">additional JSON fields if required by the request enemyType</param>
             <returns>The server's JSON response as a JObject</returns>
         </member>
         <member name="M:OBSWebsocketDotNet.IOBSWebsocket.GetAuthInfo">
@@ -2802,12 +2802,12 @@
         </member>
         <member name="E:OBSWebsocketDotNet.IOBSWebsocket.MediaInputPlaybackEnded">
             <summary>
-            These events are emitted by the OBS sources themselves. For example when the media file ends. The behavior depends on the type of media source being used.
+            These events are emitted by the OBS sources themselves. For example when the media file ends. The behavior depends on the enemyType of media source being used.
             </summary>
         </member>
         <member name="E:OBSWebsocketDotNet.IOBSWebsocket.MediaInputPlaybackStarted">
             <summary>
-            These events are emitted by the OBS sources themselves. For example when the media file starts playing. The behavior depends on the type of media source being used.
+            These events are emitted by the OBS sources themselves. For example when the media file starts playing. The behavior depends on the enemyType of media source being used.
             </summary>
         </member>
         <member name="E:OBSWebsocketDotNet.IOBSWebsocket.MediaInputActionTriggered">
@@ -2874,7 +2874,7 @@
         </member>
         <member name="E:OBSWebsocketDotNet.IOBSWebsocket.InputAudioMonitorTypeChanged">
             <summary>
-            The monitor type of an input has changed.
+            The monitor enemyType of an input has changed.
             Available types are:
             - `OBS_MONITORING_TYPE_NONE`
             - `OBS_MONITORING_TYPE_MONITOR_ONLY`
@@ -3078,7 +3078,7 @@
         </member>
         <member name="P:OBSWebsocketDotNet.Types.Events.InputAudioMonitorTypeChangedEventArgs.MonitorType">
             <summary>
-            New monitor type of the input
+            New monitor enemyType of the input
             </summary>
         </member>
         <member name="M:OBSWebsocketDotNet.Types.Events.InputAudioMonitorTypeChangedEventArgs.#ctor(System.String,System.String)">
@@ -3086,7 +3086,7 @@
             Default Constructor
             </summary>
             <param name="inputName">The input name</param>
-            <param name="monitorType">The monitor type</param>
+            <param name="monitorType">The monitor enemyType</param>
         </member>
         <member name="T:OBSWebsocketDotNet.Types.Events.InputAudioSyncOffsetChangedEventArgs">
             <summary>
@@ -3941,7 +3941,7 @@
         </member>
         <member name="P:OBSWebsocketDotNet.Types.Events.UnsupportedEventArgs.EventType">
             <summary>
-            The type of the event
+            The enemyType of the event
             </summary>
         </member>
         <member name="P:OBSWebsocketDotNet.Types.Events.UnsupportedEventArgs.Body">
@@ -3979,7 +3979,7 @@
             Default Constructor
             </summary>
             <param name="vendorName">The vendor name</param>
-            <param name="eventType">The event type</param>
+            <param name="eventType">The event enemyType</param>
             <param name="eventData">The event data as a Json Object</param>
         </member>
         <member name="T:OBSWebsocketDotNet.Types.Events.VirtualcamStateChangedEventArgs">
