@@ -141,22 +141,33 @@ public class EnemyAI : MonoBehaviour
             return;
         }
         //プレイヤーの方を向く処理
-        if (player != null)
+        if (player != null && playerLookObj != null)
         {
             //Debug.Log("EnemyAIUpdate");
-            // DOLookAt(ターゲットの位置, 回転にかける時間)
+            Vector3 targetDir = Vector3.zero;
+            bool shouldRotate = false;
+
             switch (excelData.Enemy[dataNumber].playerLookType)
             {
                 case EnemyDataEntity.PlayerLookType.look:
-                    playerLookObj.transform.DOLookAt(player.transform.localPosition, 0.5f);
+                    targetDir = player.transform.localPosition - playerLookObj.transform.localPosition;
+                    shouldRotate = true;
                     break;
                 case EnemyDataEntity.PlayerLookType.lookY:
-                    Vector3 lookPos = new Vector3(player.transform.position.x, playerLookObj.transform.position.y,
-                        player.transform.position.z);
-                    playerLookObj.transform.DOLookAt(lookPos, 0.5f);
+                     // playerLookObjがルートならWorldで計算してOK。
+                    Vector3 worldLookPos = new Vector3(player.transform.position.x, playerLookObj.transform.position.y, player.transform.position.z);
+                    targetDir = worldLookPos - playerLookObj.transform.position;
+                    shouldRotate = true;
                     break;
                 case EnemyDataEntity.PlayerLookType.dontLook:
                     break;
+            }
+
+            if (shouldRotate && targetDir != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(targetDir);
+                // DOLookAt(0.5f) の挙動に近いスムーズな回転
+                playerLookObj.transform.rotation = Quaternion.Slerp(playerLookObj.transform.rotation, targetRotation, Time.deltaTime * 5f);
             }
         }
 
