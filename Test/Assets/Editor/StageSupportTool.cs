@@ -1,9 +1,13 @@
-#region 
+#region
+
+using System;
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditorInternal;
+using Object = UnityEngine.Object;
+
 #endregion
 
 public class StageSupportTool : EditorWindow
@@ -179,6 +183,7 @@ public class StageSupportTool : EditorWindow
         EditorGUILayout.Space();
     }
 
+    [Obsolete("Obsolete")]
     private void DrawObjectListArea()
     {
         EditorGUILayout.BeginVertical("box");
@@ -265,6 +270,7 @@ public class StageSupportTool : EditorWindow
         EditorGUILayout.Space();
     }
 
+    [Obsolete("Obsolete")]
     private void DrawObjectItem(GameObject go)
     {
         bool isSelected = selectedObjects.Contains(go);

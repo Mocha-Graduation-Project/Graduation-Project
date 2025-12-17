@@ -37,8 +37,8 @@ namespace Scripts.UI
 
         [Header("<サイズ>")]
         [SerializeField][JapaneseLabel("【小】　ダメージがX以下の時フォントサイズを+〇する")] private float smallDamageSize = 0;
-        [SerializeField][JapaneseLabel("【中】　ダメージがY以下の時フォントサイズを+〇する")] private float mediumDamageSize = 5;
-        [SerializeField][JapaneseLabel("【大】　ダメージがY以上の時フォントサイズを+〇する")] private float bigDamageSize = 20;
+        // [SerializeField][JapaneseLabel("【中】　ダメージがY以下の時フォントサイズを+〇する")] private float mediumDamageSize = 5;
+        // [SerializeField][JapaneseLabel("【大】　ダメージがY以上の時フォントサイズを+〇する")] private float bigDamageSize = 20;
         [Header("<色>")]
         [SerializeField][JapaneseLabel("【小】　ダメージがX以下の時色を〇色にする")] private Color smallDamageColor = Color.white;
         [SerializeField][JapaneseLabel("【中】　ダメージがY以下の時色を〇色にする")] private Color mediumDamageColor = Color.yellow;

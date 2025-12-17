@@ -53,7 +53,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (LoopManager.Instance != null)
         {
-            loopAreaCollider = LoopManager.Instance.AreaCollider;
+            loopAreaCollider = LoopManager.Instance.AreaLoopCollider;
         }
         else
         {

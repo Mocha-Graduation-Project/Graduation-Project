@@ -29,12 +29,12 @@ namespace Player
         [JapaneseLabel("被弾時無敵時間")]
         private float invincibleDuration = 2.0f;
 
-        private string enemyBulletTag = "EnemyBullet";
+        //private string enemyBulletTag = "EnemyBullet";
 
         private bool invincible;
         private bool isGrounded;
 
-        private string playerBulletTag = "Bullet";
+        //private string playerBulletTag = "Bullet";
 
         public int PlayerHp => playerHp;
 

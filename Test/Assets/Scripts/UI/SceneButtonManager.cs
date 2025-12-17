@@ -97,6 +97,7 @@ namespace UI
             Debug.Log("Game Clear:" + currentState);
         }
 
+        [Obsolete("Obsolete")]
         public void GameOver()
         {
             if (currentState == State.Pause)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems
 {
@@ -9,8 +10,8 @@ namespace Systems
         // どこからでもアクセスできるインスタンス
         public static LoopManager Instance { get; private set; }
 
-        [SerializeField] private Collider collider;
-        public Collider AreaCollider => collider;
+        [SerializeField] private Collider loopCollider;
+        public Collider AreaLoopCollider => loopCollider;
 
         private void Awake()
         {
@@ -18,7 +19,7 @@ namespace Systems
             if (Instance == null)
             {
                 Instance = this;
-                if (collider == null) collider = GetComponent<Collider>();
+                if (loopCollider == null) loopCollider = GetComponent<Collider>();
             }
             else
             {

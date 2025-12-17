@@ -20,7 +20,7 @@ namespace Component
         {
             if (LoopManager.Instance != null)
             {
-                loopAreaCollider = LoopManager.Instance.AreaCollider;
+                loopAreaCollider = LoopManager.Instance.AreaLoopCollider;
                 
                 // バウンズ計算
                 CalculateBounds();
