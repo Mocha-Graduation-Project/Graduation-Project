@@ -53,6 +53,7 @@ namespace UI
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            Time.timeScale = 1f;
             // シーンロード時はフェードイン（黒 -> 透明）
             FadeIn(fadeDuration, null);
         }
