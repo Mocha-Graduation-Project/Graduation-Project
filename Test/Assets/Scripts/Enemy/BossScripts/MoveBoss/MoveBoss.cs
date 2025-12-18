@@ -8,9 +8,7 @@ using UnityEngine.Serialization;
 using UnityEditor;
 using Random = UnityEngine.Random;
 
-#if UNITY_EDITOR
-[CustomEditor(typeof(EnemyAI))]
-#endif
+
 
 public class MoveBoss : EnemyAI
 {

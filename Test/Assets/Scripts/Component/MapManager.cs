@@ -104,7 +104,7 @@ namespace Component
         {
             try
             {
-                var player = FindObjectOfType<Player.Player>();
+                var player = Player.Player.Instance;
                 if (player != null)
                 {
                     LudiscanManager.Instance.LogPlayerGoal(player.transform.position);

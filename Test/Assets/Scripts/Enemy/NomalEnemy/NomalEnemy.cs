@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEditor;
 
-#if UNITY_EDITOR
-[CustomEditor(typeof(EnemyAI))]
-#endif
+// #if UNITY_EDITOR
+// [CustomEditor(typeof(EnemyAI))]
+// #endif
 
 public class NomalEnemy : EnemyAI
 {

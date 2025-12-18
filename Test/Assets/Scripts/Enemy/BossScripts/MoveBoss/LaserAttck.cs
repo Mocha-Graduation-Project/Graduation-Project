@@ -32,7 +32,7 @@ public class LaserAttck : MonoBehaviour,IState
     {
         Debug.Log("5_Enter");
         is360Rotate = true;
-        moveBoss = GameObject.Find("MoveBoss").GetComponent<MoveBoss>();
+        moveBoss = (MoveBoss)enemyAI;
         moveCounter = 0;
         moveEnemy = enemyAI.MoveObj;
         enemyAI.StopAttack();

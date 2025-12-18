@@ -41,7 +41,9 @@ namespace Systems
 
         [SerializeField] [JapaneseLabel("地面レイヤー")]
         public LayerMask groundLayer;
-
+        
+        private readonly Dictionary<int, string> enemyIdCache = new();
+        
         private readonly HashSet<string> defeatedEnemyIds = new();
 
         private AudioSource audioSource;
@@ -53,6 +55,7 @@ namespace Systems
         private int shieldEnemyID = 400;
         private int bossID = 10;
         
+        public static EnemySpawnManager Instance { get; private set; }
         public enum EnemyID
         {
             test=0,
@@ -72,6 +75,13 @@ namespace Systems
 
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+            
             audioSource = GetComponent<AudioSource>();
 
             // enemyIdの自動設定
@@ -102,11 +112,12 @@ namespace Systems
                     enemyData.spawnPoint, 
                     enemyData.spawnDelay, 
                     $"Enemy_{enemyData.enemyId}",
-                    enemyData.excelDataId
+                    enemyData.excelDataId,
+                    enemyData.enemyId // Pass raw ID
                 ));
             }
         }
-        private IEnumerator SpawnEnemyCoroutine(GameObject prefab, Transform spawnPoint, float spawnDelay, string instanceName,EnemyID excelEnemyID)
+        private IEnumerator SpawnEnemyCoroutine(GameObject prefab, Transform spawnPoint, float spawnDelay, string instanceName,EnemyID excelEnemyID, string rawEnemyId)
         {
             var adjustedWarningTime = Mathf.Min(warningTime, spawnDelay);
             if (adjustedWarningTime > 0)
@@ -139,6 +150,12 @@ namespace Systems
             
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.name = instanceName;
+
+            // Note: Cache the ID
+            if (spawnedEnemy != null)
+            {
+                enemyIdCache[spawnedEnemy.GetInstanceID()] = rawEnemyId;
+            }
         }
 
         private IEnumerator BlinkWarningMarker(GameObject marker)
@@ -178,6 +195,7 @@ namespace Systems
                     condition.conditionSpawnDelay,
                     $"ConditionEnemy_{condition.conditionId}"
                     ,condition.excelDataId
+                    ,condition.conditionId // Pass raw ID
                 ));
             }
 
@@ -366,6 +384,16 @@ namespace Systems
 
         private string GetEnemyIdByObject(GameObject enemy)
         {
+            if (enemy == null) return "";
+            
+            // Optimization: Try cache first
+            if (enemyIdCache.TryGetValue(enemy.GetInstanceID(), out var id))
+            {
+                // Remove from cache as it's being removed
+                enemyIdCache.Remove(enemy.GetInstanceID());
+                return id;
+            }
+
             var name = enemy.name;
 
             if (name.StartsWith("Enemy_"))

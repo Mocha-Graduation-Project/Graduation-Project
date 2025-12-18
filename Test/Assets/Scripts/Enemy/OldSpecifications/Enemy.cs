@@ -106,7 +106,7 @@ namespace Scripts
                 Invoke("BeforeAttack", bulletRate - beforeAttackTime);
                 Invoke("Attack", bulletRate);
             }
-            enemySpawn = GameObject.FindObjectOfType<EnemySpawnManager>();
+            enemySpawn = EnemySpawnManager.Instance;
             
             Bounds bounds = loopAreaCollider.bounds;
             minX = bounds.min.x;

@@ -17,6 +17,7 @@ namespace UI
             GameOver 
         }
     
+        public static SceneButtonManager Instance { get; private set; }
         public State currentState = State.Gameplay;
         [SerializeField] private GameObject player;
         [SerializeField] private Player.Player playerScript;
@@ -27,16 +28,26 @@ namespace UI
         [SerializeField] private MapManager mapManager; 
     
         public State CurrentState { get { return currentState; } }
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+        }
     
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
             currentState = State.Gameplay;
          
-            player = GameObject.Find("PlayerGeneric");
-            if (player != null)
+            if (playerScript == null && Player.Player.Instance != null)
             {
-                playerScript = player.GetComponent<Player.Player>();
+                playerScript = Player.Player.Instance;
+                player = playerScript.gameObject;
                 playerInput = player.GetComponent<PlayerInput>();
             }
 
@@ -86,6 +97,7 @@ namespace UI
             Debug.Log("Game Clear:" + currentState);
         }
 
+        [Obsolete("Obsolete")]
         public void GameOver()
         {
             if (currentState == State.Pause)
@@ -107,26 +119,26 @@ namespace UI
             InputReset();
             RecordController.OBSRecordStop();
             RecordController.OBSDisconnect();
-            SceneManager.LoadScene("Title");
+            FadeManager.Instance.LoadScene("Title");
         }
 
         // ReSharper disable Unity.PerformanceAnalysis
         public void SceneChangeMainMenu()
         {
             InputReset();
-            SceneManager.LoadScene("MainMenu");
+            FadeManager.Instance.LoadScene("MainMenu");
         }
     
         public void SceneChangeGame(string sceneName)
         {
             InputReset();
-            SceneManager.LoadScene(sceneName);
+            FadeManager.Instance.LoadScene(sceneName);
         }
 
         public void Retry()
         {
             InputReset();
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+            FadeManager.Instance.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         public void FinishGame()

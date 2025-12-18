@@ -4,30 +4,28 @@ using UnityEngine.UI;
 
 public class UILife : MonoBehaviour
 {
+    public static UILife Instance { get; private set; }
     [SerializeField] private GameObject lifePrefab;
     [SerializeField] private List<GameObject> lifes;
     private Vector3 initialpos;
     private int lifeCount;
     private const int SIZE = 60;
     private const float SCALE = 0.5f;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    void Awake()
-    {
+    private void Awake()
+    { 
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject); // 重複防止
+            return;
+        }
         lifes=new List<GameObject>();
         initialpos = new Vector3(-360, 190, 0);
         lifeCount = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void AddLife()

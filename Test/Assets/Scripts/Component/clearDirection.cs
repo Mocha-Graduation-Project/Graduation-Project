@@ -12,7 +12,8 @@ namespace Component
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         private void Start()
         {
-            sceneButtonManager = FindObjectOfType<SceneButtonManager>();
+            sceneButtonManager = SceneButtonManager.Instance;
+
             //仮で10秒後にクリア表示
             //Invoke("Clear", 10);
         }
