@@ -1163,6 +1163,21 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "2f306dd73b464c5a9297c3db99ecda94",
+    "m_Id": 1265849980,
+    "m_DisplayName": "Slot3Speed",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Slot3Speed",
+    "m_StageCapability": 3,
+    "m_Value": 2.700000047683716,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.SubGraphNode",
     "m_ObjectId": "363cc4ed90d841e38a1f6ea91f2fd421",
     "m_Group": {
@@ -1676,6 +1691,21 @@
         "x": 0.0,
         "y": 1.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "5849918bb7634ff18e9cc3a8034bef80",
+    "m_Id": -1963255692,
+    "m_DisplayName": "Slot1Speed",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Slot1Speed",
+    "m_StageCapability": 3,
+    "m_Value": 2.5,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
 }
 
 {
@@ -3022,6 +3052,21 @@
 {
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "d1b4a6298f24449a99a47eaef4af3aa3",
+    "m_Id": -1204008093,
+    "m_DisplayName": "Slot2Speed",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Slot2Speed",
+    "m_StageCapability": 3,
+    "m_Value": 0.5,
+    "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "d26ef76acee64601848443b04f69aabc",
     "m_Id": 1,
     "m_DisplayName": "Slot1",
@@ -3629,6 +3674,15 @@
             "m_Id": "89c0bf75926a438db9534616b5add04f"
         },
         {
+            "m_Id": "5849918bb7634ff18e9cc3a8034bef80"
+        },
+        {
+            "m_Id": "d1b4a6298f24449a99a47eaef4af3aa3"
+        },
+        {
+            "m_Id": "2f306dd73b464c5a9297c3db99ecda94"
+        },
+        {
             "m_Id": "d26ef76acee64601848443b04f69aabc"
         },
         {
@@ -3648,10 +3702,16 @@
     },
     "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"8c7a161387f8efb4987218545f7f9e4c\",\n        \"type\": 3\n    }\n}",
     "m_PropertyGuids": [
-        "f033afe1-b32d-4301-8167-92ee6154d0cf"
+        "f033afe1-b32d-4301-8167-92ee6154d0cf",
+        "a67e2504-a269-4f12-b30d-8b28aa921c4b",
+        "af5f8986-7e76-4164-bb57-a6c928eba19f",
+        "9456d954-ee20-4645-bcf3-e57eb49285e7"
     ],
     "m_PropertyIds": [
-        -1838141652
+        -1838141652,
+        -1963255692,
+        -1204008093,
+        1265849980
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
