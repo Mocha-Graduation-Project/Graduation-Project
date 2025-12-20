@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WarpPortal
-  m_Shader: {fileID: -6465566751694194690, guid: 5bb0d66a1fa6286469cb017fdef7f903, type: 3}
+  m_Name: WarpPortalBack
+  m_Shader: {fileID: -6465566751694194690, guid: 8dd89d7ec835e2e4a9b5f7bbc159f964, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -45,12 +45,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: 84b347f0db2913f4499f8ce522e4a327, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _WarpNoiseTexture:
         m_Texture: {fileID: 2800000, guid: 8b518aa2d8d6eaf46aef3f1eebe8474c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WarpPortalTexture:
-        m_Texture: {fileID: 2800000, guid: 7684a3bf699d4894f928b5533d031834, type: 3}
+        m_Texture: {fileID: 2800000, guid: 84b347f0db2913f4499f8ce522e4a327, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -67,15 +71,18 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.82
+    - _Alpha: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _Blend: 2
+    - _BAlpha: 1
+    - _Blend: 0
     - _CastShadows: 0
     - _Cull: 0
-    - _DstBlend: 1
+    - _DstBlend: 10
+    - _GAlpha: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _RAlpha: 0.5
     - _RadialDistortion: 0.66
     - _Speed: 1
     - _SrcBlend: 5
@@ -87,6 +94,15 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
+    - _BlueColor: {r: 0, g: 0, b: 0, a: 0}
+    - _GreenColor: {r: 3.2102902, g: 4.2870936, b: 0.79540396, a: 0}
+    - _PortalBlueColor: {r: 0.5975121, g: 14.947394, b: 0, a: 0}
     - _PortalColor: {r: 110.13089, g: 60.765507, b: 0, a: 0}
+    - _PortalGreenColor: {r: 2.9239924, g: 2.9960783, b: 0.7819951, a: 0}
+    - _PortalMainColor: {r: 70.878746, g: 51.088886, b: 9.584219, a: 0}
+    - _PortalOutColor: {r: 18.221333, g: 109.328064, b: 37.170288, a: 0}
+    - _PortalRedColor: {r: 0, g: 1.3977201, b: 1.1908424, a: 0}
+    - _PortalSubColor: {r: 0, g: 89.45412, b: 63.68303, a: 1}
+    - _RedColor: {r: 0.52074945, g: 6.216448, b: 4.6276045, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
