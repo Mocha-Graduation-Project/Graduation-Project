@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3750629643030923676}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -57,13 +57,16 @@ VisualEffect:
       - m_Value: 2
         m_Name: Size
         m_Overridden: 1
+      - m_Value: 0
+        m_Name: AlphaClip
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 34.55155, y: 0.76056296, z: 0.86387825, w: 0}
+      - m_Value: {x: 95.87451, y: 2.1104293, z: 2.397111, w: 0}
         m_Name: EyeColor
         m_Overridden: 1
     m_Uint:
@@ -162,6 +165,95 @@ VisualEffect:
           m_PostInfinity: 2
           m_RotationOrder: 4
         m_Name: SizeCurve
+        m_Overridden: 1
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.06980419
+            value: 0.039646447
+            inSlope: -0.44543898
+            outSlope: -0.44543898
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 1
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.20373589
+            value: 0.0033641458
+            inSlope: 0.10240303
+            outSlope: 0.10240303
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.40585592
+          - serializedVersion: 3
+            time: 0.34258735
+            value: 0.0033641458
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.3452622
+          - serializedVersion: 3
+            time: 0.41800997
+            value: 2
+            inSlope: 29.53987
+            outSlope: 29.53987
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.13888389
+          - serializedVersion: 3
+            time: 0.51825434
+            value: 3.7104697
+            inSlope: 0.041762076
+            outSlope: 0.041762076
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.41791332
+            outWeight: 0.18615247
+          - serializedVersion: 3
+            time: 0.6645307
+            value: 0
+            inSlope: -17.234598
+            outSlope: -17.234598
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.14908378
+            outWeight: 0.16624127
+          - serializedVersion: 3
+            time: 0.8715036
+            value: -0.64520264
+            inSlope: -0.034290526
+            outSlope: -0.034290526
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 1
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: RotCurve
         m_Overridden: 1
     m_Gradient:
       m_Array: []

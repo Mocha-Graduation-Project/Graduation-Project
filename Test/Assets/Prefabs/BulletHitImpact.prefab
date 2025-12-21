@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917087721634376995}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.13966179, y: -1.4014219, z: 0.018482208}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -50,7 +50,40 @@ VisualEffect:
   m_ResourceVersion: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.5
+        m_Name: MainImpactLifeTime 1
+        m_Overridden: 1
+      - m_Value: 5
+        m_Name: MainImpactSize 1
+        m_Overridden: 1
+      - m_Value: 0.25
+        m_Name: AlphaClip 1
+        m_Overridden: 1
+      - m_Value: 0.2
+        m_Name: BackImpactLifeTime
+        m_Overridden: 1
+      - m_Value: 3
+        m_Name: BackImpactSize
+        m_Overridden: 1
+      - m_Value: 0.1
+        m_Name: AlphaClip
+        m_Overridden: 1
+      - m_Value: 0.25
+        m_Name: ImpactRingLifeTime 1
+        m_Overridden: 1
+      - m_Value: 0.25
+        m_Name: AlphaClip 2
+        m_Overridden: 1
+      - m_Value: 0.4
+        m_Name: AlphaClip 3
+        m_Overridden: 1
+      - m_Value: 0.75
+        m_Name: RAlpha 3
+        m_Overridden: 1
+      - m_Value: 3
+        m_Name: FresnelRingSize 1
+        m_Overridden: 1
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -72,6 +105,33 @@ VisualEffect:
       - m_Value: {x: 3.2490098, y: 2.057706, z: 2.0127513, w: 0}
         m_Name: BackImpactColor 1
         m_Overridden: 1
+      - m_Value: {x: 36.758343, y: 12.008256, z: 2.889799, w: 0}
+        m_Name: BackImpactColor
+        m_Overridden: 1
+      - m_Value: {x: 4.552788, y: 1.7511041, z: 0.15748584, w: 0}
+        m_Name: ImpactColor 1
+        m_Overridden: 1
+      - m_Value: {x: 3.4209719, y: 2.8209143, z: 1.0435035, w: 0}
+        m_Name: ParticleColor 1
+        m_Overridden: 1
+      - m_Value: {x: 11.984312, y: 8.211534, z: 1.631372, w: 0}
+        m_Name: GColor 1
+        m_Overridden: 1
+      - m_Value: {x: 0.9308176, y: 0.54760754, z: 0, w: 0}
+        m_Name: BColor 1
+        m_Overridden: 1
+      - m_Value: {x: 2.433572, y: 1.4714301, z: 0.33127153, w: 0}
+        m_Name: GColor
+        m_Overridden: 1
+      - m_Value: {x: 1, y: 0.68140674, z: 0.2295596, w: 0}
+        m_Name: BColor
+        m_Overridden: 1
+      - m_Value: {x: 1, y: 0.24188823, z: 0, w: 0}
+        m_Name: RColor 1
+        m_Overridden: 1
+      - m_Value: {x: 4, y: 3.297797, z: 0.99371004, w: 0}
+        m_Name: RColor 3
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
@@ -79,7 +139,33 @@ VisualEffect:
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
-      m_Array: []
+      m_Array:
+      - m_Value:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 1
+            outSlope: 1
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        m_Name: FresnelRingAnimationCurve 1
+        m_Overridden: 1
     m_Gradient:
       m_Array: []
     m_NamedObject:
