@@ -3357,10 +3357,10 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "bd2951f0583a4712b619a11090390ede",
     "m_Id": 2,
-    "m_DisplayName": "Out_Alpha",
+    "m_DisplayName": "Out_RAlpha",
     "m_SlotType": 1,
     "m_Hidden": false,
-    "m_ShaderOutputName": "Out_Alpha",
+    "m_ShaderOutputName": "Out_RAlpha",
     "m_StageCapability": 2,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
@@ -3954,7 +3954,7 @@
     "m_Group": {
         "m_Id": ""
     },
-    "m_Name": "RedGreenBlueMapping",
+    "m_Name": "RedGreenBlueMappingMergeAlpha",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -4193,7 +4193,7 @@
     "m_AlembicMotionVectors": false,
     "m_SupportsLODCrossFade": false,
     "m_CustomEditorGUI": "",
-    "m_SupportVFX": false
+    "m_SupportVFX": true
 }
 
 {
