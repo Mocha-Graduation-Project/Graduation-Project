@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BeeDroneMain
-  m_Shader: {fileID: -6465566751694194690, guid: 62cc931d697db3840ab7e88924bde7bd, type: 3}
+  m_Name: AntiGravity4X4_Dither
+  m_Shader: {fileID: -6465566751694194690, guid: ae79a4dcde6a14a4ea1ec502a318565d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,8 +24,24 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BaseColor:
+    - Texture2D_143B1289:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_D29E132B:
+        m_Texture: {fileID: 2800000, guid: 684ca928349bf51499a8d8a18e13cd7c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_E5864E9:
+        m_Texture: {fileID: 2800000, guid: b9d2d2ca3f98e714990cdb31767cdd5a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AOTexture:
+        m_Texture: {fileID: 2800000, guid: ae77b73f025a649468f4452eca2ae3ef, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AntiWall_8dc8a3e709244ce48615ef1fd70c4968_EmissionRGBTexture_843300868_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 23222fdfd91f1e64cb4ddfa0fe17175e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -56,11 +72,11 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MainTex:
+    - _MainColorTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MetalicMask:
+    - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -68,11 +84,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MetallicMatcapTexture:
-        m_Texture: {fileID: 2800000, guid: 13ccc71bbea90774cb8003e72f68a7bc, type: 3}
+    - _MetallicMap:
+        m_Texture: {fileID: 2800000, guid: f1c2cbe7ecefda34a8468ddba5ad7195, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NormalTexture:
+    - _MetallicTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMapTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -84,20 +104,20 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _RGBEmissionFlash_a3acf59ff47f4408bba9247a0d284d2b_EmissionRGBTexture_843300868_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 23222fdfd91f1e64cb4ddfa0fe17175e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _RGBTexture:
-        m_Texture: {fileID: 2800000, guid: 448a5b4a5d5c6be419b4d9eaeac53abd, type: 3}
+        m_Texture: {fileID: 2800000, guid: b8402a7e096856c4990a250b91abf2c3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SSSMaskTexture:
+    - _ReflectiomProbeMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _ShadowColor:
-        m_Texture: {fileID: 2800000, guid: b62442a23f613b643b4e1bcac7a743c7, type: 3}
+    - _SmoothnessMap:
+        m_Texture: {fileID: 2800000, guid: 8d6fcf8f9c9abe94f83f58fd7af22f2a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SmoothnessTexture:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -118,79 +138,79 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AddPrecomputedVelocity: 0
+    - Vector1_6155CAB: 0.7
+    - Vector1_85F6688: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
+    - _AntiEmissionStrength: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DirectionalLightColorOpacity: 0.055
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionIntensity: 0
-    - _EmissionIntensityB: 0
-    - _EmissionIntensityG: 0
-    - _EmissionIntensityR: 0
     - _EnvironmentReflections: 1
-    - _FlashSpeed: 1
-    - _GlossMapScale: 1
+    - _FresnelIntensity: 1.72
+    - _FresnelPower: 1.93
+    - _FresnelPower_1: 15.89
+    - _GlossMapScale: 0
     - _Glossiness: 0
-    - _GlossyReflections: 1
-    - _IsNormalUse: 0
-    - _LightSmooth: 0
-    - _MaskFresnelPower: 2.7
+    - _GlossyReflections: 0
+    - _LineCountA: 0.45
+    - _LineCountB: 0.66
+    - _LineWidth: 2.64
+    - _MaxDistance: 7
     - _Metallic: 0
-    - _MetallicStrength: 0.28
-    - _MetallicUse: 1
-    - _Mode: 0
-    - _NormalInfruence: 0.48
-    - _NormalStrength: 1
+    - _MetallicIntensity: 1
+    - _MinDistance: 2
+    - _NormalStrength: 0.32
     - _OcclusionStrength: 1
-    - _OffsetAmount: 1
-    - _Parallax: 0.02
+    - _OffsetAmount: 0.1
+    - _Offset_1: 0.67
+    - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ReflectEmissionStrength: 0.069
-    - _RimEdge1: 0.75
-    - _RimEdge2: 1
-    - _SSSColorOpacity: 0
-    - _SSSLIghtStrength: 0.47
-    - _SSSOpacity: 0
-    - _SSSPower: 0.24
-    - _Smoothness: 0
+    - _ReflectionBlur: 0
+    - _ReflectionIntensity: 0
+    - _Roughness: 1
+    - _ScaleMultiplier: 0.49
+    - _Smoothness: 0.5
+    - _SmoothnessIntensity: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _UVSec: 0
+    - _TextureUse: 1
+    - _TextureUse_1: 1
     - _WorkflowMode: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
-    - _BaseColor: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
-    - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
-    - _CutoffThreshold: {r: -0.05, g: 0, b: 0, a: 0}
+    - Color_1313CB5F: {r: 1, g: 1, b: 1, a: 1}
+    - Color_7F5D350D: {r: 1, g: 1, b: 1, a: 1}
+    - Color_BE5A53D8: {r: 0.6289307, g: 0.6289307, b: 0.6289307, a: 0}
+    - Vector2_2818E70A: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - Vector2_EF5B598A: {r: 0.2, g: 0.2, b: 0, a: 0}
+    - _AntiWallTiling: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColorG: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColorR: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor_B: {r: 0, g: 0, b: 0, a: 0}
-    - _MainColor: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 0}
-    - _ReflectTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _RimLightColor: {r: 9.734288, g: 5.708955, b: 0, a: 0}
-    - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}
-    - _ShadowColor: {r: 0.10869822, g: 0.10869822, b: 0.1509434, a: 0}
+    - _FresnelColor: {r: 0.6429334, g: 3.1698112, b: 2.7960129, a: 0}
+    - _LineColor: {r: 0, g: 8.422271, b: 10.249501, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &4763859593924653354
+--- !u!114 &4477317219292709818
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
