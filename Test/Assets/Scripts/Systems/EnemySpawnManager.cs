@@ -13,11 +13,14 @@ namespace Systems
 {
     public class EnemySpawnManager : MonoBehaviour
     {
-        [SerializeField] [JapaneseLabel("！マークのプレハブ")]
+        [SerializeField] [JapaneseLabel("出現エフェクトのプレハブ")]
         private GameObject warningMarkerPrefab;
+        
+        [SerializeField] [JapaneseLabel("全てのエネミーに出現エフェクトをつけるか")]
+        private bool allEnemyDirection = false;
 
-        [SerializeField] [JapaneseLabel("！マークを表示する時間（秒）")]
-        private float warningTime = 3f;
+        [SerializeField] [JapaneseLabel("出現エフェクトを表示する時間（秒）")]
+        private float warningTime = 4f;
 
         [SerializeField] [JapaneseLabel("敵を倒してからクリア演出までの時間")]
         private float gameClearDelay;
@@ -116,16 +119,30 @@ namespace Systems
                     enemyData.enemyId // Pass raw ID
                 ));
             }
+
+            Debug.Log("allEnemyDirection:" + allEnemyDirection);
         }
         private IEnumerator SpawnEnemyCoroutine(GameObject prefab, Transform spawnPoint, float spawnDelay, string instanceName,EnemyID excelEnemyID, string rawEnemyId)
         {
             var adjustedWarningTime = Mathf.Min(warningTime, spawnDelay);
-            if (adjustedWarningTime > 0)
+            if (adjustedWarningTime > 0 || allEnemyDirection == true)
             {
-                yield return new WaitForSeconds(spawnDelay - adjustedWarningTime);
+                float waitTime;
+                if (allEnemyDirection == true)
+                {
+                    adjustedWarningTime = warningTime;
+                    waitTime = 0f;
+                }
+                else
+                {
+                    waitTime = spawnDelay - adjustedWarningTime;
+                }
+
+                yield return new WaitForSeconds(waitTime);
                 var warningMarker = Instantiate(warningMarkerPrefab, spawnPoint.position,
                     warningMarkerPrefab.transform.rotation);
-                StartCoroutine(BlinkWarningMarker(warningMarker));
+                warningMarker.GetComponent<VisualEffect>().SendEvent("OnPlay");
+                //StartCoroutine(BlinkWarningMarker(warningMarker));
                 yield return new WaitForSeconds(adjustedWarningTime);
                 Destroy(warningMarker);
             }
