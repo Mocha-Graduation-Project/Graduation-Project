@@ -125,8 +125,10 @@ namespace Systems
             var adjustedWarningTime = Mathf.Min(enemySpawnTime, spawnDelay);
             if (adjustedWarningTime > 0)
             {
+                Vector3 warpPos = spawnPoint.position;
+                warpPos.z += 0.2f;
                 yield return new WaitForSeconds(spawnDelay - adjustedWarningTime);
-                var warningMarker = Instantiate(warningMarkerPrefab, spawnPoint.position,
+                var warningMarker = Instantiate(warningMarkerPrefab, warpPos,
                     warningMarkerPrefab.transform.rotation);
                 warningMarker.GetComponent<VisualEffect>().SendEvent("OnPlay");
                 StartCoroutine(DestroyObjectCoroutine(warningMarker, warningTime));
