@@ -15,12 +15,12 @@ namespace Systems
     {
         [SerializeField] [JapaneseLabel("出現エフェクトのプレハブ")]
         private GameObject warningMarkerPrefab;
-        
-        [SerializeField] [JapaneseLabel("全てのエネミーに出現エフェクトをつけるか")]
-        private bool allEnemyDirection = false;
 
         [SerializeField] [JapaneseLabel("出現エフェクトを表示する時間（秒）")]
         private float warningTime = 4f;
+
+        [JapaneseLabel("エネミーを出現させる時間")]
+        private float enemySpawnTime = 3f;
 
         [SerializeField] [JapaneseLabel("敵を倒してからクリア演出までの時間")]
         private float gameClearDelay;
@@ -119,32 +119,19 @@ namespace Systems
                     enemyData.enemyId // Pass raw ID
                 ));
             }
-
-            Debug.Log("allEnemyDirection:" + allEnemyDirection);
         }
         private IEnumerator SpawnEnemyCoroutine(GameObject prefab, Transform spawnPoint, float spawnDelay, string instanceName,EnemyID excelEnemyID, string rawEnemyId)
         {
-            var adjustedWarningTime = Mathf.Min(warningTime, spawnDelay);
-            if (adjustedWarningTime > 0 || allEnemyDirection == true)
+            var adjustedWarningTime = Mathf.Min(enemySpawnTime, spawnDelay);
+            if (adjustedWarningTime > 0)
             {
-                float waitTime;
-                if (allEnemyDirection == true)
-                {
-                    adjustedWarningTime = warningTime;
-                    waitTime = 0f;
-                }
-                else
-                {
-                    waitTime = spawnDelay - adjustedWarningTime;
-                }
-
-                yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(spawnDelay - adjustedWarningTime);
                 var warningMarker = Instantiate(warningMarkerPrefab, spawnPoint.position,
                     warningMarkerPrefab.transform.rotation);
                 warningMarker.GetComponent<VisualEffect>().SendEvent("OnPlay");
+                StartCoroutine(DestroyObjectCoroutine(warningMarker, warningTime));
                 //StartCoroutine(BlinkWarningMarker(warningMarker));
                 yield return new WaitForSeconds(adjustedWarningTime);
-                Destroy(warningMarker);
             }
             else
             {
@@ -175,6 +162,12 @@ namespace Systems
             }
         }
 
+        private IEnumerator DestroyObjectCoroutine(GameObject obj, float destroyTime)
+        {
+            yield return new WaitForSeconds(destroyTime);
+            
+            Destroy(obj);
+        }
         private IEnumerator BlinkWarningMarker(GameObject marker)
         {
             var markerRenderer = marker.GetComponent<Renderer>();

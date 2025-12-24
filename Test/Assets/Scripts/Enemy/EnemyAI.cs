@@ -93,43 +93,9 @@ public class EnemyAI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //hp = enemyData.maxHP;
         centerPos = this.transform.position;
         audioSource = GetComponent<AudioSource>();
         enemySpawnManager = EnemySpawnManager.Instance;
-
-        // //攻撃
-        // switch (enemyData.enemyAttackType)
-        // {
-        //     case EnemyData.EnemyAttackType.dontAttack:
-        //         break;
-        //     case EnemyData.EnemyAttackType.playerAim:
-        //         StartAttack();
-        //         break;
-        //     case EnemyData.EnemyAttackType.straight:
-        //         StartAttack();
-        //         break;
-        // }
-        //
-        // SetUp();
-        //
-        // switch (enemyData.enemyType)
-        // {
-        //     case EnemyData.EnemyType.boss:
-        //     case EnemyData.EnemyType.humanoid:
-        //         enemyHPSlider = GameObject.FindWithTag("EnemyHPBar").GetComponent<Slider>();
-        //         enemyHPSlider.maxValue = hp;
-        //         enemyHPSlider.value = hp;
-        //         break;
-        // }
-        //
-        // // 敵スポーンイベントをログ
-        // string enemyTypeStr = enemyData.enemyType.ToString();
-        // LudiscanManager.Instance.LogEnemySpawn(
-        //     enemyId: gameObject.name,
-        //     enemyType: enemyTypeStr,
-        //     position: transform.position
-        // );
     }
 
     // Update is called once per frame
@@ -185,11 +151,6 @@ public class EnemyAI : MonoBehaviour
                 HorizontalMove();
                 break;
         }
-    }
-
-    public void TestShow()
-    {
-        Debug.Log("EnemyAI:" + enemySpawnManager);
     }
     
     //移動
@@ -475,8 +436,7 @@ public class EnemyAI : MonoBehaviour
             enemyType: enemyTypeStr,
             position: transform.position
         );
-        
-        SetUp();
+        Invoke("SetUp", 0.05f);
     }
     public virtual void SetUp()
     {
