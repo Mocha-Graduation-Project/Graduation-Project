@@ -16,6 +16,8 @@ namespace Component
 
         private float minX, maxX, minY, maxY;
 
+        [SerializeField] private float loopOffset = 1.0f;
+
         private void Awake()
         {
             if (LoopManager.Instance != null)
@@ -46,23 +48,23 @@ namespace Component
 
             if (pos.x > maxX)
             {
-                pos.x = minX;
+                pos.x = minX + loopOffset;
                 OnLoop?.Invoke();
             }
             else if (pos.x < minX)
             {
-                pos.x = maxX;
+                pos.x = maxX - loopOffset;
                 OnLoop?.Invoke();
             }
 
             if (pos.y > maxY)
             {
-                pos.y = minY;
+                pos.y = minY + loopOffset;
                 OnLoop?.Invoke();
             }
             else if (pos.y < minY)
             {
-                pos.y = maxY;
+                pos.y = maxY - loopOffset;
                 OnLoop?.Invoke();
             }
 

@@ -2442,6 +2442,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterParams: {fileID: 11400000, guid: ba6e45e6d168adb41bcb14b428391fe5, type: 2}
   soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
+  acceleration: 60
+  deceleration: 60
+  coyoteTime: 0.1
+  jumpBufferTime: 0.1
   walkAudioSource: {fileID: 6070319301895548553}
   groundCheck: {fileID: 2335780435290033169}
 --- !u!114 &2751670149630440826
@@ -2486,6 +2490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5048839d001741dab5ff90d7d89a7bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loopOffset: 0.5
 --- !u!114 &163183520200374533
 MonoBehaviour:
   m_ObjectHideFlags: 0

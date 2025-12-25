@@ -13,6 +13,15 @@ namespace Player
     {
         [SerializeField] private CharacterParams characterParams;
         [SerializeField] private SoundData soundData;
+
+        [Header("Movement Settings")]
+        [SerializeField][JapaneseLabel("加速")] private float acceleration = 60f;
+        [SerializeField][JapaneseLabel("減速")] private float deceleration = 60f;
+        
+        [Header("Jump Settings")]
+        [SerializeField][JapaneseLabel("足場から踏み外しても、一瞬だけジャンプ可能")] private float coyoteTime = 0.1f;
+        [SerializeField][JapaneseLabel("着地と同時にジャンプ")] private float jumpBufferTime = 0.1f;
+
         
         public event Action OnJump;
 
@@ -35,6 +44,9 @@ namespace Player
         private bool isGround = false;
         private int currentJumpCount;
         private float lastJumpTime;
+        private float coyoteTimeCounter;
+        private float jumpBufferCounter;
+
         
         // Animatorハッシュ
         private static readonly int IsMoveHash = Animator.StringToHash("isMove");
@@ -91,21 +103,52 @@ namespace Player
 
         public void HandleJump(AudioSource audioSource1)
         {
-            if (currentJumpCount > 0 && Time.time - lastJumpTime >= jumpCooldown)
+            jumpBufferCounter = jumpBufferTime;
+        }
+
+        private void ExecuteJump()
+        {
+             if (Time.time - lastJumpTime >= jumpCooldown)
             {
-                if (currentJumpCount == MaxJumpCount)
-                { 
-                    animator.SetTrigger(JumpHash);
+                // 通常ジャンプ (Coyote Time有効)
+                if (coyoteTimeCounter > 0f)
+                {
+                     PerformJump();
+                     // ダブルジャンプ用にカウントを減らす（地上ジャンプなので残り回数はMAX-1になるはずだが、
+                     // 現在の実装ではcurrentJumpCountを減らす方式なのでそれに合わせる）
+                     currentJumpCount--; 
                 }
-                audioSource1.PlayOneShot(jumpSound);
-                // Rigidbodyの速度を直接操作
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower); 
-                OnJump?.Invoke();
-
-                currentJumpCount--;
-                lastJumpTime = Time.time;
-
+                // 空中ジャンプ (ダブルジャンプ)
+                else if (currentJumpCount > 0 && currentJumpCount < MaxJumpCount)
+                {
+                    PerformJump();
+                    currentJumpCount--;
+                }
             }
+        }
+        
+        private void PerformJump()
+        {
+            if (currentJumpCount == MaxJumpCount)
+            { 
+                 animator.SetTrigger(JumpHash);
+            }
+            walkAudioSource.PlayOneShot(jumpSound); // Using walkAudioSource or passed audioSource? 
+            // NOTE: The original code passed audioSource1, but here we can use the one checking walk or just play on a specific one.
+            // For safety, let's play on the component's audio source or we need to change the signature.
+            // Getting the audio source from HandleJump logic is tricky because we moved it to FixedUpdate.
+            // Let's use the local walkAudioSource (AudioSource component) for simplicity or GetComponent<AudioSource>()
+            
+            // Re-using the logic from original code approximately. 
+            // Ideally we should have a dedicated SFX source.
+            if(walkAudioSource != null) walkAudioSource.PlayOneShot(jumpSound);
+
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower); 
+            OnJump?.Invoke();
+            
+            lastJumpTime = Time.time;
+            jumpBufferCounter = 0f;
+            coyoteTimeCounter = 0f;
         }
 
         public void HandleJumpCanceled()
@@ -122,15 +165,31 @@ namespace Player
         private void FixedUpdate()
         {
             CheckGround();
-            // 1. 水平移動の実行
+            
+            // ジャンプ処理
+            if (jumpBufferCounter > 0f)
+            {
+                ExecuteJump();
+                jumpBufferCounter -= Time.deltaTime;
+            }
+
+            // 1. 水平移動の実行 (加減速の適用)
             if (Player.Instance.isMove)
             {
-                Vector3 newVelocity = new Vector3(currentMoveInput.x * MoveSpeed, rb.linearVelocity.y, 0);
-                rb.linearVelocity = newVelocity;
+                float targetSpeed = currentMoveInput.x * MoveSpeed;
+                
+                // 加速・減速の選択
+                float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
+                
+                float newSpeed = Mathf.MoveTowards(rb.linearVelocity.x, targetSpeed, accelRate * Time.deltaTime);
+                
+                rb.linearVelocity = new Vector3(newSpeed, rb.linearVelocity.y, 0);
             }
             else
             {
-                rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+                // 入力がない場合（または動けない場合）は減速
+                 float newSpeed = Mathf.MoveTowards(rb.linearVelocity.x, 0, deceleration * Time.deltaTime);
+                 rb.linearVelocity = new Vector3(newSpeed, rb.linearVelocity.y, 0);
             }
             
             if (rb.linearVelocity.y < -maxFallSpeed)
@@ -166,6 +225,16 @@ namespace Player
         {
             bool wasGrounded = isGround; // 前フレームの接地状態
             isGround = Physics.Raycast(groundCheck.position, Vector2.down, checkDistance, groundLayer);
+
+            // Coyote Timeの更新
+            if (isGround)
+            {
+                coyoteTimeCounter = coyoteTime;
+            }
+            else
+            {
+                coyoteTimeCounter -= Time.deltaTime;
+            }
     
             // アニメーターへの通知
             animator.SetBool(IsGround, isGround);

@@ -226,7 +226,7 @@ namespace Player
                 currentShotStamina -= shotStaminaDrainPerSecond;
                 animator.SetTrigger(IsShot1);
                 OnShoot?.Invoke();
-                StartCoroutine(ShootWithCoolDown(0.45f, shotCoolTime));
+                StartCoroutine(ShootWithCoolDown(0.25f, shotCoolTime));
             }
         }
         //弾き処理
