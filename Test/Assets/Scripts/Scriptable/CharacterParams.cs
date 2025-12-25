@@ -62,7 +62,7 @@ namespace Scriptable
         [JapaneseLabel("最大スピード")] public float maxBulletSpeed;
         [JapaneseLabel("弾くたびに＋〇〇速度を追加")] public float addSpeed = 0.2f;
         [JapaneseLabel("初期ダメージ値")] public int damage = 1;
-        [JapaneseLabel("ヒットストップ時間")] public float hitStopDuration;
+        [JapaneseLabel("弾き時ヒットストップ時間")] public float hitStopDuration;
 
         [Header("反射時のダメージ")] public int[] damageByReflectionCount;
 
@@ -74,6 +74,7 @@ namespace Scriptable
         public float invincibleDuration = 2.0f;
 
         [JapaneseLabel("反射後の無敵時間")]　public float reflectInvincible = 1;
+        [JapaneseLabel("被ダメージ時ヒットストップ時間")] public float playerHitStopDuration = 0.1f;
 
         [Space(5)] [Header("<エフェクト>")] [JapaneseLabel("バットのアニメーション開始からエフェクトがでるまでの時間")]
         public float butEffectDuration = 0.1f;

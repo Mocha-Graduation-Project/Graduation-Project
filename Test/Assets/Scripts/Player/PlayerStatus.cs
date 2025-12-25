@@ -28,6 +28,8 @@ namespace Player
 
         [JapaneseLabel("被弾時無敵時間")]
         private float invincibleDuration = 2.0f;
+        [JapaneseLabel("ヒットストップ時間")]
+        [SerializeField] private float hitStopDuration = 0.1f;
 
         //private string enemyBulletTag = "EnemyBullet";
 
@@ -70,6 +72,7 @@ namespace Player
         {
             invincibleDuration = characterParams.invincibleDuration;
             groundLayer = characterParams.groundLayer;
+            hitStopDuration = characterParams.playerHitStopDuration;
         }
 
         public bool IsGrounded()
@@ -103,7 +106,10 @@ namespace Player
                 sceneButtonManager.GameOver();
             }
             else
+            {
+                StartCoroutine(HitStop());
                 StartCoroutine(InvincibilityCoroutine()); // 無敵時間開始
+            }
         }
 
         private IEnumerator InvincibilityCoroutine()
@@ -128,6 +134,18 @@ namespace Player
                 invincibilityCoroutine = null;
             }
             invincibilityCoroutine = StartCoroutine(ReflectInvincibilityCoroutine(duration));
+        }
+
+        private IEnumerator HitStop()
+        {
+            Time.timeScale = 0f;
+            yield return new WaitForSecondsRealtime(hitStopDuration);
+            
+            // ゲームオーバーやポーズ中でなければ時間を戻す
+            if (sceneButtonManager != null && sceneButtonManager.CurrentState == SceneButtonManager.State.Gameplay)
+            {
+                Time.timeScale = 1f;
+            }
         }
 
         public void StartSetUp()
