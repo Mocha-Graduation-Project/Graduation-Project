@@ -29,6 +29,8 @@ public class EnemyAI : MonoBehaviour
     [JapaneseLabel("死亡エフェクト")][SerializeField]private GameObject deathEffectPrefab;
     [JapaneseLabel("被弾エフェクト")] [SerializeField] private GameObject damageEffectPrefab;
     [JapaneseLabel("攻撃エフェクト")][SerializeField] private GameObject attackEffect;
+    [Header("<エフェクトリスト>")]
+    [SerializeField] private GameObject[] effectPrefabs; 
     [JapaneseLabel("プレイヤー")] public Player.Player player => Player.Player.Instance;
     [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
     [SerializeField] [JapaneseLabel("音源")] private SoundData soundData;
@@ -151,6 +153,11 @@ public class EnemyAI : MonoBehaviour
                 HorizontalMove();
                 break;
         }
+    }
+
+    public void TestShow()
+    {
+        Debug.Log("EnemyAI:" + enemySpawnManager);
     }
     
     //移動
@@ -436,7 +443,8 @@ public class EnemyAI : MonoBehaviour
             enemyType: enemyTypeStr,
             position: transform.position
         );
-        Invoke("SetUp", 0.05f);
+        
+        SetUp();
     }
     public virtual void SetUp()
     {
@@ -469,5 +477,19 @@ public class EnemyAI : MonoBehaviour
     public void PlayAttckSound()
     {
         audioSource.PlayOneShot(EnemyShotSound);
+    }
+    public void PlayEffect(int effectIndex)
+    {
+        if (effectPrefabs == null || effectIndex < 0 || effectIndex >= effectPrefabs.Length) return;
+        
+        GameObject effectToPlay = effectPrefabs[effectIndex];
+        if (effectToPlay != null)
+        {
+            VisualEffect vfx = effectToPlay.GetComponent<VisualEffect>();
+            if (vfx != null)
+            {
+                vfx.SendEvent("OnPlay");
+            }
+        }
     }
 }
