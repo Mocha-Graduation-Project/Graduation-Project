@@ -240,7 +240,17 @@ namespace UI
                 if (canvas != null)
                 {
                     RectTransform canvasRect = canvas.GetComponent<RectTransform>();
-                    moveDist = canvasRect.rect.width;
+                    // Canvasの幅をワールド座標に変換し、それをrectの親のローカル座標に変換して正しい移動距離を出す
+                    Vector3 worldWidth = canvas.transform.TransformVector(new Vector3(canvasRect.rect.width, 0, 0));
+                    if (rect.parent != null)
+                    {
+                        Vector3 localWidth = rect.parent.InverseTransformVector(worldWidth);
+                        moveDist = Mathf.Abs(localWidth.x);
+                    }
+                    else
+                    {
+                        moveDist = canvasRect.rect.width; // 親がない場合はそのまま
+                    }
                 }
 
                 rect.DOKill();
@@ -252,10 +262,23 @@ namespace UI
                 seq.Append(rect.DOAnchorPosX(originalX - moveDist, loopDuration * 0.5f).SetEase(Ease.Linear));
 
                 // 2. 右端へワープ (Teleport to Right)
-                seq.AppendCallback(() => rect.anchoredPosition = new Vector2(originalX + moveDist, rect.anchoredPosition.y));
+                seq.AppendCallback(() => 
+                {
+                    Vector2 pos = rect.anchoredPosition;
+                    pos.x = originalX + moveDist;
+                    rect.anchoredPosition = pos;
+                });
 
                 // 3. 元の位置へ戻る (Move to Original)
                 seq.Append(rect.DOAnchorPosX(originalX, loopDuration * 0.5f).SetEase(Ease.Linear));
+                
+                // 補正：アニメーション終了時に確実に元の位置に戻す
+                seq.OnComplete(() => 
+                {
+                    Vector2 pos = rect.anchoredPosition;
+                    pos.x = originalX;
+                    rect.anchoredPosition = pos;
+                });
             }
         }
 
