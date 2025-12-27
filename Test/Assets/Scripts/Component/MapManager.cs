@@ -22,6 +22,7 @@ namespace Component
 
         [SerializeField] private GameplayState gameplayState = GameplayState.Normal;
         private AudioSource audioSource;
+        public AudioSource AudioSource => audioSource;
         private AudioClip bgm;
 
         private void Start()
@@ -89,6 +90,7 @@ namespace Component
                 return;
 
             audioSource.Stop();
+            audioSource.pitch = 1.0f;
             bgm = soundData.gameClear;
             audioSource.clip = bgm; 
             audioSource.Play();

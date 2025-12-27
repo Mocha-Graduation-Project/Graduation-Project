@@ -4,6 +4,8 @@ using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using System.Collections.Generic;
 
 namespace UI
 {
@@ -26,8 +28,17 @@ namespace UI
         [SerializeField] private GameObject clearObj;
         [SerializeField] private GameObject gameOverObj;
         [SerializeField] private MapManager mapManager; 
+        
+        [Header("Clear Animation")]
+        [SerializeField] private List<RectTransform> clearAnimationUIList;
+        [SerializeField] private float loopDuration = 1f; 
+
+        [Header("Game Over Animation")]
+        [SerializeField] private List<CanvasGroup> gameOverAnimationUIList;
+        [SerializeField] private float gameOverDuration = 1.5f; 
     
         public State CurrentState { get { return currentState; } }
+        public MapManager MapManager => mapManager;
 
         private void Awake()
         {
@@ -92,7 +103,11 @@ namespace UI
             
             //ChangeState(State.Clear);
             Time.timeScale = 0;
-            if (clearObj != null) {clearObj.SetActive(true);}
+            if (clearObj != null) 
+            {
+                clearObj.SetActive(true);
+                PlayClearAnimation();
+            }
             mapManager.Clear();
             Debug.Log("Game Clear:" + currentState);
         }
@@ -107,11 +122,24 @@ namespace UI
             else if (currentState != State.Gameplay) {return;}
             
             ChangeState(State.GameOver);
-            Time.timeScale = 0;
-            if (gameOverObj != null){gameOverObj.SetActive(true);}
-            mapManager.GameOver();
-            DisableAll();
-            Debug.Log("Game Over:" + currentState);
+            
+            // スローモーション演出 (Slow Motion Effect)
+            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0f, gameOverDuration)
+                .SetEase(Ease.OutQuad)
+                .SetUpdate(true)
+                .OnComplete(() =>
+                {
+                    Time.timeScale = 0;
+                    if (gameOverObj != null)
+                    {
+                        gameOverObj.SetActive(true);
+                        PlayGameOverAnimation();
+                    }
+                    mapManager.GameOver();
+                    DisableAll();
+                });
+
+            Debug.Log("Game Over Sequence Started:" + currentState);
         }
         
         public void SceneChangeTitle()
@@ -194,6 +222,81 @@ namespace UI
             playerInput.actions["Retry"].performed -= OnRetry;
             playerInput.actions["Finish"].performed -= OnFinished;
             playerInput.actions["Pause"].performed -= OnPause;
+        }
+
+        private void PlayClearAnimation()
+        {
+            if (clearAnimationUIList == null) return;
+
+            foreach (var rect in clearAnimationUIList)
+            {
+                if (rect == null) continue;
+
+                float originalX = rect.anchoredPosition.x;
+                
+                // 親のCanvasを探して幅を取得
+                Canvas canvas = rect.GetComponentInParent<Canvas>();
+                float moveDist = 2000f; // デフォルト値
+                if (canvas != null)
+                {
+                    RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+                    // Canvasの幅をワールド座標に変換し、それをrectの親のローカル座標に変換して正しい移動距離を出す
+                    Vector3 worldWidth = canvas.transform.TransformVector(new Vector3(canvasRect.rect.width, 0, 0));
+                    if (rect.parent != null)
+                    {
+                        Vector3 localWidth = rect.parent.InverseTransformVector(worldWidth);
+                        moveDist = Mathf.Abs(localWidth.x);
+                    }
+                    else
+                    {
+                        moveDist = canvasRect.rect.width; // 親がない場合はそのまま
+                    }
+                }
+
+                rect.DOKill();
+
+                Sequence seq = DOTween.Sequence();
+                seq.SetUpdate(true); // Time.timeScale = 0 でも動くようにする
+
+                // 1. 左へ移動 (Move Left)
+                seq.Append(rect.DOAnchorPosX(originalX - moveDist, loopDuration * 0.5f).SetEase(Ease.Linear));
+
+                // 2. 右端へワープ (Teleport to Right)
+                seq.AppendCallback(() => 
+                {
+                    Vector2 pos = rect.anchoredPosition;
+                    pos.x = originalX + moveDist;
+                    rect.anchoredPosition = pos;
+                });
+
+                // 3. 元の位置へ戻る (Move to Original)
+                seq.Append(rect.DOAnchorPosX(originalX, loopDuration * 0.5f).SetEase(Ease.Linear));
+                
+                // 補正：アニメーション終了時に確実に元の位置に戻す
+                seq.OnComplete(() => 
+                {
+                    Vector2 pos = rect.anchoredPosition;
+                    pos.x = originalX;
+                    rect.anchoredPosition = pos;
+                });
+            }
+        }
+
+        private void PlayGameOverAnimation()
+        {
+            if (gameOverAnimationUIList == null) return;
+
+            foreach (var group in gameOverAnimationUIList)
+            {
+                if (group == null) continue;
+                
+                group.alpha = 0f;
+                group.DOFade(1f, 1f).SetUpdate(true);
+                
+                // 軽くスケールアニメーションも入れるとリッチになる
+                group.transform.localScale = Vector3.one * 1.2f;
+                group.transform.DOScale(Vector3.one, 1f).SetEase(Ease.OutBack).SetUpdate(true);
+            }
         }
     }
 }

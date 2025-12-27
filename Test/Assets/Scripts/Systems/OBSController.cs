@@ -7,12 +7,16 @@ using UnityEngine;
 
 public class OBSController : MonoBehaviour
 {
-    [SerializeField] private SceneButtonManager _sceneButtonManager;
+    private SceneButtonManager sceneButtonManager;
     [SerializeField] private GameObject startUIObj;
     [SerializeField] private GameObject canTakeFhotoObj;
     [SerializeField] private GameObject connectingTextObj;
     [SerializeField] private bool isRecording;
-    
+
+    private void Start()
+    {
+        sceneButtonManager = SceneButtonManager.Instance;
+    }
     public void AskCanTakeOBS()
     {
         if (isRecording == true)
@@ -21,7 +25,7 @@ public class OBSController : MonoBehaviour
             if(canTakeFhotoObj != null){canTakeFhotoObj.SetActive(true);}
             StartCoroutine(OBSConnection());
         }
-        else{_sceneButtonManager.SceneChangeGame("01JumpScene");}
+        else{sceneButtonManager.SceneChangeGame("01JumpScene");}
     }
     
     IEnumerator OBSConnection()
@@ -41,7 +45,7 @@ public class OBSController : MonoBehaviour
         RecordController.OBSSetCurrentProgromScene(sceneName);
         yield return new WaitForSeconds (0.2f);
         RecordController.OBSRecordStart();
-        _sceneButtonManager.SceneChangeGame("01JumpScene");
+        sceneButtonManager.SceneChangeGame("01JumpScene");
     }
 
     public void SetSceneName(string sceneName)

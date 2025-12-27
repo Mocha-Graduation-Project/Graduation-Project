@@ -386,7 +386,36 @@ namespace Systems
         }
         private async UniTaskVoid GameClearDelayed()
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(gameClearDelay));
+            float duration = gameClearDelay;
+            float elapsed = 0f;
+            float startScale = Time.timeScale;
+            float targetScale = 0.2f; // Slow down to 20% speed
+            
+            var mapManager = sceneButtonManager.MapManager;
+            AudioSource bgmSource = mapManager != null ? mapManager.AudioSource : null;
+            float startPitch = bgmSource != null ? bgmSource.pitch : 1f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float t = Mathf.Clamp01(elapsed / duration);
+                
+                float currentScale = Mathf.Lerp(startScale, targetScale, t);
+                Time.timeScale = currentScale;
+                
+                if (bgmSource != null)
+                {
+                    bgmSource.pitch = Mathf.Lerp(startPitch, targetScale, t);
+                }
+
+                await UniTask.Yield(PlayerLoopTiming.Update);
+            }
+            
+            Time.timeScale = targetScale;
+            if (bgmSource != null)
+            {
+                bgmSource.pitch = targetScale;
+            }
 
             if (this == null) return;
             if (sceneButtonManager == null) return;
