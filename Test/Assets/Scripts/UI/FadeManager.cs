@@ -22,7 +22,7 @@ namespace UI
             }
 
             Instance = this;
-            transform.parent = null;
+            transform.SetParent(null, false); // RectTransformのローカルスケールを保持
             
             DontDestroyOnLoad(gameObject);
             
@@ -32,12 +32,24 @@ namespace UI
             }
             else
             {
-
                 fadeImage.gameObject.SetActive(true);
                 fadeImage.enabled = true;
         
                 fadeImage.color = Color.black; 
                 fadeImage.raycastTarget = true;
+                
+                // Canvasの設定を確認・修正して、フェードが最前面に表示されるようにする
+                Canvas canvas = fadeImage.GetComponentInParent<Canvas>();
+                if (canvas != null)
+                {
+                    canvas.overrideSorting = true;
+                    canvas.sortingOrder = 999; // 最前面に表示
+                    Debug.Log($"[FadeManager] Canvas sortingOrder set to {canvas.sortingOrder}");
+                }
+                else
+                {
+                    Debug.LogWarning("[FadeManager] Canvas not found in parent hierarchy!");
+                }
             }
         }
 
@@ -69,14 +81,32 @@ namespace UI
 
         public void FadeOut(float duration, Action onComplete)
         {
-            if (fadeImage == null) return;
+            Debug.Log($"[FadeManager] FadeOut called. fadeImage: {fadeImage}, duration: {duration}");
+            
+            if (fadeImage == null)
+            {
+                Debug.LogError("[FadeManager] fadeImage is null! Invoking onComplete immediately.");
+                onComplete?.Invoke();
+                return;
+            }
+            
+            // 既存のフェードアニメーションをキル
+            fadeImage.DOKill();
             
             fadeImage.raycastTarget = true; // 操作をブロック
+            
+            // フェードアウト開始時に透明（alpha=0）から開始することを保証
+            Color c = fadeImage.color;
+            c.a = 0f;
+            fadeImage.color = c;
+            
+            Debug.Log($"[FadeManager] Starting DOFade. Current alpha: {fadeImage.color.a}, Target: 1, Duration: {duration}");
             
             fadeImage.DOFade(1f, duration)
                 .SetUpdate(true) 
                 .OnComplete(() =>
                 {
+                    Debug.Log("[FadeManager] FadeOut complete.");
                     onComplete?.Invoke();
                 });
         }
@@ -84,6 +114,9 @@ namespace UI
         public void FadeIn(float duration, Action onComplete)
         {
             if (fadeImage == null) return;
+
+            // 既存のフェードアニメーションをキル
+            fadeImage.DOKill();
 
             fadeImage.DOFade(0f, duration)
                 .SetUpdate(true)
