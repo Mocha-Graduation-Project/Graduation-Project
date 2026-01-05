@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3137196375673077007
+--- !u!114 &-8952662275987916030
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,96 +20,73 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CautionDrone
-  m_Shader: {fileID: -6465566751694194690, guid: c7bb191e6b6ba234ca454cdf27723052, type: 3}
+  m_Name: stage19Floor
+  m_Shader: {fileID: -6465566751694194690, guid: f94b334f1d78dd340be0ef3f049746db, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: 24f8151b95c049d4f9eb9122397e8df9, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _BaseMap:
+    - _AOTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _BumpMap:
+    - _BASE_COLOR_MAP:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _DetailAlbedoMap:
+    - _BaseColorTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _DetailMask:
+    - _EMISSION_COLOR_MAP:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _DetailNormalMap:
+    - _EmmisionTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _EmissionMap:
+    - _METALNESS_MAP:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _EmissionTexture:
-        m_Texture: {fileID: 2800000, guid: b2d98c8190f43d84886edd0c03983cfb, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
+    - _MetallicTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MetalicMask:
+    - _NORMAL_MAP:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MetallicGlossMap:
+    - _NormalMapTexture:
+        m_Texture: {fileID: 2800000, guid: 815a7db89dd172d4a8181b798af198e5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RoughnessTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MetallicMatcapTexture:
-        m_Texture: {fileID: 2800000, guid: 13ccc71bbea90774cb8003e72f68a7bc, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalTexture:
+    - _SPECULAR_COLOR_MAP:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _OcclusionMap:
+    - _SPECULAR_IOR_MAP:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _ParallaxMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _RotateMaskTexture:
-        m_Texture: {fileID: 2800000, guid: 33606f30e2c3432458911fe144a3cdaf, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SSSMaskTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _ShadowColor:
-        m_Texture: {fileID: 2800000, guid: 136076df42466f144a6508ada2586e66, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SpecGlossMap:
+    - _SPECULAR_ROUGHNESS_MAP:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -127,56 +104,42 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AOStrength: 1
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
-    - _DirectionalLightColorOpacity: 0.7
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EmissionIntensity: 0
-    - _EmissionIntensityB: 0.24
-    - _EmissionIntensityG: 1
-    - _EmissionIntensityR: 1
+    - _EmissionStrength: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.2
     - _GlossyReflections: 1
-    - _IsNormalUse: 0
-    - _LightSmooth: 0.01
-    - _MaskFresnelPower: 2.7
+    - _IsRoughness: 0
+    - _METALNESS: 0
     - _Metallic: 0
-    - _MetallicStrength: 0.3
-    - _MetallicUse: 1
-    - _Mode: 0
-    - _NormalInfruence: 0.48
+    - _MetallicStrength: 0.93
+    - _Mode: 3
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RimEdge1: 0.75
-    - _RimEdge2: 1.22
-    - _RotatePerSecondB: 30
-    - _RotatePerSecondG: 1000
-    - _RotatePerSecondR: 1000
-    - _RotatePowerB: 0
-    - _RotatePowerG: 1
-    - _RotatePowerR: 1
-    - _SSSColorOpacity: 0.51
-    - _SSSLIghtStrength: 0.47
-    - _SSSOpacity: 0
-    - _SSSPower: 1
+    - _SPECULAR_IOR: 1.5
+    - _SPECULAR_ROUGHNESS: 0.2
     - _Smoothness: 0
+    - _SmoothnessStrength: 0.55
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -184,22 +147,18 @@ Material:
     - _Surface: 0
     - _UVSec: 0
     - _WorkflowMode: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
-    - _BaseColor: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
-    - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
-    - _CutoffThreshold: {r: -0.05, g: 8, b: 0, a: 0}
-    - _EmissionColor: {r: 1, g: 0, b: 0, a: 1}
-    - _EmissionColorG: {r: 542.34814, g: 301.43256, b: 0, a: 0}
-    - _EmissionColorR: {r: 10.05997, g: 10.556064, b: 0.4481346, a: 0}
-    - _EmissionColor_B: {r: 6.4643083, g: 34.296745, b: 20.01678, a: 0}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 0}
-    - _RimLightColor: {r: 6.4980197, g: 0, b: 0.0612387, a: 0}
-    - _RotateAxisB: {r: 0, g: 1, b: 0, a: 0}
-    - _RotateAxisG: {r: 0, g: 1, b: 0, a: 0}
-    - _RotateAxisR: {r: 1, g: 0, b: 0, a: 0}
-    - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}
-    - _ShadowColor: {r: 0.26719186, g: 0.26610887, b: 0.40880498, a: 0}
+    - _AlbedoColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 0}
+    - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmmisionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SPECULAR_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
