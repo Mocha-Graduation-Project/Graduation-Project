@@ -4,6 +4,7 @@ using Scriptable;
 using Scripts.Scriptable;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 //using System.Numerics;
 
@@ -18,6 +19,11 @@ namespace Player
         [SerializeField] private CharacterParams characterParams;
 
         [SerializeField] private Renderer trailRenderer;
+        
+        [Header("Effect Settings")]
+        [JapaneseLabel("着弾エフェクト")] [SerializeField] private VisualEffect hitEffect;
+        [JapaneseLabel("地面レイヤー")] [SerializeField] private LayerMask effectLayer;
+        
         [JapaneseLabel("弾くたびに＋〇〇速度を追加")] private float addSpeed;
         [NonSerialized] public Transform arrowTransform;
 
@@ -180,6 +186,17 @@ namespace Player
             {
                 if (collider.gameObject.layer == LayerMask.NameToLayer("FloatFloor"))
                     return;
+
+                // Check if the collided object is in the effect layer
+                if (((1 << collider.gameObject.layer) & effectLayer) != 0)
+                {
+                    if (hitEffect != null)
+                    {
+                        hitEffect.transform.parent = null;
+                        hitEffect.SendEvent("OnPlay");
+                        Destroy(hitEffect.gameObject, 2.0f);
+                    }
+                }
 
                 //ResetBullet();
                 //Time.timeScale = 1f;
