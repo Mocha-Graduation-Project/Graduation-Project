@@ -15,10 +15,10 @@ namespace Player
         private static readonly int PowerLevel = Shader.PropertyToID("_PowerLevel");
         [SerializeField] private SoundData soundData;
 
-        [SerializeField] private MeshRenderer meshRendererChild;
+        [SerializeField] private MeshRenderer[] meshRendererChild;
         [SerializeField] private CharacterParams characterParams;
 
-        [SerializeField] private Renderer trailRenderer;
+        [SerializeField] private Renderer[] trailRenderer;
         
         [Header("Effect Settings")]
         [JapaneseLabel("着弾エフェクト")] [SerializeField] private VisualEffect hitEffect;
@@ -276,9 +276,24 @@ namespace Player
                 Damage = damageByReflectionCount[index];
             }
 
+            //var powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
             var powerColor = Mathf.Clamp01(reflectionCount * 0.26f);
-            meshRendererChild.material.SetFloat(PowerLevel, powerColor);
-            trailRenderer.material.SetFloat(PowerLevel, powerColor);
+            if (meshRendererChild != null)
+            {
+                foreach (var mesh in meshRendererChild)
+                {
+                    if (mesh != null)
+                        mesh.material.SetFloat(PowerLevel, powerColor);
+                }
+            }
+            if (trailRenderer != null)
+            {
+                foreach (var render in trailRenderer)
+                {
+                    if (render != null)
+                        render.material.SetFloat(PowerLevel, powerColor);
+                }
+            }
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
 
