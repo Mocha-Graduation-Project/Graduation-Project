@@ -57,9 +57,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundData: {fileID: 11400000, guid: 30166d86d9da2a945a7ba2dd3552b882, type: 2}
-  meshRendererChild: {fileID: 6681353420888942644}
+  meshRendererChild:
+  - {fileID: 6681353420888942644}
+  - {fileID: 3571035565071533194}
   characterParams: {fileID: 11400000, guid: ba6e45e6d168adb41bcb14b428391fe5, type: 2}
-  trailRenderer: {fileID: 5270402208079695448}
+  trailRenderer:
+  - {fileID: 5270402208079695448}
+  - {fileID: 6807188073316361935}
+  - {fileID: 2710406222307640149}
   hitEffect: {fileID: 2915763784825840169}
   effectLayer:
     serializedVersion: 2
