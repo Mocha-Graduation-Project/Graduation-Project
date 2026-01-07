@@ -22,6 +22,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] [JapaneseLabel("プレイヤーの方を向くオブジェクト")] private GameObject playerLookObj;
     [SerializeField] [JapaneseLabel("回転軸")] private GameObject rotateAxis;
     [SerializeField] [JapaneseLabel("弾を出す場所")] private GameObject shotObj;
+    [SerializeField] [JapaneseLabel("弾発射時の爆発エフェクト")] private GameObject shotBombEffect;
     [SerializeField] [JapaneseLabel("ストレート時の角度参照オブジェクト")] private GameObject straightObj;
     [SerializeField] private DamageUI damageText;
     [SerializeField] [JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
@@ -266,7 +267,8 @@ public class EnemyAI : MonoBehaviour
                 reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
                 break;
         }
-        
+
+        shotBombEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
         PlayAttckSound();
         StartAttack();
     }
