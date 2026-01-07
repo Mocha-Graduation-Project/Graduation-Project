@@ -1087,9 +1087,17 @@ PrefabInstance:
       propertyPath: 'buttons.Array.data[1]'
       value: 
       objectReference: {fileID: 2100918360592718593}
+    - target: {fileID: 5719591884560839390, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6341961972606722893, guid: 6603278fafb691345905e2f5e146210f, type: 3}
       propertyPath: m_BlockingObjects
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498771273365764296, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 7523979119361554204, guid: 6603278fafb691345905e2f5e146210f, type: 3}
       propertyPath: m_Name
@@ -1110,6 +1118,10 @@ PrefabInstance:
     - target: {fileID: 8176044476499493860, guid: 6603278fafb691345905e2f5e146210f, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8704654011437273849, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 9115829838790909611, guid: 6603278fafb691345905e2f5e146210f, type: 3}
       propertyPath: mapManager
@@ -1158,6 +1170,10 @@ PrefabInstance:
     - target: {fileID: 9138009035784605495, guid: 6603278fafb691345905e2f5e146210f, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156918902824171368, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

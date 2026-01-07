@@ -75,6 +75,7 @@ namespace Scriptable
 
         [JapaneseLabel("反射後の無敵時間")]　public float reflectInvincible = 1;
         [JapaneseLabel("被ダメージ時ヒットストップ時間")] public float playerHitStopDuration = 0.1f;
+        [JapaneseLabel("被ダメージ時の赤いVignetteの強さ")] public float vignetteIntensity = 0.1f;
 
         [Space(5)] [Header("<エフェクト>")] [JapaneseLabel("バットのアニメーション開始からエフェクトがでるまでの時間")]
         public float butEffectDuration = 0.1f;
