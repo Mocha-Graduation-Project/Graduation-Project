@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Enemy.BossScripts.DepthBoss;
 using NUnit.Framework.Internal;
 using Player;
 using Scripts;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEditor;
+using UnityEngine.VFX;
 using Random = UnityEngine.Random;
 
 
@@ -28,6 +30,7 @@ public class MoveBoss : EnemyAI
         [JapaneseLabel("発射場所")] public GameObject shotPos;
         [JapaneseLabel("盾")] public GameObject beeShield;
         [JapaneseLabel("何度に回転するか")] public float rotatez;
+        [JapaneseLabel("攻撃前の眼のエフェクト")] public GameObject attackEyeEffect;
     }
 
     [SerializeField] private StateMachine stateMachine;
@@ -43,6 +46,7 @@ public class MoveBoss : EnemyAI
     
     [JapaneseLabel("回転する蜂の頭")] private GameObject rotateBeeHead;
     private GameObject shotObj;
+    private GameObject attackEffect;
     private float rotateZ;
     private float rotateSpeed;
     private float startTime;
@@ -128,7 +132,7 @@ public class MoveBoss : EnemyAI
         for (int i = 0; i < beeHeads.Count; i++)
         {
             //Debug.Log(beeShields[i].name + ":" + beeShields[i].activeSelf);
-            if (beeHeads[i].beeShield.activeSelf == true)
+            if (beeHeads[i].beeShield.GetComponent<ReflectionBee>().IsShieldDown == false)
             {
                 if (isactive == false)
                 {
@@ -165,12 +169,14 @@ public class MoveBoss : EnemyAI
         if (isactive == true)
         {
             ResetTimer();
+            attackEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
         }
     }
 
     void SetBeeShot(BeeHead setBeeHead)
     {
         shotObj = setBeeHead.shotPos;
+        attackEffect = setBeeHead.attackEyeEffect;
         rotateBeeHead = setBeeHead.shotPos.transform.parent.gameObject;
         rotateZ = setBeeHead.rotatez;
         if (rotateZ < 0)

@@ -154,11 +154,6 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
     }
-
-    public void TestShow()
-    {
-        Debug.Log("EnemyAI:" + enemySpawnManager);
-    }
     
     //移動
     public virtual bool EnemyMove(GameObject enemyPos,Vector3 start,Vector3 end,float time,float startTime)
@@ -279,7 +274,10 @@ public class EnemyAI : MonoBehaviour
     public virtual void BeforeAttack()
     {
         if (excelData.Enemy[dataNumber].enemyAttackType == EnemyDataEntity.EnemyAttackType.dontAttack) { return; }
-        attackEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
+        if (attackEffect != null)
+        {
+            attackEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
+        }
         beforeAttackText.Warning(excelData.Enemy[dataNumber].brinkDuration);
     }
 
@@ -444,7 +442,7 @@ public class EnemyAI : MonoBehaviour
             position: transform.position
         );
         
-        SetUp();
+        Invoke("SetUp", 0.05f);
     }
     public virtual void SetUp()
     {
