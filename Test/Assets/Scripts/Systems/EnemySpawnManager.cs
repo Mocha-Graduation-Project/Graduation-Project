@@ -235,12 +235,10 @@ namespace Systems
 
                     if (enemy.GetComponentInChildren<DepthBoss>())
                     {
-                        var bossEnemy = enemy.GetComponentInChildren<DepthBoss>();
-                        bossEnemy.enabled = false;
                         deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
                         StartCoroutine(DepthBoss(enemy,true));
                     }
-                    if (enemy.GetComponentInChildren<MoveBoss>())
+                    else if (enemy.GetComponentInChildren<MoveBoss>())
                     {
                         deathEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
                         StartCoroutine(MoveBoss(enemy,true));
@@ -375,8 +373,7 @@ namespace Systems
             bossEnemy.DepthBossDeath();
             bossEnemy.enabled = false;
             
-            var duration = 3.0f; // 演出にかける時間
-            var startTime = Time.time;
+            var duration = 6.5f; // 演出にかける時間
             yield return new WaitForSeconds(duration);
             Destroy(boss);
             if (clear)
