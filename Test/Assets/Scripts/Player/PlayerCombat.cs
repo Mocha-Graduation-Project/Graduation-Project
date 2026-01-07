@@ -5,6 +5,7 @@ using Scripts.Scriptable;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VFX;
 
 namespace Player
 {
@@ -26,6 +27,8 @@ namespace Player
         private SceneButtonManager sceneButtonManager;
         private Slider staminaSlider;
         private Image BulletUI;
+        [JapaneseLabel("リロード完了エフェクト")] [SerializeField] private int reloadCompleteEffectIndex;
+        [JapaneseLabel("オーバーヒートエフェクト")] [SerializeField] private int overHeatIndex;
 
         // 状態
         [NonSerialized] public int direction = 1;
@@ -129,6 +132,7 @@ namespace Player
             
             // 射撃スタミナ/UI更新
             if (BulletUI != null) BulletUI.fillAmount = currentShotStamina;
+            float previousStamina = currentShotStamina;
             switch (Overheat)
             {
                 case false when currentShotStamina < maxShotStamina:
@@ -138,8 +142,21 @@ namespace Player
                     currentShotStamina += overheatRecoveryPerSecond * Time.deltaTime;
                     break;
             }
-            if (currentShotStamina <= 0) Overheat = true;
-            if (currentShotStamina >= maxShotStamina) Overheat = false;
+
+            if (currentShotStamina <= 0)
+            {
+                Overheat = true;
+                player.PlayEffect(overHeatIndex);
+            }
+            if (currentShotStamina >= maxShotStamina)
+            {
+                Overheat = false;
+                if (previousStamina < maxShotStamina)
+                {
+                    player.PlayEffect(reloadCompleteEffectIndex);
+                    //reloadCompleteEffect.SendEvent("OnPlay");
+                }
+            }
             if (BulletUI != null) BulletUI.color = Overheat ? Color.red : Color.white;
             
             // 移動中かチェック
