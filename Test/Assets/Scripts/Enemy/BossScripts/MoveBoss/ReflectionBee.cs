@@ -1,6 +1,7 @@
 using System.Collections;
 using Player;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Enemy.BossScripts.DepthBoss
 {
@@ -17,6 +18,9 @@ namespace Enemy.BossScripts.DepthBoss
 
         [SerializeField] [JapaneseLabel("復活までの時間")]
         private float revivaltime;
+
+        [SerializeField] [JapaneseLabel("撃破時の爆発エフェクト")]
+        private GameObject breakBombEffect;
 
         [SerializeField] private Animator animator;
         private bool dead = false;
@@ -153,6 +157,7 @@ namespace Enemy.BossScripts.DepthBoss
         {
             isShieldDown = true; // ダウン状態に設定
             shieldHP = 0;
+            breakBombEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
             animator.SetBool("Stag", true);
             col.enabled = false; // ★コライダーを無効化し、弾が当たらないようにする
 
