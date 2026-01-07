@@ -27,7 +27,8 @@ namespace Player
         private SceneButtonManager sceneButtonManager;
         private Slider staminaSlider;
         private Image BulletUI;
-        [JapaneseLabel("リロード完了エフェクト")] [SerializeField] private VisualEffect reloadCompleteEffect;
+        [JapaneseLabel("リロード完了エフェクト")] [SerializeField] private int reloadCompleteEffectIndex;
+        [JapaneseLabel("オーバーヒートエフェクト")] [SerializeField] private int overHeatIndex;
 
         // 状態
         [NonSerialized] public int direction = 1;
@@ -141,13 +142,19 @@ namespace Player
                     currentShotStamina += overheatRecoveryPerSecond * Time.deltaTime;
                     break;
             }
-            if (currentShotStamina <= 0) Overheat = true;
+
+            if (currentShotStamina <= 0)
+            {
+                Overheat = true;
+                player.PlayEffect(overHeatIndex);
+            }
             if (currentShotStamina >= maxShotStamina)
             {
                 Overheat = false;
-                if (previousStamina < maxShotStamina && reloadCompleteEffect != null)
+                if (previousStamina < maxShotStamina)
                 {
-                    reloadCompleteEffect.SendEvent("OnPlay");
+                    player.PlayEffect(reloadCompleteEffectIndex);
+                    //reloadCompleteEffect.SendEvent("OnPlay");
                 }
             }
             if (BulletUI != null) BulletUI.color = Overheat ? Color.red : Color.white;
