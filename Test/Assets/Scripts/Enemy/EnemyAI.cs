@@ -22,6 +22,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] [JapaneseLabel("プレイヤーの方を向くオブジェクト")] private GameObject playerLookObj;
     [SerializeField] [JapaneseLabel("回転軸")] private GameObject rotateAxis;
     [SerializeField] [JapaneseLabel("弾を出す場所")] private GameObject shotObj;
+    [SerializeField] [JapaneseLabel("弾発射時の爆発エフェクト")] private GameObject shotBombEffect;
     [SerializeField] [JapaneseLabel("ストレート時の角度参照オブジェクト")] private GameObject straightObj;
     [SerializeField] private DamageUI damageText;
     [SerializeField] [JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
@@ -154,11 +155,6 @@ public class EnemyAI : MonoBehaviour
                 break;
         }
     }
-
-    public void TestShow()
-    {
-        Debug.Log("EnemyAI:" + enemySpawnManager);
-    }
     
     //移動
     public virtual bool EnemyMove(GameObject enemyPos,Vector3 start,Vector3 end,float time,float startTime)
@@ -271,7 +267,8 @@ public class EnemyAI : MonoBehaviour
                 reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
                 break;
         }
-        
+
+        shotBombEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
         PlayAttckSound();
         StartAttack();
     }
@@ -279,7 +276,10 @@ public class EnemyAI : MonoBehaviour
     public virtual void BeforeAttack()
     {
         if (excelData.Enemy[dataNumber].enemyAttackType == EnemyDataEntity.EnemyAttackType.dontAttack) { return; }
-        attackEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
+        if (attackEffect != null)
+        {
+            attackEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
+        }
         beforeAttackText.Warning(excelData.Enemy[dataNumber].brinkDuration);
     }
 
@@ -444,7 +444,7 @@ public class EnemyAI : MonoBehaviour
             position: transform.position
         );
         
-        SetUp();
+        Invoke("SetUp", 0.05f);
     }
     public virtual void SetUp()
     {

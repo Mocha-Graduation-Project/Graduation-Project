@@ -26,7 +26,9 @@ namespace Enemy.BossScripts.DepthBoss
         private bool isShieldDown = false;
         [SerializeField] [JapaneseLabel("地面レイヤー")]
         public LayerMask groundLayer;
-        
+
+        public bool IsShieldDown => isShieldDown;
+
         private void Start()
         {
             shieldHP = shieldMaxHP;
