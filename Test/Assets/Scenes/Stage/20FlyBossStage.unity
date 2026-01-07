@@ -1457,9 +1457,25 @@ PrefabInstance:
       propertyPath: m_PlaneDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5610779803629203935, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: buttons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610779803629203935, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: currentButtonIndex
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7523979119361554204, guid: 6603278fafb691345905e2f5e146210f, type: 3}
       propertyPath: m_Name
       value: SceneUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 7813791509235494825, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -300
+      objectReference: {fileID: 0}
+    - target: {fileID: 8212898288557579451, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8477026504899904163, guid: 6603278fafb691345905e2f5e146210f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -1481,6 +1497,10 @@ PrefabInstance:
       propertyPath: playerScript
       value: 
       objectReference: {fileID: 972443099}
+    - target: {fileID: 9138009035784605495, guid: 6603278fafb691345905e2f5e146210f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
