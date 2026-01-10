@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8b518aa2d8d6eaf46aef3f1eebe8474c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -113,12 +113,14 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
+    - _EvilLevel: 1
     - _Float: 0.3
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _HDRPower: 0.76
     - _Metallic: 0
+    - _NoisePower: 0.26
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _Power: 0.26
@@ -142,8 +144,9 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveColor: {r: 0, g: 155.74858, b: 92.85797, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EvilColor: {r: 0.58471614, g: 0.09073994, b: 0.7798742, a: 0}
     - _HDRPower: {r: 172.51648, g: 241.6751, b: 235.26842, a: 0}
-    - _HDRPowerColor: {r: 4.9245777, g: 4.88649, b: 4.32062, a: 0}
+    - _HDRPowerColor: {r: 6.8831816, g: 6.8831816, b: 6.8831816, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
