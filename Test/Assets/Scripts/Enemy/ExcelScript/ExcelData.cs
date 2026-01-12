@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExcelAsset]
+//[ExcelAsset]
 public class ExcelData : ScriptableObject
 {
 	public List<EnemyDataEntity> Enemy;
