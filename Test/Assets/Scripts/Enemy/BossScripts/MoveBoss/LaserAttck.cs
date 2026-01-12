@@ -105,7 +105,7 @@ public class LaserAttck : MonoBehaviour,IState
         {
             case 0:
                 //Move(moveBoss.CenterPos,moveBoss.MoveTime);
-                if (enemyAI.EnemyMove(moveEnemy, startPos, centerPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].verticalTime, startTime) ==
+                if (enemyAI.EnemyMove(moveEnemy, startPos, centerPos, enemyAI.CSVData.enemiesData[enemyAI.DataNumber].verticalTime, startTime) ==
                     true)
                 {
                     NextMove();
@@ -114,7 +114,7 @@ public class LaserAttck : MonoBehaviour,IState
                 if (finishRotating != true)
                 {
                     finishRotating = Rotate(rotateAxis, rotateAxisRotate, angleZ,
-                        enemyAI.ExcelData.Enemy[enemyAI.DataNumber].rotateTime, ref t);
+                        enemyAI.CSVData.enemiesData[enemyAI.DataNumber].rotateTime, ref t);
                 }
                 FinishCheck();
                 break;
@@ -194,7 +194,7 @@ public class LaserAttck : MonoBehaviour,IState
         if (isCoolTime == true)
         {
             float diff = Time.time - startTime;
-            if (diff < enemyAI.ExcelData.Enemy[enemyAI.DataNumber].coolTime)
+            if (diff < enemyAI.CSVData.enemiesData[enemyAI.DataNumber].coolTime)
             {
                 //Debug.Log("クールタイム中");
                 return isCoolTime;

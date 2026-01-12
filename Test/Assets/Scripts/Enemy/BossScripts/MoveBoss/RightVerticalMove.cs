@@ -47,9 +47,9 @@ public class RightVerticalMove : MonoBehaviour,IState
 
         centerPos = enemyAI.CenterPos;
         startPos = moveEnemy.transform.position;
-        rightPosX = centerPos.x + enemyAI.ExcelData.Enemy[enemyAI.DataNumber].rightRenge;
-        upPosY = centerPos.y + enemyAI.ExcelData.Enemy[enemyAI.DataNumber].upRenge;
-        downPosY = centerPos.y - enemyAI.ExcelData.Enemy[enemyAI.DataNumber].downRenge;
+        rightPosX = centerPos.x + enemyAI.CSVData.enemiesData[enemyAI.DataNumber].rightRenge;
+        upPosY = centerPos.y + enemyAI.CSVData.enemiesData[enemyAI.DataNumber].upRenge;
+        downPosY = centerPos.y - enemyAI.CSVData.enemiesData[enemyAI.DataNumber].downRenge;
         rightUpPos = new Vector3(rightPosX, upPosY, centerPos.z);
         rightDownPos = new Vector3(rightPosX, downPosY, centerPos.z);
         rightCenterPos= new Vector3(rightPosX, centerPos.y, centerPos.z);
@@ -76,7 +76,7 @@ public class RightVerticalMove : MonoBehaviour,IState
         if (isCoolTime == true)
         {
             float diff = Time.time - startTime;
-            if (diff < enemyAI.ExcelData.Enemy[enemyAI.DataNumber].coolTime)
+            if (diff < enemyAI.CSVData.enemiesData[enemyAI.DataNumber].coolTime)
             {
                 //Debug.Log("クールタイム中");
                 return;
@@ -91,7 +91,7 @@ public class RightVerticalMove : MonoBehaviour,IState
         if (finishRotating != true)
         {
             finishRotating =
-                enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].rotateTime, ref t);
+                enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ, enemyAI.CSVData.enemiesData[enemyAI.DataNumber].rotateTime, ref t);
         }
         if (finishMoving == true && finishRotating == true)
         {
@@ -129,28 +129,28 @@ public class RightVerticalMove : MonoBehaviour,IState
         switch (moveCounter)
         {
             case 0:
-                if (enemyAI.EnemyMove(moveEnemy, startPos, rightCenterPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].verticalTime,
+                if (enemyAI.EnemyMove(moveEnemy, startPos, rightCenterPos, enemyAI.CSVData.enemiesData[enemyAI.DataNumber].verticalTime,
                         startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 1:
-                if (enemyAI.EnemyMove(moveEnemy, rightCenterPos, rightUpPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].horizontalTime,
+                if (enemyAI.EnemyMove(moveEnemy, rightCenterPos, rightUpPos, enemyAI.CSVData.enemiesData[enemyAI.DataNumber].horizontalTime,
                         startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 2:
-                if (enemyAI.EnemyMove(moveEnemy, rightUpPos, rightDownPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].horizontalTime * 2,
+                if (enemyAI.EnemyMove(moveEnemy, rightUpPos, rightDownPos, enemyAI.CSVData.enemiesData[enemyAI.DataNumber].horizontalTime * 2,
                         startTime) == true)
                 {
                     NextMove();
                 }
                 break;
             case 3:
-                if (enemyAI.EnemyMove(moveEnemy, rightDownPos, rightCenterPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].horizontalTime,
+                if (enemyAI.EnemyMove(moveEnemy, rightDownPos, rightCenterPos, enemyAI.CSVData.enemiesData[enemyAI.DataNumber].horizontalTime,
                         startTime) == true)
                 {
                     NextMove();

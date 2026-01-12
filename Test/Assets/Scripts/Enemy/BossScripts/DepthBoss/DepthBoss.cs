@@ -5,6 +5,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEditor;
 using UnityEngine.Serialization;
+using System.IO;
 
 // #if UNITY_EDITOR
 // [CustomEditor(typeof(EnemyAI))]
@@ -19,8 +20,6 @@ public class DepthBoss : EnemyAI
         leftTackle,
         fallingAttack,
     }
-
-    [SerializeField] private StateMachine stateMachine;
     
     private Animator animator;
 
@@ -29,7 +28,7 @@ public class DepthBoss : EnemyAI
 
     [SerializeField] [JapaneseLabel("攻撃中か")] private bool isAttack;
     
-    [JapaneseLabel("DepthBossDataの値")] private int depthBossData = 0;
+    [JapaneseLabel("BigBossDataの値")] private int bigBossNum = 1;
 
     [JapaneseLabel("左側に行く基準の座標")] private float left33Pos;
     
@@ -37,19 +36,36 @@ public class DepthBoss : EnemyAI
 
     [JapaneseLabel("左右タックルのループ回数")] private int LRTackleCounter;
 
+    [JapaneseLabel("左右タックルの最大ループ数")] private int maxLRTackle;
+
     [JapaneseLabel("タックルの回数")] private int tackleCounter;
     
     public bool IsAttack { get { return isAttack; } }
 
     public override void SetUp()
     {
+        string dataPath = "CSVData/BigBossData";
+        TextAsset dataAsset = (TextAsset)Resources.Load<TextAsset>(dataPath);
+        StringReader reader = new StringReader(dataAsset.text);
+        int i = 0;
+        while (reader.Peek() != -1)
+        {
+            string lineData = reader.ReadLine();
+            string[] lineSprit = lineData.Split(',');
+
+            if (i == bigBossNum)
+            {
+                int.TryParse(lineSprit[0], out maxLRTackle);
+            }
+            
+            i++;
+        }
+        
         animator = GetComponent<Animator>();
-        stateMachine = new StateMachine();
-        Invoke("RandomSetPattern", ExcelData.Enemy[DataNumber].coolTime);
+        Invoke("RandomSetPattern", CSVData.enemiesData[DataNumber].coolTime);
         LRTackleCounter = 0;
         tackleCounter = 0;
         isAttack = true;
-        //player = GameObject.FindGameObjectWithTag("Player");
 
         GameObject loopAreaObj = GameObject.FindWithTag("LoopArea");
         if (loopAreaObj != null)
@@ -86,7 +102,7 @@ public class DepthBoss : EnemyAI
             if (tackleCounter != 0 && tackleCounter % 2 == 0)
             {
                 LRTackleCounter++;
-                if (LRTackleCounter == ExcelData.DepthBoss[depthBossData].maxLRTackle)
+                if (LRTackleCounter == maxLRTackle)
                 {
                     ChangePattern(Patterns.fallingAttack);
                     LRTackleCounter = 0;
@@ -167,7 +183,7 @@ public class DepthBoss : EnemyAI
     {
         //アニメーションが終わって呼ばれたらクールタイム後に次の行動へ
         AttackTrue();
-        Invoke("Change", ExcelData.Enemy[DataNumber].coolTime);
+        Invoke("Change", CSVData.enemiesData[DataNumber].coolTime);
     }
 
     public void SwitchFallingAttack()

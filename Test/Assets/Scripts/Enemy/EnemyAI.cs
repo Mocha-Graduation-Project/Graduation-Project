@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Component;
 using Player;
 using Scripts.Scriptable;
@@ -11,8 +12,7 @@ using UnityEngine.VFX;
 
 public class EnemyAI : MonoBehaviour
 {
-    //public EnemyData enemyData;
-    [SerializeField] private ExcelData excelData;
+    private StartUpEnemyData csvData;
     [JapaneseLabel("何番目のデータを取得するか")] private int dataNumber;
     [JapaneseLabel("SetUpが正常に完了したか")] private bool isSetUp;
 
@@ -58,7 +58,7 @@ public class EnemyAI : MonoBehaviour
     private float upPosY;
     private float downPosY;
     
-    public ExcelData ExcelData{ get { return excelData; } }
+    public StartUpEnemyData CSVData{ get { return csvData; } }
     public int DataNumber { get { return dataNumber; } }
     public int Hp { get { return hp; } }
     public BeforeAttack BeforeAttackText { get { return beforeAttackText; } }
@@ -99,6 +99,7 @@ public class EnemyAI : MonoBehaviour
         centerPos = this.transform.position;
         audioSource = GetComponent<AudioSource>();
         enemySpawnManager = EnemySpawnManager.Instance;
+        csvData = FindAnyObjectByType<StartUpEnemyData>();
     }
 
     // Update is called once per frame
@@ -106,7 +107,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (isSetUp == false)
         {
-            Debug.Log("セットアップが完了していません");
+            //Debug.Log("セットアップが完了していません");
             return;
         }
         //プレイヤーの方を向く処理
@@ -116,19 +117,19 @@ public class EnemyAI : MonoBehaviour
             Vector3 targetDir = Vector3.zero;
             bool shouldRotate = false;
 
-            switch (excelData.Enemy[dataNumber].playerLookType)
+            switch (csvData.enemiesData[dataNumber].playerLookType)
             {
-                case EnemyDataEntity.PlayerLookType.look:
+                case StartUpEnemyData.PlayerLookType.look:
                     targetDir = player.transform.localPosition - playerLookObj.transform.localPosition;
                     shouldRotate = true;
                     break;
-                case EnemyDataEntity.PlayerLookType.lookY:
+                case StartUpEnemyData.PlayerLookType.lookY:
                      // playerLookObjがルートならWorldで計算してOK。
                     Vector3 worldLookPos = new Vector3(player.transform.position.x, playerLookObj.transform.position.y, player.transform.position.z);
                     targetDir = worldLookPos - playerLookObj.transform.position;
                     shouldRotate = true;
                     break;
-                case EnemyDataEntity.PlayerLookType.dontLook:
+                case StartUpEnemyData.PlayerLookType.dontLook:
                     break;
             }
 
@@ -140,17 +141,17 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        switch (excelData.Enemy[dataNumber].moveType)
+        switch (csvData.enemiesData[dataNumber].moveType)
         {
-            case EnemyDataEntity.MoveType.dontMove:
+            case StartUpEnemyData.MoveType.dontMove:
                 break;
-            case EnemyDataEntity.MoveType.custom:
+            case StartUpEnemyData.MoveType.custom:
                 CustomMove();
                 break;
-            case EnemyDataEntity.MoveType.vertical:
+            case StartUpEnemyData.MoveType.vertical:
                 VerticalMove();
                 break;
-            case EnemyDataEntity.MoveType.horizontal:
+            case StartUpEnemyData.MoveType.horizontal:
                 HorizontalMove();
                 break;
         }
@@ -216,13 +217,13 @@ public class EnemyAI : MonoBehaviour
         
         if (hp <= 0)
         {
-            if (excelData.Enemy[dataNumber].enemyAttackType != EnemyDataEntity.EnemyAttackType.dontAttack)
+            if (csvData.enemiesData[dataNumber].enemyAttackType != StartUpEnemyData.EnemyAttackType.dontAttack)
             {
                 StopAttack();
             }
 
             // 敵死亡イベントをログ
-            string enemyTypeStr = excelData.Enemy[dataNumber].enemyType.ToString();
+            string enemyTypeStr = csvData.enemiesData[dataNumber].enemyType.ToString();
             LudiscanManager.Instance.LogEnemyDeath(
                 enemyId: gameObject.name,
                 enemyType: enemyTypeStr,
@@ -231,19 +232,19 @@ public class EnemyAI : MonoBehaviour
 
             DeathProcess();
 
-            Debug.Log("Dead:" + excelData.Enemy[dataNumber].enemyType);
-            switch (excelData.Enemy[dataNumber].enemyType)
+            Debug.Log("Dead:" + csvData.enemiesData[dataNumber].enemyType);
+            switch (csvData.enemiesData[dataNumber].enemyType)
             {
-                case EnemyDataEntity.EnemyType.normal:
+                case StartUpEnemyData.EnemyType.normal:
                     enemySpawnManager.RemoveEnemy(this.gameObject,deathEffectPrefab);
                     break;
-                case EnemyDataEntity.EnemyType.shield:
+                case StartUpEnemyData.EnemyType.shield:
                     enemySpawnManager.RemoveEnemy(this.gameObject.transform.parent.gameObject,deathEffectPrefab);
                     break;
-                case EnemyDataEntity.EnemyType.boss:
+                case StartUpEnemyData.EnemyType.boss:
                     enemySpawnManager.RemoveEnemy(this.gameObject.transform.parent.gameObject,deathEffectPrefab);
                     break;
-                case EnemyDataEntity.EnemyType.humanoid:
+                case StartUpEnemyData.EnemyType.humanoid:
                     enemySpawnManager.RemoveEnemy(this.gameObject, deathEffectPrefab);
                     break;
             }
@@ -258,12 +259,12 @@ public class EnemyAI : MonoBehaviour
         GameObject bullets = Instantiate(bulletObj, shotObj.transform.position, Quaternion.identity);
 
         Bullet reflectionBullet = bullets.GetComponent<Bullet>();
-        switch (excelData.Enemy[dataNumber].enemyAttackType)
+        switch (csvData.enemiesData[dataNumber].enemyAttackType)
         {
-            case EnemyDataEntity.EnemyAttackType.playerAim:
+            case StartUpEnemyData.EnemyAttackType.playerAim:
                 reflectionBullet.SetPowerEnemy(transform.position);
                 break;
-            case EnemyDataEntity.EnemyAttackType.straight:
+            case StartUpEnemyData.EnemyAttackType.straight:
                 reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
                 break;
         }
@@ -275,12 +276,12 @@ public class EnemyAI : MonoBehaviour
     
     public virtual void BeforeAttack()
     {
-        if (excelData.Enemy[dataNumber].enemyAttackType == EnemyDataEntity.EnemyAttackType.dontAttack) { return; }
+        if (csvData.enemiesData[dataNumber].enemyAttackType == StartUpEnemyData.EnemyAttackType.dontAttack) { return; }
         if (attackEffect != null)
         {
             attackEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
         }
-        beforeAttackText.Warning(excelData.Enemy[dataNumber].brinkDuration);
+        beforeAttackText.Warning(csvData.enemiesData[dataNumber].brinkDuration);
     }
 
     public void StopAttack()
@@ -292,7 +293,7 @@ public class EnemyAI : MonoBehaviour
     public void StartAttack()
     {
         //Debug.Log("AttackStart");
-        Invoke("BeforeAttack", bulletRate - excelData.Enemy[dataNumber].beforeAttackTime);
+        Invoke("BeforeAttack", bulletRate - csvData.enemiesData[dataNumber].beforeAttackTime);
         Invoke("EnemyAttack", bulletRate);
     }
 
@@ -301,7 +302,7 @@ public class EnemyAI : MonoBehaviour
         if (isCoolTime == true)
         {
             float diff = Time.time - t;
-            if (diff < excelData.Enemy[dataNumber].waitTime)
+            if (diff < csvData.enemiesData[dataNumber].waitTime)
             {
                 //Debug.Log("クールタイム中");
                 return;
@@ -316,19 +317,19 @@ public class EnemyAI : MonoBehaviour
         switch (moveCounter)
         {
             case 0:
-                if (EnemyMove(moveObj, startPos, upCenterPos, excelData.Enemy[dataNumber].verticalTime, t) == true)
+                if (EnemyMove(moveObj, startPos, upCenterPos, csvData.enemiesData[dataNumber].verticalTime, t) == true)
                 {
                     NextMove();
                 }
                 break;
             case 1:
-                if (EnemyMove(moveObj, upCenterPos, downCenterPos, excelData.Enemy[dataNumber].verticalTime * 2, t) == true)
+                if (EnemyMove(moveObj, upCenterPos, downCenterPos, csvData.enemiesData[dataNumber].verticalTime * 2, t) == true)
                 {
                     NextMove();
                 }
                 break;
             case 2:
-                if (EnemyMove(moveObj, downCenterPos, upCenterPos, excelData.Enemy[dataNumber].verticalTime * 2, t) == true)
+                if (EnemyMove(moveObj, downCenterPos, upCenterPos, csvData.enemiesData[dataNumber].verticalTime * 2, t) == true)
                 {
                     NextMove();
                 }
@@ -341,7 +342,7 @@ public class EnemyAI : MonoBehaviour
         if (isCoolTime == true)
         {
             float diff = Time.time - t;
-            if (diff < excelData.Enemy[dataNumber].waitTime)
+            if (diff < csvData.enemiesData[dataNumber].waitTime)
             {
                 //Debug.Log("クールタイム中");
                 return;
@@ -356,19 +357,19 @@ public class EnemyAI : MonoBehaviour
         switch (moveCounter)
         {
             case 0:
-                if (EnemyMove(moveObj, startPos, rightCenterPos, excelData.Enemy[dataNumber].horizontalTime, t) == true)
+                if (EnemyMove(moveObj, startPos, rightCenterPos, csvData.enemiesData[dataNumber].horizontalTime, t) == true)
                 {
                     NextMove();
                 }
                 break;
             case 1:
-                if (EnemyMove(moveObj, rightCenterPos, leftCenterPos, excelData.Enemy[dataNumber].horizontalTime * 2, t) == true)
+                if (EnemyMove(moveObj, rightCenterPos, leftCenterPos, csvData.enemiesData[dataNumber].horizontalTime * 2, t) == true)
                 {
                     NextMove();
                 }
                 break;
             case 2:
-                if (EnemyMove(moveObj, leftCenterPos, rightCenterPos, excelData.Enemy[dataNumber].horizontalTime * 2, t) == true)
+                if (EnemyMove(moveObj, leftCenterPos, rightCenterPos, csvData.enemiesData[dataNumber].horizontalTime * 2, t) == true)
                 {
                     NextMove();
                 }
@@ -391,13 +392,17 @@ public class EnemyAI : MonoBehaviour
             moveCounter = 1;
         }
     }
-
-    public virtual void SetNumber(int enemyID)
+    
+    public IEnumerator SetNumber(int enemyID)
     {
+        //Debug.Log("待機中");
+        yield return new WaitUntil(() => StartUpEnemyData.IsInitialized == true);
+        //Debug.Log("待機終了");
+        
         dataNumber = -1;
-        for (int i = 0; i < excelData.Enemy.Count; i++)
+        for (int i = 1; i < csvData.enemiesData.Count; i++)
         {
-            if (enemyID == excelData.Enemy[i].id)
+            if (enemyID == csvData.enemiesData[i].id)
             {
                 dataNumber = i;
             }
@@ -407,29 +412,29 @@ public class EnemyAI : MonoBehaviour
         {
             //idが存在しない場合
             Debug.Log("IDが存在しません");
-            return;
+            yield break;
         }
 
-        hp = excelData.Enemy[dataNumber].maxHP;
-        ChangeBulletRate(excelData.Enemy[dataNumber].bulletRate);
+        hp = csvData.enemiesData[dataNumber].maxHP;
+        ChangeBulletRate(csvData.enemiesData[dataNumber].bulletRate);
         
         //攻撃
-        switch (excelData.Enemy[dataNumber].enemyAttackType)
+        switch (csvData.enemiesData[dataNumber].enemyAttackType)
         {
-            case EnemyDataEntity.EnemyAttackType.dontAttack:
+            case StartUpEnemyData.EnemyAttackType.dontAttack:
                 break;
-            case EnemyDataEntity.EnemyAttackType.playerAim:
+            case StartUpEnemyData.EnemyAttackType.playerAim:
                 StartAttack();
                 break;
-            case EnemyDataEntity.EnemyAttackType.straight:
+            case StartUpEnemyData.EnemyAttackType.straight:
                 StartAttack();
                 break;
         }
 
-        switch (excelData.Enemy[dataNumber].enemyType)
+        switch (csvData.enemiesData[dataNumber].enemyType)
         {
-            case EnemyDataEntity.EnemyType.boss:
-            case EnemyDataEntity.EnemyType.humanoid:
+            case StartUpEnemyData.EnemyType.boss:
+            case StartUpEnemyData.EnemyType.humanoid:
                 enemyHPSlider = GameObject.FindWithTag("EnemyHPBar").GetComponent<Slider>();
                 enemyHPSlider.maxValue = hp;
                 enemyHPSlider.value = hp;
@@ -437,7 +442,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         // 敵スポーンイベントをログ
-        string enemyTypeStr = excelData.Enemy[dataNumber].enemyType.ToString();
+        string enemyTypeStr = csvData.enemiesData[dataNumber].enemyType.ToString();
         LudiscanManager.Instance.LogEnemySpawn(
             enemyId: gameObject.name,
             enemyType: enemyTypeStr,
@@ -450,10 +455,10 @@ public class EnemyAI : MonoBehaviour
     {
         //overrideしない場合の移動に使う変数を代入
         startPos = transform.position;
-        rightPosX = centerPos.x + excelData.Enemy[dataNumber].rightRenge;
-        leftPosX = centerPos.x - excelData.Enemy[dataNumber].leftRenge;
-        upPosY = centerPos.y + excelData.Enemy[dataNumber].upRenge;
-        downPosY = centerPos.y - excelData.Enemy[dataNumber].downRenge;
+        rightPosX = centerPos.x + csvData.enemiesData[dataNumber].rightRenge;
+        leftPosX = centerPos.x - csvData.enemiesData[dataNumber].leftRenge;
+        upPosY = centerPos.y + csvData.enemiesData[dataNumber].upRenge;
+        downPosY = centerPos.y - csvData.enemiesData[dataNumber].downRenge;
         rightCenterPos = new Vector3(rightPosX, centerPos.y, centerPos.z);
         leftCenterPos = new Vector3(leftPosX, centerPos.y, centerPos.z);
         upCenterPos = new Vector3(centerPos.x, upPosY, centerPos.z);
@@ -464,6 +469,7 @@ public class EnemyAI : MonoBehaviour
         ResetStartTime();
 
         isSetUp = true;
+        //Debug.Log("セットアップ完了");
     }
     public virtual void Change() {}
     public virtual void CustomMove() {}

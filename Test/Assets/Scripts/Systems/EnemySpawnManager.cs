@@ -152,7 +152,8 @@ namespace Systems
             {
                 enemyAI = spawnedEnemy.GetComponent<EnemyAI>();
             }
-            enemyAI.SetNumber((int)excelEnemyID);
+
+            StartCoroutine(enemyAI.SetNumber((int)excelEnemyID));
             
             activeEnemies.Add(spawnedEnemy);
             spawnedEnemy.name = instanceName;

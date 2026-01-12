@@ -45,9 +45,9 @@ public class UpHorizontalMove : MonoBehaviour,IState
 
          centerPos = enemyAI.CenterPos;
          startPos = moveEnemy.transform.position;
-         upPosY = centerPos.y + enemyAI.ExcelData.Enemy[enemyAI.DataNumber].upRenge;
-         rightPosX = centerPos.x + enemyAI.ExcelData.Enemy[enemyAI.DataNumber].rightRenge;
-         leftPosX = centerPos.x - enemyAI.ExcelData.Enemy[enemyAI.DataNumber].leftRenge;
+         upPosY = centerPos.y + enemyAI.CSVData.enemiesData[enemyAI.DataNumber].upRenge;
+         rightPosX = centerPos.x + enemyAI.CSVData.enemiesData[enemyAI.DataNumber].rightRenge;
+         leftPosX = centerPos.x - enemyAI.CSVData.enemiesData[enemyAI.DataNumber].leftRenge;
          upRightPos = new Vector3(rightPosX, upPosY, centerPos.z);
          upLeftPos = new Vector3(leftPosX, upPosY, centerPos.z);
          
@@ -69,7 +69,7 @@ public class UpHorizontalMove : MonoBehaviour,IState
          if (isCoolTime == true)
          {
              float diff = Time.time - startTime;
-             if (diff < enemyAI.ExcelData.Enemy[enemyAI.DataNumber].coolTime)
+             if (diff < enemyAI.CSVData.enemiesData[enemyAI.DataNumber].coolTime)
              {
                  //Debug.Log("クールタイム中");
                  return;
@@ -83,7 +83,7 @@ public class UpHorizontalMove : MonoBehaviour,IState
          MoveUpCenter();
          if (finishRotating != true)
          {
-             finishRotating = enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].rotateTime,
+             finishRotating = enemyAI.EnemyRotate(rotateAxis, rotateAxisRotate, angleZ, enemyAI.CSVData.enemiesData[enemyAI.DataNumber].rotateTime,
                  ref t);
          }
          if (finishMoving == true && finishRotating == true)
@@ -123,14 +123,14 @@ public class UpHorizontalMove : MonoBehaviour,IState
         switch (moveCounter)
         {
             case 0:
-                if (enemyAI.EnemyMove(moveEnemy, startPos, upRightPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].horizontalTime,
+                if (enemyAI.EnemyMove(moveEnemy, startPos, upRightPos, enemyAI.CSVData.enemiesData[enemyAI.DataNumber].horizontalTime,
                         startTime))
                 {
                     NextMove();
                 }
                 break;
             case 1:
-                if (enemyAI.EnemyMove(moveEnemy, upRightPos, upLeftPos, enemyAI.ExcelData.Enemy[enemyAI.DataNumber].verticalTime * 2,
+                if (enemyAI.EnemyMove(moveEnemy, upRightPos, upLeftPos, enemyAI.CSVData.enemiesData[enemyAI.DataNumber].verticalTime * 2,
                         startTime) == true)
                 {
                     NextMove();
