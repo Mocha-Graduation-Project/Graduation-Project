@@ -55,7 +55,7 @@ namespace Enemy.Basic
         {
             if (!isGrounded || jumpTime < jumpCoolTime) return;
             animator.SetTrigger("JumpTrigger");
-            rb.AddForce(Vector3.up * ExcelData.Enemy[DataNumber].jumpPower, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * CSVData.enemiesData[DataNumber].jumpPower, ForceMode.Impulse);
             jumpTime = 0;
         }
 

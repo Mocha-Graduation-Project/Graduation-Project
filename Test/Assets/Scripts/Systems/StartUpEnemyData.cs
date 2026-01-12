@@ -10,7 +10,7 @@ public class StartUpEnemyData : MonoBehaviour
         [JapaneseLabel("ID")] public int id;
         [JapaneseLabel("名称")] public string enemyName;
         [JapaneseLabel("最大HP")] public int maxHP;
-        public EnemyType enmyType;
+        public EnemyType enemyType;
         public PlayerLookType playerLookType;
         public float coolTime;
         public MoveType moveType;
@@ -34,7 +34,7 @@ public class StartUpEnemyData : MonoBehaviour
     
     public enum EnemyType
     {
-        nomal,
+        normal,
         shield,
         boss,
         humanoid,
@@ -77,7 +77,7 @@ public class StartUpEnemyData : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        string dataPath = "ExcelData";
+        string dataPath = "CSVData/EnemyData";
         TextAsset dataAsset = (TextAsset)Resources.Load<TextAsset>(dataPath);
         StringReader reader = new StringReader(dataAsset.text);
 
@@ -93,17 +93,17 @@ public class StartUpEnemyData : MonoBehaviour
             int.TryParse(lineSprit[2], out enemyData.maxHP);
             switch (lineSprit[3])
             {
-                case "nomal":
-                    enemyData.enmyType = EnemyType.nomal;
+                case "normal":
+                    enemyData.enemyType = EnemyType.normal;
                     break;
                 case "shield":
-                    enemyData.enmyType = EnemyType.shield;
+                    enemyData.enemyType = EnemyType.shield;
                     break;
                 case "boss":
-                    enemyData.enmyType = EnemyType.boss;
+                    enemyData.enemyType = EnemyType.boss;
                     break;
                 case "humanoid":
-                    enemyData.enmyType = EnemyType.humanoid;
+                    enemyData.enemyType = EnemyType.humanoid;
                     break;
             }
             switch (lineSprit[4])
