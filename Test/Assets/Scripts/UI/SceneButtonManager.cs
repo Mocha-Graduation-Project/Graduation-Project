@@ -6,13 +6,18 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace UI
 {
     public class SceneButtonManager : MonoBehaviour
     {
+        private static readonly int Title = Animator.StringToHash("Title");
+
         public enum State
         {
+            Title,
             Gameplay,
             Pause,
             Clear,
@@ -35,9 +40,17 @@ namespace UI
 
         [Header("Game Over Animation")]
         [SerializeField] private List<CanvasGroup> gameOverAnimationUIList;
-        [SerializeField] private float gameOverDuration = 1.5f; 
+        [SerializeField] private float gameOverDuration = 1.5f;
+        
+        [Header("Title Settings")]
+        [SerializeField] private Volume globalVolume;
+        [SerializeField] private CanvasGroup titleCanvas;
+        [SerializeField][JapaneseLabel("フェード時間")] private float titleFadeDuration = 0.5f;
+        [SerializeField][JapaneseLabel("タイトル画面のぼかし強度")] private float titleGlobalFocalLength = 300f;
+        [SerializeField][JapaneseLabel("通常ぼかし")] private float globalFocalLength = 50f;
     
         public State CurrentState { get { return currentState; } }
+        public bool IsTitle => currentState == State.Title;
         public MapManager MapManager => mapManager;
 
         private void Awake()
@@ -48,13 +61,41 @@ namespace UI
                 return;
             }
             Instance = this;
+            
+            // MapManagerの状態がTitleの場合はTitle状態で開始（Awakeで設定して他のStart()より先に確定させる）
+            if (mapManager != null)
+            {
+                var mapField = typeof(Component.MapManager).GetField("gameplayState", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (mapField != null)
+                {
+                    var mapState = mapField.GetValue(mapManager);
+                    if (mapState != null && mapState.ToString() == "Title")
+                    {
+                        currentState = State.Title;
+                        if (globalVolume != null && globalVolume.profile.TryGet(out DepthOfField dof))
+                        {
+                            dof.focalLength.value = titleGlobalFocalLength;
+                        }
+                    }
+                    else
+                    {
+                        currentState = State.Gameplay;
+                    }
+                }
+                else
+                {
+                    currentState = State.Gameplay;
+                }
+            }
+            else
+            {
+                currentState = State.Gameplay;
+            }
         }
     
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            currentState = State.Gameplay;
-         
             if (playerScript == null && Player.Player.Instance != null)
             {
                 playerScript = Player.Player.Instance;
@@ -71,6 +112,42 @@ namespace UI
         public void ChangeState(State nextState)
         {
             currentState = nextState;
+        }
+        
+        /// <summary>
+        /// タイトル状態からゲームを開始する（ボタンのOnClickから呼び出す）
+        /// </summary>
+        public void StartGame()
+        {
+            if (currentState != State.Title) return;
+            
+            Debug.Log("Start Game:");
+            
+            // 状態をGameplayに変更
+            currentState = State.Gameplay;
+            playerScript.Animator.SetBool(Title,false);
+            // タイトルCanvasをフェードアウト
+            if (titleCanvas != null)
+            {
+                titleCanvas.DOFade(0f, titleFadeDuration).OnComplete(() =>
+                {
+                    titleCanvas.gameObject.SetActive(false);
+                });
+            }
+            
+            // GlobalVolumeのDepthOfFieldを設定
+            if (globalVolume != null && globalVolume.profile.TryGet(out DepthOfField dof))
+            {
+                DOTween.To(() => dof.focalLength.value, x => dof.focalLength.value = x, globalFocalLength, titleFadeDuration);
+            }
+            
+            // EnemySpawnManagerにスポーン開始を通知
+            if (Systems.EnemySpawnManager.Instance != null)
+            {
+                Systems.EnemySpawnManager.Instance.StartSpawning();
+            }
+            
+            Debug.Log("Game Started!");
         }
     
         public void PauseGame()

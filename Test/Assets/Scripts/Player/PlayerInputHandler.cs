@@ -1,3 +1,4 @@
+using Component;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,8 @@ namespace Player
     [RequireComponent(typeof(PlayerCombat))]
     public class PlayerInputHandler : MonoBehaviour
     {
+        private static readonly int Title = Animator.StringToHash("Title");
+
         // 参照するコンポーネント
         private Player player;
         private PlayerMove playerMove;
@@ -17,6 +20,7 @@ namespace Player
         
         private PlayerInput moveAction;
         private SceneButtonManager sceneButtonManager;
+        private MapManager mapManager;
 
         private void Awake()
         {
@@ -30,7 +34,6 @@ namespace Player
         {
             moveAction = player.MoveAction; // Player.csからInput Actionアセットをもらう
             sceneButtonManager = SceneButtonManager.Instance;
-            
             // 実行タイミングを遅らせて、moveActionがnullでないことを保証
             if (moveAction != null)
             {
@@ -39,6 +42,12 @@ namespace Player
             else
             {
                 Debug.LogError("MoveAction (PlayerInput) is not assigned in Player.cs!");
+            }
+            
+            var manager = sceneButtonManager ?? SceneButtonManager.Instance;
+            if (manager == null || manager.currentState != SceneButtonManager.State.Title)
+            {
+                player.Animator.SetBool(Title, false);
             }
         }
         
@@ -88,7 +97,8 @@ namespace Player
         */
         private void OnMove(InputAction.CallbackContext context)
         {
-            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            var manager = sceneButtonManager ?? SceneButtonManager.Instance;
+            if (manager == null || manager.currentState != SceneButtonManager.State.Gameplay) return;
             if (player == null) return; // Playerが破棄された場合
 
             Vector2 input = context.ReadValue<Vector2>();
@@ -104,31 +114,36 @@ namespace Player
 
         private void OnJump(InputAction.CallbackContext context)
         {
-            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            var manager = sceneButtonManager ?? SceneButtonManager.Instance;
+            if (manager == null || manager.currentState != SceneButtonManager.State.Gameplay) return;
             playerMove.HandleJump(player.GetComponent<AudioSource>()); // AudioSourceはPlayerが持っている
         }
 
         private void OffJump(InputAction.CallbackContext context)
         {
-            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            var manager = sceneButtonManager ?? SceneButtonManager.Instance;
+            if (manager == null || manager.currentState != SceneButtonManager.State.Gameplay) return;
             playerMove.HandleJumpCanceled();
         }
 
         private void OnShot(InputAction.CallbackContext context)
         {
-            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            var manager = sceneButtonManager ?? SceneButtonManager.Instance;
+            if (manager == null || manager.currentState != SceneButtonManager.State.Gameplay) return;
             playerCombat.PerformShot(); // PlayerCombatに伝える
         }
 
         private void OnQuickAttackAim(InputAction.CallbackContext context)
         {
-            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            var manager = sceneButtonManager ?? SceneButtonManager.Instance;
+            if (manager == null || manager.currentState != SceneButtonManager.State.Gameplay) return;
             playerCombat.HandleQuickAttackAim(context.ReadValue<Vector2>()); // PlayerCombatに伝える
         }
         
         private void OffAttack(InputAction.CallbackContext context)
         {
-            if (sceneButtonManager.currentState != SceneButtonManager.State.Gameplay) return;
+            var manager = sceneButtonManager ?? SceneButtonManager.Instance;
+            if (manager == null || manager.currentState != SceneButtonManager.State.Gameplay) return;
             playerCombat.AttackFinish(); // PlayerCombatに伝える
         }
     }
