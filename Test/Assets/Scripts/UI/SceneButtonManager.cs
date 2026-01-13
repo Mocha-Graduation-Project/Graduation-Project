@@ -1,18 +1,24 @@
 using System;
 using Component;
 using Player;
+using Tutorial;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace UI
 {
     public class SceneButtonManager : MonoBehaviour
     {
+        private static readonly int Title = Animator.StringToHash("Title");
+
         public enum State
         {
+            Title,
             Gameplay,
             Pause,
             Clear,
@@ -31,13 +37,24 @@ namespace UI
         
         [Header("Clear Animation")]
         [SerializeField] private List<RectTransform> clearAnimationUIList;
-        [SerializeField] private float loopDuration = 1f; 
+        [SerializeField] private float loopDuration = 1f;
+        
+        // 各UIの初期位置を保存する辞書
+        private Dictionary<RectTransform, float> clearUIOriginalPositions = new Dictionary<RectTransform, float>(); 
 
         [Header("Game Over Animation")]
         [SerializeField] private List<CanvasGroup> gameOverAnimationUIList;
-        [SerializeField] private float gameOverDuration = 1.5f; 
+        [SerializeField] private float gameOverDuration = 1.5f;
+        
+        [Header("Title Settings")]
+        [SerializeField] private Volume globalVolume;
+        [SerializeField] private CanvasGroup titleCanvas;
+        [SerializeField][JapaneseLabel("フェード時間")] private float titleFadeDuration = 0.5f;
+        [SerializeField][JapaneseLabel("タイトル画面のぼかし強度")] private float titleGlobalFocalLength = 300f;
+        [SerializeField][JapaneseLabel("通常ぼかし")] private float globalFocalLength = 50f;
     
         public State CurrentState { get { return currentState; } }
+        public bool IsTitle => currentState == State.Title;
         public MapManager MapManager => mapManager;
 
         private void Awake()
@@ -48,13 +65,41 @@ namespace UI
                 return;
             }
             Instance = this;
+            
+            // MapManagerの状態がTitleの場合はTitle状態で開始（Awakeで設定して他のStart()より先に確定させる）
+            if (mapManager != null)
+            {
+                var mapField = typeof(Component.MapManager).GetField("gameplayState", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (mapField != null)
+                {
+                    var mapState = mapField.GetValue(mapManager);
+                    if (mapState != null && mapState.ToString() == "Title")
+                    {
+                        currentState = State.Title;
+                        if (globalVolume != null && globalVolume.profile.TryGet(out DepthOfField dof))
+                        {
+                            dof.focalLength.value = titleGlobalFocalLength;
+                        }
+                    }
+                    else
+                    {
+                        currentState = State.Gameplay;
+                    }
+                }
+                else
+                {
+                    currentState = State.Gameplay;
+                }
+            }
+            else
+            {
+                currentState = State.Gameplay;
+            }
         }
     
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            currentState = State.Gameplay;
-         
             if (playerScript == null && Player.Player.Instance != null)
             {
                 playerScript = Player.Player.Instance;
@@ -62,6 +107,9 @@ namespace UI
                 playerInput = player.GetComponent<PlayerInput>();
             }
 
+            // Clear Animation用のUIの初期位置を保存
+            CacheOriginalPositions();
+            
             if (playerInput == null) return;
             playerInput.actions["Retry"].performed += OnRetry;
             playerInput.actions["Finish"].performed += OnFinished;
@@ -71,6 +119,48 @@ namespace UI
         public void ChangeState(State nextState)
         {
             currentState = nextState;
+        }
+        
+        /// <summary>
+        /// タイトル状態からゲームを開始する（ボタンのOnClickから呼び出す）
+        /// </summary>
+        public void StartGame()
+        {
+            if (currentState != State.Title) return;
+            
+            Debug.Log("Start Game:");
+            
+            // 状態をGameplayに変更
+            currentState = State.Gameplay;
+            playerScript.Animator.SetBool(Title,false);
+            // タイトルCanvasをフェードアウト
+            if (titleCanvas != null)
+            {
+                titleCanvas.DOFade(0f, titleFadeDuration).OnComplete(() =>
+                {
+                    titleCanvas.gameObject.SetActive(false);
+                });
+            }
+            
+            // GlobalVolumeのDepthOfFieldを設定
+            if (globalVolume != null && globalVolume.profile.TryGet(out DepthOfField dof))
+            {
+                DOTween.To(() => dof.focalLength.value, x => dof.focalLength.value = x, globalFocalLength, titleFadeDuration);
+            }
+            
+            // EnemySpawnManagerにスポーン開始を通知
+            if (Systems.EnemySpawnManager.Instance != null)
+            {
+                Systems.EnemySpawnManager.Instance.StartSpawning();
+            }
+            
+            // チュートリアルを開始
+            if (TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.StartTutorial();
+            }
+            
+            Debug.Log("Game Started!");
         }
     
         public void PauseGame()
@@ -224,6 +314,23 @@ namespace UI
             playerInput.actions["Pause"].performed -= OnPause;
         }
 
+        /// <summary>
+        /// Clear Animation用のUIの初期位置をキャッシュする
+        /// </summary>
+        private void CacheOriginalPositions()
+        {
+            if (clearAnimationUIList == null) return;
+            
+            clearUIOriginalPositions.Clear();
+            foreach (var rect in clearAnimationUIList)
+            {
+                if (rect != null)
+                {
+                    clearUIOriginalPositions[rect] = rect.anchoredPosition.x;
+                }
+            }
+        }
+
         private void PlayClearAnimation()
         {
             if (clearAnimationUIList == null) return;
@@ -232,19 +339,28 @@ namespace UI
             {
                 if (rect == null) continue;
 
-                float originalX = rect.anchoredPosition.x;
+                // ラムダ式のクロージャ問題を回避するためにローカル変数にコピー
+                RectTransform currentRect = rect;
+                
+                // 事前にキャッシュした初期位置を使用（キャッシュがない場合は現在位置を使用）
+                float originalX;
+                if (!clearUIOriginalPositions.TryGetValue(currentRect, out originalX))
+                {
+                    originalX = currentRect.anchoredPosition.x;
+                    clearUIOriginalPositions[currentRect] = originalX; // キャッシュに追加
+                }
                 
                 // 親のCanvasを探して幅を取得
-                Canvas canvas = rect.GetComponentInParent<Canvas>();
+                Canvas canvas = currentRect.GetComponentInParent<Canvas>();
                 float moveDist = 2000f; // デフォルト値
                 if (canvas != null)
                 {
                     RectTransform canvasRect = canvas.GetComponent<RectTransform>();
                     // Canvasの幅をワールド座標に変換し、それをrectの親のローカル座標に変換して正しい移動距離を出す
                     Vector3 worldWidth = canvas.transform.TransformVector(new Vector3(canvasRect.rect.width, 0, 0));
-                    if (rect.parent != null)
+                    if (currentRect.parent != null)
                     {
-                        Vector3 localWidth = rect.parent.InverseTransformVector(worldWidth);
+                        Vector3 localWidth = currentRect.parent.InverseTransformVector(worldWidth);
                         moveDist = Mathf.Abs(localWidth.x);
                     }
                     else
@@ -253,31 +369,35 @@ namespace UI
                     }
                 }
 
-                rect.DOKill();
+                currentRect.DOKill();
+
+                // クロージャでキャプチャするためのローカル変数
+                float capturedOriginalX = originalX;
+                float capturedMoveDist = moveDist;
 
                 Sequence seq = DOTween.Sequence();
                 seq.SetUpdate(true); // Time.timeScale = 0 でも動くようにする
 
                 // 1. 左へ移動 (Move Left)
-                seq.Append(rect.DOAnchorPosX(originalX - moveDist, loopDuration * 0.5f).SetEase(Ease.Linear));
+                seq.Append(currentRect.DOAnchorPosX(capturedOriginalX - capturedMoveDist, loopDuration * 0.5f).SetEase(Ease.Linear));
 
                 // 2. 右端へワープ (Teleport to Right)
                 seq.AppendCallback(() => 
                 {
-                    Vector2 pos = rect.anchoredPosition;
-                    pos.x = originalX + moveDist;
-                    rect.anchoredPosition = pos;
+                    Vector2 pos = currentRect.anchoredPosition;
+                    pos.x = capturedOriginalX + capturedMoveDist;
+                    currentRect.anchoredPosition = pos;
                 });
 
                 // 3. 元の位置へ戻る (Move to Original)
-                seq.Append(rect.DOAnchorPosX(originalX, loopDuration * 0.5f).SetEase(Ease.Linear));
+                seq.Append(currentRect.DOAnchorPosX(capturedOriginalX, loopDuration * 0.5f).SetEase(Ease.Linear));
                 
                 // 補正：アニメーション終了時に確実に元の位置に戻す
                 seq.OnComplete(() => 
                 {
-                    Vector2 pos = rect.anchoredPosition;
-                    pos.x = originalX;
-                    rect.anchoredPosition = pos;
+                    Vector2 pos = currentRect.anchoredPosition;
+                    pos.x = capturedOriginalX;
+                    currentRect.anchoredPosition = pos;
                 });
             }
         }

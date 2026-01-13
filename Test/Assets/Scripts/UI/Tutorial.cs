@@ -88,11 +88,8 @@ namespace UI
             Color btnC = buttonDisplayImage.color;
             btnC.a = 0f;
             buttonDisplayImage.color = btnC;
-
-            StartTutorial();
             
-            if (buttonAnimCoroutine != null) StopCoroutine(buttonAnimCoroutine);
-            buttonAnimCoroutine = StartCoroutine(ChangeAnimationButtonLoop());
+            // StartTutorial()は外部から呼び出されるまで待機
         }
 
         private IEnumerator ChangeAnimationButtonLoop()
@@ -133,9 +130,16 @@ namespace UI
             return index < buttonImages.Length && index < buttonChangeImages.Length;
         }
 
-        private void StartTutorial()
+        /// <summary>
+        /// チュートリアルを開始する（外部から呼び出す）
+        /// </summary>
+        public void StartTutorial()
         {
             SetCurrentTutorialType(currentTutorialType);
+            
+            // ボタンアニメーションを開始
+            if (buttonAnimCoroutine != null) StopCoroutine(buttonAnimCoroutine);
+            buttonAnimCoroutine = StartCoroutine(ChangeAnimationButtonLoop());
             
             // 動画再生（遅延処理付き）を開始
             StartDisplaySequence();

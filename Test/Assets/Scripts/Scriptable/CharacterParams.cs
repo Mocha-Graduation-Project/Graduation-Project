@@ -20,7 +20,7 @@ namespace Scriptable
         [JapaneseLabel("ジャンプキャンセルするかどうか")] public bool jumpCanceled;
 
         [JapaneseLabel("2回目のジャンプまでのクールタイム")] public float jumpCooldown = 0.2f;
-
+ 
         [FormerlySerializedAs("limitSpeed")] [JapaneseLabel("最大降下速度")]
         public float maxFallSpeed = 5f;
 

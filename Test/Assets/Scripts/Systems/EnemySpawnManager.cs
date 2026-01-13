@@ -57,6 +57,7 @@ namespace Systems
 
         private int shieldEnemyID = 400;
         private int bossID = 10;
+        private bool hasStarted = false;
         
         public static EnemySpawnManager Instance { get; private set; }
         public enum EnemyID
@@ -107,7 +108,35 @@ namespace Systems
             EnemyDestorySound = soundData.enemyDestroySound;
 
             Debug.Log($"このマップの敵総数: {enemies}");
-
+        }
+        
+        private void Start()
+        {
+            // タイトル状態の場合はスポーンを待機（Start()で確認することでSceneButtonManager.Instance確定後に実行）
+            if (SceneButtonManager.Instance != null && SceneButtonManager.Instance.IsTitle)
+            {
+                hasStarted = false;
+                Debug.Log("Title状態: 敵スポーン待機中...");
+                return;
+            }
+            
+            hasStarted = true;
+            StartAllSpawns();
+        }
+        
+        /// <summary>
+        /// ゲーム開始時に呼び出し、敵スポーンを開始する
+        /// </summary>
+        public void StartSpawning()
+        {
+            if (hasStarted) return;
+            hasStarted = true;
+            Debug.Log("敵スポーン開始!");
+            StartAllSpawns();
+        }
+        
+        private void StartAllSpawns()
+        {
             foreach (var enemyData in enemiesToSpawn) 
             {
                 StartCoroutine(SpawnEnemyCoroutine(
