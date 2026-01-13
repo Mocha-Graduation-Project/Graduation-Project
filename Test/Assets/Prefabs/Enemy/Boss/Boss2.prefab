@@ -342,10 +342,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4080593571619278475, guid: 239f242ee1b05384f831edc6a9cf608f, type: 3}
+      propertyPath: m_RootBone
+      value: 
+      objectReference: {fileID: 5087857485411596132}
     - target: {fileID: 5866666021909216657, guid: 239f242ee1b05384f831edc6a9cf608f, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 26ef5a3327ee7f94b942bfbc4bdce5ad, type: 2}
+    - target: {fileID: 6934227383666809530, guid: 239f242ee1b05384f831edc6a9cf608f, type: 3}
+      propertyPath: m_RootBone
+      value: 
+      objectReference: {fileID: 7430758472755672323}
     - target: {fileID: 7190873016446372318, guid: 239f242ee1b05384f831edc6a9cf608f, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -448,6 +456,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!4 &5087857485411596132 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -6430557247112426508, guid: 239f242ee1b05384f831edc6a9cf608f, type: 3}
+  m_PrefabInstance: {fileID: 6942757511989165200}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7430758472755672323 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 524381671955007891, guid: 239f242ee1b05384f831edc6a9cf608f, type: 3}
+  m_PrefabInstance: {fileID: 6942757511989165200}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7481350143262104443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 239f242ee1b05384f831edc6a9cf608f, type: 3}
@@ -470,12 +488,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a6292ed41b070a40a665ce7ceee3cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  excelData: {fileID: 11400000, guid: 2d43465508f67774485093a63d61a9ef, type: 2}
   hp: 0
   moveObj: {fileID: 0}
   playerLookObj: {fileID: 0}
   rotateAxis: {fileID: 0}
   shotObj: {fileID: 0}
+  shotBombEffect: {fileID: 0}
   straightObj: {fileID: 0}
   damageText: {fileID: 8135532755559464667}
   beforeAttackText: {fileID: 152682799152292870}
