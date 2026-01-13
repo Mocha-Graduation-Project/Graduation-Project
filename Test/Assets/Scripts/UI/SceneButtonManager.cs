@@ -1,6 +1,7 @@
 using System;
 using Component;
 using Player;
+using Tutorial;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -36,7 +37,10 @@ namespace UI
         
         [Header("Clear Animation")]
         [SerializeField] private List<RectTransform> clearAnimationUIList;
-        [SerializeField] private float loopDuration = 1f; 
+        [SerializeField] private float loopDuration = 1f;
+        
+        // 各UIの初期位置を保存する辞書
+        private Dictionary<RectTransform, float> clearUIOriginalPositions = new Dictionary<RectTransform, float>(); 
 
         [Header("Game Over Animation")]
         [SerializeField] private List<CanvasGroup> gameOverAnimationUIList;
@@ -103,6 +107,9 @@ namespace UI
                 playerInput = player.GetComponent<PlayerInput>();
             }
 
+            // Clear Animation用のUIの初期位置を保存
+            CacheOriginalPositions();
+            
             if (playerInput == null) return;
             playerInput.actions["Retry"].performed += OnRetry;
             playerInput.actions["Finish"].performed += OnFinished;
@@ -145,6 +152,12 @@ namespace UI
             if (Systems.EnemySpawnManager.Instance != null)
             {
                 Systems.EnemySpawnManager.Instance.StartSpawning();
+            }
+            
+            // チュートリアルを開始
+            if (TutorialManager.Instance != null)
+            {
+                TutorialManager.Instance.StartTutorial();
             }
             
             Debug.Log("Game Started!");
@@ -301,6 +314,23 @@ namespace UI
             playerInput.actions["Pause"].performed -= OnPause;
         }
 
+        /// <summary>
+        /// Clear Animation用のUIの初期位置をキャッシュする
+        /// </summary>
+        private void CacheOriginalPositions()
+        {
+            if (clearAnimationUIList == null) return;
+            
+            clearUIOriginalPositions.Clear();
+            foreach (var rect in clearAnimationUIList)
+            {
+                if (rect != null)
+                {
+                    clearUIOriginalPositions[rect] = rect.anchoredPosition.x;
+                }
+            }
+        }
+
         private void PlayClearAnimation()
         {
             if (clearAnimationUIList == null) return;
@@ -309,19 +339,28 @@ namespace UI
             {
                 if (rect == null) continue;
 
-                float originalX = rect.anchoredPosition.x;
+                // ラムダ式のクロージャ問題を回避するためにローカル変数にコピー
+                RectTransform currentRect = rect;
+                
+                // 事前にキャッシュした初期位置を使用（キャッシュがない場合は現在位置を使用）
+                float originalX;
+                if (!clearUIOriginalPositions.TryGetValue(currentRect, out originalX))
+                {
+                    originalX = currentRect.anchoredPosition.x;
+                    clearUIOriginalPositions[currentRect] = originalX; // キャッシュに追加
+                }
                 
                 // 親のCanvasを探して幅を取得
-                Canvas canvas = rect.GetComponentInParent<Canvas>();
+                Canvas canvas = currentRect.GetComponentInParent<Canvas>();
                 float moveDist = 2000f; // デフォルト値
                 if (canvas != null)
                 {
                     RectTransform canvasRect = canvas.GetComponent<RectTransform>();
                     // Canvasの幅をワールド座標に変換し、それをrectの親のローカル座標に変換して正しい移動距離を出す
                     Vector3 worldWidth = canvas.transform.TransformVector(new Vector3(canvasRect.rect.width, 0, 0));
-                    if (rect.parent != null)
+                    if (currentRect.parent != null)
                     {
-                        Vector3 localWidth = rect.parent.InverseTransformVector(worldWidth);
+                        Vector3 localWidth = currentRect.parent.InverseTransformVector(worldWidth);
                         moveDist = Mathf.Abs(localWidth.x);
                     }
                     else
@@ -330,31 +369,35 @@ namespace UI
                     }
                 }
 
-                rect.DOKill();
+                currentRect.DOKill();
+
+                // クロージャでキャプチャするためのローカル変数
+                float capturedOriginalX = originalX;
+                float capturedMoveDist = moveDist;
 
                 Sequence seq = DOTween.Sequence();
                 seq.SetUpdate(true); // Time.timeScale = 0 でも動くようにする
 
                 // 1. 左へ移動 (Move Left)
-                seq.Append(rect.DOAnchorPosX(originalX - moveDist, loopDuration * 0.5f).SetEase(Ease.Linear));
+                seq.Append(currentRect.DOAnchorPosX(capturedOriginalX - capturedMoveDist, loopDuration * 0.5f).SetEase(Ease.Linear));
 
                 // 2. 右端へワープ (Teleport to Right)
                 seq.AppendCallback(() => 
                 {
-                    Vector2 pos = rect.anchoredPosition;
-                    pos.x = originalX + moveDist;
-                    rect.anchoredPosition = pos;
+                    Vector2 pos = currentRect.anchoredPosition;
+                    pos.x = capturedOriginalX + capturedMoveDist;
+                    currentRect.anchoredPosition = pos;
                 });
 
                 // 3. 元の位置へ戻る (Move to Original)
-                seq.Append(rect.DOAnchorPosX(originalX, loopDuration * 0.5f).SetEase(Ease.Linear));
+                seq.Append(currentRect.DOAnchorPosX(capturedOriginalX, loopDuration * 0.5f).SetEase(Ease.Linear));
                 
                 // 補正：アニメーション終了時に確実に元の位置に戻す
                 seq.OnComplete(() => 
                 {
-                    Vector2 pos = rect.anchoredPosition;
-                    pos.x = originalX;
-                    rect.anchoredPosition = pos;
+                    Vector2 pos = currentRect.anchoredPosition;
+                    pos.x = capturedOriginalX;
+                    currentRect.anchoredPosition = pos;
                 });
             }
         }

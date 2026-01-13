@@ -30,9 +30,19 @@ namespace Tutorial
         [SerializeField] private PlayerMove playerMove;
         private PlayerCombat playerCombat;
         private Loop playerLoop;
+        private bool isStarted = false;
+        
+        public static TutorialManager Instance { get; private set; }
 
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this);
+                return;
+            }
+            Instance = this;
+            
             if (playerMove != null)
             {
                 playerCombat = playerMove.GetComponent<PlayerCombat>();
@@ -44,10 +54,31 @@ namespace Tutorial
                 Debug.LogError("Player components not found!");
             }
         }
-
+        
         private void Start()
         {
+            // タイトル状態でない場合は自動的にチュートリアルを開始
+            if (UI.SceneButtonManager.Instance == null || !UI.SceneButtonManager.Instance.IsTitle)
+            {
+                StartTutorial();
+            }
+            // タイトル状態の場合はStartGame()からStartTutorial()が呼ばれるまで待機
+        }
+        
+        /// <summary>
+        /// ゲーム開始時に呼び出してチュートリアルを開始する
+        /// </summary>
+        public void StartTutorial()
+        {
+            if (isStarted) return;
+            isStarted = true;
             SetStep(currentStep);
+            
+            // Tutorial UIも開始
+            if (tutorialUI != null)
+            {
+                tutorialUI.StartTutorial();
+            }
         }
 
         private void OnEnable()
