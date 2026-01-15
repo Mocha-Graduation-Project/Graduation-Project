@@ -203,7 +203,7 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         hp -= damage;
         damageEffectPrefab.GetComponent<VisualEffect>().SendEvent("OnPlay");
@@ -265,7 +265,7 @@ public class EnemyAI : MonoBehaviour
                 reflectionBullet.SetPowerEnemy(transform.position);
                 break;
             case StartUpEnemyData.EnemyAttackType.straight:
-                reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
+                reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles,false);
                 break;
         }
 

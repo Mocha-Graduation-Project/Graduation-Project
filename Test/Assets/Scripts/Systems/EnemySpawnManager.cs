@@ -69,6 +69,7 @@ namespace Systems
             nomalEnemyBase=101,
             horizontalNomalEnemy=102,
             verticalNomalEnemy=103,
+            soldier=110,
             noBulletEnemyBase=201,
             horizontalNoBulletEnemy=202,
             verticalNoBulletEnemy=203,

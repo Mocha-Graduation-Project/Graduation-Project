@@ -235,7 +235,7 @@ public class MoveBoss : EnemyAI
 
             Bullet reflectionBullet = bullets.GetComponent<Bullet>();
             
-            reflectionBullet.SetStraightPowerEnemy(StraightObj.transform.rotation.eulerAngles);
+            reflectionBullet.SetStraightPowerEnemy(StraightObj.transform.rotation.eulerAngles,true);
             
             PlayAttckSound();
             //蜂頭を元の方向に戻す

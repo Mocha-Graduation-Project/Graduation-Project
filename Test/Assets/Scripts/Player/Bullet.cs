@@ -373,24 +373,49 @@ namespace Player
             //Debug.Log("Pos:"+Pos+"/Power:"+power);;
         }
 
-        public void SetStraightPowerEnemy(Vector3 angle)
+        public void SetStraightPowerEnemy(Vector3 angle,bool isZ)
         {
             var direction = Vector3.zero;
 
-            switch (angle.z)
+            if (isZ == true)
             {
-                case >= 0 and <= 45:
-                    direction = Vector3.left;
-                    break;
-                case > 45 and <= 135:
-                    direction = Vector3.down;
-                    break;
-                case > 135 and <= 180:
-                    direction = Vector3.right;
-                    break;
-                default:
-                    Debug.Log("範囲外");
-                    break;
+                switch (angle.z)
+                {
+                    case >= 0 and <= 45:
+                        direction = Vector3.left;
+                        break;
+                    case > 45 and <= 135:
+                        direction = Vector3.down;
+                        break;
+                    case > 135 and <= 180:
+                        direction = Vector3.right;
+                        break;
+                    default:
+                        Debug.Log("範囲外");
+                        break;
+                }
+            }
+            else
+            {
+                //0～360の範囲に合わせる
+                float y = angle.y % 360;
+                if (y < 0)
+                {
+                    y += 360;
+                }
+                
+                switch (y)
+                {
+                    case >= 0 and <= 180:
+                        direction = Vector3.right;
+                        break;
+                    case > 180 and <= 360:
+                        direction = Vector3.left;
+                        break;
+                    default:
+                        Debug.Log("範囲外");
+                        break;
+                }
             }
 
             power = direction;
