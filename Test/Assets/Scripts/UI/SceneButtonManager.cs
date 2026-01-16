@@ -9,6 +9,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Serialization;
 
 namespace UI
 {
@@ -45,9 +46,10 @@ namespace UI
         [Header("Game Over Animation")]
         [SerializeField] private List<CanvasGroup> gameOverAnimationUIList;
         [SerializeField] private float gameOverDuration = 1.5f;
+        [SerializeField][JapaneseLabel("ノイズ")] private float gameOverChromatic = 1f;
         
         [Header("Title Settings")]
-        [SerializeField] private Volume globalVolume;
+        private Volume globalVolume;
         [SerializeField] private CanvasGroup titleCanvas;
         [SerializeField][JapaneseLabel("フェード時間")] private float titleFadeDuration = 0.5f;
         [SerializeField][JapaneseLabel("タイトル画面のぼかし強度")] private float titleGlobalFocalLength = 300f;
@@ -66,6 +68,14 @@ namespace UI
             }
             Instance = this;
             
+            if (playerScript == null && Player.Player.Instance != null)
+            {
+                playerScript = Player.Player.Instance;
+                player = playerScript.gameObject;
+                playerInput = player.GetComponent<PlayerInput>();
+            }
+            globalVolume = playerScript.volume;
+            
             // MapManagerの状態がTitleの場合はTitle状態で開始（Awakeで設定して他のStart()より先に確定させる）
             if (mapManager != null)
             {
@@ -73,6 +83,10 @@ namespace UI
                 if (mapField != null)
                 {
                     var mapState = mapField.GetValue(mapManager);
+                    if (globalVolume != null && globalVolume.profile.TryGet(out ChromaticAberration ca))
+                    {
+                        ca.intensity.value = 0;
+                    }
                     if (mapState != null && mapState.ToString() == "Title")
                     {
                         currentState = State.Title;
@@ -100,12 +114,6 @@ namespace UI
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            if (playerScript == null && Player.Player.Instance != null)
-            {
-                playerScript = Player.Player.Instance;
-                player = playerScript.gameObject;
-                playerInput = player.GetComponent<PlayerInput>();
-            }
 
             // Clear Animation用のUIの初期位置を保存
             CacheOriginalPositions();
@@ -212,7 +220,10 @@ namespace UI
             else if (currentState != State.Gameplay) {return;}
             
             ChangeState(State.GameOver);
-            
+            if (globalVolume != null && globalVolume.profile.TryGet(out ChromaticAberration ca))
+            {
+                DOTween.To(() => ca.intensity.value, x => ca.intensity.value = x, gameOverChromatic, gameOverDuration);
+            }
             // スローモーション演出 (Slow Motion Effect)
             DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0f, gameOverDuration)
                 .SetEase(Ease.OutQuad)

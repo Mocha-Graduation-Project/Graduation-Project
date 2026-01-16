@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using Scriptable;
 using Component;
+using DG.Tweening;
 using Scripts.Scriptable;
 using UI;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
 using UnityEngine.VFX;
 
@@ -31,6 +34,8 @@ namespace Player
         [JapaneseLabel("ヒットストップ時間")]
         [SerializeField] private float hitStopDuration = 0.1f;
 
+        private Volume globalVolume;
+
         //private string enemyBulletTag = "EnemyBullet";
 
         private bool invincible;
@@ -44,6 +49,7 @@ namespace Player
         private Coroutine invincibilityCoroutine;
         [JapaneseLabel("被弾エフェクト")] public GameObject hitEffect;
         VisualEffect effect;
+        private float vignetteIntensity;
 
         private void Awake()
         {
@@ -59,7 +65,7 @@ namespace Player
                 Destroy(gameObject);
             
             StartSetUp();
-            
+            globalVolume = player.volume;
             sceneButtonManager = SceneButtonManager.Instance;
             if (sceneButtonManager == null)
             {
@@ -73,6 +79,7 @@ namespace Player
             invincibleDuration = characterParams.invincibleDuration;
             groundLayer = characterParams.groundLayer;
             hitStopDuration = characterParams.playerHitStopDuration;
+            vignetteIntensity = characterParams.vignetteIntensity;
         }
 
         public bool IsGrounded()
@@ -88,6 +95,12 @@ namespace Player
             if (hitEffect != null)
             {
                 effect.SendEvent("OnPlay");
+            }
+
+            if (globalVolume != null && globalVolume.profile.TryGet(out Vignette vignette))
+            {
+                vignette.intensity.value = vignetteIntensity;
+                DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 0, invincibleDuration);
             }
 
             playerHp -= damage;

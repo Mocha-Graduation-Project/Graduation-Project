@@ -5,6 +5,7 @@ using Scripts.Scriptable;
 using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
@@ -23,6 +24,7 @@ namespace Player
         [NonSerialized] public PlayerInputHandler PlayerInputHandler;
         [NonSerialized] public PlayerStatus PlayerStatus;
         [NonSerialized] public Animator Animator;
+        public Volume volume;
 
         //参照
         [SerializeField] private CharacterParams characterParams;
