@@ -59,7 +59,7 @@ public class StartUpEnemyData : MonoBehaviour
         straight,
     }
     
-    private static int typeEnemy = 13 + 1;
+    private static int typeEnemy = 14 + 1;
 
     public List<EnemiesData> enemiesData = new();
     

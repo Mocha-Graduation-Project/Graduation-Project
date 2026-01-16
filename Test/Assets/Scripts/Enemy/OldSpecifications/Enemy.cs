@@ -181,7 +181,7 @@ namespace Scripts
                     }
                     else if (attckType == AttckType.straight)
                     {
-                        reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles);
+                        reflectionBullet.SetStraightPowerEnemy(straightObj.transform.rotation.eulerAngles,false);
                     }
                     break;
             }
