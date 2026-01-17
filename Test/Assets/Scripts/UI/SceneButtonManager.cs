@@ -130,6 +130,19 @@ namespace UI
             if (globalVolume == null && playerScript != null)
             {
                 globalVolume = playerScript.volume;
+                
+                // Awakeでぼかしを設定できなかった場合、ここで設定（ビルド時の初期化順序対策）
+                if (currentState == State.Title && globalVolume != null)
+                {
+                    if (globalVolume.profile.TryGet(out ChromaticAberration ca))
+                    {
+                        ca.intensity.value = 0;
+                    }
+                    if (globalVolume.profile.TryGet(out DepthOfField dof))
+                    {
+                        dof.focalLength.value = titleGlobalFocalLength;
+                    }
+                }
             }
 
             // Clear Animation用のUIの初期位置を保存
