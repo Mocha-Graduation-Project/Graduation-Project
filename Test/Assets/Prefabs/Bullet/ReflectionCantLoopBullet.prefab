@@ -239,7 +239,8 @@ MonoBehaviour:
   - {fileID: 7729072353109492909}
   - {fileID: 5947840865675096759}
   - {fileID: 8523809199194062296}
-  - {fileID: 7603914353633703733}
+  visualEffect:
+  - {fileID: 123469556617545059}
   hitEffect: {fileID: 2354826342525337232}
   effectLayer:
     serializedVersion: 2
@@ -963,13 +964,13 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2039a380230c21049bf10405657312c5, type: 3}
+--- !u!2083052967 &123469556617545059 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 6366074670779982080, guid: 2039a380230c21049bf10405657312c5, type: 3}
+  m_PrefabInstance: {fileID: 6480242015286092899}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6146644254187966076 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 910630534326102559, guid: 2039a380230c21049bf10405657312c5, type: 3}
-  m_PrefabInstance: {fileID: 6480242015286092899}
-  m_PrefabAsset: {fileID: 0}
---- !u!73398921 &7603914353633703733 stripped
-VFXRenderer:
-  m_CorrespondingSourceObject: {fileID: 3488308487046615894, guid: 2039a380230c21049bf10405657312c5, type: 3}
   m_PrefabInstance: {fileID: 6480242015286092899}
   m_PrefabAsset: {fileID: 0}

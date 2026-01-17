@@ -13,12 +13,14 @@ namespace Player
     public class Bullet : MonoBehaviour
     {
         private static readonly int PowerLevel = Shader.PropertyToID("_PowerLevel");
+        private static readonly int EvilLevel = Shader.PropertyToID("_EvilLevel");
         [SerializeField] private SoundData soundData;
 
         [SerializeField] private MeshRenderer[] meshRendererChild;
         [SerializeField] private CharacterParams characterParams;
 
         [SerializeField] private Renderer[] trailRenderer;
+        [SerializeField] private VisualEffect[] visualEffect;
         
         [Header("Effect Settings")]
         [JapaneseLabel("着弾エフェクト")] [SerializeField] private VisualEffect hitEffect;
@@ -93,7 +95,30 @@ namespace Player
         private void Start()
         {
             if (gameObject.CompareTag("EnemyBullet"))
+            {
                 currentDirection = power * PowerDirection;
+                foreach (var vfx in visualEffect)
+                {
+                    if (vfx != null)
+                        vfx.SetFloat("EvilLevel", 1);
+                }
+                if (meshRendererChild != null)
+                {
+                    foreach (var mesh in meshRendererChild)
+                    {
+                        if (mesh != null)
+                            mesh.material.SetFloat(EvilLevel, 1);
+                    }
+                }
+                if (trailRenderer != null)
+                {
+                    foreach (var render in trailRenderer)
+                    {
+                        if (render != null)
+                            render.material.SetFloat(EvilLevel, 1);
+                    }
+                }
+            }
             else
                 currentDirection = new Vector3(player.direction, 0, 0).normalized;
 
@@ -236,7 +261,27 @@ namespace Player
                 {
                     isReflecting = true;
                     reflectCooldownTimer = reflectCooldown;
-
+                    foreach (var vfx in visualEffect)
+                    {
+                        if (vfx != null)
+                            vfx.SetFloat("EvilLevel", 0);
+                    }
+                    if (meshRendererChild != null)
+                    {
+                        foreach (var mesh in meshRendererChild)
+                        {
+                            if (mesh != null)
+                                mesh.material.SetFloat(EvilLevel, 0);
+                        }
+                    }
+                    if (trailRenderer != null)
+                    {
+                        foreach (var render in trailRenderer)
+                        {
+                            if (render != null)
+                                render.material.SetFloat(EvilLevel, 0);
+                        }
+                    }
                     pStatus.StartReflectInvincibility(1000);
                     player.isMove = false;
                     isQuick = true;
@@ -294,6 +339,12 @@ namespace Player
                         render.material.SetFloat(PowerLevel, powerColor);
                 }
             }
+            foreach (var vfx in visualEffect)
+            {
+                if (vfx != null)
+                    vfx.SetFloat("PowerLevel", powerColor);
+            }
+            
             if (reflectionCount >= maxReflectionCount)
                 powerColor = 1.0f;
 
