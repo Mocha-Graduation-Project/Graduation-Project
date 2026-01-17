@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
 
 namespace UI
 {
@@ -74,7 +75,12 @@ namespace UI
                 player = playerScript.gameObject;
                 playerInput = player.GetComponent<PlayerInput>();
             }
-            globalVolume = playerScript.volume;
+            
+            // playerScriptがnullの場合はglobalVolumeを取得しない（ビルド時の初期化順序対策）
+            if (playerScript != null)
+            {
+                globalVolume = playerScript.volume;
+            }
             
             // MapManagerの状態がTitleの場合はTitle状態で開始（Awakeで設定して他のStart()より先に確定させる）
             if (mapManager != null)
@@ -114,6 +120,17 @@ namespace UI
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
+            // Awakeで取得できなかった場合、Startで再試行（ビルド時の初期化順序対策）
+            if (playerScript == null && Player.Player.Instance != null)
+            {
+                playerScript = Player.Player.Instance;
+                player = playerScript.gameObject;
+                playerInput = player.GetComponent<PlayerInput>();
+            }
+            if (globalVolume == null && playerScript != null)
+            {
+                globalVolume = playerScript.volume;
+            }
 
             // Clear Animation用のUIの初期位置を保存
             CacheOriginalPositions();
@@ -138,15 +155,29 @@ namespace UI
             
             Debug.Log("Start Game:");
             
+            // UIフォーカスを解除（コントローラー入力がUIに吸収されるのを防ぐ）
+            if (EventSystem.current != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+            }
+            
+            
+            // PlayerInputのactionsを明示的に有効化（ビルド時の入力問題対策）
+            if (playerInput != null)
+            {
+                playerInput.ActivateInput();
+                Debug.Log("PlayerInput activated!");
+            }
+            
             // 状態をGameplayに変更
             currentState = State.Gameplay;
             playerScript.Animator.SetBool(Title,false);
-            // タイトルCanvasをフェードアウト
+            // タイトルCanvasをフェードアウト後に破棄（UIが入力をブロックするのを防ぐ）
             if (titleCanvas != null)
             {
                 titleCanvas.DOFade(0f, titleFadeDuration).OnComplete(() =>
                 {
-                    titleCanvas.gameObject.SetActive(false);
+                    Destroy(titleCanvas.gameObject);
                 });
             }
             
@@ -248,7 +279,7 @@ namespace UI
             InputReset();
             RecordController.OBSRecordStop();
             RecordController.OBSDisconnect();
-            FadeManager.Instance.LoadScene("Title");
+            FadeManager.Instance.LoadScene("01JumpScene");
         }
 
         // ReSharper disable Unity.PerformanceAnalysis

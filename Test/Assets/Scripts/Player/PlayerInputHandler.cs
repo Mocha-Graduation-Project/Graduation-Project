@@ -21,6 +21,9 @@ namespace Player
         private PlayerInput moveAction;
         private SceneButtonManager sceneButtonManager;
         private MapManager mapManager;
+        
+        // イベント登録状態を追跡するフラグ（重複登録防止）
+        private bool isInputActionsRegistered = false;
 
         private void Awake()
         {
@@ -53,6 +56,9 @@ namespace Player
         
         private void RegisterInputActions()
         {
+            // 既に登録済みの場合は何もしない（重複登録防止）
+            if (isInputActionsRegistered) return;
+            
             moveAction.actions["Move"].performed += OnMove;
             moveAction.actions["Move"].canceled += OnMove;
             moveAction.actions["Jump"].started += OnJump;
@@ -61,11 +67,15 @@ namespace Player
             moveAction.actions["Attack"].canceled += OffAttack;
             moveAction.actions["Aim"].performed += OnQuickAttackAim;
             moveAction.actions["Aim"].canceled += OnQuickAttackAim;
+            
+            isInputActionsRegistered = true;
         }
         
         private void UnregisterInputActions()
         {
             if (moveAction == null) return;
+            if (!isInputActionsRegistered) return;
+            
             moveAction.actions["Move"].performed -= OnMove;
             moveAction.actions["Move"].canceled -= OnMove;
             moveAction.actions["Jump"].started -= OnJump;
@@ -74,6 +84,8 @@ namespace Player
             moveAction.actions["Attack"].canceled -= OffAttack;
             moveAction.actions["Aim"].performed -= OnQuickAttackAim;
             moveAction.actions["Aim"].canceled -= OnQuickAttackAim;
+            
+            isInputActionsRegistered = false;
         }
 
         // OnEnable/OnDisableで購読・解除を行う
@@ -115,7 +127,17 @@ namespace Player
         private void OnJump(InputAction.CallbackContext context)
         {
             var manager = sceneButtonManager ?? SceneButtonManager.Instance;
-            if (manager == null || manager.currentState != SceneButtonManager.State.Gameplay) return;
+            if (manager == null) return;
+            
+            // タイトル状態の場合はゲームを開始
+            if (manager.currentState == SceneButtonManager.State.Title)
+            {
+                manager.StartGame();
+                return;
+            }
+            
+            // ゲームプレイ状態の場合のみジャンプ
+            if (manager.currentState != SceneButtonManager.State.Gameplay) return;
             playerMove.HandleJump(player.GetComponent<AudioSource>()); // AudioSourceはPlayerが持っている
         }
 
