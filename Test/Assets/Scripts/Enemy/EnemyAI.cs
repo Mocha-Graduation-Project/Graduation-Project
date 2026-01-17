@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] [JapaneseLabel("弾発射時の爆発エフェクト")] private GameObject shotBombEffect;
     [SerializeField] [JapaneseLabel("ストレート時の角度参照オブジェクト")] private GameObject straightObj;
     [SerializeField] private DamageUI damageText;
-    [SerializeField] [JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
+   // [SerializeField] [JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
     [SerializeField] private EnemySpawnManager enemySpawnManager;
     [JapaneseLabel("死亡エフェクト")][SerializeField]private GameObject deathEffectPrefab;
     [JapaneseLabel("被弾エフェクト")] [SerializeField] private GameObject damageEffectPrefab;
@@ -61,7 +61,7 @@ public class EnemyAI : MonoBehaviour
     public StartUpEnemyData CSVData{ get { return csvData; } }
     public int DataNumber { get { return dataNumber; } }
     public int Hp { get { return hp; } }
-    public BeforeAttack BeforeAttackText { get { return beforeAttackText; } }
+  //  public BeforeAttack BeforeAttackText { get { return beforeAttackText; } }
     public Vector3 CenterPos { get { return centerPos; } }
     public GameObject MoveObj {get  { return moveObj; } }
     public GameObject BulletObj {get  { return bulletObj; } }
@@ -255,7 +255,7 @@ public class EnemyAI : MonoBehaviour
     public virtual void EnemyAttack()
     {
         //Debug.Log("Attack");
-        beforeAttackText.After();
+      //  beforeAttackText.After();
         GameObject bullets = Instantiate(bulletObj, shotObj.transform.position, Quaternion.identity);
 
         Bullet reflectionBullet = bullets.GetComponent<Bullet>();
@@ -281,13 +281,13 @@ public class EnemyAI : MonoBehaviour
         {
             attackEffect.GetComponent<VisualEffect>().SendEvent("OnPlay");
         }
-        beforeAttackText.Warning(csvData.enemiesData[dataNumber].brinkDuration);
+     //   beforeAttackText.Warning(csvData.enemiesData[dataNumber].brinkDuration);
     }
 
     public void StopAttack()
     {
         CancelInvoke();
-        beforeAttackText.After();
+     //   beforeAttackText.After();
     }
 
     public void StartAttack()
