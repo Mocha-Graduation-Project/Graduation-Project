@@ -224,7 +224,7 @@ public class MoveBoss : EnemyAI
     {
         if (isactive == true)
         {
-            BeforeAttackText.After();
+           // BeforeAttackText.After();
 
             // for (int i = 0; i < beeHeads.Count; i++)
             // {
