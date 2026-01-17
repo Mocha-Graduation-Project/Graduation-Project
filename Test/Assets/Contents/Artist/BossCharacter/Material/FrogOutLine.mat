@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: lambert1
-  m_Shader: {fileID: -6465566751694194690, guid: 8b01a9e0eff26854da1c87fc1bc1e499, type: 3}
+  m_Name: FrogOutLine
+  m_Shader: {fileID: -6465566751694194690, guid: 01235fdbbe5bcf546843097a5ffac5a5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColor:
-        m_Texture: {fileID: 2800000, guid: 891443569bfa5a947afddde6e6697d72, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -53,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionTexture:
-        m_Texture: {fileID: 2800000, guid: 435ffda40385e324fa269d301d5501f6, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -80,6 +80,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _OutLineSizeGuideTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -93,7 +97,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowColor:
-        m_Texture: {fileID: 2800000, guid: 5174777af760a10499e6c38a5238a699, type: 3}
+        m_Texture: {fileID: 2800000, guid: 72f65c3579188e14fbf636b2d9e158cf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -131,9 +135,9 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionIntensity: 0
-    - _EmissionIntensityB: 1
-    - _EmissionIntensityG: 1
-    - _EmissionIntensityR: 1
+    - _EmissionIntensityB: 0
+    - _EmissionIntensityG: 0
+    - _EmissionIntensityR: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0
@@ -148,6 +152,7 @@ Material:
     - _NormalInfruence: 1.2
     - _NormalStrength: 0
     - _OcclusionStrength: 1
+    - _OutlineThickness: 0.03
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -174,10 +179,11 @@ Material:
     - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
     - _CutoffThreshold: {r: 0.03, g: 5, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColorG: {r: 0.64865875, g: 0, b: 4, a: 0}
-    - _EmissionColorR: {r: 274.37408, g: 6.4281073, b: 0, a: 0}
-    - _EmissionColor_B: {r: 1.0592737, g: 0.25142494, b: 0, a: 0}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColorG: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColorR: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColor_B: {r: 0, g: 0, b: 0, a: 0}
+    - _MainColor: {r: 0.14465404, g: 0.14465404, b: 0.14465404, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
     - _RimLightColor: {r: 1, g: 0, b: 0, a: 1}
     - _SSSColor: {r: 9.613609, g: 26.780087, b: 41.731808, a: 0}
     - _ShadowColor: {r: 0.091313556, g: 0.092497125, b: 0.11949676, a: 0}

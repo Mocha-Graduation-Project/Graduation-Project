@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColor:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 192ca72d48611674abf87fe8ab00c578, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EMISSION_COLOR_MAP:
@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 19f52f07db827ff4aaed3ad59b52e7cd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _METALNESS_MAP:
@@ -73,7 +73,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowColor:
-        m_Texture: {fileID: 2800000, guid: 72f65c3579188e14fbf636b2d9e158cf, type: 3}
+        m_Texture: {fileID: 2800000, guid: a599e890c0f9aab43a7754511b6aa8ac, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -105,8 +105,8 @@ Material:
     - _DirectionalLightColorOpacity: 0.7
     - _DstBlend: 10
     - _DstBlendAlpha: 0
-    - _EmissionIntensityB: 0
-    - _EmissionIntensityG: 0
+    - _EmissionIntensityB: 1
+    - _EmissionIntensityG: 1
     - _EmissionIntensityR: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
@@ -149,10 +149,10 @@ Material:
     - _CutoffThreshold: {r: 0.03, g: 5, b: 0, a: 0}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColorG: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColorG: {r: 0.10162393, g: 0, b: 0.654902, a: 0}
     - _EmissionColorR: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor_B: {r: 0, g: 0, b: 0, a: 0}
-    - _MainColor: {r: 0.1456429, g: 0.14902925, b: 0.17610055, a: 0}
+    - _EmissionColor_B: {r: 1.4559243, g: 0.3708145, b: 0, a: 0}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 0}
     - _RimLightColor: {r: 6.4980197, g: 0, b: 0.17797148, a: 0}
     - _SPECULAR_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}

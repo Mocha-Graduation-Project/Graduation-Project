@@ -59,7 +59,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmmisionTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 148ed756cb90b334fa0742fe43b55569, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _METALNESS_MAP:
@@ -83,7 +83,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OpacityTexture:
-        m_Texture: {fileID: 2800000, guid: 8ad81f3e076873f48a2c63331b18ff3c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3e3479c8ad1f9b6428c27d76a34d0892, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RoughnessTexture:
@@ -132,18 +132,18 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
     - _DstBlendAlpha: 0
-    - _EmissionStrength: 0
+    - _EmissionStrength: 0.56
     - _EnvironmentReflections: 1
-    - _FresnelPower: 1.36
+    - _FresnelPower: 8.03
     - _GlossMapScale: 1
     - _Glossiness: 0.2
     - _GlossyReflections: 1
     - _IsRoughness: 1
     - _METALNESS: 1
     - _Metallic: 0
-    - _MetallicStrength: 1
+    - _MetallicStrength: 0.03
     - _Mode: 3
-    - _NormalStrength: 1
+    - _NormalStrength: 0.33
     - _OPACITY: 1
     - _OcclusionStrength: 1
     - _Opacity: 2
@@ -155,7 +155,7 @@ Material:
     - _SPECULAR_IOR: 1.5
     - _SPECULAR_ROUGHNESS: 0.95
     - _Smoothness: 0
-    - _SmoothnessStrength: 1
+    - _SmoothnessStrength: 1.27
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -167,14 +167,14 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _AlbedoColor: {r: 1, g: 1, b: 1, a: 0}
+    - _AlbedoColor: {r: 0.97169805, g: 1, b: 0.9969615, a: 0}
     - _BASE_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EMISSION_COLOR: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmmisionColor: {r: 0, g: 0, b: 0, a: 0}
-    - _FresnelColor: {r: 0, g: 1, b: 0.1096406, a: 0}
+    - _EmmisionColor: {r: 11.170289, g: 21.17057, b: 23.96864, a: 0}
+    - _FresnelColor: {r: 185.17516, g: 194.01164, b: 59.667717, a: 0}
     - _SPECULAR_COLOR: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
