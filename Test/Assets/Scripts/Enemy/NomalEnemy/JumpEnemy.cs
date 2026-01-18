@@ -9,8 +9,7 @@ namespace Enemy.Basic
         // private static readonly int JumpUp = Animator.StringToHash("JumpUp");
         // private static readonly int JumpDown = Animator.StringToHash("JumpDown");
         
-        [SerializeField] private float jumpTime;
-        [SerializeField] private float jumpCoolTime　= 0.1f;
+        private float jumpTime;
         
         private bool isGrounded;
 
@@ -53,7 +52,7 @@ namespace Enemy.Basic
 
         public void Jump()
         {
-            if (!isGrounded || jumpTime < jumpCoolTime) return;
+            if (!isGrounded || jumpTime < CSVData.enemiesData[DataNumber].jumpCoolTime) return;
             animator.SetTrigger("JumpTrigger");
             rb.AddForce(Vector3.up * CSVData.enemiesData[DataNumber].jumpPower, ForceMode.Impulse);
             jumpTime = 0;

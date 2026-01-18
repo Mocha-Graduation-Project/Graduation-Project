@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class LaserAttck : MonoBehaviour,IState
@@ -20,9 +21,8 @@ public class LaserAttck : MonoBehaviour,IState
     private float angleZ;
     private float angleZ90;
     Vector3 rotateAxisRotate;
-    private bool isCoolTime;
-    private bool is360Rotate;//360度回転か180回転か
     private float rotateTime;
+    private bool isWaitng;
     
     //移動に関する座標
     private Vector3 startPos;
@@ -31,7 +31,6 @@ public class LaserAttck : MonoBehaviour,IState
     public void Enter()
     {
         Debug.Log("5_Enter");
-        is360Rotate = true;
         moveBoss = (MoveBoss)enemyAI;
         moveCounter = 0;
         moveEnemy = enemyAI.MoveObj;
@@ -40,7 +39,7 @@ public class LaserAttck : MonoBehaviour,IState
         Initialization();
         finishMoving = false;
         finishRotating = false;
-        isCoolTime = true;
+        isWaitng = true;
 
         centerPos = enemyAI.CenterPos;
         startPos = moveEnemy.transform.position;
@@ -80,13 +79,8 @@ public class LaserAttck : MonoBehaviour,IState
             angleZ = 45;
         }
         
-        if (is360Rotate == true)
+        if (moveBoss.Is360Rotate == false)
         {
-            rotateTime = 4;
-        }
-        else
-        {
-            rotateTime = 2;
             if (rotateAxis.transform.eulerAngles == new Vector3(0, 0, 0))
             {
                 rotateAxisRotate = new Vector3(0, 0, 180);
@@ -119,16 +113,26 @@ public class LaserAttck : MonoBehaviour,IState
                 FinishCheck();
                 break;
             case 1:
-                //360度回転させる
-                if (Rotate(rotateAxis, rotateAxisRotate, angleZ90,
-                        moveBoss.Rotate90PerSec * rotateTime, ref t) == true)
+                if (isWaitng == false)
                 {
-                    finishRotating = true;
+                    //360度回転させる
+                    if (Rotate(rotateAxis, rotateAxisRotate, angleZ90,
+                            moveBoss.RotateLazerTime, ref t) == true)
+                    {
+                        finishRotating = true;
+                    }
+                    FinishCheck();
                 }
-                FinishCheck();
+                else
+                {
+                    if (WaitCoolTime(0.2f) == false)
+                    {
+                        isWaitng = false;
+                    }
+                }
                 break;
             case 2:
-                if (WaitCoolTime() == false)
+                if (WaitCoolTime(enemyAI.CSVData.enemiesData[enemyAI.DataNumber].coolTime) == false)
                 {
                     enemyAI.Change();
                 }
@@ -144,7 +148,6 @@ public class LaserAttck : MonoBehaviour,IState
     void Initialization()
     {
         startTime = Time.time;
-        isCoolTime = true;
         t = 0f;
     }
 
@@ -166,7 +169,7 @@ public class LaserAttck : MonoBehaviour,IState
         }
         return false;
     }
-
+    
     void FinishCheck()
     {
         if (finishRotating == true && finishMoving == true)
@@ -189,22 +192,16 @@ public class LaserAttck : MonoBehaviour,IState
         }
     }
 
-    bool WaitCoolTime()
+    bool WaitCoolTime(float waitTime)
     {
-        if (isCoolTime == true)
+        bool isCoolTime = true;
+        float diff = Time.time - startTime;
+        if (diff >= waitTime)
         {
-            float diff = Time.time - startTime;
-            if (diff < enemyAI.CSVData.enemiesData[enemyAI.DataNumber].coolTime)
-            {
-                //Debug.Log("クールタイム中");
-                return isCoolTime;
-            }
-            else
-            {
-                Initialization();
-                isCoolTime = false;
-            }
+            Initialization();
+            isCoolTime = false;
         }
+
         return isCoolTime;
     }
 }

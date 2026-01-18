@@ -58,12 +58,14 @@ public class MoveBoss : EnemyAI
     private bool isBackRotate;
     [JapaneseLabel("攻撃時の回転")] private bool finishRotation;
 
-    [Space(5)]
-    [Header("パターン5")] 
-    [SerializeField] [JapaneseLabel("レーザー")] private GameObject[] laser;
+    [Space(5)] [Header("パターン5")]
+    [SerializeField] [JapaneseLabel("レーザーのVFX")] private VisualEffect[] laserVFX;
+    [SerializeField] [JapaneseLabel("レーザーの当たり判定")] private GameObject[] laser;
     [JapaneseLabel("パターン5を行うようになるHP")] private float changeHP;
     [JapaneseLabel("パターン5を行うようになるHP割合")] private float changeHPPercent;
     [JapaneseLabel("90度回転するのにかかる時間")] private float rotate90PerSec;
+    [JapaneseLabel("360度回転するか(falseの場合、180度回転)")] private bool is360Rotate;
+    [JapaneseLabel("レーザー回転にかかる時間")] private float rotateLazerTime;
     private bool patten5Flag;
     [JapaneseLabel("パターン1～4を行った回数")] private int actioncounter;
     [JapaneseLabel("パターン5に入るまでの1～4のループ回数")] private int maxLoop;
@@ -71,8 +73,9 @@ public class MoveBoss : EnemyAI
 
     [JapaneseLabel("現在のループ回数")] private int loopCounter;
     
-    public GameObject[]  Laser { get { return laser; } }
     public float Rotate90PerSec { get { return rotate90PerSec; } }
+    public bool Is360Rotate { get { return is360Rotate; } }
+    public float RotateLazerTime { get { return rotateLazerTime; } }
     
     [SerializeField] private Animator animator;
 
@@ -94,6 +97,17 @@ public class MoveBoss : EnemyAI
                 float.TryParse(lineSprit[2], out rotate90PerSec);
                 float.TryParse(lineSprit[3], out changeHPPercent);
                 int.TryParse(lineSprit[4], out maxLoop);
+                switch (lineSprit[5])
+                {
+                    case "TRUE":
+                        is360Rotate = true;
+                        rotateLazerTime = rotate90PerSec * 4.0f;
+                        break;
+                    case "FALSE":
+                        is360Rotate = false;
+                        rotateLazerTime = rotate90PerSec * 2.0f;
+                        break;
+                }
             }
             i++;
         }
@@ -112,6 +126,14 @@ public class MoveBoss : EnemyAI
         isactive = false;
         isBackRotate = false;
         finishRotation = false;
+
+        foreach (VisualEffect vfx in laserVFX)
+        {
+            if (vfx != null)
+            {
+                vfx.SetFloat("BeamLifeTime", rotateLazerTime);
+            }
+        }
 
         IsSetUp = true;
     }
@@ -136,7 +158,6 @@ public class MoveBoss : EnemyAI
                 isactive = false;
                 isBackRotate = false;
             }
-
         }
     }
 
@@ -425,6 +446,13 @@ public class MoveBoss : EnemyAI
 
     public void LazerOn()
     {
+        foreach (VisualEffect vfx in laserVFX)
+        {
+            if (vfx != null)
+            {
+                vfx.Play();
+            }
+        }
         foreach (GameObject obj in laser)
         {
             if (obj.transform.parent.gameObject.activeInHierarchy == true)
