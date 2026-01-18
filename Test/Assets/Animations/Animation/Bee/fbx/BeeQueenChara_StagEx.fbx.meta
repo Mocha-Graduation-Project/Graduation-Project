@@ -17,7 +17,13 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'RB_stag_take01_mcp' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'BeeFloat_Character_Spine2' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'BeeFloat_Character_Spine3'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'BeeFloat_Character_Spine5'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'BeeFloat_Character_RightForeArm'
+      has translation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -320,7 +326,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: BeeFloat_Charcter_Ling1_R
+    - boneName: BeeFloat_Charcter_Ring1_L
       humanName: Left Ring Proximal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -328,7 +334,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: BeeFloat_Charcter_Ling2_R
+    - boneName: BeeFloat_Charcter_Ring2_L
       humanName: Left Ring Intermediate
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -336,7 +342,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: BeeFloat_Charcter_Ling3_R
+    - boneName: BeeFloat_Charcter_Ring3_L
       humanName: Left Ring Distal
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -512,11 +518,16 @@ ModelImporter:
       position: {x: 0.000000038146972, y: -0.06878464, z: -0.009916322}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Head
+    - name: HeadBand
       parentName: Human
-      position: {x: -0.000000038146972, y: -0.17911646, z: 0.013334459}
+      position: {x: -0.000000038146972, y: 1.6464599, z: -0.023272447}
       rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1.1543219, y: 1.1543219, z: 1.1543219}
+      scale: {x: 0.9543942, y: 0.9543942, z: 0.9543942}
+    - name: curve1
+      parentName: HeadBand
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: Hair
       parentName: Human
       position: {x: -0.000000038146972, y: 1.7826543, z: 0.01522281}
@@ -527,49 +538,54 @@ ModelImporter:
       position: {x: -0.000000038146972, y: 0.096494645, z: -0.004980263}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
+    - name: Glass
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.06728988, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: YShirt
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.068784595, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head
+      parentName: Human
+      position: {x: -0.000000038146972, y: 0.068784595, z: 0.009916322}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: Body
       parentName: Human
       position: {x: -0.000000038146972, y: 0.068784595, z: 0.009916322}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
-    - name: Glass
-      parentName: Human
-      position: {x: -0.000000037214186, y: 1.5863593, z: 0.062377047}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 0.65296024, y: 0.48972017, z: 0.845885}
     - name: BeeWing
       parentName: BeeFloat_Mesh
-      position: {x: -0, y: 0, z: 0}
+      position: {x: -0, y: 0.038389802, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: LaserWing
       parentName: BeeWing
-      position: {x: -0, y: 0, z: 0}
+      position: {x: -0, y: -0.93542457, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: WingFrame
       parentName: BeeWing
-      position: {x: -0, y: 0, z: 0}
+      position: {x: -0, y: -0.93542457, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: BeeWing1
       parentName: BeeFloat_Mesh
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -6.123234e-17}
-      scale: {x: 1, y: 1, z: -1}
+      position: {x: -0, y: 0.038389802, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     - name: LaserWing
       parentName: BeeWing1
-      position: {x: -0, y: 0, z: 0}
+      position: {x: -0, y: -0.93542457, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: WingFrame
       parentName: BeeWing1
-      position: {x: -0, y: 0, z: 0}
-      rotation: {x: 0, y: -0, z: -0, w: 1}
-      scale: {x: 1, y: 1, z: 1}
-    - name: HandR
-      parentName: BeeFloat_Mesh
-      position: {x: -0, y: 0, z: 0}
+      position: {x: -0, y: -0.93542457, z: 0}
       rotation: {x: 0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Bone
@@ -584,17 +600,17 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: BeeFloat_Character_Hips
       parentName: BeeFloat_Character_Root
-      position: {x: -0, y: 0.8832213, z: -0.0317308}
-      rotation: {x: -1.2246469e-16, y: 4.827152e-33, z: -6.123234e-17, w: 1}
+      position: {x: -0, y: 0.8757038, z: -0.044107947}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: BeeFloat_Character_Spine
       parentName: BeeFloat_Character_Hips
-      position: {x: -7.5963675e-17, y: 0.03966602, z: 0.0011431962}
+      position: {x: -7.5963675e-17, y: 0.056269344, z: 0.0011305858}
       rotation: {x: 0.48336497, y: -0.5160991, z: -0.48336497, w: 0.51609915}
       scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
     - name: BeeFloat_Character_Spine1
       parentName: BeeFloat_Character_Spine
-      position: {x: -0.0814208, y: 0.0005207316, z: 4.1273206e-17}
+      position: {x: -0.071543746, y: 0.012289419, z: -2.6502764e-16}
       rotation: {x: -0, y: -0, z: -0.0033620894, w: 0.9999944}
       scale: {x: 1, y: 1, z: 1.0000001}
     - name: BeeFloat_Character_Spine2
@@ -616,7 +632,7 @@ ModelImporter:
       parentName: BeeFloat_Character_Spine4
       position: {x: -0.1270149, y: 0.0015950971, z: 1.9290307e-16}
       rotation: {x: 0.4884392, y: -0.51129955, z: 0.4884391, w: 0.51129955}
-      scale: {x: 1.0000001, y: 0.99999994, z: 0.99999994}
+      scale: {x: 1.0000001, y: 0.99999994, z: 0.9999998}
     - name: BeeFloat_Character_LeftShoulder
       parentName: BeeFloat_Character_Spine5
       position: {x: -0.0714127, y: 0.04903393, z: 0.0020856725}
@@ -630,113 +646,133 @@ ModelImporter:
     - name: BeeFloat_LeftForeArm
       parentName: BeeFloat_Character_LeftArm
       position: {x: -0.25670734, y: -0.006217497, z: -0.0013229997}
-      rotation: {x: 0.00000003075259, y: -0.00000008965499, z: -0.004401699, w: 0.99999034}
-      scale: {x: 1, y: 1, z: 1}
+      rotation: {x: 0.0029801903, y: -0.0000028939562, z: 0.999811, w: -0.01921065}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
     - name: BeeFloat_Character_LeftHand
       parentName: BeeFloat_LeftForeArm
-      position: {x: -0.316621, y: -0.0052764597, z: 0.0018873002}
-      rotation: {x: 0.28220737, y: 0.3920526, z: -0.11604892, w: 0.8678632}
-      scale: {x: 1.0000001, y: 1.0000001, z: 1}
+      position: {x: 0.31671828, y: 0.0000009927772, z: -0.000000022130845}
+      rotation: {x: 0.38269284, y: -0.29173917, z: -0.8660428, w: -0.1356625}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
     - name: BeeFloat_Charcter_Thumb1_L
       parentName: BeeFloat_Character_LeftHand
-      position: {x: -0.028336722, y: -0.005061454, z: 0.014697281}
-      rotation: {x: -0.31229705, y: -0.117349625, z: 0.03791999, w: 0.94194573}
-      scale: {x: 1.0000002, y: 0.99999994, z: 1.0000002}
+      position: {x: -0.02831873, y: 0.0027025372, z: 0.00891606}
+      rotation: {x: -0.307792, y: -0.13027577, z: 0.009394827, w: 0.9424458}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000005}
     - name: BeeFloat_Charcter_Thumb2_L
       parentName: BeeFloat_Charcter_Thumb1_L
       position: {x: -0.023496917, y: -0.00391, z: 0.00000019020062}
-      rotation: {x: 0.000000029802319, y: 0.0861226, z: -0.000000087544315, w: 0.99628454}
-      scale: {x: 0.9999998, y: 1, z: 1}
+      rotation: {x: -0.000000059604645, y: 0.086122744, z: -0.00000003632158, w: 0.99628454}
+      scale: {x: 1, y: 1, z: 0.99999994}
     - name: BeeFloat_Charcter_Thumb3_L
       parentName: BeeFloat_Charcter_Thumb2_L
       position: {x: -0.018100388, y: -0.0021400002, z: -0.003007392}
-      rotation: {x: -0.00090773194, y: -0.0029634524, z: 0.040183555, w: 0.9991876}
-      scale: {x: 1.0000002, y: 1, z: 1}
+      rotation: {x: -0.00090737373, y: -0.0029572393, z: 0.040179353, w: 0.99918777}
+      scale: {x: 1, y: 1, z: 0.9999998}
     - name: BeeFloat_Charcter_Thumb4_L
       parentName: BeeFloat_Charcter_Thumb3_L
-      position: {x: -0.016664011, y: 4.1256384e-11, z: -0.0015392966}
-      rotation: {x: 0.00000016168822, y: -0.5941281, z: 0.00000012334877, w: 0.80437046}
-      scale: {x: 1, y: 1, z: 0.99999994}
+      position: {x: -0.016664011, y: 4.5445175e-11, z: -0.0015392966}
+      rotation: {x: 0.00000009721353, y: -0.5941282, z: 0.00000017227747, w: 0.80437034}
+      scale: {x: 0.99999994, y: 1, z: 0.99999994}
     - name: BeeFloat_Charcter_Index1_L
       parentName: BeeFloat_Character_LeftHand
-      position: {x: -0.048256245, y: -0.016106073, z: -0.013106804}
-      rotation: {x: -0.3035542, y: -0.40616724, z: 0.17802536, w: 0.8433209}
-      scale: {x: 1.0000001, y: 0.9999998, z: 0.9999998}
+      position: {x: -0.048238248, y: -0.008342083, z: -0.018888026}
+      rotation: {x: -0.28746107, y: -0.41628727, z: 0.12884249, w: 0.8529189}
+      scale: {x: 1.0000002, y: 1, z: 1.0000002}
     - name: BeeFloat_Charcter_Index2_L
       parentName: BeeFloat_Charcter_Index1_L
       position: {x: -0.03340861, y: 0.00204, z: 0.00000010501927}
-      rotation: {x: 0.000000059604623, y: 0.0031853605, z: -0.000000007450578, w: 0.99999493}
-      scale: {x: 0.99999994, y: 1.0000001, z: 1}
+      rotation: {x: 0.000000029802319, y: 0.0031853016, z: 0.000000014901159, w: 0.99999493}
+      scale: {x: 0.99999994, y: 1, z: 1}
     - name: BeeFloat_Charcter_Index3_L
       parentName: BeeFloat_Charcter_Index2_L
-      position: {x: -0.023777243, y: -1.7751915e-11, z: 0.000000101117266}
-      rotation: {x: 0.000000089587346, y: 0.0045920257, z: -0.000000067043956, w: 0.9999895}
-      scale: {x: 1, y: 0.99999994, z: 1.0000001}
+      position: {x: -0.023777243, y: -1.7752484e-11, z: 0.00000010111727}
+      rotation: {x: 0.00000011944395, y: 0.004592057, z: -0.000000051910554, w: 0.9999895}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1}
     - name: BeeFloat_Charcter_Index4_L
       parentName: BeeFloat_Charcter_Index3_L
-      position: {x: -0.018006684, y: 4.5019985e-13, z: -0.00000017272646}
-      rotation: {x: 0.000000054124445, y: -0.26502034, z: 0.00000009685547, w: 0.9642428}
-      scale: {x: 1, y: 1.0000001, z: 1}
+      position: {x: -0.018006684, y: -1.8314948e-12, z: -0.00000017272646}
+      rotation: {x: 0.000000028935286, y: -0.26502022, z: 0.00000015014729, w: 0.9642428}
+      scale: {x: 0.99999994, y: 1, z: 1.0000002}
     - name: BeeFloat_Charcter_Middle1_L
       parentName: BeeFloat_Character_LeftHand
-      position: {x: -0.027820459, y: -0.03376592, z: -0.036558874}
-      rotation: {x: -0.2754779, y: -0.46097553, z: 0.15191877, w: 0.8297797}
-      scale: {x: 1.0000004, y: 0.99999994, z: 0.99999994}
+      position: {x: -0.027802464, y: -0.02600193, z: -0.042340092}
+      rotation: {x: -0.275478, y: -0.4609754, z: 0.15191887, w: 0.8297796}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000004}
     - name: BeeFloat_Charcter_Middle2_L
       parentName: BeeFloat_Charcter_Middle1_L
       position: {x: -0.023859119, y: 0.001, z: 0.000000024796325}
-      rotation: {x: -0.00044102946, y: 0.0023187983, z: 0.055923868, w: 0.9984323}
-      scale: {x: 0.9999998, y: 1.0000001, z: 1.0000001}
+      rotation: {x: -0.0004409402, y: 0.0023186503, z: 0.05592358, w: 0.99843234}
+      scale: {x: 0.99999994, y: 1, z: 1.0000001}
     - name: BeeFloat_Charcter_Middle3_L
       parentName: BeeFloat_Charcter_Middle2_L
-      position: {x: -0.019690081, y: 0.00464, z: 0.00000014062503}
-      rotation: {x: 0.0015891152, y: -0.0079012485, z: -0.078510836, w: 0.9968807}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.019690081, y: 0.00464, z: 0.00000014064693}
+      rotation: {x: 0.0015890147, y: -0.00790155, z: -0.07851058, w: 0.99688077}
+      scale: {x: 1, y: 1, z: 0.99999994}
     - name: BeeFloat_Charcter_Middle4_L
       parentName: BeeFloat_Charcter_Middle3_L
-      position: {x: -0.020031542, y: -6.936545e-11, z: 0.00003660298}
-      rotation: {x: 0.000000110679785, y: -0.08062886, z: 0.000000015231063, w: 0.9967443}
-      scale: {x: 1, y: 1, z: 1}
-    - name: BeeFloat_Charcter_Ling1_R
+      position: {x: -0.020031542, y: -6.53236e-11, z: 0.00003660298}
+      rotation: {x: 0.00000016762856, y: -0.08062884, z: -5.181338e-10, w: 0.9967443}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: BeeFloat_Charcter_Ring1_L
       parentName: BeeFloat_Character_LeftHand
-      position: {x: -0.04318787, y: -0.0279212, z: -0.02875743}
-      rotation: {x: -0.29473278, y: -0.41580647, z: 0.16310929, w: 0.844768}
-      scale: {x: 1.0000002, y: 1, z: 0.99999994}
-    - name: BeeFloat_Charcter_Ling2_R
-      parentName: BeeFloat_Charcter_Ling1_R
-      position: {x: -0.028692, y: 0.00156, z: -3.7853377e-11}
-      rotation: {x: -0.00061219896, y: 0.0013710252, z: 0.09696495, w: 0.99528664}
+      position: {x: -0.043169875, y: -0.020157209, z: -0.034538653}
+      rotation: {x: -0.2840625, y: -0.41222858, z: 0.13224152, w: 0.85550475}
+      scale: {x: 1.0000002, y: 1, z: 1.0000002}
+    - name: BeeFloat_Charcter_Ring2_L
+      parentName: BeeFloat_Charcter_Ring1_L
+      position: {x: -0.028692, y: 0.00156, z: -3.7853266e-11}
+      rotation: {x: -0.0006117074, y: 0.0013720986, z: 0.09696247, w: 0.99528694}
+      scale: {x: 0.9999998, y: 1.0000001, z: 1.0000001}
+    - name: BeeFloat_Charcter_Ring3_L
+      parentName: BeeFloat_Charcter_Ring2_L
+      position: {x: -0.020362841, y: 0.0068, z: -0.000000009661254}
+      rotation: {x: 0.0022093016, y: -0.0025214246, z: -0.12552045, w: 0.99208534}
+      scale: {x: 1.0000001, y: 0.99999994, z: 0.99999994}
+    - name: BeeFloat_Charcter_Ring4_L
+      parentName: BeeFloat_Charcter_Ring3_L
+      position: {x: -0.021229696, y: -7.29193e-11, z: -0.000058880563}
+      rotation: {x: 0.000000011383077, y: -0.17189993, z: 0.000000016854143, w: 0.98511446}
       scale: {x: 0.99999994, y: 1.0000001, z: 1.0000001}
-    - name: BeeFloat_Charcter_Ling3_R
-      parentName: BeeFloat_Charcter_Ling2_R
-      position: {x: -0.020362841, y: 0.0068, z: -0.00000000969053}
-      rotation: {x: 0.0022092317, y: -0.0025217289, z: -0.1255209, w: 0.9920853}
-      scale: {x: 0.99999994, y: 1, z: 0.99999994}
-    - name: BeeFloat_Charcter_Ling4_R
-      parentName: BeeFloat_Charcter_Ling3_R
-      position: {x: -0.021229696, y: -7.574783e-11, z: -0.000058880563}
-      rotation: {x: 0.000000023666118, y: -0.17189987, z: -0.0000000102925695, w: 0.9851144}
-      scale: {x: 0.99999994, y: 1, z: 0.99999994}
     - name: BeeFloat_Charcter_Pinky1_L
       parentName: BeeFloat_Character_LeftHand
-      position: {x: -0.014122248, y: -0.041722715, z: -0.04402062}
-      rotation: {x: -0.26172513, y: -0.5291289, z: 0.17454892, w: 0.7880706}
-      scale: {x: 1, y: 0.99999994, z: 0.9999998}
+      position: {x: -0.014104253, y: -0.033958722, z: -0.04980184}
+      rotation: {x: -0.26172522, y: -0.5291288, z: 0.17454904, w: 0.7880706}
+      scale: {x: 1.0000002, y: 0.99999994, z: 1.0000002}
     - name: BeeFloat_Charcter_Pinky2_L
       parentName: BeeFloat_Charcter_Pinky1_L
-      position: {x: -0.01598786, y: -8.2593486e-13, z: -0.000000004594762}
-      rotation: {x: -0.00019900486, y: 0.004164365, z: 0.028178493, w: 0.9995942}
-      scale: {x: 0.9999998, y: 1.0000001, z: 1}
+      position: {x: -0.01598786, y: -8.262191e-13, z: -0.000000004594762}
+      rotation: {x: -0.00019903477, y: 0.0041647246, z: 0.028182425, w: 0.9995941}
+      scale: {x: 0.9999998, y: 1, z: 1}
     - name: BeeFloat_Charcter_Pinky3_L
       parentName: BeeFloat_Charcter_Pinky2_L
-      position: {x: -0.014357333, y: 0.0019699999, z: -0.00000021781017}
-      rotation: {x: 0.0007084288, y: -0.0130473925, z: -0.030300071, w: 0.9994555}
-      scale: {x: 1, y: 0.99999994, z: 1.0000001}
+      position: {x: -0.014357333, y: 0.0019699999, z: -0.00000021780036}
+      rotation: {x: 0.00070843205, y: -0.013046416, z: -0.030296702, w: 0.9994556}
+      scale: {x: 0.99999994, y: 1, z: 1}
     - name: BeeFloat_Charcter_Pinky4_L
       parentName: BeeFloat_Charcter_Pinky3_L
-      position: {x: -0.017169822, y: -6.0361174e-11, z: 0.00000004389805}
-      rotation: {x: 0.36553717, y: -0.42940038, z: -0.5353132, w: 0.6288384}
-      scale: {x: 1.0000005, y: 1.0000001, z: 1.0000006}
+      position: {x: -0.017169822, y: -5.6369912e-11, z: 0.00000004389805}
+      rotation: {x: 0.36553714, y: -0.4294005, z: -0.5353131, w: 0.62883836}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000005}
+    - name: BeeFloat_Character_LeftHelpArm
+      parentName: BeeFloat_LeftForeArm
+      position: {x: 0.15979403, y: 0.0528723, z: -0.00094586145}
+      rotation: {x: -0.0029802644, y: -0.0000102529975, z: -0.99971676, w: -0.023611331}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: BeeFloat_Character_Neck
+      parentName: BeeFloat_Character_Spine5
+      position: {x: -1.2513117e-15, y: 0.09910418, z: -0.0035748403}
+      rotation: {x: 0.47966936, y: -0.5195356, z: -0.47966933, w: 0.5195357}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: BeeFloat_Character_Head
+      parentName: BeeFloat_Character_Neck
+      position: {x: -0.09504027, y: 0.0023773958, z: 1.5924471e-16}
+      rotation: {x: -0.99890345, y: 0.046819147, z: -0.000000014901159, w: 0.000000029802319}
+      scale: {x: 1.0000015, y: 1.0000012, z: 1.0000008}
+    - name: BeeFloat_Character_Head_Top
+      parentName: BeeFloat_Character_Head
+      position: {x: -0.11496647, y: -0.00019206459, z: 2.4013114e-17}
+      rotation: {x: 0.5073919, y: -0.4924971, z: 0.48538747, w: 0.5141975}
+      scale: {x: 1.0000002, y: 1, z: 0.9999997}
     - name: BeeFloat_Character_RightShoulder
       parentName: BeeFloat_Character_Spine5
       position: {x: 0.0714127, y: 0.04903393, z: 0.0020856725}
@@ -750,133 +786,123 @@ ModelImporter:
     - name: BeeFloat_Character_RightForeArm
       parentName: BeeFloat_Character_RightArm
       position: {x: 0.25670734, y: 0.006217497, z: 0.0013229997}
-      rotation: {x: 0.00000005967982, y: -0.000000029522722, z: -0.004401775, w: 0.99999034}
-      scale: {x: 1, y: 1.0000005, z: 1.0000005}
+      rotation: {x: -0.0029801596, y: 0.000002985069, z: -0.999811, w: 0.019210525}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000005}
     - name: BeeFloat_Character_RightHand
       parentName: BeeFloat_Character_RightForeArm
-      position: {x: 0.31662074, y: 0.0052764523, z: -0.0018873204}
-      rotation: {x: 0.2822074, y: 0.39205253, z: -0.11604899, w: 0.86786324}
-      scale: {x: 1, y: 1.0000006, z: 1.0000004}
+      position: {x: -0.31671798, y: -7.483079e-17, z: 7.854828e-17}
+      rotation: {x: -0.38269302, y: 0.29173902, z: 0.86604285, w: 0.13566239}
+      scale: {x: 0.9999998, y: 1.0000004, z: 1.0000001}
     - name: BeeFloat_Charcter_Thumb1_R
       parentName: BeeFloat_Character_RightHand
-      position: {x: 0.028336775, y: 0.005060433, z: -0.014696415}
-      rotation: {x: -0.312297, y: -0.11734979, z: 0.037920035, w: 0.94194573}
-      scale: {x: 1.0000002, y: 1.000001, z: 1.0000008}
+      position: {x: 0.028318781, y: -0.0027027568, z: -0.00891579}
+      rotation: {x: -0.30779123, y: -0.1302777, z: 0.009389655, w: 0.9424458}
+      scale: {x: 1.0000002, y: 1.0000013, z: 1.0000012}
     - name: BeeFloat_Charcter_Thumb2_R
       parentName: BeeFloat_Charcter_Thumb1_R
       position: {x: 0.023496917, y: 0.00391, z: -0.00000019015809}
-      rotation: {x: -0.000000059604623, y: 0.086122796, z: -0.000000013038512, w: 0.99628454}
-      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000002}
+      rotation: {x: -0.000000089406946, y: 0.08612276, z: -0.000000034458928, w: 0.99628454}
+      scale: {x: 1, y: 0.99999994, z: 1.0000002}
     - name: BeeFloat_Charcter_Thumb3_R
       parentName: BeeFloat_Charcter_Thumb2_R
       position: {x: 0.01810041, y: 0.0021400002, z: 0.0030073705}
-      rotation: {x: -0.00090771547, y: -0.0029610605, z: 0.040180847, w: 0.9991877}
-      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000008}
+      rotation: {x: -0.00090829877, y: -0.0029575732, z: 0.04018484, w: 0.99918747}
+      scale: {x: 1.0000001, y: 1.0000006, z: 1.0000005}
     - name: BeeFloat_Charcter_Thumb4_R
       parentName: BeeFloat_Charcter_Thumb3_R
       position: {x: 0.016664011, y: 4.3241924e-11, z: 0.0015392966}
-      rotation: {x: 0.00000013126854, y: -0.594128, z: 0.00000019859809, w: 0.8043706}
-      scale: {x: 1.0000001, y: 1.0000008, z: 1.0000002}
+      rotation: {x: 0.00000007531134, y: -0.59412813, z: 0.00000024613192, w: 0.80437046}
+      scale: {x: 1.0000005, y: 1.0000007, z: 1.0000004}
     - name: BeeFloat_Charcter_Index1_R
       parentName: BeeFloat_Character_RightHand
-      position: {x: 0.048256293, y: 0.016105054, z: 0.013107671}
-      rotation: {x: -0.303551, y: -0.4061682, z: 0.1780162, w: 0.84332347}
-      scale: {x: 1.0000006, y: 1.0000001, z: 1.0000002}
+      position: {x: 0.0482383, y: 0.008341864, z: 0.018888295}
+      rotation: {x: -0.28746033, y: -0.41628796, z: 0.12884085, w: 0.85291904}
+      scale: {x: 1.0000002, y: 1.0000006, z: 1.0000006}
     - name: BeeFloat_Charcter_Index2_R
       parentName: BeeFloat_Charcter_Index1_R
       position: {x: 0.03340861, y: -0.0020399997, z: -0.00000010502928}
-      rotation: {x: 0.00000014901158, y: 0.0031852417, z: 0.000000007450579, w: 0.999995}
-      scale: {x: 0.99999994, y: 1.0000008, z: 1.0000005}
+      rotation: {x: 0.00000014901158, y: 0.0031853013, z: 0.000000007450579, w: 0.99999493}
+      scale: {x: 0.99999994, y: 1.0000007, z: 1.0000005}
     - name: BeeFloat_Charcter_Index3_R
       parentName: BeeFloat_Charcter_Index2_R
       position: {x: 0.023777243, y: 1.06110745e-10, z: -0.000000101117266}
-      rotation: {x: 0.00000005964225, y: 0.0045920857, z: -4.942238e-10, w: 0.9999895}
-      scale: {x: 1, y: 1.0000006, z: 1.0000005}
+      rotation: {x: -0.000000029906605, y: 0.004592056, z: 0.00000004392424, w: 0.99998945}
+      scale: {x: 1, y: 1.0000005, z: 1.0000005}
     - name: BeeFloat_Charcter_Index4_R
       parentName: BeeFloat_Charcter_Index3_R
       position: {x: 0.018006684, y: 6.8091026e-11, z: 0.00000017272646}
-      rotation: {x: 0.00000006413409, y: -0.2650203, z: 0.00000012311163, w: 0.9642428}
-      scale: {x: 1, y: 1.0000002, z: 1.0000002}
+      rotation: {x: 0.00000006427871, y: -0.26502037, z: 0.00000008611434, w: 0.9642428}
+      scale: {x: 1, y: 1, z: 1.0000002}
     - name: BeeFloat_Charcter_Middle1_R
       parentName: BeeFloat_Character_RightHand
-      position: {x: 0.027820539, y: 0.033764884, z: 0.036559716}
-      rotation: {x: -0.27547798, y: -0.46097547, z: 0.15191884, w: 0.8297796}
-      scale: {x: 1.0000007, y: 1.0000008, z: 1.0000008}
+      position: {x: 0.027802546, y: 0.026001694, z: 0.04234034}
+      rotation: {x: -0.275478, y: -0.46097547, z: 0.1519188, w: 0.8297796}
+      scale: {x: 1.0000005, y: 1.0000011, z: 1.0000008}
     - name: BeeFloat_Charcter_Middle2_R
       parentName: BeeFloat_Charcter_Middle1_R
       position: {x: 0.023859119, y: -0.0009999999, z: -0.000000024802553}
-      rotation: {x: -0.00044092495, y: 0.0023184696, z: 0.05592841, w: 0.99843204}
-      scale: {x: 1, y: 1.0000004, z: 1.0000004}
+      rotation: {x: -0.00044101462, y: 0.0023188284, z: 0.055927906, w: 0.99843204}
+      scale: {x: 1, y: 1.0000005, z: 1.0000006}
     - name: BeeFloat_Charcter_Middle3_R
       parentName: BeeFloat_Charcter_Middle2_R
       position: {x: 0.01969009, y: -0.00464, z: -0.00000008143569}
-      rotation: {x: 0.0015889475, y: -0.007901945, z: -0.0785074, w: 0.99688095}
-      scale: {x: 0.99999994, y: 1.0000007, z: 1.0000005}
+      rotation: {x: 0.0015889291, y: -0.007903366, z: -0.07851345, w: 0.99688053}
+      scale: {x: 0.9999998, y: 1.0000006, z: 1.0000007}
     - name: BeeFloat_Charcter_Middle4_R
       parentName: BeeFloat_Charcter_Middle3_R
       position: {x: 0.020031532, y: 1.37168e-10, z: -0.00003665194}
-      rotation: {x: 0.00000017009792, y: -0.08062886, z: 5.4553484e-10, w: 0.9967442}
-      scale: {x: 0.99999994, y: 1.0000006, z: 1.0000007}
+      rotation: {x: 0.00000015791491, y: -0.080628835, z: 0.000000016755058, w: 0.9967442}
+      scale: {x: 1.0000001, y: 1.0000006, z: 1.0000005}
     - name: BeeFloat_Charcter_Ring1_R
       parentName: BeeFloat_Character_RightHand
-      position: {x: 0.043187942, y: 0.027920164, z: 0.02875828}
-      rotation: {x: -0.29472998, y: -0.41580573, z: 0.16310138, w: 0.8447709}
-      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000005}
+      position: {x: 0.04316995, y: 0.020156976, z: 0.034538906}
+      rotation: {x: -0.28406194, y: -0.41222876, z: 0.13224033, w: 0.85550505}
+      scale: {x: 1.0000002, y: 1.0000013, z: 1.0000011}
     - name: BeeFloat_Charcter_Ring2_R
       parentName: BeeFloat_Charcter_Ring1_R
       position: {x: 0.028692, y: -0.0015599999, z: 4.1645035e-11}
-      rotation: {x: -0.0006120649, y: 0.0013707571, z: 0.096969664, w: 0.9952863}
-      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+      rotation: {x: -0.0006121988, y: 0.0013702798, z: 0.09696525, w: 0.99528664}
+      scale: {x: 1, y: 0.99999994, z: 1.0000002}
     - name: BeeFloat_Charcter_Ring3_R
       parentName: BeeFloat_Charcter_Ring2_R
       position: {x: 0.020362841, y: -0.0068, z: 0.000000009664868}
-      rotation: {x: 0.0022094438, y: -0.0025197417, z: -0.12552318, w: 0.992085}
-      scale: {x: 1.0000001, y: 1, z: 1.0000002}
+      rotation: {x: 0.00220928, y: -0.0025206003, z: -0.12552325, w: 0.992085}
+      scale: {x: 1, y: 1, z: 1.0000001}
     - name: BeeFloat_Charcter_Ring4_R
       parentName: BeeFloat_Charcter_Ring3_R
       position: {x: 0.021229696, y: 1.5227385e-10, z: 0.000058880574}
-      rotation: {x: -0.000000036129673, y: -0.17189996, z: 0.000000028918643, w: 0.9851144}
-      scale: {x: 0.9999997, y: 1.0000002, z: 1.0000002}
+      rotation: {x: -0.000000038783735, y: -0.17189994, z: 0.00000004150804, w: 0.98511446}
+      scale: {x: 0.99999994, y: 1.0000002, z: 1.0000004}
     - name: BeeFloat_Charcter_Pinky1_R
       parentName: BeeFloat_Character_RightHand
-      position: {x: 0.01412232, y: 0.041721683, z: 0.04402147}
-      rotation: {x: -0.2617251, y: -0.52912897, z: 0.17454898, w: 0.7880705}
-      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000002}
+      position: {x: 0.014104328, y: 0.03395849, z: 0.04980209}
+      rotation: {x: -0.2617252, y: -0.52912897, z: 0.17454891, w: 0.78807056}
+      scale: {x: 1.0000002, y: 1.0000006, z: 1.0000004}
     - name: BeeFloat_Charcter_Pinky2_R
       parentName: BeeFloat_Charcter_Pinky1_R
       position: {x: 0.01598786, y: 5.703498e-11, z: 0.000000004594762}
-      rotation: {x: -0.0001990496, y: 0.0041637695, z: 0.028182713, w: 0.99959415}
-      scale: {x: 1, y: 1.0000005, z: 1.0000007}
+      rotation: {x: -0.00019885588, y: 0.0041648424, z: 0.028186185, w: 0.999594}
+      scale: {x: 0.99999994, y: 1.0000005, z: 1.0000007}
     - name: BeeFloat_Charcter_Pinky3_R
       parentName: BeeFloat_Charcter_Pinky2_R
       position: {x: 0.014357333, y: -0.0019699999, z: 0.00000021778858}
-      rotation: {x: 0.0007084474, y: -0.013047308, z: -0.030296456, w: 0.99945563}
-      scale: {x: 1, y: 1.0000007, z: 1.0000007}
+      rotation: {x: 0.0007085182, y: -0.013047409, z: -0.030295677, w: 0.9994556}
+      scale: {x: 1.0000001, y: 1.0000007, z: 1.0000007}
     - name: BeeFloat_Charcter_Pinky4_R
       parentName: BeeFloat_Charcter_Pinky3_R
       position: {x: 0.017169822, y: 1.1394121e-10, z: -0.00000004389805}
-      rotation: {x: 0.36553726, y: -0.4294005, z: -0.53531325, w: 0.6288382}
-      scale: {x: 1.0000001, y: 0.9999998, z: 1.0000001}
-    - name: BeeFloat_Character_Neck
-      parentName: BeeFloat_Character_Spine5
-      position: {x: -1.2513117e-15, y: 0.09910418, z: -0.0035748403}
-      rotation: {x: 0.47966945, y: -0.5195356, z: -0.47966942, w: 0.5195357}
-      scale: {x: 1.0000006, y: 1.0000006, z: 1.0000005}
-    - name: BeeFloat_Character_Head
-      parentName: BeeFloat_Character_Neck
-      position: {x: -0.09504027, y: 0.0023773958, z: 1.5924471e-16}
-      rotation: {x: -0.99890345, y: 0.04681902, z: 0.000000014901158, w: 0.000000029802315}
-      scale: {x: 1.0000011, y: 1.000001, z: 1.0000005}
-    - name: BeeFloat_Character_Head_Top
-      parentName: BeeFloat_Character_Head
-      position: {x: -0.11496647, y: -0.00019206459, z: 2.4013114e-17}
-      rotation: {x: 0.5073921, y: -0.49249697, z: 0.48538738, w: 0.51419747}
-      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+      rotation: {x: 0.36553723, y: -0.42940068, z: -0.53531325, w: 0.6288381}
+      scale: {x: 1.0000002, y: 1, z: 1.0000002}
+    - name: BeeFloat_Character_RightHelpArm
+      parentName: BeeFloat_Character_RightForeArm
+      position: {x: -0.15979418, y: -0.052867956, z: 0.0009458628}
+      rotation: {x: 0.0029801745, y: 0.000010192052, z: 0.99971676, w: 0.023611283}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000002}
     - name: BeeFloat_Character_Breast1_L
       parentName: BeeFloat_Character_Spine5
       position: {x: -0.05836533, y: -0.07640977, z: 0.15614882}
       rotation: {x: 0.11535521, y: -0.697634, z: -0.11535515, w: 0.697634}
-      scale: {x: 1.0000006, y: 1, z: 1.0000006}
+      scale: {x: 1, y: 1, z: 1.0000001}
     - name: BeeFloat_Character_Breast2_L
       parentName: BeeFloat_Character_Breast1_L
       position: {x: -0.06450035, y: 0.078534506, z: -0.0065124948}
@@ -886,52 +912,62 @@ ModelImporter:
       parentName: BeeFloat_Character_Spine5
       position: {x: 0.05836533, y: -0.07640777, z: 0.15614925}
       rotation: {x: -0.697634, y: -0.11535521, z: 0.697634, w: 0.11535515}
-      scale: {x: 1.0000008, y: 1.000002, z: 1.000001}
+      scale: {x: 1.0000005, y: 1.0000008, z: 1.0000004}
     - name: BeeFloat_Character_Breast2_R
       parentName: BeeFloat_Character_Breast1_R
       position: {x: 0.064499855, y: -0.07853189, z: 0.006512492}
       rotation: {x: 0.00000000635923, y: 0.0000000038824233, z: -0.52105784, w: 0.8535214}
       scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_HelpLeftLeg
+      parentName: BeeFloat_Character_Hips
+      position: {x: -0.06705046, y: 0.025241852, z: -0.068476506}
+      rotation: {x: 0.6958341, y: 0.71820253, z: 8.6584767e-17, w: -1.3696689e-18}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BeeFloat_Character_HelpRightLeg
+      parentName: BeeFloat_Character_Hips
+      position: {x: 0.0670505, y: 0.025241468, z: -0.06847642}
+      rotation: {x: -0, y: -0, z: -0.71820253, w: 0.6958341}
+      scale: {x: 1, y: 1, z: 1}
     - name: BeeFloat_Character_LeftUpLeg
       parentName: BeeFloat_Character_Hips
-      position: {x: -0.0866846, y: -0.044762716, z: -0.009319297}
-      rotation: {x: 0.6958341, y: 0.71820253, z: -1.3696736e-18, w: -8.658477e-17}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: -0.0866846, y: -0.020384068, z: 0.0030578473}
+      rotation: {x: 0.6481755, y: 0.69078165, z: -0.21927232, w: -0.23368561}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000006}
     - name: BeeFloat_Character_LeftLeg
       parentName: BeeFloat_Character_LeftUpLeg
-      position: {x: -0.37591842, y: 0.00712207, z: 0.0145229995}
-      rotation: {x: -0.9993888, y: -0.034957588, z: -4.5111914e-10, w: -0.000000012896895}
-      scale: {x: 1, y: 0.9999999, z: 1}
+      position: {x: -0.3930933, y: -0.0010719734, z: 0}
+      rotation: {x: -0.9460353, y: -0.048248768, z: -0.004057596, w: -0.32042605}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
     - name: BeeFloat_Character_LeftFoot
       parentName: BeeFloat_Character_LeftLeg
       position: {x: -0.41209304, y: -0.010239458, z: -0.0037790495}
-      rotation: {x: 0.4869731, y: 0.51269597, z: -0.4936764, w: 0.50624466}
-      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000004}
+      rotation: {x: 0.48697308, y: 0.51269597, z: -0.49367642, w: 0.50624466}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
     - name: BeeFloat_Character_LeftToe
       parentName: BeeFloat_Character_LeftFoot
       position: {x: -0.12966338, y: -0.025807483, z: 1.8296475e-15}
-      rotation: {x: 0.0046516955, y: -0.70709145, z: 0.0046516913, w: 0.70709157}
+      rotation: {x: 0.0046516955, y: -0.70709145, z: 0.0046517574, w: 0.70709157}
       scale: {x: 1.0000001, y: 1, z: 1}
     - name: BeeFloat_Character_RightUpLeg
       parentName: BeeFloat_Character_Hips
-      position: {x: 0.0866846, y: -0.044762764, z: -0.009319297}
-      rotation: {x: -0, y: -0, z: -0.71820253, w: 0.6958341}
-      scale: {x: 1, y: 1, z: 1}
+      position: {x: 0.0866846, y: -0.020384159, z: 0.0030578473}
+      rotation: {x: 0.23368561, y: -0.21927229, z: -0.6907817, w: 0.6481755}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1}
     - name: BeeFloat_Character_RightLeg
       parentName: BeeFloat_Character_RightUpLeg
-      position: {x: 0.37591833, y: -0.0071220645, z: -0.0145229995}
-      rotation: {x: 0.9993888, y: 0.034957588, z: 2.1405416e-18, w: 6.119491e-17}
-      scale: {x: 1, y: 0.9999999, z: 1.0000002}
+      position: {x: 0.39309323, y: 0.0010719739, z: -0.000000004764714}
+      rotation: {x: 0.9460353, y: 0.0482488, z: 0.004057616, w: 0.32042602}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000005}
     - name: BeeFloat_Character_RightFoot
       parentName: BeeFloat_Character_RightLeg
-      position: {x: 0.41209307, y: 0.010239459, z: 0.003779}
-      rotation: {x: 0.48697314, y: 0.5126961, z: -0.49367633, w: 0.50624466}
-      scale: {x: 1.0000005, y: 1.0000006, z: 1.0000002}
+      position: {x: 0.412093, y: 0.010239456, z: 0.0037790004}
+      rotation: {x: 0.48697305, y: 0.51269597, z: -0.49367633, w: 0.5062447}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000002}
     - name: BeeFloat_Character_RightToe
       parentName: BeeFloat_Character_RightFoot
-      position: {x: 0.12966338, y: 0.025807181, z: -2.1582734e-15}
-      rotation: {x: 0.004651785, y: -0.70709157, z: 0.0046516657, w: 0.70709145}
-      scale: {x: 1.0000002, y: 1.0000007, z: 1.0000006}
+      position: {x: 0.12966338, y: 0.025807483, z: -2.300382e-15}
+      rotation: {x: 0.0046517253, y: -0.70709145, z: 0.004651635, w: 0.70709157}
+      scale: {x: 1.0000001, y: 1.0000007, z: 1.0000005}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
