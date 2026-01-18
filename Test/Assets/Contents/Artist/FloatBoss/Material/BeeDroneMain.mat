@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColor:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c09561b5f8a5e194a86a7ba504970fdb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -53,7 +53,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 20ff0294da499b44ca781fae64ecea01, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -97,7 +97,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowColor:
-        m_Texture: {fileID: 2800000, guid: b62442a23f613b643b4e1bcac7a743c7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5bcea73c9f0823c4b8090f41468326da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -134,22 +134,22 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionIntensity: 0
-    - _EmissionIntensityB: 0
-    - _EmissionIntensityG: 0
-    - _EmissionIntensityR: 0
+    - _EmissionIntensityB: 1
+    - _EmissionIntensityG: 1
+    - _EmissionIntensityR: 1
     - _EnvironmentReflections: 1
-    - _FlashSpeed: 1
+    - _FlashSpeed: 1.25
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _IsNormalUse: 0
-    - _LightSmooth: 0
-    - _MaskFresnelPower: 2.7
+    - _LightSmooth: 0.02
+    - _MaskFresnelPower: 0
     - _Metallic: 0
-    - _MetallicStrength: 0.28
+    - _MetallicStrength: 0.4
     - _MetallicUse: 1
     - _Mode: 0
-    - _NormalInfruence: 0.48
+    - _NormalInfruence: 0
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _OffsetAmount: 1
@@ -157,13 +157,13 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ReflectEmissionStrength: 0.069
-    - _RimEdge1: 0.75
+    - _ReflectEmissionStrength: 1
+    - _RimEdge1: 0.9
     - _RimEdge2: 1
     - _SSSColorOpacity: 0
-    - _SSSLIghtStrength: 0.47
+    - _SSSLIghtStrength: 0
     - _SSSOpacity: 0
-    - _SSSPower: 0.24
+    - _SSSPower: 0.161
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -176,15 +176,15 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
     - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
-    - _CutoffThreshold: {r: -0.05, g: 0, b: 0, a: 0}
+    - _CutoffThreshold: {r: -0.05, g: 5, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColorG: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColorR: {r: 0, g: 0, b: 0, a: 0}
-    - _EmissionColor_B: {r: 0, g: 0, b: 0, a: 0}
-    - _MainColor: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 0}
-    - _ReflectTiling: {r: 1, g: 1, b: 0, a: 0}
-    - _RimLightColor: {r: 9.734288, g: 5.708955, b: 0, a: 0}
-    - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}
+    - _EmissionColorG: {r: 18.37917, g: 0.494247, b: 0, a: 0}
+    - _EmissionColorR: {r: 2.649394, g: 0, b: 322.43396, a: 0}
+    - _EmissionColor_B: {r: 18.379171, g: 9.895176, b: 0, a: 0}
+    - _MainColor: {r: 0.7924528, g: 0.7924528, b: 0.7924528, a: 0}
+    - _ReflectTiling: {r: 3, g: 3, b: 0, a: 0}
+    - _RimLightColor: {r: 0.9221514, g: 0.54082227, b: 0, a: 0}
+    - _SSSColor: {r: 0.7490198, g: 0.49696398, b: 0.45459366, a: 0}
     - _ShadowColor: {r: 0.10869822, g: 0.10869822, b: 0.1509434, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
