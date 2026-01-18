@@ -17,12 +17,7 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'RB_Idle_take03_mcp' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'BeeFloat_Character_Spine2' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'BeeFloat_Character_Spine3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'BeeFloat_Character_Spine5'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -939,12 +934,12 @@ ModelImporter:
       scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
     - name: BeeFloat_Character_LeftFoot
       parentName: BeeFloat_Character_LeftLeg
-      position: {x: -0.41209304, y: -0.010239458, z: -0.0037790495}
+      position: {x: -0.36914513, y: -0.008593992, z: -0.0037790495}
       rotation: {x: 0.48697308, y: 0.51269597, z: -0.49367642, w: 0.50624466}
       scale: {x: 1.0000001, y: 1.0000001, z: 1.0000002}
     - name: BeeFloat_Character_LeftToe
       parentName: BeeFloat_Character_LeftFoot
-      position: {x: -0.12966338, y: -0.025807483, z: 1.8296475e-15}
+      position: {x: -0.12943672, y: -0.04303393, z: 2.964232e-15}
       rotation: {x: 0.0046516955, y: -0.70709145, z: 0.0046517574, w: 0.70709157}
       scale: {x: 1.0000001, y: 1, z: 1}
     - name: BeeFloat_Character_RightUpLeg
@@ -954,7 +949,7 @@ ModelImporter:
       scale: {x: 1.0000002, y: 1.0000004, z: 1}
     - name: BeeFloat_Character_RightLeg
       parentName: BeeFloat_Character_RightUpLeg
-      position: {x: 0.39309323, y: 0.0010719739, z: -0.000000004764714}
+      position: {x: 0.3502007, y: -0.0016605117, z: -0.000000004764714}
       rotation: {x: 0.9460353, y: 0.0482488, z: 0.004057616, w: 0.32042602}
       scale: {x: 1.0000002, y: 1.0000002, z: 1.0000005}
     - name: BeeFloat_Character_RightFoot
@@ -964,7 +959,7 @@ ModelImporter:
       scale: {x: 1.0000005, y: 1.0000004, z: 1.0000002}
     - name: BeeFloat_Character_RightToe
       parentName: BeeFloat_Character_RightFoot
-      position: {x: 0.12966338, y: 0.025807483, z: -2.300382e-15}
+      position: {x: 0.12943672, y: 0.04303393, z: -3.803627e-15}
       rotation: {x: 0.0046517253, y: -0.70709145, z: 0.004651635, w: 0.70709157}
       scale: {x: 1.0000001, y: 1.0000007, z: 1.0000005}
     armTwist: 0.5
