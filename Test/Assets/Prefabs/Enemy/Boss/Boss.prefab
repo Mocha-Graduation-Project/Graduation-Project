@@ -712,17 +712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1922239b6c4b15b64e1bf987157f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6723554380046593969 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5256628157735603314, guid: a7fcd78e5412a5344b54dcfaa5e81068, type: 3}
-  m_PrefabInstance: {fileID: 1566573587015885763}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 786f57a1eb53498392d606df29b8cc3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7789626681320316528 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8766193257632234931, guid: a7fcd78e5412a5344b54dcfaa5e81068, type: 3}
@@ -776,9 +765,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4134742949530636977, guid: 2a5141fac813c444ab994eea58913ab3, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 5071447715835377944, guid: 2a5141fac813c444ab994eea58913ab3, type: 3}
+      propertyPath: m_InitialEventName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071447715835377944, guid: 2a5141fac813c444ab994eea58913ab3, type: 3}
+      propertyPath: m_InitialEventNameOverriden
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7053382917956158121, guid: 2a5141fac813c444ab994eea58913ab3, type: 3}
       propertyPath: m_Name
@@ -796,6 +789,11 @@ PrefabInstance:
 --- !u!4 &942641261814305940 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3187225604954759343, guid: 2a5141fac813c444ab994eea58913ab3, type: 3}
+  m_PrefabInstance: {fileID: 2391310206988121147}
+  m_PrefabAsset: {fileID: 0}
+--- !u!2083052967 &7444103997937388835 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 5071447715835377944, guid: 2a5141fac813c444ab994eea58913ab3, type: 3}
   m_PrefabInstance: {fileID: 2391310206988121147}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2762651266691200584
@@ -993,7 +991,6 @@ MonoBehaviour:
   shotBombEffect: {fileID: 0}
   straightObj: {fileID: 7834526241826933591}
   damageText: {fileID: 3438387026013402476}
-  beforeAttackText: {fileID: 6723554380046593969}
   enemySpawnManager: {fileID: 0}
   deathEffectPrefab: {fileID: 871742247085504322}
   damageEffectPrefab: {fileID: 3079654544145762526}
@@ -1011,6 +1008,9 @@ MonoBehaviour:
     beeShield: {fileID: 3469833515159684083}
     rotatez: -90
     attackEyeEffect: {fileID: 1322371061827895252}
+  laserVFX:
+  - {fileID: 7444103997937388835}
+  - {fileID: 9171314530957529198}
   laser:
   - {fileID: 2595146495080077507}
   - {fileID: 2783094437237104499}
@@ -1235,6 +1235,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2941756450600351585, guid: 9291e47ab316e4f43895134c58b7f8b7, type: 3}
       propertyPath: m_AllowInstancing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941756450600351585, guid: 9291e47ab316e4f43895134c58b7f8b7, type: 3}
+      propertyPath: m_InitialEventName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2941756450600351585, guid: 9291e47ab316e4f43895134c58b7f8b7, type: 3}
+      propertyPath: m_InitialEventNameOverriden
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2941756450600351585, guid: 9291e47ab316e4f43895134c58b7f8b7, type: 3}
@@ -2653,6 +2661,11 @@ PrefabInstance:
 --- !u!4 &1521416124763523545 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4794396234145181398, guid: 9291e47ab316e4f43895134c58b7f8b7, type: 3}
+  m_PrefabInstance: {fileID: 6310732881474184975}
+  m_PrefabAsset: {fileID: 0}
+--- !u!2083052967 &9171314530957529198 stripped
+VisualEffect:
+  m_CorrespondingSourceObject: {fileID: 2941756450600351585, guid: 9291e47ab316e4f43895134c58b7f8b7, type: 3}
   m_PrefabInstance: {fileID: 6310732881474184975}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8040764565277412199

@@ -154,8 +154,11 @@ namespace Player
             Time.timeScale = 0f;
             yield return new WaitForSecondsRealtime(hitStopDuration);
             
-            // ゲームオーバーやポーズ中でなければ時間を戻す
-            if (sceneButtonManager != null && sceneButtonManager.CurrentState == SceneButtonManager.State.Gameplay)
+            // ゲームオーバー、クリア、ポーズ中でなければ時間を戻す
+            if (sceneButtonManager != null && 
+                sceneButtonManager.CurrentState != SceneButtonManager.State.GameOver &&
+                sceneButtonManager.CurrentState != SceneButtonManager.State.Pause &&
+                sceneButtonManager.CurrentState != SceneButtonManager.State.Clear)
             {
                 Time.timeScale = 1f;
             }
