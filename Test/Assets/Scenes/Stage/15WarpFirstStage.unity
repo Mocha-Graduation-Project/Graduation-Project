@@ -1044,6 +1044,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2008806073583735861, guid: 43db042f753d29a4d965cda0e8b61a12, type: 3}
+      propertyPath: targetWarp
+      value: 
+      objectReference: {fileID: 2073725858}
     - target: {fileID: 5527765923175208238, guid: 43db042f753d29a4d965cda0e8b61a12, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.78
@@ -2204,6 +2208,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2073725858 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5527765923175208238, guid: 43db042f753d29a4d965cda0e8b61a12, type: 3}
+  m_PrefabInstance: {fileID: 1409457977}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2113897422
 PrefabInstance:
   m_ObjectHideFlags: 0
