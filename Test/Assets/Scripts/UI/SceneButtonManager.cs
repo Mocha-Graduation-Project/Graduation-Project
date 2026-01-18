@@ -217,7 +217,7 @@ namespace UI
     
         public void PauseGame()
         {
-            if (currentState == State.Clear || currentState == State.GameOver) { return; }
+            if (currentState == State.Clear || currentState == State.GameOver || currentState == State.Title) { return; }
         
             if (currentState != State.Pause)
             {
