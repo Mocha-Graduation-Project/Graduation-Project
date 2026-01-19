@@ -122,6 +122,7 @@ namespace Player
                 else if (currentJumpCount > 0 && currentJumpCount < MaxJumpCount)
                 {
                     PerformJump();
+                    OnJump?.Invoke();
                     currentJumpCount--;
                 }
             }
@@ -144,7 +145,7 @@ namespace Player
             if(walkAudioSource != null) walkAudioSource.PlayOneShot(jumpSound);
 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower); 
-            OnJump?.Invoke();
+            //OnJump?.Invoke();
             
             lastJumpTime = Time.time;
             jumpBufferCounter = 0f;
