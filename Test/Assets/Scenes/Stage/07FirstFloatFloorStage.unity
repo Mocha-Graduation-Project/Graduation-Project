@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 979e909c7bb939f478012caf4c7cf0ed, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 742a76a15de289341adaadb4a5ec5df1, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: d9e6998e74f5c574c8840117fdb6989a, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -304,6 +304,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -360,6 +364,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
       propertyPath: m_Name
       value: AlphaBuilding (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -487,6 +495,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -571,9 +583,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
       propertyPath: m_Name
       value: BackFrameUnit (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -632,6 +652,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -688,6 +712,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
       propertyPath: m_Name
       value: AlphaBuilding (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -746,6 +774,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -803,6 +835,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -859,6 +895,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
       propertyPath: m_Name
       value: AlphaBuilding (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1554,9 +1594,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7991365279450030003, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5446649080485677848, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5001444141175883869, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
       propertyPath: m_Name
       value: ConstructionUnit (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 970415785753276286, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923731521930463950, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1612,9 +1680,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
       propertyPath: m_Name
       value: BackFrameUnit (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1669,9 +1745,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7991365279450030003, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5446649080485677848, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5001444141175883869, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
       propertyPath: m_Name
       value: ConstructionUnit (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 970415785753276286, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923731521930463950, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1800,9 +1904,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7991365279450030003, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5446649080485677848, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5001444141175883869, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
       propertyPath: m_Name
       value: ConstructionUnit
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 970415785753276286, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923731521930463950, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -1862,6 +1994,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1919,6 +2055,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1972,9 +2112,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7991365279450030003, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5446649080485677848, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5001444141175883869, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
       propertyPath: m_Name
       value: ConstructionUnit (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 970415785753276286, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923731521930463950, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2030,9 +2198,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7991365279450030003, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5446649080485677848, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5001444141175883869, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
       propertyPath: m_Name
       value: ConstructionUnit (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 970415785753276286, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923731521930463950, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2088,9 +2284,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
       propertyPath: m_Name
       value: BackFrameUnit (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2297,9 +2501,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
       propertyPath: m_Name
       value: BackFrameUnit (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2416,9 +2628,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
       propertyPath: m_Name
       value: BackFrameUnit
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2679,9 +2899,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7991365279450030003, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5446649080485677848, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5001444141175883869, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
       propertyPath: m_Name
       value: ConstructionUnit (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 970415785753276286, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923731521930463950, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2873,6 +3121,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
       propertyPath: m_Name
       value: AlphaBuilding (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3131,6 +3383,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3184,9 +3440,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
       propertyPath: m_Name
       value: BackFrameUnit (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3245,6 +3509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3298,9 +3566,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7991365279450030003, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5446649080485677848, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5001444141175883869, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
       propertyPath: m_Name
       value: ConstructionUnit (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 970415785753276286, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923731521930463950, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -3356,9 +3652,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7991365279450030003, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5446649080485677848, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5001444141175883869, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
       propertyPath: m_Name
       value: ConstructionUnit (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 970415785753276286, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923731521930463950, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -3418,6 +3742,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3471,9 +3799,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7991365279450030003, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5446649080485677848, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5001444141175883869, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
       propertyPath: m_Name
       value: ConstructionUnit (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 970415785753276286, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923731521930463950, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -3581,6 +3937,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
       propertyPath: m_Name
       value: AlphaBuilding (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3839,9 +4199,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7991365279450030003, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5446649080485677848, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -5001444141175883869, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
       propertyPath: m_Name
       value: ConstructionUnit (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 970415785753276286, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8923731521930463950, guid: 9644ab9ab5bc74647bfd2c2b0460e116, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -4103,9 +4491,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
       propertyPath: m_Name
       value: BackFrameUnit (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4310,6 +4706,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4366,6 +4766,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
       propertyPath: m_Name
       value: AlphaBuilding (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4557,6 +4961,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlphaBuilding (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cb4c07a61b69ad24eb8c0c06f9cc127e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4610,9 +5018,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5864948318153200618, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
       propertyPath: m_Name
       value: BackFrameUnit (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21c8d146b348e3441a54df19b100df1e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
