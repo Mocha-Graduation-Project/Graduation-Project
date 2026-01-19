@@ -30,7 +30,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 079337f442fd9b042a8be382e091fa59, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmmisionTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2d5df0311ba8c1d49ac87acbffc447c3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -70,11 +70,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 0b5d3731cf6dc3d4199e47392fb5e42d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapTexture:
-        m_Texture: {fileID: 2800000, guid: 129b8da6b8f6f8b488dd8a7225e7f5c0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 01120ced4ace12043bc42337494f6211, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -94,7 +94,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RoughnessTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: bb4f908aa5e622a4a8e34d1092383798, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -141,7 +141,7 @@ Material:
     - _GlossyReflections: 0
     - _IsRoughness: 1
     - _Metallic: 0
-    - _MetallicStrength: -0.03
+    - _MetallicStrength: 1
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _OffsetAmount: 1
@@ -152,7 +152,7 @@ Material:
     - _ReceiveShadows: 1
     - _ReflectEmissionStrength: 0.14
     - _Smoothness: 0.5
-    - _SmoothnessStrength: -0.1
+    - _SmoothnessStrength: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 2
@@ -164,14 +164,14 @@ Material:
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
-    - _AlbedoColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0}
+    - _AlbedoColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmmisionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _EmmisionColor: {r: 3.9533496, g: 1.8761415, b: 0, a: 0}
     - _Ref: {r: 253.0143, g: 144.39035, b: 0, a: 0}
-    - _ReflectColor: {r: 16.94838, g: 9.930922, b: 0, a: 0}
-    - _ReflectTiling: {r: 3, g: 3, b: 0, a: 0}
+    - _ReflectColor: {r: 51.377876, g: 30.104921, b: 0, a: 0}
+    - _ReflectTiling: {r: 8, g: 8, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
