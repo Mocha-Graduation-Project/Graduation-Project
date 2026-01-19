@@ -122,7 +122,7 @@ namespace Tutorial
                     break;
                 case TutorialStep.Jump:
                     yield return new WaitForSeconds(stepDelay);
-                    instructionText.text = "ジャンプ";
+                    instructionText.text = "二段ジャンプ";
                     break;
                 case TutorialStep.Shoot:
                     yield return new WaitForSeconds(stepDelay);
@@ -130,7 +130,7 @@ namespace Tutorial
                     break;
                 case TutorialStep.Reflect:
                     yield return new WaitForSeconds(stepDelay);
-                    instructionText.text = "反射";
+                    instructionText.text = "弾き";
                     break;
                 case TutorialStep.Completed:
                     yield return new WaitForSeconds(stepDelay);
