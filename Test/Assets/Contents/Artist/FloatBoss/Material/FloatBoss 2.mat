@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FloatBoss 2
-  m_Shader: {fileID: -6465566751694194690, guid: 46c6766ff17f90f44958abf0686117f6, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: cb752c78e4581f54087f6faa7ba2fb95, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColor:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: bd4658b1ad4a4e24c90e0286715a7c82, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -88,6 +88,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _ShadowColor:
+        m_Texture: {fileID: 2800000, guid: b996323cc626dc4459c03659ef4c219c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -122,16 +126,19 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EmissionIntensity: 0
+    - _EmissionIntensityB: 0
+    - _EmissionIntensityG: 0
+    - _EmissionIntensityR: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _IsNormalUse: 0
-    - _LightSmooth: 0
+    - _LightSmooth: 0.02
     - _MaskFresnelPower: 2.7
     - _Metallic: 0
     - _MetallicStrength: 0
-    - _MetallicUse: 1
+    - _MetallicUse: 0
     - _Mode: 0
     - _NormalInfruence: 0.48
     - _NormalStrength: 1
@@ -145,7 +152,7 @@ Material:
     - _SSSColorOpacity: 0
     - _SSSLIghtStrength: 0.47
     - _SSSOpacity: 0
-    - _SSSPower: 0.24
+    - _SSSPower: 0.102
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -158,9 +165,12 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
     - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
-    - _CutoffThreshold: {r: -0.05, g: 0, b: 0, a: 0}
+    - _CutoffThreshold: {r: -0.05, g: 5, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 1, g: 0.9790848, b: 0.39215684, a: 0}
+    - _EmissionColorG: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColorR: {r: 0, g: 0, b: 0, a: 0}
+    - _EmissionColor_B: {r: 0, g: 0, b: 0, a: 0}
+    - _MainColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 0}
     - _RimLightColor: {r: 6.4980197, g: 0, b: 0.065997995, a: 0}
     - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}
     - _ShadowColor: {r: 0.990566, g: 0.86706215, b: 0.28502133, a: 0}
