@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 327f9ee035d971e4c9c3c2149f2b735e, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: d9e6998e74f5c574c8840117fdb6989a, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -127,6 +127,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -154,6 +158,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -208,6 +216,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -235,6 +247,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -356,6 +372,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -383,6 +403,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -437,6 +461,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -464,6 +492,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -527,7 +559,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &202983237
 BoxCollider:
@@ -1166,6 +1198,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -1193,6 +1229,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1330,7 +1370,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &602032545
 BoxCollider:
@@ -1429,6 +1469,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -1456,6 +1500,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1510,6 +1558,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -1537,6 +1589,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1660,6 +1716,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -1687,6 +1747,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1750,7 +1814,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &877236088
 BoxCollider:
@@ -1970,6 +2034,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -1997,6 +2065,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2181,7 +2253,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1150356456
 BoxCollider:
@@ -2586,7 +2658,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1559268601
 BoxCollider:
@@ -2808,6 +2880,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -2835,6 +2911,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2963,6 +3043,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -2990,6 +3074,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3044,6 +3132,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3261889371754715805, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 7027378264064112339, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Color.b
       value: 0.7529412
@@ -3071,6 +3163,10 @@ PrefabInstance:
     - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_Name
       value: Fluorescent_Light6 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8599067525026925366, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8943540787990466956, guid: 0691a59db983b4b44a7d2d4a12853792, type: 3}
       propertyPath: m_LocalPosition.x
