@@ -1782,6 +1782,20 @@
             },
             "m_InputSlot": {
                 "m_Node": {
+                    "m_Id": "9555c4dd72884973b3a57eb8d2f7aa2e"
+                },
+                "m_SlotId": 1540546839
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "c9b634c6bc0d4a86bc66edadeaffc66b"
+                },
+                "m_SlotId": 1
+            },
+            "m_InputSlot": {
+                "m_Node": {
                     "m_Id": "d5fbe03820a344798ab572b8efcbdce3"
                 },
                 "m_SlotId": 0
@@ -7226,6 +7240,27 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "61f8a58a3ae94d319fb4a24f47c3b1bc",
+    "m_Id": 1540546839,
+    "m_DisplayName": "UV",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_UV",
+    "m_StageCapability": 2,
+    "m_Value": {
+        "x": 1.0,
+        "y": 1.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Texture2DInputMaterialSlot",
     "m_ObjectId": "61fb8bdfc6dc42a6bcb6209063af0648",
     "m_Id": 1,
@@ -9526,6 +9561,9 @@
             "m_Id": "2eb30d74b2534848804819dfd2f1fff7"
         },
         {
+            "m_Id": "61f8a58a3ae94d319fb4a24f47c3b1bc"
+        },
+        {
             "m_Id": "5ebbac266c7240f0a397bfd82a1234ab"
         }
     ],
@@ -9543,14 +9581,16 @@
         "ab4ca222-32cc-4ec5-93fb-f0b350dcc1e5",
         "e73e559f-b031-43d1-92ee-567988f094ca",
         "40e8b7bf-d26f-4e48-b5f5-af5abe180977",
-        "6020299c-ff6e-4953-82d0-169b7cbe1731"
+        "6020299c-ff6e-4953-82d0-169b7cbe1731",
+        "cb8c5eeb-e723-4d56-9bab-493f44f341e2"
     ],
     "m_PropertyIds": [
         1590836732,
         -1279740115,
         388889524,
         587630811,
-        -2089633780
+        -2089633780,
+        1540546839
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []

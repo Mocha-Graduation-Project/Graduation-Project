@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BeeDroneHolo
-  m_Shader: {fileID: -6465566751694194690, guid: 3c19979f130efdd489725691c2b3c3b5, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f3ea1796c32637f4bb88358b75a4d5d1, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
@@ -31,7 +31,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -42,7 +42,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaMaskTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: bcac3d2a16e70cc40bac8852e692b839, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -69,6 +69,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _FlashSourceTexture:
+        m_Texture: {fileID: 2800000, guid: d0bf1ca2b2e735a4d880f54ed4e58a8a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _HologramSourceTexture:
         m_Texture: {fileID: 2800000, guid: d9aa0de535089ce438441346fb27c94b, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -78,7 +82,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3d02e11d8ba0c87468ccf77df70ed10d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -91,6 +95,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RGBEmissionFlash_d37720b551bc43c08a7dcad241090258_EmissionRGBTexture_843300868_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 23222fdfd91f1e64cb4ddfa0fe17175e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -112,8 +120,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
-    - _Alpha: 0.55
-    - _AlphaClip: 0.36
+    - _Alpha: 1
+    - _AlphaClip: 0.249
     - _AlphaToMask: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
@@ -128,18 +136,21 @@ Material:
     - _DstBlend: 10
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _FresnelStrength: 2.71
+    - _FlashSpeed: 3
+    - _FlashStrength: 1
+    - _FresnelStrength: 10
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OffsetAmount: 1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _ScrollSpeed: 12.95
+    - _ScrollSpeed: 0.13
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -155,8 +166,9 @@ Material:
     - _BaseColor: {r: 1, g: 0.9975243, b: 0, a: 1}
     - _Color: {r: 1, g: 0.9975243, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FresnelColor: {r: 4.8671427, g: 4.343232, b: 0.68802536, a: 0}
+    - _FlashTiling: {r: 2, g: 1, b: 0, a: 0}
+    - _FresnelColor: {r: 3.2111175, g: 1.8832526, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tint: {r: 2.7790272, g: 1.5134895, b: 0, a: 0}
+    - _Tint: {r: 51.984146, g: 44.684483, b: 10.543955, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
