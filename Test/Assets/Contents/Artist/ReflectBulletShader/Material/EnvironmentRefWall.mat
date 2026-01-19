@@ -26,11 +26,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AOTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: d064d21787a088743b89d16a41442bc0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9b64a848e990bb6409cafec5775b83d6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -70,11 +70,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: dd400a440353afb449a449f42d7bdc7f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapTexture:
-        m_Texture: {fileID: 2800000, guid: 129b8da6b8f6f8b488dd8a7225e7f5c0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4f34c1cccb9e0ab498ee2a8a42f59abe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -94,7 +94,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RoughnessTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 147a6b9c35731ad439c910fb06e71c37, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -131,7 +131,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EmissionStrength: 1
+    - _EmissionStrength: 0
     - _EnvironmentReflections: 1
     - _FlashSpeed: 2
     - _FresnelPower: 10.81
@@ -141,7 +141,7 @@ Material:
     - _GlossyReflections: 0
     - _IsRoughness: 1
     - _Metallic: 0
-    - _MetallicStrength: -0.03
+    - _MetallicStrength: 0.5
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _OffsetAmount: 1
@@ -152,7 +152,7 @@ Material:
     - _ReceiveShadows: 1
     - _ReflectEmissionStrength: 0.02
     - _Smoothness: 0.5
-    - _SmoothnessStrength: -0.1
+    - _SmoothnessStrength: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _Speed: 2
