@@ -39,7 +39,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AOTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 0db51500c156d0746a61d83d8bf78e68, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BASE_COLOR_MAP:
@@ -47,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorTexture:
-        m_Texture: {fileID: 2800000, guid: f06e025b5e6dd33499a8a548f2294dd7, type: 3}
+        m_Texture: {fileID: 2800000, guid: d317dfc7d88d0664c8e3037d7fcc090d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EMISSION_COLOR_MAP:
@@ -63,7 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: a2c98e2e701deef4cb1618df326dafb0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NORMAL_MAP:
@@ -71,11 +71,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: c14f8b78de389d24bac02d15f9084134, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RoughnessTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 25fb556bab9323447b8b9441d0e7d2a9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SPECULAR_COLOR_MAP:
@@ -125,12 +125,12 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.2
     - _GlossyReflections: 1
-    - _IsRoughness: 0
+    - _IsRoughness: 1
     - _METALNESS: 0
     - _Metallic: 0
-    - _MetallicStrength: 0
+    - _MetallicStrength: 0.87
     - _Mode: 3
-    - _NormalStrength: 0
+    - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _QueueControl: 0
@@ -139,7 +139,7 @@ Material:
     - _SPECULAR_IOR: 1.5
     - _SPECULAR_ROUGHNESS: 0.2
     - _Smoothness: 0
-    - _SmoothnessStrength: 0
+    - _SmoothnessStrength: 0.77
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -151,7 +151,7 @@ Material:
     - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
-    - _AlbedoColor: {r: 1, g: 1, b: 1, a: 0}
+    - _AlbedoColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0}
     - _BASE_COLOR: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
