@@ -207,20 +207,20 @@ namespace Player
 
             bool isMovingOnGround = isGround && animator.GetBool(IsMoveHash) && Player.Instance.isMove;
             
-            if (isMovingOnGround)
-            {
-                if (walkAudioSource.isPlaying) return;
-                walkAudioSource.loop = true;
-                walkAudioSource.clip = walkSound;
-                walkAudioSource.Play();
-            }
-            else
-            {
-                if (walkAudioSource.isPlaying)
-                {
-                    walkAudioSource.Stop();
-                }
-            }
+            //if (isMovingOnGround)
+            //{
+            //    if (walkAudioSource.isPlaying) return;
+            //    walkAudioSource.loop = true;
+            //    walkAudioSource.clip = walkSound;
+            //    walkAudioSource.Play();
+            //}
+            //else
+            //{
+            //    if (walkAudioSource.isPlaying)
+            //    {
+            //        walkAudioSource.Stop();
+            //    }
+            //}
         }
         private void CheckGround()
         {
