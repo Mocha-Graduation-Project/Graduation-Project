@@ -118,7 +118,7 @@ namespace Tutorial
             {
                 case TutorialStep.Loop:
                     yield return new WaitForSeconds(stepDelay);
-                    instructionText.text = "画面端に行き自身がループをする";
+                    instructionText.text = "画面端に行きループ";
                     break;
                 case TutorialStep.Jump:
                     yield return new WaitForSeconds(stepDelay);
