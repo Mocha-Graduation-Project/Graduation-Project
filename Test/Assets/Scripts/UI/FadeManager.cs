@@ -12,6 +12,10 @@ namespace UI
 
         [SerializeField] private Image fadeImage;
         [SerializeField][JapaneseLabel("時間")] private float fadeDuration;
+        
+        // シーン遷移中かどうかのフラグ
+        private bool isTransitioning = false;
+        public bool IsTransitioning => isTransitioning;
 
         private void Awake()
         {
@@ -65,6 +69,8 @@ namespace UI
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            // 遷移完了したのでフラグをリセット
+            isTransitioning = false;
             Time.timeScale = 1f;
             // シーンロード時はフェードイン（黒 -> 透明）
             FadeIn(fadeDuration, null);
@@ -72,6 +78,15 @@ namespace UI
 
         public void LoadScene(string sceneName)
         {
+            // 既に遷移中なら無視
+            if (isTransitioning)
+            {
+                Debug.Log("[FadeManager] LoadScene ignored: already transitioning.");
+                return;
+            }
+            
+            isTransitioning = true;
+            
             // シーン遷移時はフェードアウト（透明 -> 黒）してからロード
             FadeOut(fadeDuration, () =>
             {
