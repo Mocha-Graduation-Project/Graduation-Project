@@ -9,7 +9,7 @@
 203,VerticalNoBulletEnemy,8,normal,look,0,vertical,0,0,0,3,3,1,1,dontAttack,0,0,0,FALSE,0,FALSE,0,0
 301,RefrectionEnemy,8,normal,dontLook,0,dontMove,0,0,0,0,0,0,0,dontAttack,0,0,0,FALSE,0,FALSE,0,0
 401,JumpEnemy,8,shield,lookY,0,dontMove,0,0,0,0,0,0,0,playerAim,4,1,0.2,FALSE,0,TRUE,10,0.1
-501,ShieldEnemy,8,shield,look,0,dontMove,0,0,0,0,0,0,0,dontAttack,0,0,0,FALSE,0,FALSE,0,0
+501,ShieldEnemy,8,shield,dontLook,0,dontMove,0,0,0,0,0,0,0,dontAttack,0,0,0,FALSE,0,FALSE,0,0
 1,MoveBoss,100,boss,dontLook,1,custom,4.2,4.2,2,3,3,1.5,1,straight,1,1,0.3,TRUE,2,FALSE,0,0
 2,DepthBoss,500,boss,dontLook,1,custom,0,0,0,0,0,0,0,dontAttack,0,0,0,FALSE,0,FALSE,0,0
 3,HumanoidBoss,100,humanoid,dontLook,,custom,0,0,0,0,0,0,0,dontAttack,0,0,0,FALSE,0,FALSE,0,0

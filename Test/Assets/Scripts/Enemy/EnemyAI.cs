@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     [JapaneseLabel("何番目のデータを取得するか")] private int dataNumber;
     [JapaneseLabel("SetUpが正常に完了したか")] private bool isSetUp;
 
-    [SerializeField] [JapaneseLabel("現在のHP")] private int hp;
+    [JapaneseLabel("現在のHP")] private int hp;
     [NonSerialized] [JapaneseLabel("初期(中央)座標")] private Vector3 centerPos;
     [SerializeField] [JapaneseLabel("動かすオブジェクト")] private GameObject moveObj;
     [SerializeField] [JapaneseLabel("プレイヤーの方を向くオブジェクト")] private GameObject playerLookObj;
@@ -24,14 +24,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] [JapaneseLabel("弾を出す場所")] private GameObject shotObj;
     [SerializeField] [JapaneseLabel("弾発射時の爆発エフェクト")] private GameObject shotBombEffect;
     [SerializeField] [JapaneseLabel("ストレート時の角度参照オブジェクト")] private GameObject straightObj;
-    [SerializeField] private DamageUI damageText;
-   // [SerializeField] [JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
-    [SerializeField] private EnemySpawnManager enemySpawnManager;
-    [JapaneseLabel("死亡エフェクト")][SerializeField]private GameObject deathEffectPrefab;
-    [JapaneseLabel("被弾エフェクト")] [SerializeField] private GameObject damageEffectPrefab;
-    [JapaneseLabel("攻撃エフェクト")][SerializeField] private GameObject attackEffect;
-    [Header("<エフェクトリスト>")]
-    [SerializeField] private GameObject[] effectPrefabs; 
+    [SerializeField] private DamageUI damageText; 
+    //[SerializeField] [JapaneseLabel("警告UI")] private BeforeAttack beforeAttackText;
+    private EnemySpawnManager enemySpawnManager;
     [JapaneseLabel("プレイヤー")] public Player.Player player => Player.Player.Instance;
     [JapaneseLabel("敵のHPバー")] private Slider enemyHPSlider;
     [SerializeField] [JapaneseLabel("音源")] private SoundData soundData;
@@ -41,6 +36,12 @@ public class EnemyAI : MonoBehaviour
     private AudioClip EnemyDestorySound;
     [SerializeField] [JapaneseLabel("発射する弾")] private GameObject bulletObj;
     [JapaneseLabel("弾を発射するレート")] private float bulletRate;
+    
+    [Header("<エフェクトリスト>")]
+    [JapaneseLabel("死亡エフェクト")][SerializeField]private GameObject deathEffectPrefab;
+    [JapaneseLabel("被弾エフェクト")] [SerializeField] private GameObject damageEffectPrefab;
+    [JapaneseLabel("攻撃エフェクト")][SerializeField] private GameObject attackEffect;
+    [SerializeField] private GameObject[] effectPrefabs;
     
     protected Collider loopAreaCollider;
     
@@ -68,6 +69,8 @@ public class EnemyAI : MonoBehaviour
     public GameObject StraightObj { get { return straightObj; } }
     public GameObject RotateAxis { get { return rotateAxis; } }
     public bool IsSetUp { get => isSetUp; set => isSetUp = value; }
+    public SoundData SoundData { get => soundData; }
+    public AudioSource AudioSource { get => audioSource; }
 
     public void Awake()
     {
@@ -187,7 +190,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     //被弾
-    void OnTriggerEnter(Collider collider)
+    public virtual void OnTriggerEnter(Collider collider)
     {
         if (isSetUp == false)
         {
