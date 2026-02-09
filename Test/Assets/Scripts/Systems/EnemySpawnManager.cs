@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Enemy.Basic;
+using Player;
 using Scripts.Scriptable;
 using TMPro;
 using UI;
@@ -244,6 +245,12 @@ namespace Systems
 
             if (activeEnemies.Count == 0 && remainnEnemies == 0)
             {
+                // 最後の敵を倒した時にPlayerStatusを削除
+                if (PlayerStatus.Instance != null)
+                {
+                    Destroy(PlayerStatus.Instance);
+                }
+                
                 if (LastAttackEffectManager.Instance != null)
                 {
                     sceneButtonManager.ChangeState(SceneButtonManager.State.Clear);
