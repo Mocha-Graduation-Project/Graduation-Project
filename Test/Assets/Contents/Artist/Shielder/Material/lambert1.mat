@@ -38,7 +38,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseColor:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b4efc5b3bc3f804478a38f3d182a602e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -66,7 +66,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionTexture:
-        m_Texture: {fileID: 2800000, guid: 448a5b4a5d5c6be419b4d9eaeac53abd, type: 3}
+        m_Texture: {fileID: 2800000, guid: fba5f58547c9ccf4dab633aaa1633d01, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -93,12 +93,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _RGBTexture:
+        m_Texture: {fileID: 2800000, guid: 448a5b4a5d5c6be419b4d9eaeac53abd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SSSMaskTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowColor:
-        m_Texture: {fileID: 2800000, guid: 72f65c3579188e14fbf636b2d9e158cf, type: 3}
+        m_Texture: {fileID: 2800000, guid: d26979ac61ee22a4d9e7bc3dfd4fa2ee, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -134,10 +138,11 @@ Material:
     - _DirectionalLightColorOpacity: 0.7
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EmissionIntensityB: 0
+    - _EmissionIntensityB: 1
     - _EmissionIntensityG: 1
-    - _EmissionIntensityR: 1
+    - _EmissionIntensityR: 0
     - _EnvironmentReflections: 1
+    - _FlashSpeed: 1.24
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
@@ -149,13 +154,15 @@ Material:
     - _Mode: 0
     - _NormalInfruence: 0.48
     - _OcclusionStrength: 1
+    - _OffsetAmount: 1
     - _Parallax: 0.02
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _ReflectEmissionStrength: 0.02
     - _RimEdge1: 0.75
     - _RimEdge2: 1
-    - _SSSColorOpacity: 0.51
+    - _SSSColorOpacity: 0
     - _SSSLIghtStrength: 0.47
     - _SSSOpacity: 0
     - _SSSPower: 1
@@ -173,11 +180,12 @@ Material:
     - _Color: {r: 0.7353569, g: 0.7353569, b: 0.7353569, a: 1}
     - _CutoffThreshold: {r: 0.05, g: 3, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _EmissionColorG: {r: 0, g: 2.787497, b: 1.2418869, a: 0}
-    - _EmissionColorR: {r: 0.07629934, g: 0.7700823, b: 0.8603973, a: 0}
-    - _EmissionColor_B: {r: 4.013162, g: 40.504482, b: 45.254833, a: 0}
-    - _MainColor: {r: 0.48489136, g: 0.5462192, b: 0.6075471, a: 0}
-    - _RimLightColor: {r: 6.4980197, g: 0, b: 0.03962358, a: 0}
+    - _EmissionColorG: {r: 0, g: 0.13051027, b: 0.13240923, a: 0}
+    - _EmissionColorR: {r: 0.5189162, g: 2.2885764, b: 5.981194, a: 0}
+    - _EmissionColor_B: {r: 0, g: 0, b: 0, a: 0}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 0}
+    - _ReflectTiling: {r: 3, g: 3, b: 0, a: 0}
+    - _RimLightColor: {r: 8.675366, g: 0, b: 0.1277259, a: 0}
     - _SSSColor: {r: 73.51669, g: 48.77728, b: 44.61861, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
